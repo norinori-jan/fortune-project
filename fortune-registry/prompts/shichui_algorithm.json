@@ -1,0 +1,340 @@
+{
+  "fundamental_concept": {
+    "title": "東洋数理占術根底：時上起時法（五子鼠法）と時柱決定アルゴリズム",
+    "significance": "本データは、八字（四柱推命）、紫微斗数、断易（六爻占術）など、時間を起点とするすべての東洋数理占術において『最も動的な要素』である『時柱（じちゅう）』を導き出すための絶対的な基本概念（基盤数理）である。年・月・日は地球の公転や天体の大きな周期を現すが、時柱は地球の自転に伴う2時間ごとのローカルな時空間エネルギーの結晶であり、個人の宿命の終着点や、事象の最終的な顛末（結果・子孫・晩年）を司る。この時柱算出を誤ることは、すべての占断の座標軸を狂わせることを意味する。",
+    "core_logic": {
+      "mechanism": "時柱の地支は、現実の時間（24時間）を2時間ずつ区切った『十二支（子〜亥）』によって自動的に決定される。しかし、その地支の上に載る『天干（時干）』は、その日のエネルギーの統治者である『日干（にっかん）』の五行の組み合わせ（干合関係）によって動的に決定される。これを『時上起時法』または『五子鼠法（ごしそほう）』と呼ぶ。",
+      "example_case_study": {
+        "target_datetime": "二〇一六年二月四日 午後七時三十分（19:30）",
+        "step_1_find_earthly_branch": "午後七時から九時まで（19:00 - 21:00）の時間帯は、空間の地支において『戌（いぬ・土）』の刻に該当する。",
+        "step_2_identify_day_master": "二〇一六年二月四日の日干は『丙（ひのえ・火）』である。",
+        "step_3_apply_rule": "日干が『丙』または『辛』の日、夜半の『子刻（00:00-01:00 / 23:00-24:00）』は必ず『戊子（つちのえね）』から始まるという数理規則（丙辛の歳、戊子より起こす）がある。この戊子の列を『子・丑・寅・卯・辰・巳・午・未・申・酉・戌』と順に数え上げていくと、目的の『戌刻』に重なる天干は『戊（つちのえ）』となる。",
+        "step_4_conclusion": "したがって、この時間（19:30）に誕生・あるいは発生した事象の時柱は『戊戌（つちのえいぬ）』として確定する。"
+      },
+      "four_pillars_chart_example": {
+        "date": "二〇一六年二月四日 午後七時三十分（19:30）",
+        "pillars": {
+          "year_pillar": {
+            "title": "年柱",
+            "heavenly_stem": "丙",
+            "earthly_branch": "申",
+            "wuxing": "丙（火） / 申（金）",
+            "interpretation": "社会的な外殻、祖先から受け継いだカルマの原風景"
+          },
+          "month_pillar": {
+            "title": "月柱",
+            "heavenly_stem": "庚",
+            "earthly_branch": "寅",
+            "wuxing": "庚（金） / 寅（木）",
+            "interpretation": "生まれ育った環境の季節感、精神の骨格、親兄弟との関係"
+          },
+          "day_pillar": {
+            "title": "日柱",
+            "heavenly_stem": "丙",
+            "earthly_branch": "辰",
+            "wuxing": "丙（火） / 辰（土）",
+            "interpretation": "自分自身（日干・丙火は太陽の輝き）、および配偶者の座標"
+          },
+          "time_pillar": {
+            "title": "時柱",
+            "heavenly_stem": "戊",
+            "earthly_branch": "戌",
+            "wuxing": "戊（土） / 戌（土）",
+            "interpretation": "人生の最終的な到達点、結果の吉凶、子孫運、内面的な秘密"
+          }
+        }
+      }
+    },
+    "time_mapping_matrix": {
+      "table_title": "時上起時表（五子鼠法・完全対応マトリクス）",
+      "description": "日干5種類（甲己/乙庚/丙辛/丁壬/戊癸）と12時間帯の完全組み合わせマトリクス。各セルは『天干地支』の組み合わせを示す。",
+      "headers": {
+        "time_range": "時間範囲（24時間制）",
+        "earthly_branch": "時支（十二支）",
+        "day_stems_group_1": "日干：甲・己 の日",
+        "day_stems_group_2": "日干：乙・庚 の日",
+        "day_stems_group_3": "日干：丙・辛 の日（※実例はこの列を使用）",
+        "day_stems_group_4": "日干：丁・壬 の日",
+        "day_stems_group_5": "日干：戊・癸 の日"
+      },
+      "rows": [
+        {
+          "time_range": "00:00 - 01:00",
+          "earthly_branch": "子（ね）",
+          "day_stems_group_1": "甲子",
+          "day_stems_group_2": "丙子",
+          "day_stems_group_3": "戊子",
+          "day_stems_group_4": "庚子",
+          "day_stems_group_5": "壬子"
+        },
+        {
+          "time_range": "01:00 - 03:00",
+          "earthly_branch": "丑（うし）",
+          "day_stems_group_1": "乙丑",
+          "day_stems_group_2": "丁丑",
+          "day_stems_group_3": "己丑",
+          "day_stems_group_4": "辛丑",
+          "day_stems_group_5": "癸丑"
+        },
+        {
+          "time_range": "03:00 - 05:00",
+          "earthly_branch": "寅（とら）",
+          "day_stems_group_1": "丙寅",
+          "day_stems_group_2": "戊寅",
+          "day_stems_group_3": "庚寅",
+          "day_stems_group_4": "壬寅",
+          "day_stems_group_5": "甲寅"
+        },
+        {
+          "time_range": "05:00 - 07:00",
+          "earthly_branch": "卯（う）",
+          "day_stems_group_1": "丁卯",
+          "day_stems_group_2": "己卯",
+          "day_stems_group_3": "辛卯",
+          "day_stems_group_4": "癸卯",
+          "day_stems_group_5": "乙卯"
+        },
+        {
+          "time_range": "07:00 - 09:00",
+          "earthly_branch": "辰（たつ）",
+          "day_stems_group_1": "戊辰",
+          "day_stems_group_2": "庚辰",
+          "day_stems_group_3": "壬辰",
+          "day_stems_group_4": "甲辰",
+          "day_stems_group_5": "丙辰"
+        },
+        {
+          "time_range": "09:00 - 11:00",
+          "earthly_branch": "巳（み）",
+          "day_stems_group_1": "己巳",
+          "day_stems_group_2": "辛巳",
+          "day_stems_group_3": "癸巳",
+          "day_stems_group_4": "乙巳",
+          "day_stems_group_5": "丁巳"
+        },
+        {
+          "time_range": "11:00 - 13:00",
+          "earthly_branch": "午（うま）",
+          "day_stems_group_1": "庚午",
+          "day_stems_group_2": "壬午",
+          "day_stems_group_3": "甲午",
+          "day_stems_group_4": "丙午",
+          "day_stems_group_5": "戊午"
+        },
+        {
+          "time_range": "13:00 - 15:00",
+          "earthly_branch": "未（ひつじ）",
+          "day_stems_group_1": "辛未",
+          "day_stems_group_2": "癸未",
+          "day_stems_group_3": "乙未",
+          "day_stems_group_4": "丁未",
+          "day_stems_group_5": "己未"
+        },
+        {
+          "time_range": "15:00 - 17:00",
+          "earthly_branch": "申（さる）",
+          "day_stems_group_1": "壬申",
+          "day_stems_group_2": "甲申",
+          "day_stems_group_3": "丙申",
+          "day_stems_group_4": "戊申",
+          "day_stems_group_5": "庚申"
+        },
+        {
+          "time_range": "17:00 - 19:00",
+          "earthly_branch": "酉（とり）",
+          "day_stems_group_1": "癸酉",
+          "day_stems_group_2": "乙酉",
+          "day_stems_group_3": "丁酉",
+          "day_stems_group_4": "己酉",
+          "day_stems_group_5": "辛酉"
+        },
+        {
+          "time_range": "19:00 - 21:00",
+          "earthly_branch": "戌（いぬ）",
+          "day_stems_group_1": "甲戌",
+          "day_stems_group_2": "丙戌",
+          "day_stems_group_3": "戊戌",
+          "day_stems_group_4": "庚戌",
+          "day_stems_group_5": "壬戌",
+          "note": "※実例（2016年2月4日 19:30）の着地点：戊戌"
+        },
+        {
+          "time_range": "21:00 - 23:00",
+          "earthly_branch": "亥（い）",
+          "day_stems_group_1": "乙亥",
+          "day_stems_group_2": "丁亥",
+          "day_stems_group_3": "己亥",
+          "day_stems_group_4": "辛亥",
+          "day_stems_group_5": "癸亥"
+        },
+        {
+          "time_range": "23:00 - 00:00",
+          "earthly_branch": "子（ね・夜子時）",
+          "day_stems_group_1": "甲子",
+          "day_stems_group_2": "丙子",
+          "day_stems_group_3": "戊子",
+          "day_stems_group_4": "庚子",
+          "day_stems_group_5": "壬子",
+          "note": "夜間の子時（前日の続き）"
+        }
+      ]
+    },
+    "esoteric_symbolism_dictionary": {
+      "title": "十二支・象意完全辞書（五行・方位・身体・象徴性）",
+      "earthly_branches_data": {
+        "子": {
+          "wuxing": "水",
+          "element_number": 1,
+          "direction": "北",
+          "season": "真冬（十二月）",
+          "body_part": "腎臓・膀胱・血液・骨髄",
+          "time": "23:00-01:00",
+          "symbolism": "万物の種子が地中で水分を含み、新たな生命の萌芽を内包して静かに眠る状態。内なる知性と生命の源泉。",
+          "taoist_interpretation": "陰の最深部、復活の予兆、秘密と深層意識"
+        },
+        "丑": {
+          "wuxing": "土",
+          "element_number": 2,
+          "direction": "北東（北寄り）",
+          "season": "晩冬（一月）",
+          "body_part": "脾臓・胃・足・消化器",
+          "time": "01:00-03:00",
+          "symbolism": "紐（ひも）に通ず。芽がまだ殻の中に閉じ込められ、地中で屈曲しながらも外へ出ようとエネルギーを蓄える、忍耐と準備の象。",
+          "taoist_interpretation": "束縛と解放、潜在力の蓄積、地の力"
+        },
+        "寅": {
+          "wuxing": "木",
+          "element_number": 3,
+          "direction": "東北（東寄り）",
+          "season": "初春（二月）",
+          "body_part": "胆嚢・手・髪の毛・筋肉",
+          "time": "03:00-05:00",
+          "symbolism": "演（えん）に通ず。地中の殻を破り、生命が地上に向かって力強く真っ直ぐに伸び始める。陽気の始まり、万物の起動。",
+          "taoist_interpretation": "覚醒と始まり、陽気の発動、積極的エネルギー"
+        },
+        "卯": {
+          "wuxing": "木",
+          "element_number": 4,
+          "direction": "東",
+          "season": "仲春（三月）",
+          "body_part": "肝臓・指・神経・目",
+          "time": "05:00-07:00",
+          "symbolism": "茂（しげる）に通ず。扉が左右に開く象。生命が地上に完全に飛び出し、双葉が美しく、そして旺盛に繁茂していく躍動。",
+          "taoist_interpretation": "開放と拡散、コミュニケーション、柔軟性"
+        },
+        "辰": {
+          "wuxing": "土",
+          "element_number": 5,
+          "direction": "南東（東寄り）",
+          "season": "晩春（四月）",
+          "body_part": "皮膚・肌・背中・消化機能",
+          "time": "07:00-09:00",
+          "symbolism": "振（ふるう）に通ず。陽気が最高潮に達し、万物が活発に振動・変革してその形を大きく整える。理想が具現化する上昇気流。",
+          "taoist_interpretation": "変革と成長、形成と具現化、龍の力"
+        },
+        "巳": {
+          "wuxing": "火",
+          "element_number": 6,
+          "direction": "東南（南寄り）",
+          "season": "初夏（五月）",
+          "body_part": "心臓・小腸・歯・循環器",
+          "time": "09:00-11:00",
+          "symbolism": "已（すでに・やむ）に通ず。植物の成長が極点まで達し、これ以上の形子的成長を終えて次の結実のステージへと向かう、成熟の臨界点。",
+          "taoist_interpretation": "成熟と転換、情熱の焦点、深い思考"
+        },
+        "午": {
+          "wuxing": "火",
+          "element_number": 7,
+          "direction": "南",
+          "season": "真夏（六月）",
+          "body_part": "目・血液循環・精神・顔",
+          "time": "11:00-13:00",
+          "symbolism": "忤（逆らう・交差する）に通ず。陽気が頂点に達すると同時に、地中から一筋の陰気が発生して陽気と交錯し始める。栄華の絶頂と転換の始まり。",
+          "taoist_interpretation": "最高頂と転機、陰陽の交差、知名度と輝き"
+        },
+        "未": {
+          "wuxing": "土",
+          "element_number": 8,
+          "direction": "南西（南寄り）",
+          "season": "晩夏（七月）",
+          "body_part": "脾臓・腹部・消化器・関節",
+          "time": "13:00-15:00",
+          "symbolism": "味（あじ）に通ず。木に果実が実り、熟して独特の風味が備わる状態。陰気が徐々に成長し、物質が内実を充実させる。",
+          "taoist_interpretation": "収穫と充実、甘さと柔軟さ、調和"
+        },
+        "申": {
+          "wuxing": "金",
+          "element_number": 9,
+          "direction": "西南（西寄り）",
+          "season": "初秋（八月）",
+          "body_part": "大腸・骨・呼吸器・皮膚",
+          "time": "15:00-17:00",
+          "symbolism": "伸（のびる・束ねる）に通ず。果実の形が完全に固まり、固化・収縮（金気）のエネルギーが万物を引き締め始める。現実的成果の収穫。",
+          "taoist_interpretation": "整理と分析、理性的判断、行動的実行"
+        },
+        "酉": {
+          "wuxing": "金",
+          "element_number": 10,
+          "direction": "西",
+          "season": "仲秋（九月）",
+          "body_part": "肺・咽喉・声・呼吸",
+          "time": "17:00-19:00",
+          "symbolism": "緧（ちぢむ・酒の器）に通ず。万物が完全に成熟しきって発酵が始まる象。最も純粋な物質的、あるいは芸術的な実りの結晶。",
+          "taoist_interpretation": "芸術と優雅さ、完成度、美的価値"
+        },
+        "戌": {
+          "wuxing": "土",
+          "element_number": 11,
+          "direction": "北西（西寄り）",
+          "season": "晩秋（十月）",
+          "body_part": "命門・足の裏・肋骨・生殖系",
+          "time": "19:00-21:00",
+          "symbolism": "滅（めつ）に通ず。草木が枯れて大自然のエネルギーが再び地中へと還り、すべての活動が収束して強固な土の境界（墓）に守られる。",
+          "taoist_interpretation": "終末と守護、秘密と保護、内面の力"
+        },
+        "亥": {
+          "wuxing": "水",
+          "element_number": 12,
+          "direction": "西北（北寄り）",
+          "season": "初冬（十一月）",
+          "body_part": "頭部・骨髄・分泌系・神経",
+          "time": "21:00-23:00",
+          "symbolism": "核（かく）に通ず。すべての生命が核（種子）の中に完全に閉じ込められ、次の世代への命のバトンを静かに、しかし絶対的に維持する根源的混沌。",
+          "taoist_interpretation": "再生と予兆、閉塞と蓄積、循環の完成"
+        }
+      }
+    },
+    "algorithm_implementation_guide": {
+      "title": "プログラムへの実装ガイド（JavaScript/TypeScript用）",
+      "function_signature": "function getTimeStem(dayMaster: string, timeHour: number): {heavenlyStem: string, earthlyBranch: string}",
+      "step_by_step": [
+        {
+          "step": 1,
+          "description": "入力時刻（0-23時）を『十二支グループ』にマッピング",
+          "logic": "const timeRanges = [子(0-1時),丑(1-3時),寅(3-5時),卯(5-7時),辰(7-9時),巳(9-11時),午(11-13時),未(13-15時),申(15-17時),酉(17-19時),戌(19-21時),亥(21-23時)]"
+        },
+        {
+          "step": 2,
+          "description": "日干（dayMaster）を『日干グループ』に分類",
+          "logic": "グループA(甲/己) / グループB(乙/庚) / グループC(丙/辛) / グループD(丁/壬) / グループE(戊/癸)"
+        },
+        {
+          "step": 3,
+          "description": "time_mapping_matrix内のrows配列から、該当する行と列を交差させてheavenly_stemを取得",
+          "logic": "const row = rows.find(r => r.time_range matches input hour); const stem = row[day_group_column];"
+        },
+        {
+          "step": 4,
+          "description": "同じ行のearthly_branchを取得",
+          "logic": "const branch = row.earthly_branch;"
+        },
+        {
+          "step": 5,
+          "description": "戻り値として『天干地支』の組み合わせを返す",
+          "logic": "return {heavenlyStem: stem, earthlyBranch: branch};"
+        }
+      ],
+      "pseudocode_example": "function getTimeStem(dayMaster, timeHour):\n  earthlyBranch = TIME_BRANCHES[Math.floor(timeHour / 2)] // 2時間単位のグループ\n  dayGroup = DAY_MASTER_GROUPS[dayMaster] // 日干グループ分類\n  row = MATRIX.rows[Math.floor(timeHour / 2)]\n  heavenlyStem = row[dayGroup]\n  return {stem: heavenlyStem, branch: earthlyBranch}"
+    }
+  }
+}

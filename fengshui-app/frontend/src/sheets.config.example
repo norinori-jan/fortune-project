@@ -1,0 +1,5 @@
+# Google Sheets API 連携のための設定ファイル
+# 1. Google Cloud ConsoleでAPI有効化・認証情報作成
+# 2. credentials.jsonをfrontend/src/に配置
+# 3. スプレッドシートIDを下記に記載
+SPREADSHEET_ID=ここにスプレッドシートIDを入力

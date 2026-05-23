@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>占術鑑定 - Fortune</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #2d2d2d;
+            --accent: #d4af37;
+            --text: #ffffff;
+            --text-muted: #a0a0a0;
+            --border: #404040;
+            --success: #4ade80;
+            --warning: #f97316;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root {
+                --primary: #f5f5f5;
+                --secondary: #e5e5e5;
+                --accent: #d4af37;
+                --text: #1a1a1a;
+                --text-muted: #666666;
+                --border: #d0d0d0;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 16px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 20px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-top: max(20px, env(safe-area-inset-top));
+            padding-bottom: max(20px, env(safe-area-inset-bottom));
+            padding-left: max(20px, env(safe-area-inset-left));
+            padding-right: max(20px, env(safe-area-inset-right));
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== キー入力画面 ===== */
+        #keyScreen {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .key-form {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .key-form h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .key-form p {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input[type="password"],
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            background: var(--secondary);
+            color: var(--text);
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        input[type="password"]:focus,
+        input[type="text"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        /* ===== ボタン ===== */
+        button {
+            min-height: 44px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--primary);
+            width: 100%;
+        }
+
+        .btn-primary:active {
+            opacity: 0.8;
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:active {
+            background: var(--border);
+        }
+
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .btn-group.full {
+            grid-template-columns: 1fr;
+        }
+
+        /* ===== 選択画面 ===== */
+        #chooseScreen {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .choose-box {
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        .choose-box h2 {
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .divination-card {
+            display: block;
+            width: 100%;
+            padding: 40px 20px;
+            margin-bottom: 20px;
+            background: var(--secondary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .divination-card:active {
+            background: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+        }
+
+        /* ===== 質問入力画面 ===== */
+        #questionScreen {
+            justify-content: flex-start;
+        }
+
+        .question-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .question-container h3 {
+            font-size: 18px;
+            margin-bottom: 16px;
+        }
+
+        #questionInput {
+            flex: 1;
+            min-height: 120px;
+        }
+
+        /* ===== タロット画面 ===== */
+        #tarotScreen {
+            justify-content: flex-start;
+        }
+
+        .tarot-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-count-selector {
+            margin-bottom: 20px;
+        }
+
+        .card-count-selector label {
+            margin-bottom: 12px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .card-item {
+            aspect-ratio: 3/4;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--border) 100%);
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 12px;
+            text-align: center;
+            padding: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .card-item:active {
+            background: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+            transform: scale(0.95);
+        }
+
+        .card-item.selected {
+            background: var(--accent);
+            color: var(--primary);
+            border-color: var(--accent);
+        }
+
+        /* ===== 梅花心易画面 ===== */
+        #meihuaScreen {
+            justify-content: flex-start;
+        }
+
+        .meihua-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .input-pair {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .input-pair input {
+            text-align: center;
+            font-size: 18px;
+        }
+
+        /* ===== 結果画面 ===== */
+        #resultScreen {
+            justify-content: flex-start;
+        }
+
+        .result-container {
+            flex: 1;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 20px;
+        }
+
+        .result-header {
+            margin-bottom: 20px;
+            padding-bottom: 16px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .result-header h2 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .result-question {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .result-section {
+            margin-bottom: 20px;
+        }
+
+        .result-section h3 {
+            font-size: 16px;
+            color: var(--accent);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .category-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .category-badge.A {
+            background: var(--success);
+            color: white;
+        }
+
+        .category-badge.B {
+            background: var(--info);
+            color: white;
+        }
+
+        .category-badge.C {
+            background: var(--danger);
+            color: white;
+        }
+
+        .category-badge.D {
+            background: var(--warning);
+            color: white;
+        }
+
+        .result-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text);
+            word-wrap: break-word;
+            white-space: pre-wrap;
+        }
+
+        .divination-info {
+            background: var(--secondary);
+            border-left: 4px solid var(--accent);
+            padding: 12px;
+            margin-bottom: 16px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        /* ===== ローディング ===== */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 16px;
+        }
+
+        .loading-text {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ===== エラー ===== */
+        .error-container {
+            background: var(--danger);
+            border-left: 4px solid var(--danger);
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .error-container strong {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* ===== ヘッダー ===== */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            font-size: 18px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn-icon {
+            width: 44px;
+            height: 44px;
+            padding: 0;
+            border-radius: 50%;
+            background: var(--secondary);
+            color: var(--text);
+            border: 2px solid var(--border);
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-icon:active {
+            background: var(--border);
+        }
+
+        /* ===== コピーボタン ===== */
+        .btn-copy {
+            width: 100%;
+            margin-top: 16px;
+            background: var(--secondary);
+            color: var(--accent);
+            border: 2px solid var(--accent);
+        }
+
+        .btn-copy:active {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* ===== ナビゲーション ===== */
+        .nav-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .nav-buttons.full {
+            grid-template-columns: 1fr;
+        }
+
+        /* ===== レスポンシブ ===== */
+        @media (max-width: 360px) {
+            .btn-group {
+                gap: 8px;
+            }
+
+            button {
+                font-size: 15px;
+                min-height: 40px;
+                padding: 10px 16px;
+            }
+
+            input, textarea, select {
+                font-size: 16px;
+            }
+        }
+
+        /* ===== タップのハイライト無効化 ===== */
+        -webkit-tap-highlight-color: transparent;
+
+        /* ===== トップセーフエリア対応 ===== */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- APIキー入力画面 -->
+        <div id="keyScreen" class="screen active">
+            <div class="key-form">
+                <h1>占術鑑定</h1>
+                <p>Anthropic API キーを入力してください</p>
+                <div class="form-group">
+                    <label for="apiKey">API Key</label>
+                    <input 
+                        type="password" 
+                        id="apiKey" 
+                        placeholder="sk-ant-..."
+                        autocomplete="off"
+                    >
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 20px;">
+                    キーはこのブラウザに保存されます。<br>
+                    <a href="https://console.anthropic.com" target="_blank" style="color: var(--accent); text-decoration: none;">API キーの取得</a>
+                </p>
+                <button class="btn-primary" onclick="saveApiKey()">続ける</button>
+            </div>
+        </div>
+
+        <!-- 占術選択画面 -->
+        <div id="chooseScreen" class="screen">
+            <div class="choose-box">
+                <h2>占術を選択</h2>
+                <button class="divination-card" onclick="selectDivination('tarot')">
+                    🃏 タロット
+                </button>
+                <button class="divination-card" onclick="selectDivination('meihua')">
+                    ☯️ 梅花心易
+                </button>
+                <div style="margin-top: 40px;">
+                    <button class="btn-secondary" onclick="changeApiKey()">API キー変更</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 質問入力画面 -->
+        <div id="questionScreen" class="screen">
+            <div class="header">
+                <h1 id="questionTitle">質問を入力</h1>
+                <button class="btn-icon" onclick="goBack()">✕</button>
+            </div>
+            <div class="question-container">
+                <label for="questionInput">あなたの問い</label>
+                <textarea id="questionInput" placeholder="例：新しい仕事に転職すべき？"></textarea>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="goBack()">戻る</button>
+                <button class="btn-primary" onclick="proceedQuestion()">次へ</button>
+            </div>
+        </div>
+
+        <!-- タロット展開画面 -->
+        <div id="tarotScreen" class="screen">
+            <div class="header">
+                <h1>カードを選択</h1>
+                <button class="btn-icon" onclick="goBack()">✕</button>
+            </div>
+            <div class="tarot-container">
+                <div class="card-count-selector">
+                    <label for="spreadType">展開方法</label>
+                    <select id="spreadType" onchange="updateCardGrid()">
+                        <option value="one_card">1枚 - シンプル</option>
+                        <option value="three_card" selected>3枚 - 過去・現在・未来</option>
+                    </select>
+                </div>
+                <div class="card-grid" id="cardGrid"></div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="goBack()">戻る</button>
+                <button class="btn-primary" id="drawBtn" onclick="drawTarot()" disabled>
+                    ドロー
+                </button>
+            </div>
+        </div>
+
+        <!-- 梅花心易画面 -->
+        <div id="meihuaScreen" class="screen">
+            <div class="header">
+                <h1>数字を入力</h1>
+                <button class="btn-icon" onclick="goBack()">✕</button>
+            </div>
+            <div class="meihua-container">
+                <div class="input-pair">
+                    <div class="form-group">
+                        <label for="num1">1つ目の数字（1-8）</label>
+                        <input 
+                            type="number" 
+                            id="num1" 
+                            min="1" 
+                            max="8" 
+                            inputmode="numeric"
+                            placeholder="例：3"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <label for="num2">2つ目の数字（1-8）</label>
+                        <input 
+                            type="number" 
+                            id="num2" 
+                            min="1" 
+                            max="8" 
+                            inputmode="numeric"
+                            placeholder="例：5"
+                        >
+                    </div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="btn-secondary" onclick="goBack()">戻る</button>
+                <button class="btn-primary" onclick="divineMeihua()">鑑定する</button>
+            </div>
+        </div>
+
+        <!-- 結果画面 -->
+        <div id="resultScreen" class="screen">
+            <div class="header">
+                <h1>鑑定結果</h1>
+                <button class="btn-icon" onclick="goBack()">✕</button>
+            </div>
+            <div class="result-container" id="resultContainer"></div>
+            <div class="nav-buttons full">
+                <button class="btn-secondary" onclick="copyResult()">📋 コピー</button>
+                <button class="btn-secondary" onclick="newDivination()">新しい鑑定</button>
+                <button class="btn-secondary" onclick="changeApiKey()">設定</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== グローバル状態 =====
+        const state = {
+            apiKey: null,
+            divinationType: null,
+            question: null,
+            spreadType: 'three_card',
+            selectedCards: [],
+            tarotResult: null,
+            meihuaResult: null,
+            currentResult: null,
+            registryData: null,
+            currentPage: 'key'
+        };
+
+        // ===== 画面遷移 =====
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            const screen = document.getElementById(screenId);
+            if (screen) screen.classList.add('active');
+            state.currentPage = screenId;
+        }
+
+        function goBack() {
+            const prevMap = {
+                'chooseScreen': 'keyScreen',
+                'questionScreen': 'chooseScreen',
+                'tarotScreen': 'questionScreen',
+                'meihuaScreen': 'questionScreen',
+                'resultScreen': 'chooseScreen'
+            };
+            showScreen(prevMap[state.currentPage] || 'chooseScreen');
+        }
+
+        // ===== API キー管理 =====
+        function saveApiKey() {
+            const key = document.getElementById('apiKey').value.trim();
+            if (!key) {
+                alert('APIキーを入力してください');
+                return;
+            }
+            if (!key.startsWith('sk-ant-')) {
+                alert('有効なAPIキーを入力してください');
+                return;
+            }
+            state.apiKey = key;
+            localStorage.setItem('apiKey', key);
+            showScreen('chooseScreen');
+            initData();
+        }
+
+        function changeApiKey() {
+            document.getElementById('apiKey').value = '';
+            localStorage.removeItem('apiKey');
+            showScreen('keyScreen');
+        }
+
+        function loadApiKey() {
+            const key = localStorage.getItem('apiKey');
+            if (key) {
+                state.apiKey = key;
+                document.getElementById('apiKey').value = key;
+                showScreen('chooseScreen');
+                initData();
+            }
+        }
+
+        // ===== データ初期化 =====
+        async function initData() {
+            try {
+                const registryUrl = 'https://norinori-jan.github.io/fortune-registry/registry.json';
+                const registryResp = await fetch(registryUrl);
+                const registry = await registryResp.json();
+
+                const baseUrl = 'https://norinori-jan.github.io/fortune-registry/';
+                
+                const dataToFetch = {
+                    tarotMajor: baseUrl + 'tarot/major.json',
+                    basePrompt: baseUrl + 'prompts/base.json',
+                    tarotPrompt: baseUrl + 'prompts/tarot.json',
+                    meihuaPrompt: baseUrl + 'prompts/meihua.json',
+                    hexagramWuxing: baseUrl + 'meihua/hexagram_wuxing.json'
+                };
+
+                const responses = await Promise.all(
+                    Object.entries(dataToFetch).map(([key, url]) =>
+                        fetch(url).then(r => r.json()).then(data => ({ key, data }))
+                    )
+                );
+
+                state.registryData = {};
+                responses.forEach(({ key, data }) => {
+                    state.registryData[key] = data;
+                });
+            } catch (err) {
+                console.error('データ読み込みエラー:', err);
+                showError('データの読み込みに失敗しました。インターネット接続を確認してください。');
+            }
+        }
+
+        // ===== 占術選択 =====
+        function selectDivination(type) {
+            state.divinationType = type;
+            state.selectedCards = [];
+            state.question = null;
+
+            if (type === 'tarot') {
+                document.getElementById('questionTitle').textContent = 'タロット - 質問を入力';
+            } else {
+                document.getElementById('questionTitle').textContent = '梅花心易 - 質問を入力';
+            }
+            showScreen('questionScreen');
+        }
+
+        // ===== 質問入力 =====
+        function proceedQuestion() {
+            const q = document.getElementById('questionInput').value.trim();
+            if (!q) {
+                alert('質問を入力してください');
+                return;
+            }
+            state.question = q;
+
+            if (state.divinationType === 'tarot') {
+                showTarotScreen();
+            } else {
+                showScreen('meihuaScreen');
+            }
+        }
+
+        // ===== タロット画面 =====
+        function showTarotScreen() {
+            updateCardGrid();
+            showScreen('tarotScreen');
+        }
+
+        function updateCardGrid() {
+            state.spreadType = document.getElementById('spreadType').value;
+            const count = state.spreadType === 'three_card' ? 3 : 1;
+            
+            const grid = document.getElementById('cardGrid');
+            grid.innerHTML = '';
+            
+            const cards = state.registryData.tarotMajor.cards;
+            cards.forEach((card, idx) => {
+                const div = document.createElement('div');
+                div.className = 'card-item';
+                div.textContent = `${card.number.toString().padStart(2, '0')}\n${card.name_ja}`;
+                div.onclick = () => toggleCard(idx, div);
+                grid.appendChild(div);
+            });
+
+            updateDrawButton();
+        }
+
+        function toggleCard(idx, element) {
+            if (state.selectedCards.includes(idx)) {
+                state.selectedCards = state.selectedCards.filter(i => i !== idx);
+                element.classList.remove('selected');
+            } else {
+                const maxCount = state.spreadType === 'three_card' ? 3 : 1;
+                if (state.selectedCards.length < maxCount) {
+                    state.selectedCards.push(idx);
+                    element.classList.add('selected');
+                }
+            }
+            updateDrawButton();
+        }
+
+        function updateDrawButton() {
+            const maxCount = state.spreadType === 'three_card' ? 3 : 1;
+            const btn = document.getElementById('drawBtn');
+            btn.disabled = state.selectedCards.length !== maxCount;
+        }
+
+        async function drawTarot() {
+            const cards = state.registryData.tarotMajor.cards;
+            
+            // positionsをハードコードで定義（registryに存在しないため）
+            const positionLabels = {
+                one_card: ['現在'],
+                three_card: ['過去', '現在', '未来']
+            };
+            const positions = positionLabels[state.spreadType] || ['現在'];
+            
+            const draws = [];
+            state.selectedCards.forEach((idx, pos) => {
+                const card = cards[idx];
+                const reversed = Math.random() < 0.3; // 30%で逆位置
+                draws.push({
+                    position: positions[pos] || `ポジション${pos+1}`,
+                    card: card.name_ja,
+                    number: card.number,
+                    orientation: reversed ? '逆位置' : '正位置',
+                    wuxing: card.wuxing,
+                    nori_notes: '' // card_notesは別途fetch対応
+                });
+            });
+
+            state.tarotResult = draws;
+            await generateDivination('tarot');
+        }
+
+        // ===== 梅花心易 =====
+        async function divineMeihua() {
+            const n1 = parseInt(document.getElementById('num1').value) || 0;
+            const n2 = parseInt(document.getElementById('num2').value) || 0;
+
+            if (n1 < 1 || n1 > 8 || n2 < 1 || n2 > 8) {
+                alert('1から8の数字を入力してください');
+                return;
+            }
+
+            // fortune-registry から取得した八卦データを使用
+            const bagua = state.registryData.hexagramWuxing.bagua_wuxing;
+            const hexagramNames = Object.keys(bagua); 
+            // → ["乾","兌","離","震","巽","坎","艮","坤"] の順
+
+            const upperIdx = (n1 - 1) % 8;  // 1-8を0-7に
+            const lowerIdx = (n2 - 1) % 8;
+            const changeIdx = ((n1 + n2 - 1) % 6) + 1;  // 1-6爻
+
+            const upperName = hexagramNames[upperIdx] || '乾';
+            const lowerName = hexagramNames[lowerIdx] || '坤';
+
+            // 現在の日付から月支・日支を取得（簡略版：月は現在の月、日は現在の日）
+            const today = new Date();
+            const monthBranch = getMonthBranch(today.getMonth() + 1);
+            const dayBranch = getDayBranch(today.getDate());
+
+            // meihuaEngine の buildDanzi を使用して断辞を生成
+            try {
+                // オンザフライで meihuaEngine 相当の処理を実装
+                const danziResult = buildMeihuaDanzi({
+                    upperName,
+                    lowerName,
+                    changingLine: changeIdx,
+                    monthBranch,
+                    dayBranch
+                });
+
+                state.meihuaResult = {
+                    upper: { name: upperName },
+                    lower: { name: lowerName },
+                    changeIdx: changeIdx,
+                    monthBranch,
+                    dayBranch,
+                    danzi: danziResult.danzi,
+                    verdict: danziResult.verdict,
+                    verdictLabel: danziResult.verdictLabel,
+                    score: danziResult.score,
+                    normalized: danziResult.normalized,
+                    breakdown: danziResult.breakdown
+                };
+            } catch (err) {
+                console.error('梅花処理エラー:', err);
+                state.meihuaResult = {
+                    upper: { name: upperName },
+                    lower: { name: lowerName },
+                    changeIdx: changeIdx,
+                    monthBranch,
+                    dayBranch,
+                    danzi: '梅花心易の処理中にエラーが発生しました。',
+                    verdict: '中平',
+                    verdictLabel: 'D',
+                    score: 0,
+                    normalized: 0,
+                    breakdown: {}
+                };
+            }
+
+            await generateDivination('meihua');
+        }
+
+        function getMonthBranch(month) {
+            const branches = ['', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥', '子', '丑'];
+            return branches[month] || '寅';
+        }
+
+        function getDayBranch(day) {
+            const branches = ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'];
+            return branches[day % 12];
+        }
+
+        function buildMeihuaDanzi(ctx) {
+            // シンプルな五行相生相剋判定
+            const wuxingMap = {
+                乾: '金', 兌: '金', 離: '火', 震: '木',
+                巽: '木', 坎: '水', 艮: '土', 坤: '土'
+            };
+
+            const taiWuxing = wuxingMap[ctx.upperName] || '土';
+            const youWuxing = wuxingMap[ctx.lowerName] || '土';
+
+            // 五行相生相剋
+            const sheng = { 木: '火', 火: '土', 土: '金', 金: '水', 水: '木' };
+            const ke = { 木: '土', 火: '金', 土: '水', 金: '木', 水: '火' };
+
+            let relationKey = 'SAME';
+            let polarityBase = 0;
+
+            if (taiWuxing === youWuxing) {
+                relationKey = 'SAME';
+                polarityBase = 0;
+            } else if (sheng[taiWuxing] === youWuxing) {
+                relationKey = 'TAI_SEI_YOU';
+                polarityBase = 0.8;
+            } else if (sheng[youWuxing] === taiWuxing) {
+                relationKey = 'YOU_SEI_TAI';
+                polarityBase = 0.8;
+            } else if (ke[taiWuxing] === youWuxing) {
+                relationKey = 'TAI_KOKU_YOU';
+                polarityBase = -0.6;
+            } else if (ke[youWuxing] === taiWuxing) {
+                relationKey = 'YOU_KOKU_TAI';
+                polarityBase = -0.8;
+            }
+
+            // スコア計算（-1.0 ～ +1.0）
+            const monthBonus = ctx.monthBranch ? 0.1 : 0;
+            const dayBonus = ctx.dayBranch ? 0.1 : 0;
+            let score = polarityBase + monthBonus + dayBonus;
+            score = Math.max(-1.0, Math.min(1.0, score));
+
+            // 吉凶判定
+            let verdict, verdictLabel;
+            if (score >= 0.5) {
+                verdict = '大吉';
+                verdictLabel = 'A';
+            } else if (score >= 0.15) {
+                verdict = '吉';
+                verdictLabel = 'B';
+            } else if (score >= -0.14) {
+                verdict = '中平';
+                verdictLabel = 'D';
+            } else if (score >= -0.49) {
+                verdict = '凶';
+                verdictLabel = 'C';
+            } else {
+                verdict = '大凶';
+                verdictLabel = 'C';
+            }
+
+            // 簡略的な断辞テンプレート
+            const templates = {
+                'TAI_SEI_YOU': `体が用を生じる配置となり、あなたの意志が目的を後押しする時期です。${ctx.monthBranch}の流れは積極的な姿勢が成果につながります。`,
+                'YOU_SEI_TAI': `用が体を生じる配置となり、環境や相手からのサポートが得られやすい流れです。${ctx.monthBranch}は素直な姿勢が運を引き寄せます。`,
+                'TAI_KOKU_YOU': `現在の配置は「体剋用」となり、あなたの意志や行動が目的の流れを妨げやすい時期です。${ctx.monthBranch}は慎重に進めることでトラブルを避けられます。`,
+                'YOU_KOKU_TAI': `「用剋体」の配置となり、外部からの要求や状況の変化が負担になりやすい時期です。${ctx.monthBranch}は無理をせず、優先順位を絞ることが大切です。`,
+                'SAME': `体と用が比和し、安定した流れとなっています。${ctx.monthBranch}は大きな変化よりも現状維持が吉です。`
+            };
+
+            const danzi = templates[relationKey] || templates['SAME'];
+
+            const breakdown = {
+                relation: polarityBase,
+                month: monthBonus,
+                day: dayBonus
+            };
+
+            return {
+                danzi,
+                verdict,
+                verdictLabel,
+                score,
+                normalized: score,
+                breakdown
+            };
+        }
+
+        // ===== AI鑑定生成 =====
+        async function generateDivination(type) {
+            showScreen('resultScreen');
+            const resultDiv = document.getElementById('resultContainer');
+            resultDiv.innerHTML = '<div class="loading-container"><div class="spinner"></div><p class="loading-text">鑑定文を生成中...</p></div>';
+
+            try {
+                const systemPrompt = buildSystemPrompt();
+                const userPrompt = buildUserPrompt(type);
+
+                const response = await fetch('https://api.anthropic.com/v1/messages', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-api-key': state.apiKey,
+                        'anthropic-version': '2023-06-01'
+                    },
+                    body: JSON.stringify({
+                        model: 'claude-sonnet-4-20250514',
+                        max_tokens: 1500,
+                        system: systemPrompt,
+                        messages: [{ role: 'user', content: userPrompt }]
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error?.message || 'API呼び出しエラー');
+                }
+
+                const data = await response.json();
+                const text = data.content[0].text;
+                state.currentResult = { type, text, question: state.question, timestamp: new Date() };
+                
+                renderResult(text);
+                saveToHistory(state.currentResult);
+            } catch (err) {
+                console.error('鑑定生成エラー:', err);
+                resultDiv.innerHTML = `
+                    <div class="error-container">
+                        <strong>エラーが発生しました</strong>
+                        ${err.message}
+                    </div>
+                    <button class="btn-primary" onclick="goBack()">戻る</button>
+                `;
+            }
+        }
+
+        function buildSystemPrompt() {
+            const base = state.registryData.basePrompt;
+            
+            // persona.system_prompt をそのままsystem promptに使う
+            const personaPrompt = base.persona?.system_prompt || 'あなたはNoriという名の易者です。';
+            
+            // forbiddenリストを展開
+            const forbiddenList = Object.values(base.forbidden?.categories || {})
+                .flatMap(cat => cat.patterns || [])
+                .join('、');
+            
+            // output_formatのセクション順
+            const sections = (base.output_format?.sections || [])
+                .map(s => `${s.label}（${s.note}）`)
+                .join('\n');
+            
+            return `${personaPrompt}
+
+【出力構造】
+${sections}
+
+【絶対に使用禁止の表現】
+${forbiddenList}`;
+        }
+
+        function buildUserPrompt(type) {
+            if (type === 'tarot') {
+                const cards = state.tarotResult.map(d => 
+                    `${d.position}：${d.card}（${d.orientation}、五行：${d.wuxing}）`
+                ).join('\n');
+                return `【質問】\n${state.question}\n\n【展開結果】\n${cards}\n\n上記の展開から、高亨四分類（A/B/C/D）を明示しながら断占してください。`;
+            } else {
+                const result = state.meihuaResult;
+                const danziText = result.danzi || '（梅花心易の断辞が未生成）';
+                return `【質問】\n${state.question}\n\n【梅花心易展開】\n上卦：${result.upper.name}\n下卦：${result.lower.name}\n変爻：${result.changeIdx}爻\n月支：${result.monthBranch || 'N/A'}\n日支：${result.dayBranch || 'N/A'}\n\n【初段断辞】\n${danziText}\n\n上記の梅花心易展開と初段断辞から、高亨四分類（A/B/C/D）を明示しながら最終的な断占を生成してください。`;
+            }
+        }
+
+        function renderResult(text) {
+            const resultDiv = document.getElementById('resultContainer');
+            
+            // 梅花心易の場合、吉凶バッジとスコアバーを表示
+            let extraContent = '';
+            if (state.divinationType === 'meihua' && state.meihuaResult) {
+                const r = state.meihuaResult;
+                const kikkyo = state.registryData.meihuaPrompt?.kikkyo_badges || {};
+                const badgeColor = {
+                    '大吉': kikkyo['大吉']?.color || '#FFD700',
+                    '吉':   kikkyo['吉']?.color   || '#22c55e',
+                    '中平': kikkyo['中平']?.color || '#e5e7eb',
+                    '凶':   kikkyo['凶']?.color   || '#f97316',
+                    '大凶': kikkyo['大凶']?.color || '#ef4444',
+                    '悔':   kikkyo['悔']?.color   || '#a78bfa',
+                    '吝':   kikkyo['吝']?.color   || '#fbbf24'
+                };
+                
+                const scorePercent = ((r.score + 1) / 2) * 100;  // -1.0 ～ +1.0 を 0 ～ 100 にマップ
+                const backgroundColor = badgeColor[r.verdict] || '#999999';
+                
+                extraContent = `
+                    <div style="margin-bottom: 20px; padding: 16px; background: var(--secondary); border-radius: 8px; border-left: 4px solid ${backgroundColor};">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                            <span style="background: ${backgroundColor}; color: white; padding: 6px 12px; border-radius: 20px; font-weight: 700; font-size: 14px;">
+                                ${r.verdict}
+                            </span>
+                            <span style="font-size: 12px; color: var(--text-muted);">
+                                スコア: ${(r.score * 100).toFixed(0)}%
+                            </span>
+                        </div>
+                        <div style="width: 100%; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden;">
+                            <div style="width: ${scorePercent}%; height: 100%; background: ${backgroundColor}; transition: width 0.3s;"></div>
+                        </div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px;">
+                            上卦：${r.upper.name} / 下卦：${r.lower.name} / 変爻：${r.changeIdx}爻
+                        </div>
+                    </div>
+                `;
+            }
+
+            resultDiv.innerHTML = `
+                <div class="result-header">
+                    <h2>${state.divinationType === 'tarot' ? '🃏 タロット' : '☯️ 梅花心易'}</h2>
+                    <p class="result-question">問い：${escapeHtml(state.question)}</p>
+                </div>
+                ${extraContent}
+                <div class="result-text">${escapeHtml(text).replace(/\n/g, '<br>')}</div>
+            `;
+        }
+
+        function escapeHtml(text) {
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        function copyResult() {
+            if (!state.currentResult) return;
+            const text = `【${state.currentResult.type === 'tarot' ? 'タロット' : '梅花心易'}】\n問い：${state.currentResult.question}\n\n${state.currentResult.text}`;
+            
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text)
+                    .then(() => alert('コピーしました'))
+                    .catch(() => fallbackCopy(text));
+            } else {
+                fallbackCopy(text);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            try {
+                document.execCommand('copy');
+                alert('コピーしました');
+            } catch(e) {
+                alert('コピーできませんでした。手動でコピーしてください。');
+            }
+            document.body.removeChild(ta);
+        }
+
+        function newDivination() {
+            state.question = null;
+            state.selectedCards = [];
+            state.tarotResult = null;
+            state.meihuaResult = null;
+            document.getElementById('questionInput').value = '';
+            document.getElementById('num1').value = '';
+            document.getElementById('num2').value = '';
+            showScreen('chooseScreen');
+        }
+
+        // ===== 履歴管理 =====
+        function saveToHistory(result) {
+            // IndexedDB実装は簡略化（今回はlocalStorageで代替）
+            const history = JSON.parse(localStorage.getItem('divineHistory') || '[]');
+            history.unshift(result);
+            if (history.length > 10) history.pop();
+            localStorage.setItem('divineHistory', JSON.stringify(history));
+        }
+
+        // ===== エラー表示 =====
+        function showError(message) {
+            alert(message);
+        }
+
+        // ===== 初期化 =====
+        window.addEventListener('load', () => {
+            loadApiKey();
+        });
+    </script>
+</body>
+</html>

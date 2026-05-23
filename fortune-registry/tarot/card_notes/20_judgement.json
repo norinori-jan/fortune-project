@@ -1,0 +1,10 @@
+﻿{
+  "number": 20,
+  "name_ja": "審判",
+  "nori_notes": {
+    "core_image": "",
+    "up": { "keywords": [], "memo": "" },
+    "rev": { "keywords": [], "memo": "" },
+    "combination_hints": []
+  }
+}

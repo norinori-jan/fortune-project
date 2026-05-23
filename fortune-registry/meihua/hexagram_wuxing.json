@@ -1,0 +1,151 @@
+﻿{
+  "meta": {
+    "version": "1.0.0",
+    "description": "梅花心易：八卦の五行・象意と、生剋判定テーブル",
+    "last_updated": "2026-05-23"
+  },
+
+  "bagua_wuxing": {
+    "乾": {
+      "element": "金",
+      "number": 6,
+      "phenomenon": "天",
+      "image": "剛健・父・首・馬・圓",
+      "direction": "北西",
+      "season": "晩秋"
+    },
+    "兌": {
+      "element": "金",
+      "number": 7,
+      "phenomenon": "沢",
+      "image": "悦・少女・口・羊・欠",
+      "direction": "西",
+      "season": "秋"
+    },
+    "離": {
+      "element": "火",
+      "number": 9,
+      "phenomenon": "火",
+      "image": "文明・中女・目・雉・網",
+      "direction": "南",
+      "season": "夏"
+    },
+    "震": {
+      "element": "木",
+      "number": 3,
+      "phenomenon": "雷",
+      "image": "動・長男・足・龍・竹",
+      "direction": "東",
+      "season": "春"
+    },
+    "巽": {
+      "element": "木",
+      "number": 4,
+      "phenomenon": "風",
+      "image": "入・長女・股・鶏・木材",
+      "direction": "南東",
+      "season": "晩春"
+    },
+    "坎": {
+      "element": "水",
+      "number": 1,
+      "phenomenon": "水",
+      "image": "陥・中男・耳・豚・血",
+      "direction": "北",
+      "season": "冬"
+    },
+    "艮": {
+      "element": "土",
+      "number": 8,
+      "phenomenon": "山",
+      "image": "止・少男・手・犬・石",
+      "direction": "北東",
+      "season": "晩冬"
+    },
+    "坤": {
+      "element": "土",
+      "number": 2,
+      "phenomenon": "地",
+      "image": "順・母・腹・牛・布",
+      "direction": "南西",
+      "season": "晩夏"
+    }
+  },
+
+  "seikoku_table": {
+    "description": "五行の生剋関係テーブル。generates=生じる、controls=剋する。",
+    "木": { "generates": "火", "controls": "土", "generated_by": "水", "controlled_by": "金" },
+    "火": { "generates": "土", "controls": "金", "generated_by": "木", "controlled_by": "水" },
+    "土": { "generates": "金", "controls": "水", "generated_by": "火", "controlled_by": "木" },
+    "金": { "generates": "水", "controls": "木", "generated_by": "土", "controlled_by": "火" },
+    "水": { "generates": "木", "controls": "火", "generated_by": "金", "controlled_by": "土" }
+  },
+
+  "taiyo_judgement": {
+    "description": "体卦と用卦の五行関係から吉凶を判定するルール",
+    "rules": [
+      {
+        "condition": "用が体を生ずる",
+        "pattern": "youkua_element generates taikua_element",
+        "judgement": "吉",
+        "meaning": "事柄・相手が相談者を助ける。後押しあり。"
+      },
+      {
+        "condition": "体が用を生ずる",
+        "pattern": "taikua_element generates youkua_element",
+        "judgement": "吝",
+        "meaning": "相談者が与える側。消耗しやすい。頑張りすぎ注意。"
+      },
+      {
+        "condition": "体用比和（同五行）",
+        "pattern": "taikua_element === youkua_element",
+        "judgement": "中平",
+        "meaning": "力が拮抗している。均衡状態。どちらとも言えず。"
+      },
+      {
+        "condition": "体が用を剋する",
+        "pattern": "taikua_element controls youkua_element",
+        "judgement": "吉",
+        "meaning": "相談者が主導権を持つ。制御できる。"
+      },
+      {
+        "condition": "用が体を剋する",
+        "pattern": "youkua_element controls taikua_element",
+        "judgement": "凶",
+        "meaning": "事柄・相手が相談者を制圧する。厳しい状況。"
+      }
+    ]
+  },
+
+  "earthly_branch_wuxing": {
+    "description": "十二支と五行・旺相の対応（月支・日支で使用）",
+    "子": { "element": "水", "season_peak": "冬", "note": "水の旺地" },
+    "丑": { "element": "土", "season_peak": "晩冬", "note": "土の余気、水の墓" },
+    "寅": { "element": "木", "season_peak": "春", "note": "木の長生" },
+    "卯": { "element": "木", "season_peak": "春", "note": "木の旺地" },
+    "辰": { "element": "土", "season_peak": "晩春", "note": "土の余気、木の墓" },
+    "巳": { "element": "火", "season_peak": "夏", "note": "火の長生、金の長生" },
+    "午": { "element": "火", "season_peak": "夏", "note": "火の旺地" },
+    "未": { "element": "土", "season_peak": "晩夏", "note": "土の余気、火の墓" },
+    "申": { "element": "金", "season_peak": "秋", "note": "金の長生" },
+    "酉": { "element": "金", "season_peak": "秋", "note": "金の旺地" },
+    "戌": { "element": "土", "season_peak": "晩秋", "note": "土の余気、金の墓" },
+    "亥": { "element": "水", "season_peak": "冬", "note": "水の長生、木の長生" }
+  },
+
+  "ousei_rules": {
+    "description": "月支による卦の旺衰判定ルール",
+    "旺相": {
+      "condition": "月支の五行が体卦を生ずる、または体卦と同五行",
+      "effect": "体卦の力が増す。吉はより吉、凶は軽くなる。"
+    },
+    "休囚": {
+      "condition": "体卦が月支の五行を生ずる（泄気）",
+      "effect": "体卦の力が消耗する。長続きしない。"
+    },
+    "死": {
+      "condition": "月支の五行が体卦を剋する",
+      "effect": "体卦の力が制圧される。凶はより凶、吉も弱まる。"
+    }
+  }
+}

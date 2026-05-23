@@ -1,0 +1,48 @@
+﻿{
+  "meta": {
+    "version": "1.0.0",
+    "description": "fortune-registry エントリーポイント",
+    "base_url": "https://norinori-jan.github.io/fortune-registry",
+    "last_updated": "2026-05-23"
+  },
+
+  "endpoints": {
+    "prompts": {
+      "base":   "prompts/base.json",
+      "meihua": "prompts/meihua.json",
+      "tarot":  "prompts/tarot.json",
+      "shichu": "prompts/shichu.json"
+    },
+    "tarot": {
+      "major":      "tarot/major.json",
+      "card_notes": "tarot/card_notes/{number}_{name}.json"
+    },
+    "meihua": {
+      "hexagram_wuxing": "meihua/hexagram_wuxing.json"
+    }
+  },
+
+  "fetch_strategy": {
+    "cache": {
+      "backend": "IndexedDB",
+      "store_name": "fortune_registry_cache",
+      "ttl_seconds": 86400,
+      "version_key": "registry_version"
+    },
+    "fallback": {
+      "on_fetch_failure": "use_cached",
+      "on_cache_miss": "use_embedded_defaults",
+      "embedded_defaults_key": "FORTUNE_REGISTRY_DEFAULTS"
+    }
+  },
+
+  "status": {
+    "prompts/base.json":              "active",
+    "prompts/meihua.json":            "active",
+    "prompts/tarot.json":             "active",
+    "prompts/shichu.json":            "stub",
+    "tarot/major.json":               "active",
+    "tarot/card_notes/*":             "scaffold",
+    "meihua/hexagram_wuxing.json":    "active"
+  }
+}

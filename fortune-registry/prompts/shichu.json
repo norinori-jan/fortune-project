@@ -1,0 +1,9 @@
+﻿{
+  "version": "1.0.0",
+  "method": "四柱推命（準備中）",
+  "note": "将来実装予定。skeleton only.",
+  "reading_rules": [],
+  "output_format": {
+    "sections": []
+  }
+}

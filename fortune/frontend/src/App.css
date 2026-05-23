@@ -1,0 +1,779 @@
+/* =============================================
+   易占いアプリ — グローバルスタイル
+   ============================================= */
+
+:root {
+  --color-bg: #1a1a2e;
+  --color-surface: #16213e;
+  --color-card: #0f3460;
+  --color-accent: #e94560;
+  --color-gold: #f5c518;
+  --color-yang: #f5c518;
+  --color-yin: #a8b2c1;
+  --color-text: #e0e0e0;
+  --color-text-muted: #888;
+  --radius: 12px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Noto Serif JP', 'Georgia', serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── アプリ全体レイアウト ─── */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+@supports (min-height: 100dvh) {
+  .app {
+    min-height: 100dvh;
+  }
+}
+
+/* ─── ヘッダー ─── */
+.app-header {
+  background: linear-gradient(135deg, #0f3460, #1a1a2e);
+  padding: 2rem 1rem;
+  text-align: center;
+  border-bottom: 2px solid var(--color-gold);
+}
+
+.app-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 20px rgba(245, 197, 24, 0.5);
+}
+
+.app-subtitle {
+  color: var(--color-text-muted);
+  margin-top: 0.4rem;
+  font-size: 1rem;
+  letter-spacing: 0.15em;
+}
+
+/* ─── メインエリア ─── */
+.app-main {
+  flex: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  width: 100%;
+}
+
+.mode-switch {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.mode-button {
+  border: 1px solid rgba(245, 197, 24, 0.4);
+  background: transparent;
+  color: var(--color-text);
+  border-radius: 999px;
+  padding: 0.65rem 1rem;
+  min-height: 44px;
+  cursor: pointer;
+}
+
+.mode-button.active {
+  background: rgba(245, 197, 24, 0.2);
+  color: var(--color-gold);
+}
+
+.input-grid {
+  display: grid;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.input-label {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.text-input {
+  width: 100%;
+  border: 1px solid rgba(245, 197, 24, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--color-text);
+  border-radius: 8px;
+  padding: 0.7rem 0.8rem;
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.text-area {
+  min-height: 90px;
+  resize: vertical;
+}
+
+/* ─── 占いボタンエリア ─── */
+.divine-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.divine-button {
+  background: linear-gradient(135deg, var(--color-accent), #c0392b);
+  color: white;
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1.4rem;
+  min-height: 52px;
+  font-family: inherit;
+  border-radius: 50px;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  box-shadow: 0 6px 20px rgba(233, 69, 96, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.divine-button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(233, 69, 96, 0.6);
+}
+
+.divine-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.divine-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.divine-button.rolling {
+  animation: shake 0.5s ease-in-out;
+  font-size: 1.8rem;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0) rotate(0deg); }
+  20%       { transform: translateX(-6px) rotate(-5deg); }
+  40%       { transform: translateX(6px) rotate(5deg); }
+  60%       { transform: translateX(-4px) rotate(-3deg); }
+  80%       { transform: translateX(4px) rotate(3deg); }
+}
+
+.divine-hint {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin-top: 0.8rem;
+}
+
+/* ─── エラーバナー ─── */
+.error-banner {
+  background: rgba(233, 69, 96, 0.15);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 1rem;
+  color: #ff8096;
+  margin-bottom: 1.5rem;
+}
+
+/* ─── 結果エリア ─── */
+.result-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.result-section {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(245, 197, 24, 0.2);
+}
+
+.section-title {
+  font-size: 1.2rem;
+  color: var(--color-gold);
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid rgba(245, 197, 24, 0.3);
+  padding-bottom: 0.5rem;
+}
+
+/* ─── 変爻セクション ─── */
+.changing-line-section {
+  border-color: rgba(233, 69, 96, 0.4);
+}
+
+.changing-line-info {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.die-icon {
+  font-size: 3rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.15); }
+}
+
+.changing-line-text {
+  font-size: 1.1rem;
+  color: var(--color-accent);
+  margin-bottom: 0.3rem;
+}
+
+.changing-line-sub {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+/* ─── 卦カード ─── */
+.hexagram-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1.2rem;
+  background: var(--color-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 1rem;
+}
+
+.hexagram-label {
+  font-size: 0.8rem;
+  background: rgba(245, 197, 24, 0.2);
+  color: var(--color-gold);
+  padding: 0.2rem 0.8rem;
+  border-radius: 20px;
+  letter-spacing: 0.1em;
+}
+
+.hexagram-symbol {
+  font-size: 2rem;
+  letter-spacing: 0.1em;
+}
+
+/* ─── 爻の描画 ─── */
+.hexagram-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 160px;
+}
+
+.line-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+}
+
+.line-container.changing .yang,
+.line-container.changing .yin-left,
+.line-container.changing .yin-right {
+  background-color: var(--color-accent);
+  box-shadow: 0 0 8px rgba(233, 69, 96, 0.6);
+}
+
+.line {
+  width: 140px;
+}
+
+.yang {
+  height: 10px;
+  background-color: var(--color-yang);
+  border-radius: 3px;
+  box-shadow: 0 0 6px rgba(245, 197, 24, 0.4);
+}
+
+.yin {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.yin-left,
+.yin-right {
+  flex: 1;
+  height: 10px;
+  background-color: var(--color-yin);
+  border-radius: 3px;
+}
+
+.yin-gap {
+  width: 16px;
+}
+
+.changing-marker {
+  font-size: 0.6rem;
+  color: var(--color-accent);
+  position: absolute;
+  right: -16px;
+}
+
+/* ─── 卦情報 ─── */
+.hexagram-info {
+  text-align: center;
+}
+
+.hexagram-number {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.hexagram-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  letter-spacing: 0.1em;
+  margin: 0.2rem 0;
+}
+
+.hexagram-reading {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.hexagram-trigrams {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.hexagram-meaning {
+  font-size: 0.95rem;
+  color: var(--color-text);
+  font-style: italic;
+}
+
+/* ─── 卦辞 ─── */
+.description-card {
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 3px solid var(--color-gold);
+  padding: 0.8rem 1rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.description-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--color-text);
+}
+
+.history-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.history-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.history-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.history-list {
+  display: grid;
+  gap: 1rem;
+}
+
+.history-card {
+  border: 1px solid rgba(245, 197, 24, 0.15);
+  border-radius: 10px;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.history-collapse {
+  border-radius: 10px;
+}
+
+.history-summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.2rem 0.1rem 0.6rem;
+}
+
+.history-summary::-webkit-details-marker {
+  display: none;
+}
+
+.history-summary-main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.history-summary-category {
+  color: var(--color-gold);
+  font-size: 0.83rem;
+  margin-top: 0.25rem;
+}
+
+.history-summary-sub {
+  color: var(--color-text);
+  font-size: 0.92rem;
+  margin-top: 0.4rem;
+}
+
+.history-summary-meta {
+  color: var(--color-text-muted);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  gap: 0.7rem;
+  margin-top: 0.3rem;
+}
+
+.history-collapse-body {
+  border-top: 1px solid rgba(245, 197, 24, 0.15);
+  padding-top: 0.8rem;
+}
+
+.analysis-panel .small-button {
+  margin-top: 0;
+}
+
+.analysis-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.kpi-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(245, 197, 24, 0.2);
+  border-radius: 10px;
+  padding: 0.7rem;
+}
+
+.kpi-label {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+.kpi-value {
+  color: var(--color-gold);
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-top: 0.15rem;
+}
+
+.trend-list {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.section-subtitle {
+  color: var(--color-text);
+  font-size: 1rem;
+  margin: 1rem 0 0.6rem;
+}
+
+.trend-row {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  padding: 0.6rem;
+}
+
+.trend-head {
+  align-items: center;
+  color: var(--color-text-muted);
+  display: flex;
+  font-size: 0.9rem;
+  gap: 0.5rem;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.trend-bar-wrap {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.trend-bar {
+  background: linear-gradient(90deg, #f5c518, #e94560);
+  border-radius: 999px;
+  height: 100%;
+}
+
+.active-chip {
+  background: rgba(245, 197, 24, 0.22);
+}
+
+.bottom-nav {
+  display: none;
+}
+
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+  gap: 0.7rem;
+}
+
+.history-time {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.history-question {
+  margin-bottom: 0.8rem;
+}
+
+.history-hexagrams {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  margin-bottom: 0.8rem;
+}
+
+.history-feedback {
+  margin-top: 0.8rem;
+}
+
+.small-button {
+  margin-top: 0.5rem;
+  border: 1px solid rgba(245, 197, 24, 0.4);
+  background: rgba(245, 197, 24, 0.12);
+  color: var(--color-gold);
+  border-radius: 999px;
+  padding: 0.6rem 1rem;
+  min-height: 44px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.small-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.history-message {
+  color: var(--color-text-muted);
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.history-ai-text {
+  white-space: pre-wrap;
+}
+
+.score-select {
+  max-width: 180px;
+}
+
+.history-card .score-select {
+  max-width: 100%;
+}
+
+/* ─── フッター ─── */
+.app-footer {
+  text-align: center;
+  padding: 1rem;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 900px) {
+  .app-main {
+    max-width: 100%;
+    padding: 1.25rem 0.9rem;
+  }
+
+  .history-hexagrams {
+    grid-template-columns: 1fr;
+  }
+
+  .history-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .history-toolbar-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* ─── レスポンシブ ─── */
+@media (max-width: 600px) {
+  .app-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    backdrop-filter: blur(6px);
+    padding-top: calc(0.9rem + env(safe-area-inset-top));
+    padding-bottom: 0.9rem;
+  }
+
+  .app-main {
+    padding-top: 1rem;
+    padding-bottom: calc(6.5rem + env(safe-area-inset-bottom));
+  }
+
+  .app-title {
+    font-size: 1.8rem;
+  }
+
+  .app-subtitle {
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+  }
+
+  .mode-switch {
+    display: none;
+  }
+
+  .mode-button {
+    width: 100%;
+  }
+
+  .divine-button {
+    font-size: 1.05rem;
+    padding: 0.9rem 1.25rem;
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .section-title {
+    font-size: 1.05rem;
+  }
+
+  .result-section {
+    padding: 1rem;
+  }
+
+  .history-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .history-toolbar-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    width: 100%;
+  }
+
+  .history-toolbar-actions .small-button {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .history-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .bottom-nav {
+    background: rgba(22, 33, 62, 0.92);
+    border-top: 1px solid rgba(245, 197, 24, 0.25);
+    bottom: 0;
+    display: grid;
+    gap: 0.4rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    left: 0;
+    padding: 0.55rem 0.7rem calc(0.55rem + env(safe-area-inset-bottom));
+    position: fixed;
+    right: 0;
+    z-index: 45;
+  }
+
+  .bottom-nav-button {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(245, 197, 24, 0.25);
+    border-radius: 10px;
+    color: var(--color-text);
+    font-size: 0.95rem;
+    min-height: 44px;
+  }
+
+  .bottom-nav-button.active {
+    background: rgba(245, 197, 24, 0.2);
+    color: var(--color-gold);
+  }
+
+  .changing-line-info {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .hexagram-lines {
+    width: 120px;
+  }
+
+  .line {
+    width: 110px;
+  }
+}
+
+@media (max-width: 420px) {
+  .app-title {
+    font-size: 1.55rem;
+  }
+
+  .app-main {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .history-toolbar-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .hexagram-card {
+    padding: 0.9rem;
+  }
+}
+
+/* iOS Safari: キーボード表示中は下部ナビを隠して入力被りを回避 */
+body.keyboard-open .bottom-nav {
+  display: none;
+}
+

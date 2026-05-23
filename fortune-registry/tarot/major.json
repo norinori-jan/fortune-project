@@ -1,0 +1,340 @@
+﻿{
+  "meta": {
+    "version": "1.0.0",
+    "description": "大アルカナ22枚の基本データ（wuxing・正逆象意）",
+    "last_updated": "2026-05-23",
+    "note": "wuxingは五行配当。Nori吹き込みノートはcard_notes/配下に分離。"
+  },
+  "cards": [
+    {
+      "number": 0,
+      "name_en": "The Fool",
+      "name_ja": "愚者",
+      "wuxing": "木",
+      "element_note": "始まり・出発・春の芽吹き。制御されていない木気。",
+      "up": {
+        "keywords": ["始まり", "自由", "可能性", "直感", "冒険"],
+        "core_meaning": "まだ何も決まっていない白紙の状態。恐れなく踏み出せという時機。"
+      },
+      "reversed": {
+        "keywords": ["無謀", "準備不足", "現実逃避", "軽率"],
+        "core_meaning": "勢いだけで動くと失脚する。足元を確認してから出よ。"
+      }
+    },
+    {
+      "number": 1,
+      "name_en": "The Magician",
+      "name_ja": "魔術師",
+      "wuxing": "火",
+      "element_note": "意志・顕現・天と地を繋ぐ火の力。",
+      "up": {
+        "keywords": ["意志力", "技術", "顕現", "集中", "実行力"],
+        "core_meaning": "手元に必要な道具は揃っている。あとは動くだけ。"
+      },
+      "reversed": {
+        "keywords": ["詐欺", "力の空回り", "未熟", "道具の誤用"],
+        "core_meaning": "能力はあるが使い方を誤っている。目的を再確認せよ。"
+      }
+    },
+    {
+      "number": 2,
+      "name_en": "The High Priestess",
+      "name_ja": "女教皇",
+      "wuxing": "水",
+      "element_note": "隠れた知・直感・深い水。表に出ない力。",
+      "up": {
+        "keywords": ["直感", "秘密", "潜在意識", "待機", "内省"],
+        "core_meaning": "今は動かず、内なる声に耳を傾ける時。情報はまだ揃っていない。"
+      },
+      "reversed": {
+        "keywords": ["秘密の露呈", "直感の無視", "焦り", "情報の歪み"],
+        "core_meaning": "隠していたことが表に出る。または直感を無視して痛い目を見る。"
+      }
+    },
+    {
+      "number": 3,
+      "name_en": "The Empress",
+      "name_ja": "女帝",
+      "wuxing": "木",
+      "element_note": "豊穣・育む木の陰。大地の生産力。",
+      "up": {
+        "keywords": ["豊かさ", "創造", "育成", "自然", "母性"],
+        "core_meaning": "物事が育ち実る時。手をかければかけた分だけ返ってくる。"
+      },
+      "reversed": {
+        "keywords": ["過保護", "依存", "停滞", "豊かさの枯渇"],
+        "core_meaning": "与えすぎか、逆に放置しすぎ。バランスを取り直せ。"
+      }
+    },
+    {
+      "number": 4,
+      "name_en": "The Emperor",
+      "name_ja": "皇帝",
+      "wuxing": "火",
+      "element_note": "支配・権威・陽の極。秩序を作る火。",
+      "up": {
+        "keywords": ["権威", "秩序", "安定", "実行力", "父性"],
+        "core_meaning": "主導権を持って動け。構造と規律がこの事を成す鍵。"
+      },
+      "reversed": {
+        "keywords": ["独裁", "硬直", "支配欲", "権威への反発"],
+        "core_meaning": "力を誇示しすぎて周囲が離れる。柔軟さを持て。"
+      }
+    },
+    {
+      "number": 5,
+      "name_en": "The Hierophant",
+      "name_ja": "法王",
+      "wuxing": "土",
+      "element_note": "伝統・制度・中央の土。橋渡しする力。",
+      "up": {
+        "keywords": ["伝統", "制度", "教え", "信頼", "助言者"],
+        "core_meaning": "型・先例・信頼できる人の教えに従うことで道が開ける。"
+      },
+      "reversed": {
+        "keywords": ["反権威", "因習打破", "独自路線", "制度への不満"],
+        "core_meaning": "既存の枠組みが足かせになっている。自分の道を切り開く時。"
+      }
+    },
+    {
+      "number": 6,
+      "name_en": "The Lovers",
+      "name_ja": "恋人",
+      "wuxing": "木",
+      "element_note": "選択・調和・木と木の共鳴。",
+      "up": {
+        "keywords": ["選択", "調和", "関係", "価値観の一致", "愛"],
+        "core_meaning": "重要な選択の分岐点。心が向く方を選べ。どちらにするか今決める。"
+      },
+      "reversed": {
+        "keywords": ["不調和", "価値観の対立", "誘惑", "誤った選択"],
+        "core_meaning": "表面的な魅力に惑わされている。本質を見極めよ。"
+      }
+    },
+    {
+      "number": 7,
+      "name_en": "The Chariot",
+      "name_ja": "戦車",
+      "wuxing": "水",
+      "element_note": "意志による制御・水を操る力。前進する気。",
+      "up": {
+        "keywords": ["前進", "制御", "勝利", "意志力", "突破"],
+        "core_meaning": "相反する力を制御しながら突き進む。今は止まらず進め。"
+      },
+      "reversed": {
+        "keywords": ["暴走", "方向喪失", "制御不能", "敗北"],
+        "core_meaning": "力任せで周囲が壊れる。ブレーキを踏む勇気が必要。"
+      }
+    },
+    {
+      "number": 8,
+      "name_en": "Strength",
+      "name_ja": "力",
+      "wuxing": "火",
+      "element_note": "内なる火・柔らかな意志の強さ。",
+      "up": {
+        "keywords": ["内なる強さ", "忍耐", "柔の力", "慈悲", "制御"],
+        "core_meaning": "力でねじ伏せるのではなく、穏やかさで状況を手懐ける時。"
+      },
+      "reversed": {
+        "keywords": ["自信喪失", "力の弱まり", "衝動", "恐怖"],
+        "core_meaning": "内側から崩れている。まず自分を立て直すことが先決。"
+      }
+    },
+    {
+      "number": 9,
+      "name_en": "The Hermit",
+      "name_ja": "隠者",
+      "wuxing": "土",
+      "element_note": "孤独・内省・山上の土。静かに待つ力。",
+      "up": {
+        "keywords": ["内省", "孤独", "探求", "知恵", "撤退"],
+        "core_meaning": "人混みから離れ、静かに考える時。急がず灯りを掲げて進む。"
+      },
+      "reversed": {
+        "keywords": ["孤立", "引きこもり", "拒絶", "時機を逃す"],
+        "core_meaning": "内側に籠もりすぎて機会を逃している。そろそろ戻る時。"
+      }
+    },
+    {
+      "number": 10,
+      "name_en": "Wheel of Fortune",
+      "name_ja": "運命の輪",
+      "wuxing": "木",
+      "element_note": "巡る気・春夏秋冬の木の循環。",
+      "up": {
+        "keywords": ["転換", "好機", "サイクル", "流れに乗る", "運の向上"],
+        "core_meaning": "流れが変わる転換点。今の波に乗れ。機を逃すな。"
+      },
+      "reversed": {
+        "keywords": ["流れに逆らう", "悪い時機", "停滞", "繰り返すパターン"],
+        "core_meaning": "流れが向かい風。無理に動かず、次の転換を待て。"
+      }
+    },
+    {
+      "number": 11,
+      "name_en": "Justice",
+      "name_ja": "正義",
+      "wuxing": "金",
+      "element_note": "裁断・公正・金の剋する力。",
+      "up": {
+        "keywords": ["公正", "因果", "裁断", "均衡", "契約"],
+        "core_meaning": "因果応報。これまでの行いの結果が出る。正しい道を行けば報われる。"
+      },
+      "reversed": {
+        "keywords": ["不正", "偏り", "責任回避", "誤判断"],
+        "core_meaning": "何かが歪んでいる。公平に見直す必要がある。"
+      }
+    },
+    {
+      "number": 12,
+      "name_en": "The Hanged Man",
+      "name_ja": "吊られた男",
+      "wuxing": "水",
+      "element_note": "停止・逆さまの視点・水の深さ。",
+      "up": {
+        "keywords": ["停止", "視点の転換", "自己犠牲", "待機", "悟り"],
+        "core_meaning": "今は動けない。しかしこの停止は意味がある。逆から物事を見よ。"
+      },
+      "reversed": {
+        "keywords": ["無駄な犠牲", "抵抗", "停滞への焦り", "マルチタスクの失敗"],
+        "core_meaning": "いつまでも宙吊りのまま。腹を括って決断せよ。"
+      }
+    },
+    {
+      "number": 13,
+      "name_en": "Death",
+      "name_ja": "死神",
+      "wuxing": "水",
+      "element_note": "終わりと始まり・冬の水。脱皮する力。",
+      "up": {
+        "keywords": ["終焉", "変容", "脱皮", "手放す", "移行"],
+        "core_meaning": "何かが終わる。しかしそれは次の始まりのため。手放せ。"
+      },
+      "reversed": {
+        "keywords": ["変化への抵抗", "しがみつく", "停滞", "変容の拒否"],
+        "core_meaning": "終わるべきものを引き延ばしている。いずれ強制的に終わる。"
+      }
+    },
+    {
+      "number": 14,
+      "name_en": "Temperance",
+      "name_ja": "節制",
+      "wuxing": "土",
+      "element_note": "調和・中庸・水と火を合わせる土の働き。",
+      "up": {
+        "keywords": ["調和", "節度", "統合", "癒し", "忍耐"],
+        "core_meaning": "急がず焦らず。少しずつ混ぜ合わせながら前に進む。今は中庸が吉。"
+      },
+      "reversed": {
+        "keywords": ["過剰", "不均衡", "焦り", "極端"],
+        "core_meaning": "どちらかに偏っている。行き過ぎを修正せよ。"
+      }
+    },
+    {
+      "number": 15,
+      "name_en": "The Devil",
+      "name_ja": "悪魔",
+      "wuxing": "土",
+      "element_note": "執着・束縛・重い土の陰。",
+      "up": {
+        "keywords": ["束縛", "執着", "依存", "誘惑", "物質主義"],
+        "core_meaning": "何かに縛られている。鎖は実は外せる。気づいて断ち切るかどうかが問われている。"
+      },
+      "reversed": {
+        "keywords": ["解放", "覚醒", "束縛からの脱出", "回復"],
+        "core_meaning": "鎖を断ち切りつつある。もう少しで解放される。"
+      }
+    },
+    {
+      "number": 16,
+      "name_en": "The Tower",
+      "name_ja": "塔",
+      "wuxing": "火",
+      "element_note": "崩壊・雷火・急激な火の爆発。",
+      "up": {
+        "keywords": ["崩壊", "突然の変化", "解体", "覚醒", "衝撃"],
+        "core_meaning": "虚偽の上に建てられたものが崩れる。痛みはあるが、これは浄化だ。"
+      },
+      "reversed": {
+        "keywords": ["崩壊の回避", "災害の軽減", "変化への抵抗", "先延ばし"],
+        "core_meaning": "崩壊寸前で持ちこたえている。しかし根本問題は未解決。"
+      }
+    },
+    {
+      "number": 17,
+      "name_en": "The Star",
+      "name_ja": "星",
+      "wuxing": "金",
+      "element_note": "希望・浄化・夜空の金気。",
+      "up": {
+        "keywords": ["希望", "再生", "インスピレーション", "癒し", "信頼"],
+        "core_meaning": "嵐の後の静けさ。希望の光が見えている。信じて歩め。"
+      },
+      "reversed": {
+        "keywords": ["希望の喪失", "失望", "自己不信", "現実逃避"],
+        "core_meaning": "夢ばかり見て現実を直視していない。地に足をつけよ。"
+      }
+    },
+    {
+      "number": 18,
+      "name_en": "The Moon",
+      "name_ja": "月",
+      "wuxing": "水",
+      "element_note": "幻想・不安・満ち欠ける水の陰。",
+      "up": {
+        "keywords": ["幻想", "不安", "潜在意識", "混乱", "欺瞞"],
+        "core_meaning": "見えているものが真実ではない。霧の中を進んでいる。判断を急ぐな。"
+      },
+      "reversed": {
+        "keywords": ["幻想から覚める", "真実の露呈", "混乱の収束", "恐怖の克服"],
+        "core_meaning": "霧が晴れてきた。あるいは隠されていたことが明るみに出る。"
+      }
+    },
+    {
+      "number": 19,
+      "name_en": "The Sun",
+      "name_ja": "太陽",
+      "wuxing": "火",
+      "element_note": "顕現・陽の極・万物を照らす火。",
+      "up": {
+        "keywords": ["喜び", "成功", "明瞭", "活力", "肯定"],
+        "core_meaning": "明るい展開。隠れていたものが日の当たる場所に出る。素直に喜べ。"
+      },
+      "reversed": {
+        "keywords": ["過信", "自己中心", "輝きの陰り", "一時的な停滞"],
+        "core_meaning": "喜びは近い。しかし今は雲がかかっている。焦らず待て。"
+      }
+    },
+    {
+      "number": 20,
+      "name_en": "Judgement",
+      "name_ja": "審判",
+      "wuxing": "金",
+      "element_note": "決断・召喚・金の断ち切る力。",
+      "up": {
+        "keywords": ["覚醒", "審判", "再生", "呼び声", "清算"],
+        "core_meaning": "総決算の時。過去を清算し、新しいフェーズへ進む決断をせよ。"
+      },
+      "reversed": {
+        "keywords": ["決断の回避", "過去への固執", "自己批判", "拒否"],
+        "core_meaning": "呼ばれているのに応じていない。恐れが前進を妨げている。"
+      }
+    },
+    {
+      "number": 21,
+      "name_en": "The World",
+      "name_ja": "世界",
+      "wuxing": "土",
+      "element_note": "完成・統合・中央の土。すべてを包む。",
+      "up": {
+        "keywords": ["完成", "統合", "達成", "円環", "解放"],
+        "core_meaning": "一つのサイクルが完成する。努力が実り、次のステージへの扉が開く。"
+      },
+      "reversed": {
+        "keywords": ["未完成", "遅れ", "完成間近での停滞", "執着"],
+        "core_meaning": "あと少しなのに最後の一歩が踏み出せていない。何が引っかかっているか見よ。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2438 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "description": "梅花心易専用プロンプト定義",
+    "inherits": "prompts/base.json",
+    "last_updated": "2026-05-23"
+  },
+  "system_prompt_append": "【梅花心易 断占手順 ～ 種本に学ぶ思考ステップ ～】\n\nあなたは歴史的な占術書（種本）のロジックを完全にマスターした達人です。\n以下の「占断の模範例（思考ステップ）」を厳格に学習し、相談に対して【天の兆し】【命理の深層】【方策と指針】の3段構成で、明朝透派スタイルの一流の鑑定文を生成してください。\n\n■ 占断の必須ステップ ■\n1. 相談の焦点（用神）の決定：相談内容から何が焦点かをAI自身で定義する\n2. 月建（月支）と日辰（日支）の影響力の測定：焦点となる五行が月建から生じられているか（旺相）、あるいは日辰から剋されているか（休囚・死）を論理的・数値的に分析する\n3. 世爻（体卦）と応爻（用卦）の関係性：体卦と用卦の五行生剋を見て、相談者と対象の現在の心理的・物理的距離感を読み解く\n\n■ 出力形式（必須） ■\n【天の兆し】→ 卦象から読み取れる自然界の示唆、時空的背景\n【命理の深層】→ 五行生剋・月日支の影響・変爻の意味を論理的に解析\n【方策と指針】→ 高亨四分類での断定と実践的なアクション",
+  "input_schema": {
+    "description": "梅花心易鑑定に必要な入力データ",
+    "required": [
+      "question",
+      "honke",
+      "goke",
+      "month_branch",
+      "day_branch",
+      "honke_element",
+      "goke_element"
+    ],
+    "optional": [
+      "changing_lines",
+      "hoke",
+      "henke",
+      "time_of_divination"
+    ],
+    "fields": {
+      "question": {
+        "type": "string",
+        "description": "相談者の質問・テーマ"
+      },
+      "honke": {
+        "type": "string",
+        "description": "本卦名"
+      },
+      "goke": {
+        "type": "string",
+        "description": "互卦名"
+      },
+      "month_branch": {
+        "type": "string",
+        "description": "月支"
+      },
+      "day_branch": {
+        "type": "string",
+        "description": "日支"
+      },
+      "honke_element": {
+        "type": "string",
+        "description": "本卦の五行"
+      },
+      "goke_element": {
+        "type": "string",
+        "description": "互卦の五行"
+      },
+      "taikua": {
+        "type": "string",
+        "description": "体卦名"
+      },
+      "youkua": {
+        "type": "string",
+        "description": "用卦名"
+      },
+      "taikua_element": {
+        "type": "string",
+        "description": "体卦の五行"
+      },
+      "youkua_element": {
+        "type": "string",
+        "description": "用卦の五行"
+      },
+      "changing_lines": {
+        "type": "array",
+        "description": "変爻の爻位"
+      },
+      "henke": {
+        "type": "string",
+        "description": "変卦名"
+      }
+    }
+  },
+  "few_shot_examples": {
+    "example_1": {
+      "title": "易占起例1：エマの犬はどうなったのか？",
+      "background": "1999年11月、英国人エマが香港で易の個人レッスンを受けた。ペットの犬がロンドンの家に残されており、エマがその安否を心配していた場面。",
+      "question": "エマの犬はどうなっているか？",
+      "hexagram_data": {
+        "date": "日（巳・火）、月（亥・水）",
+        "month_branch": "亥（水）",
+        "day_branch": "巳（火）",
+        "honke": "金の宮卦",
+        "seikaku": "初爻（世）",
+        "oukaku": "第4爻（応）"
+      },
+      "detailed_case_analysis": {
+        "step_1_youshin": {
+          "title": "用神の決定",
+          "question_focus": "ペットの犬の安否 → 愛玩動物 → 子供に相当",
+          "youshin_assigned": "子孫爻（子の五行=水）",
+          "reasoning": "質問が『犬の様子について』であるため、犬を象徴する爻が用神となる"
+        },
+        "step_2_month_analysis": {
+          "title": "月建（月支）による旺衰判定",
+          "month_branch": "亥（水）",
+          "youshin_wuxing": "子（水）",
+          "relationship": "亥（水）が子（水）を生じる = 比和・旺相",
+          "verdict": "月建が用神を旺相させる → 犬は健康で大丈夫",
+          "confidence": "高い（月単位の傾向を示す）"
+        },
+        "step_3_day_analysis": {
+          "title": "日辰（日支）による短期判定",
+          "day_branch": "巳（火）",
+          "youshin_wuxing": "子（水）",
+          "relationship": "巳（火）が子（水）を剋する",
+          "verdict": "日辰が用神を剋する → 短期間（その日）に何かが起こる",
+          "confidence": "中程度"
+        },
+        "step_4_moving_line": {
+          "title": "動爻・変爻の読み",
+          "moving_line_position": "第2爻",
+          "original_wuxing": "子（水）",
+          "changing_to": "火",
+          "meaning_of_motion": "犬が何かをすることを示す",
+          "meaning_of_change": "犬が不満をかき立てられていることを示す"
+        },
+        "step_5_wuxing_chain": {
+          "title": "五行相剋による影響追跡",
+          "trigger": "変爻（火）",
+          "action": "火は金を剋する",
+          "affected_hexagram": "六爻の中の金の爻 = 兄",
+          "affected_meaning": "兄 = 隣人（犬の世話を頼んだ人）",
+          "predicted_event": "隣人とのトラブルが発生する"
+        },
+        "step_6_integrated_judgment": {
+          "title": "統合判定",
+          "long_term": "月建・水が旺相 → 大吉（犬は大丈夫）",
+          "short_term": "日辰・火が剋する + 動爻変爻 → 小さなトラブル",
+          "overall": "大吉だが、その日に隣人とのトラブルあり",
+          "action_recommended": "隣人に確認するよう相談者に指示"
+        },
+        "step_7_verification": {
+          "title": "的中検証",
+          "prediction": {
+            "overall": "犬は大丈夫だが、その日に隣人とのトラブルあり"
+          },
+          "actual_result": {
+            "event_sequence": [
+              "ドアベルが鳴った",
+              "隣人がドアを開けた",
+              "郵便配達が来ていた",
+              "犬がドアに向かって走り出し外へ逃げた",
+              "隣人は犬を捕まえるまで10分かかった"
+            ]
+          },
+          "accuracy": "完全に的中"
+        }
+      },
+      "conclusion": "エマの犬は当面問題ない。ただし当日（日辰が火）には隣人との関わりでトラブルが発生することが予測される。",
+      "interpretation_tips": "月建と日辰は同時に判定し両立させる。動爻変爻は何かが起こるシグナル。五行相剋の追跡は物語的因果関係を紡ぐ。"
+    },
+    "example_2": {
+      "title": "易占起例2：ブッシュとゴア",
+      "background": "2000年11月18日、アメリカ大統領選挙の直前。ブッシュとアル・ゴアのどちらが勝つかという質問。",
+      "question": "2000年のアメリカ大統領選挙において、ブッシュとアル・ゴアのうちどちらが勝つか？",
+      "hexagram_data": {
+        "date": "2000年11月18日",
+        "month_branch": "亥（水）",
+        "day_branch": "辰（土）",
+        "honke": "坤（地）",
+        "seikaku": "アル・ゴア（世爻・火）",
+        "oukaku": "ブッシュ（応爻・水）"
+      },
+      "detailed_case_analysis": {
+        "step_1_youshin": {
+          "title": "用神の決定",
+          "question_focus": "二者の勝敗 → 世爻vs応爻の強弱比較",
+          "youshin_assigned": "世爻（ゴア・火）と応爻（ブッシュ・水）の相対強弱",
+          "reasoning": "競争事では世爻と応爻を固定し、同じ時間軸で比較する"
+        },
+        "step_2_month_analysis": {
+          "title": "月建による旺衰判定",
+          "month_branch": "亥（水）",
+          "tai_analysis": "火のゴアは水の月に剋される → 弱い",
+          "you_analysis": "水のブッシュは水の月に旺相 → 強い",
+          "verdict": "月全体の傾向：ブッシュが圧倒的に有利"
+        },
+        "step_3_day_analysis": {
+          "title": "日辰による短期判定",
+          "day_branch": "辰（土）",
+          "tai_analysis": "火のゴアは土の日に生じられる → やや強化",
+          "you_analysis": "水のブッシュは土の日に剋される → 一時的に不利",
+          "verdict": "この日はブッシュに一時的障害があるが月建の力が優位"
+        },
+        "step_4_moving_line": {
+          "title": "動爻分析",
+          "note": "動爻の具体的位置は不明。世爻vs応爻の力関係で表現される。",
+          "four_step_model": "動爻→変爻→他の爻への影響→最終着地という4段階で追跡"
+        },
+        "step_5_wuxing_chain": {
+          "title": "競争事の数値化",
+          "gore_strength": "月建に剋される(-2) + 日辰に生じられる(+1) = 総合弱い",
+          "bush_strength": "月建に旺相(+3) + 日辰に剋される(-2) = 総合強い",
+          "conclusion": "ブッシュが一時的不利にもかかわらず結果的に勝つ"
+        },
+        "step_6_integrated_judgment": {
+          "title": "統合判定",
+          "overall": "ブッシュが大統領選に勝つ",
+          "reasoning": "月建（水）がブッシュ（水）を圧倒的に支援",
+          "action_recommended": "ブッシュ勝利と断ず"
+        },
+        "step_7_verification": {
+          "title": "的中検証",
+          "prediction": "ブッシュが大統領選に勝つ",
+          "actual_result": "ブッシュが第43代大統領に決定（最高裁判決）",
+          "accuracy_assessment": "完全に的中"
+        }
+      },
+      "conclusion": "世爻（ゴア・火）は月建に剋され弱体。応爻（ブッシュ・水）は月建に旺相。ブッシュの勝利を断ず。",
+      "interpretation_tips": "競争事では世爻と応爻の二項対立モデルを固定し同じ時間軸で比較する。月建と日辰を両立させる。"
+    },
+    "example_3": {
+      "title": "クリントン大統領のスキャンダル生存",
+      "background": "1998年1月26日、クリントン大統領はモニカ・ルインスキーとの情事が問題化し、弾劾危機に陥っていた。占日：丑（土）月建・酉（金）日辰。得卦：明夷（地火明夷）、宮卦：坎（水）。",
+      "question": "クリントン大統領はこのスキャンダルから生き残れるか？",
+      "hexagram_data": {
+        "honke": "明夷（地火明夷）",
+        "miya_gua": "坎（水）",
+        "month_branch": "丑",
+        "month_wuxing": "土",
+        "day_branch": "酉",
+        "day_wuxing": "金",
+        "tai_position": "世爻（クリントン）",
+        "you_position": "応爻（対抗勢力・共和党）",
+        "hexagram_lines": [
+          {
+            "position": "六爻",
+            "type": "官",
+            "branch": "戌",
+            "wuxing": "土",
+            "note": "外卦"
+          },
+          {
+            "position": "五爻",
+            "type": "官",
+            "branch": "申",
+            "wuxing": "金",
+            "note": "外卦・動爻（兄爻に変化）"
+          },
+          {
+            "position": "四爻",
+            "type": "父",
+            "branch": "酉",
+            "wuxing": "金",
+            "note": "外卦"
+          },
+          {
+            "position": "三爻",
+            "type": "兄",
+            "branch": "亥",
+            "wuxing": "水",
+            "note": "内卦・世爻（クリントン）"
+          },
+          {
+            "position": "二爻",
+            "type": "官",
+            "branch": "丑",
+            "wuxing": "土",
+            "note": "内卦"
+          },
+          {
+            "position": "初爻",
+            "type": "兄",
+            "branch": "亥",
+            "wuxing": "水",
+            "note": "内卦・動爻（子卯→変爻）"
+          }
+        ],
+        "moving_lines": [
+          5,
+          1
+        ],
+        "tai_wuxing": "土",
+        "you_wuxing": "木"
+      },
+      "detailed_case_analysis": {
+        "step_1_youshin": {
+          "question_type": "二者対立・政治的生存",
+          "framework": "世爻vs応爻",
+          "tai_youshin": "世爻（三爻・亥・水）＝クリントン大統領",
+          "you_youshin": "応爻（初爻・卯・木）＝共和党・対抗勢力",
+          "reasoning": "二者の争いは世爻と応爻で分析する。どちらが世爻かはコインを振る前に決定しておく必要がある。世爻はクリントン、応爻は共和党と設定。",
+          "additional_note": "世爻の官爻（丑・土）は大統領職そのものを示す。官爻が世爻に付属することで『権力ある大統領』を象徴する。"
+        },
+        "step_2_month_analysis": {
+          "month_branch": "丑",
+          "month_wuxing": "土",
+          "tai_wuxing": "土",
+          "relationship": "比和（同五行）",
+          "strength": "旺相",
+          "verdict": "月建の土が世爻（土）と同五行で旺相。クリントン大統領は月からサポートされており、長期的な幸運を享受する。",
+          "long_term_outlook": "良好（月単位では安泰）"
+        },
+        "step_3_day_analysis": {
+          "day_branch": "酉",
+          "day_wuxing": "金",
+          "tai_wuxing": "土",
+          "relationship": "土が金を生じる（泄気・消耗）",
+          "strength": "休囚・消耗",
+          "verdict": "日辰の金が世爻（土）を消耗させる（土生金の関係）。短期的にクリントン大統領が問題に直面することを示す。",
+          "short_term_outlook": "困難あり（日単位では消耗）",
+          "you_analysis": {
+            "you_wuxing": "木",
+            "month_effect": "月建（土）は応爻（木）を生じない",
+            "day_effect": "日辰（酉・金）が応爻の支（卯）と沖を起こす",
+            "verdict": "応爻（共和党）は月建・日辰いずれのサポートも受けず、さらに日辰と沖を起こすため弱い。"
+          }
+        },
+        "step_4_moving_line": {
+          "moving_lines": [
+            {
+              "position": "五爻（外卦）",
+              "type": "兄",
+              "branch": "亥",
+              "wuxing": "水",
+              "meaning": "民主党内の動き",
+              "action": "水の五行が動く",
+              "target": "水は世爻（土）をサポートせず、応爻側の木（初爻・卯）をサポートする",
+              "interpretation": "民主党内に反乱分子がおり、クリントン打倒に賛成する動きがある",
+              "changing_wuxing": "土",
+              "changing_effect": "変爻の土が元の動爻（水）を剋する（土剋水）→ 反乱分子は抑えつけられる",
+              "final_verdict": "民主党内の反対派は封じ込められ、クリントンを傷つけない"
+            },
+            {
+              "position": "初爻（内卦）",
+              "type": "子",
+              "branch": "卯",
+              "wuxing": "木",
+              "meaning": "共和党の攻撃行動",
+              "action": "木が世爻（土）を剋する（木剋土）",
+              "target": "クリントン大統領への直接攻撃",
+              "interpretation": "共和党が大統領を打倒しようと攻撃を仕掛けている",
+              "changing_wuxing": "土",
+              "changing_effect": "変爻の土が世爻（土）と同五行で世爻をサポートする",
+              "final_verdict": "共和党の攻撃が逆効果となり、クリントンのサポーターが増える結果になる"
+            }
+          ]
+        },
+        "step_5_wuxing_chain": {
+          "chain_1": {
+            "trigger": "五爻動爻（水）→変爻（土）",
+            "action": "土が水を剋する（土剋水）",
+            "result": "民主党内反乱分子が鎮圧される",
+            "direction": "GOOD for クリントン"
+          },
+          "chain_2": {
+            "trigger": "初爻動爻（木）→変爻（土）",
+            "action": "変爻の土が世爻（土）を比和でサポート",
+            "result": "共和党の攻撃がクリントン支持者増加という逆効果をもたらす",
+            "direction": "GOOD for クリントン（逆説的）"
+          },
+          "summary": "両方の動爻・変爻がいずれもクリントン有利に収束する。敵の攻撃が自滅し、味方の反乱も封じられる。"
+        },
+        "step_6_integrated_judgment": {
+          "overall_judgment": "大吉",
+          "verdict_label": "A",
+          "reasoning": {
+            "月建評価": "丑（土）が世爻（土）と比和・旺相 → 長期的に安泰",
+            "日辰評価": "酉（金）が世爻を消耗させる → 短期的に問題あり",
+            "応爻評価": "共和党は月建・日辰のサポートなし、日辰と沖 → 弱い",
+            "動爻評価_五爻": "民主党内反乱は変爻で自滅",
+            "動爻評価_初爻": "共和党の攻撃は変爻でクリントン支持に転化",
+            "総合": "世爻（クリントン）が応爻（共和党）より強い。両動爻ともクリントン有利で収束する。"
+          },
+          "time_axis": {
+            "short_term": "苦しい局面（日辰の消耗）",
+            "long_term": "生き残り確実（月建の旺相＋変爻の収束）"
+          },
+          "action_recommended": "急いで動かず、敵の攻撃が自滅するのを待つ。"
+        },
+        "step_7_verification": {
+          "prediction": "クリントン大統領はスキャンダルを生き残る。1998年は安泰。",
+          "actual_result": "1998年はスキャンダルの渦中にありながら大統領職を維持。1999年の弾劾裁判は失敗に終わり、上院で無罪評決。",
+          "accuracy": "完全に的中",
+          "note": "動爻の分析通り、民主党内の反対派は封じられ、共和党の攻撃は逆にクリントンの支持率を押し上げる結果となった。"
+        }
+      },
+      "conclusion": "世爻（クリントン）は月建に旺相され、応爻（共和党）は日辰と沖を起こし弱体化している。両動爻の変爻がいずれもクリントン有利に収束するため、大吉と断ず。スキャンダルを生き抜き大統領職を全うする。",
+      "interpretation_tips": "二者対立の問題は世爻と応爻の強弱比較が核心。動爻の変爻が『最終的な着地点』を示す。変爻が元の動爻を剋する場合は『その行動は自滅する』と読む。変爻が世爻をサポートする場合は『敵の行動が逆効果になる』と読む。月建は大局・長期、日辰は短期・今この瞬間を示す二重構造を常に意識すること。"
+    },
+    "example_4": {
+      "title": "易占起例4：米国と中国、2001年飛行機衝突事故",
+      "background": "2001年4月1日、アメリカの電子偵察機が中国の戦闘機と衝突。中国側操縦士が行方不明、アメリカの飛行機と乗組員24名は中国・海南島に拘束された。4月5日時点で外交的解決の目処が立っていない状況での占。得卦：震為雷（六衝卦）、月建：壬辰（土）、日辰：戊戌（土）。",
+      "question": "2001年4月5日から30日以内に、中国とアメリカはこの飛行機事件の解決にたどり着くでしょうか？",
+      "hexagram_data": {
+        "honke": "震為雷（震・震）",
+        "honke_type": "六衝卦",
+        "henke": "地雷復（六合卦）",
+        "miya_gua": "震（雷）",
+        "miya_wuxing": "木",
+        "month_branch": "辰",
+        "month_wuxing": "土",
+        "day_branch": "戌",
+        "day_wuxing": "土",
+        "tai_position": "世爻（中国）",
+        "you_position": "応爻（アメリカ）",
+        "hexagram_lines": [
+          {
+            "position": "六爻",
+            "type": "父",
+            "branch": "戌",
+            "wuxing": "土",
+            "note": "外卦"
+          },
+          {
+            "position": "五爻",
+            "type": "才",
+            "branch": "申",
+            "wuxing": "金",
+            "note": "外卦"
+          },
+          {
+            "position": "四爻",
+            "type": "官",
+            "branch": "午",
+            "wuxing": "火",
+            "note": "外卦・動爻（才→土に変化）世爻（中国）"
+          },
+          {
+            "position": "三爻",
+            "type": "才",
+            "branch": "辰",
+            "wuxing": "土",
+            "note": "内卦"
+          },
+          {
+            "position": "二爻",
+            "type": "父",
+            "branch": "寅",
+            "wuxing": "木",
+            "note": "内卦"
+          },
+          {
+            "position": "初爻",
+            "type": "才",
+            "branch": "子",
+            "wuxing": "水",
+            "note": "内卦・応爻（アメリカ）・空亡"
+          }
+        ],
+        "moving_lines": [
+          4
+        ],
+        "tai_wuxing": "火（四爻・午）",
+        "you_wuxing": "水（初爻・子）",
+        "kuuchuu": "応爻（初爻・子）が空亡"
+      },
+      "detailed_case_analysis": {
+        "step_1_youshin": {
+          "question_type": "二者対立・外交的解決の可否",
+          "framework": "世爻vs応爻",
+          "tai_youshin": "世爻（四爻・午・火）＝中国",
+          "you_youshin": "応爻（初爻・子・水）＝アメリカ",
+          "reasoning": "二国間の外交問題は世爻と応爻で分析する。中国を世爻、アメリカを応爻に設定。コインを振る前に設定を固定することが重要。",
+          "special_observation": {
+            "rokuchuu_gua": "震為雷は六衝卦。六爻すべてが互いに沖を起こす（子↔午、寅↔申、辰↔戌）。これは両者が争っている摩擦状態を正確に表している。",
+            "interpretation": "六衝卦の出現自体が、中米の対立・摩擦を象徴的に表現している。"
+          }
+        },
+        "step_2_month_analysis": {
+          "month_branch": "辰",
+          "month_wuxing": "土",
+          "tai_wuxing": "火（午）",
+          "you_wuxing": "水（子）",
+          "tai_month_relation": {
+            "relationship": "土の月・火の世爻 → 火が土を生じる（泄気）",
+            "verdict": "中国（火）は月建（土）によって消耗させられる側"
+          },
+          "you_month_relation": {
+            "relationship": "土の月・水の応爻 → 土が水を剋する",
+            "verdict": "アメリカ（水）は月建（土）によって剋される → 弱い"
+          },
+          "both_strong_note": "世爻も応爻も同じ土の月・日において、両国が「それぞれの主張を強く押し出している」とテキストは述べている。これは土が両者（火と水）を同時に媒介する役割を果たしているため。",
+          "long_term_outlook": "土が仲介者として機能し、硬直状態の中に調停の種がある"
+        },
+        "step_3_day_analysis": {
+          "day_branch": "戌",
+          "day_wuxing": "土",
+          "kuuchuu_analysis": {
+            "target": "応爻（初爻・子・アメリカ）が空亡",
+            "meaning": "空亡とは、その爻が一時的に機能を停止している状態。アメリカはこの日（4月5日）、合意の用意ができていない。",
+            "duration": "空亡の影響は10日間のみ",
+            "implication": "空亡期間（約10日）が過ぎれば、アメリカは合意できる状態になる"
+          },
+          "day_line_moving": {
+            "moving_line": "四爻（午・火）が動爻",
+            "changing_from": "官（火）",
+            "changing_to": "才（土）",
+            "meaning": "中国（外卦・四爻）が先に行動を起こすことを示す。通常では考えられない積極的な動き。",
+            "changing_wuxing_effect": "変爻の土は世爻（火）と応爻（水）の両方に影響を与える → 土は火を消耗させず、水も生ぜず、橋渡し的な機能を果たす"
+          },
+          "short_term_outlook": "アメリカは今この日は合意不可能だが、10日後に状況が変わる"
+        },
+        "step_4_moving_line": {
+          "moving_line_position": "四爻（外卦・中国側）",
+          "original_type": "官",
+          "original_branch": "午",
+          "original_wuxing": "火",
+          "changing_type": "才",
+          "changing_wuxing": "土",
+          "key_insights": [
+            {
+              "insight": "中国が先に行動を起こす",
+              "basis": "四爻は外卦（中国側）に位置する動爻。外卦の動きは『外側から働きかける』ことを意味する。"
+            },
+            {
+              "insight": "変爻（才・土）は経済的配慮を示す",
+              "basis": "才爻は財・経済を象徴する。変爻が才であることから、中国の行動には経済的配慮が含まれる。"
+            },
+            {
+              "insight": "変爻の土が両国の橋渡しをする",
+              "basis": "土は世爻（火）からも応爻（水）からも中立的な五行。両国を媒介する役割を果たし、和解へつなぐ。"
+            }
+          ],
+          "rokugou_gua_transformation": {
+            "title": "六衝卦→六合卦への変化（最重要）",
+            "original_gua": "震為雷（六衝卦）",
+            "after_moving": "地雷復（六合卦）",
+            "rokugou_meaning": "六合卦は六衝卦の正反対。六爻すべてが互いに合の関係になる（子↔丑、寅↔亥、辰↔酉）。",
+            "implication": "争いの卦（六衝）が調和の卦（六合）に転換する。これは和解・調停の明確なシグナル。",
+            "conclusion": "四爻の動爻一本が、全体の卦を争いから和解へと転換させる力を持っている。"
+          }
+        },
+        "step_5_wuxing_chain": {
+          "chain_1_moving_to_harmony": {
+            "trigger": "四爻動爻（火）→変爻（土）",
+            "action": "土が世爻（火）と応爻（水）の間を仲介",
+            "mechanism": "土は火によって生じられ（火生土）、水は土によって剋される（土剋水）という連鎖が生じるが、ここでは土が橋渡しとして機能",
+            "result": "中国の経済的配慮ある提案が両国の合意を生む",
+            "direction": "和解へ向かう"
+          },
+          "chain_2_kuuchuu_lifted": {
+            "trigger": "応爻（アメリカ）の空亡",
+            "timing": "空亡は10日間。4月5日+10日＝4月15日頃に解除",
+            "result": "アメリカの合意可能状態への転換",
+            "direction": "時間的解決へ"
+          },
+          "chain_3_fire_day": {
+            "trigger": "動爻が火の五行（午）",
+            "reasoning": "合意は動爻と同じ五行（火）の日に行われる可能性が高い",
+            "prediction": "火の日（干支で火を含む日）に具体的な進展",
+            "result": "4月12日（巳・火の日）に解放"
+          },
+          "summary": "六衝卦→六合卦への転換＋動爻の才（経済）＋空亡解除の3要素が重なり、30日以内の解決が確実。"
+        },
+        "step_6_integrated_judgment": {
+          "overall_judgment": "吉（30日以内に解決）",
+          "verdict_label": "B",
+          "reasoning": {
+            "卦象判定": "六衝卦（争い）→六合卦（調和）の変化が和解を示す",
+            "動爻判定": "中国（外卦）が先に行動。変爻の才（経済配慮）が橋渡し",
+            "空亡判定": "アメリカは4月5日は合意不可能だが10日後に解消",
+            "火の日判定": "動爻（午・火）と同じ五行の日に解決の動き"
+          },
+          "time_axis": {
+            "immediate": "4月5日：アメリカ空亡中、合意不能",
+            "short_term": "空亡解除後（約4月15日以降）：交渉再開",
+            "resolution": "火の日（4月12日巳の日）：中国が先に動き、解放実現"
+          },
+          "action_recommended": "中国側からの譲歩提案（経済的配慮を含む）を待つ。30日以内に必ず解決する。"
+        },
+        "step_7_verification": {
+          "prediction": "30日以内に両国は和解。中国が先に提案し、経済的配慮が含まれる。火の日に具体的動き。",
+          "actual_result": "2001年4月12日（復活祭前日・巳の火の日）、中国はアメリカ乗組員24名全員を解放。解放時の声明には経済関係への言及が含まれた。",
+          "accuracy": "完全に的中",
+          "key_validations": [
+            "30日以内の解決 ✓（4月12日、わずか7日後）",
+            "中国が先に行動 ✓（中国側が解放を決定・発表）",
+            "経済的配慮の含有 ✓（解放声明に経済関係への言及）",
+            "火の日に解放 ✓（4月12日＝巳・火の日）",
+            "空亡解除後の動き ✓（空亡は約10日だが、実際は7日で動いた）"
+          ],
+          "new_concept_validated": "六衝卦→六合卦の変換が『争いから和解への転換』を正確に予言することが実証された。"
+        }
+      },
+      "conclusion": "震為雷（六衝卦）の出現は中米の激しい対立を象徴。しかし四爻の動爻一本が卦全体を地雷復（六合卦）に転換し、調和・和解を示す。中国が先に行動し（外卦の動爻）、経済的配慮を含む提案（才爻への変化）が橋渡しとなる。アメリカの空亡解除後、火の日（4月12日）に解放実現。30日以内の解決を断ず。",
+      "interpretation_tips": "この例が教える3つの重要概念：(1)【六衝卦と六合卦】六衝卦は争い・摩擦の象、六合卦は調和・合意の象。卦全体の「型」を最初に確認する習慣をつけること。(2)【卦の変換が示す方向性】動爻によって卦全体が変わる場合、その変換の方向（衝→合、または合→衝）が最終的な結論を示す最強のシグナル。(3)【空亡の時間的活用】空亡は「その爻が一時的に機能停止」。空亡期間（約10日）が過ぎれば状況が変わる。これを時間的予測に活用できる。(4)【動爻の五行と解決日】動爻の五行（この例では火）と同じ五行の日（干支）に事態が動く。日付予測の実践的手法。"
+    },
+    "example_5": {
+      "title": "易占起例5：取引パートナーとの契約更新の利益",
+      "background": "Aさんはある販売代理人と契約を結んでいるが、その代理人はあまりよい結果を出していなかった。契約期限が近づいており、更新が利益になるかどうかを問うた。得卦：天水訟（訟）、宮：離（火）、月建：癸巳（火）、日辰：甲戌（土）。",
+      "question": "この販売代理人と契約を更新した際の、今後一二カ月におけるAさんの金銭的収入はどうであるか？",
+      "hexagram_data": {
+        "honke": "天水訟（訟）",
+        "miya_gua": "離（火）",
+        "miya_wuxing": "火",
+        "month_branch": "巳",
+        "month_wuxing": "火",
+        "day_branch": "戌",
+        "day_wuxing": "土",
+        "tai_position": "世爻（Aさん・五爻）",
+        "you_position": "応爻（販売代理人・二爻）",
+        "youshin": "才（金の五行）",
+        "hexagram_lines": [
+          {
+            "position": "六爻",
+            "type": "子",
+            "branch": "戌",
+            "wuxing": "土",
+            "note": "外卦"
+          },
+          {
+            "position": "五爻",
+            "type": "才",
+            "branch": "申",
+            "wuxing": "金",
+            "note": "外卦・世爻（Aさん）・動爻→土に変化"
+          },
+          {
+            "position": "四爻",
+            "type": "兄",
+            "branch": "午",
+            "wuxing": "火",
+            "note": "外卦"
+          },
+          {
+            "position": "三爻",
+            "type": "子",
+            "branch": "戌",
+            "wuxing": "土",
+            "note": "内卦"
+          },
+          {
+            "position": "二爻",
+            "type": "才",
+            "branch": "申",
+            "wuxing": "金",
+            "note": "内卦・応爻（代理人）"
+          },
+          {
+            "position": "初爻",
+            "type": "兄",
+            "branch": "午",
+            "wuxing": "火",
+            "note": "内卦"
+          }
+        ],
+        "moving_lines": [
+          2,
+          3,
+          5
+        ],
+        "tai_wuxing": "金（五爻・才・申）",
+        "you_wuxing": "木（応爻の象意より）"
+      },
+      "detailed_case_analysis": {
+        "step_1_youshin": {
+          "question_type": "金銭的利益・契約の可否",
+          "framework": "才爻（財爻）を用神に据える",
+          "youshin": "才（金の五行）",
+          "tai_youshin": "世爻（五爻・申・金）＝Aさん",
+          "you_youshin": "応爻（二爻・木の象意）＝販売代理人",
+          "reasoning": "金銭・収入に関する問いは『才爻（財爻）』を用神とする。この卦では才爻が金の五行。金銭の流れを金の五行で追跡する。",
+          "month_tai_relation": {
+            "month_wuxing": "火",
+            "tai_wuxing": "金",
+            "relation": "火が金を剋する → 一見、Aさん（世爻）は月建に剋される",
+            "correction": "しかし世爻は火の宮（離宮）に属し、月建の火によって旺相する側面もある。Aさんは火の月に良い運にある。"
+          },
+          "month_you_relation": {
+            "month_wuxing": "火",
+            "you_wuxing": "木",
+            "relation": "火が木を消耗させる（木生火の泄気）",
+            "verdict": "販売代理人（木）は月建（火）によって消耗している → 代理人は強くない"
+          }
+        },
+        "step_2_month_analysis": {
+          "month_branch": "巳",
+          "month_wuxing": "火",
+          "tai_wuxing": "金（申・才爻）",
+          "you_wuxing": "木",
+          "tai_month_relation": {
+            "relationship": "火の月・世爻（金）→ 火が金を剋する",
+            "surface_verdict": "世爻が月建に剋される → 一時的に不利",
+            "deeper_reading": "世爻は離宮（火宮）に属するため、火の月に旺相する。Aさん自身は良い運勢にある。"
+          },
+          "you_month_relation": {
+            "relationship": "火の月・応爻（木）→ 木が火を生じる（泄気・消耗）",
+            "verdict": "代理人（木）は月建（火）に消耗させられ、力が弱い"
+          },
+          "youshin_month_relation": {
+            "youshin": "才（金）",
+            "month_wuxing": "火",
+            "relationship": "火が金を剋する",
+            "verdict": "才（金）は月建に剋される → 金銭面に圧力あり。しかし複数の動爻がこれを補強する。"
+          },
+          "long_term_outlook": "代理人は弱く、Aさんは相対的に優位。ただし才（金）への月の剋を動爻が補う構造を確認する必要あり。"
+        },
+        "step_3_day_analysis": {
+          "day_branch": "戌",
+          "day_wuxing": "土",
+          "youshin_wuxing": "金（才）",
+          "day_youshin_relation": {
+            "relationship": "土が金を生じる（土生金）",
+            "verdict": "日辰（土）が才（金）を生じる → 金銭的利益がその日に支援される"
+          },
+          "tai_day_relation": {
+            "relationship": "世爻（申・金）に対して土は金を生じる",
+            "verdict": "Aさんの力が日辰によっても支援される"
+          },
+          "short_term_outlook": "日辰（戌・土）が才（金）と世爻（金）の両方を生じ、金銭面で良好な状態を短期的にも支える"
+        },
+        "step_4_moving_line": {
+          "moving_lines_count": 3,
+          "moving_lines": [
+            {
+              "position": "二爻（内卦・応爻側）",
+              "type": "才",
+              "branch": "申",
+              "wuxing": "金",
+              "changing_to_wuxing": "火→土（変爻）",
+              "analysis": {
+                "location_meaning": "二爻は内卦（応爻側＝代理人側）に位置する",
+                "motion_meaning": "土の動爻が金を生じる（土生金）。さらにこの土は火から生じられ（火生土）、非常に強い土となる",
+                "five_god": "子（知性・努力を示す神）",
+                "verdict": "代理人が知的な努力をしてAさんの金銭的利益に貢献する。代理人側からの積極的なサポートを示す。",
+                "direction": "GOOD for Aさん"
+              }
+            },
+            {
+              "position": "三爻（内卦・応爻側）",
+              "type": "兄",
+              "branch": "午",
+              "wuxing": "火",
+              "changing_to_wuxing": "金",
+              "analysis": {
+                "location_meaning": "三爻も内卦（応爻側）に位置する",
+                "motion_meaning": "火の動爻が才（金）を剋する → 一見、金銭を脅かす",
+                "five_god": "兄（競争者・横取り者を示す神）",
+                "surface_threat": "競争者が取引の金銭的利益を脅かしている",
+                "changing_effect": "しかし火が金に変化する → 変爻の金がAさんの才（五爻・金）を補強する",
+                "verdict": "競争者の行動がAさんからお金を取り上げることに失敗する。むしろ逆効果となりAさんの金銭を強化する。",
+                "direction": "GOOD for Aさん（逆説的）"
+              }
+            },
+            {
+              "position": "五爻（外卦・世爻）",
+              "type": "才",
+              "branch": "申",
+              "wuxing": "金",
+              "changing_to_wuxing": "土",
+              "analysis": {
+                "location_meaning": "五爻は外卦・世爻（Aさん自身）の位置",
+                "motion_meaning": "才の動爻が土に変化 → 土は金を生じる（土生金）",
+                "five_god": "才（金銭・財）そのもの",
+                "support_structure": "この才（五爻）は二爻・三爻の動爻によってもサポートされる三重構造",
+                "verdict": "AさんはさらなるよいAさんにとって金銭にかかわり、金運にある。変爻の土が才を生じ、金銭的利益が確保される。",
+                "direction": "GOOD for Aさん"
+              }
+            }
+          ]
+        },
+        "step_5_wuxing_chain": {
+          "chain_1_nieryo": {
+            "trigger": "二爻動爻（土）→変爻（火→土の強化）",
+            "five_god": "子（代理人の知的努力）",
+            "action": "土が金を生じる（土生金）",
+            "target": "才（金）＝Aさんの金銭",
+            "result": "代理人の努力がAさんの金銭に直接貢献",
+            "direction": "GOOD"
+          },
+          "chain_2_sanryo": {
+            "trigger": "三爻動爻（火）→変爻（金）",
+            "five_god": "兄（競争者）",
+            "action": "火が金を剋する → しかし変爻の金がAさんの才を補強",
+            "target": "五爻の才（金）",
+            "result": "競争者の攻撃が逆効果。Aさんの金銭が補強される",
+            "direction": "GOOD（逆説的）"
+          },
+          "chain_3_goryo": {
+            "trigger": "五爻動爻（金・才）→変爻（土）",
+            "five_god": "才（Aさんの財）",
+            "action": "変爻の土が才（金）を生じる（土生金）",
+            "target": "才（金）が更に強化される",
+            "support": "二爻・三爻からの追加サポートも受ける三重強化",
+            "result": "Aさんの金運が三重に確保・強化される",
+            "direction": "GOOD"
+          },
+          "summary": "3本の動爻すべてが最終的にAさんの才（金銭）を生じる方向に収束する。三重の強化構造により、契約更新は明確に利益となる。"
+        },
+        "step_6_integrated_judgment": {
+          "overall_judgment": "大吉",
+          "verdict_label": "A",
+          "reasoning": {
+            "月建評価": "代理人（木）は月建（火）に消耗し弱体。Aさんは相対的に優位",
+            "日辰評価": "日辰（土）が才（金）を生じ、金銭面を短期的にも支援",
+            "二爻動爻": "代理人の知的努力がAさんの金銭に貢献",
+            "三爻動爻": "競争者の脅威が変爻で逆転し、Aさんの才を補強",
+            "五爻動爻": "Aさん自身の才が変爻の土によってさらに生じられる",
+            "総合": "3本すべての動爻がAさんの金銭（才・金）を強化する方向で収束。契約更新は明確に有利。"
+          },
+          "contract_recommendation": "契約を更新すべき。今後1〜2カ月、金銭的収入は良好。",
+          "action_recommended": "契約更新を進めよ。代理人の努力と、競争者の自滅によってAさんの利益が確保される。"
+        },
+        "step_7_verification": {
+          "prediction": "契約更新は利益になる。3本の動爻がすべてAさんの金銭（才・金）を強化する方向に収束するため、今後1〜2カ月の金銭的収入は良好。",
+          "actual_result": "テキストに検証記述なし（教材としての例示のため）",
+          "accuracy": "論理的整合性による高信頼判定",
+          "key_insights": [
+            "3本の動爻すべてが才（金）に有利に収束する稀なケース",
+            "兄爻（競争者）の動爻が変爻で才を補強するという逆説的構造",
+            "子爻（代理人の努力）と才爻（Aさんの金銭）が内卦・外卦で呼応"
+          ]
+        }
+      },
+      "conclusion": "才（金）を用神とする金銭問題。3本の動爻がすべてAさんの金銭的利益を強化する方向に収束する。代理人（木）は月建に消耗し弱体だが、その努力（子爻・土→金）はAさんに貢献する。競争者（兄爻・火）の脅威も変爻（金）によって逆転し、Aさんの才を補強する。大吉。契約を更新すべし。",
+      "interpretation_tips": "この例が教える3つの重要概念：(1)【才爻を用神とする金銭問題の読み方】金銭・利益に関する問いは才爻（財爻）を用神に据え、その旺衰・動静を追跡する。(2)【複数動爻の収束分析】3本以上の動爻がある場合、それぞれの変爻効果を個別に分析し、最終的にすべてが同じ方向（才・金の強化）に収束しているかを確認する。収束すればその判定は極めて確実。(3)【兄爻（競争者）の動爻が才を補強する逆説】兄爻は通常、金銭を脅かす存在。しかし変爻が才（金）に変化する場合、競争者の攻撃が逆効果となりAさんの才を補強する。これは『敵の行動が自滅して味方の利益になる』パターンの典型。"
+    },
+    "example_6": {
+      "title": "易占起例6：結婚の展望",
+      "background": "アンナは婚約者ジョンとの関係が確かかどうかわからなかった。婚約しているにもかかわらず、ジョンは結婚式の日を先延ばしにし続けていた。得卦：天沢履（履）、宮卦：艮（山）・土、月建：甲申（金）、日辰：庚子（水）。動爻なし（静卦）。",
+      "question": "私（アンナ）はジョンと12カ月以内に結婚するでしょうか？",
+      "hexagram_data": {
+        "honke": "天沢履（履）",
+        "miya_gua": "艮（山）",
+        "miya_wuxing": "土",
+        "month_branch": "申",
+        "month_wuxing": "金",
+        "day_branch": "子",
+        "day_wuxing": "水",
+        "tai_position": "世爻（アンナ・二爻）",
+        "you_position": "応爻（ジョン・五爻）",
+        "youshin": "官（木の五行）",
+        "moving_lines": [],
+        "hexagram_lines": [
+          {
+            "position": "六爻",
+            "type": "兄",
+            "branch": "戌",
+            "wuxing": "土",
+            "note": "外卦"
+          },
+          {
+            "position": "五爻",
+            "type": "子",
+            "branch": "申",
+            "wuxing": "金",
+            "note": "外卦・応爻（ジョン）"
+          },
+          {
+            "position": "四爻",
+            "type": "父",
+            "branch": "午",
+            "wuxing": "火",
+            "note": "外卦"
+          },
+          {
+            "position": "三爻",
+            "type": "兄",
+            "branch": "丑",
+            "wuxing": "土",
+            "note": "内卦"
+          },
+          {
+            "position": "二爻",
+            "type": "官",
+            "branch": "卯",
+            "wuxing": "木",
+            "note": "内卦・世爻（アンナ）"
+          },
+          {
+            "position": "初爻",
+            "type": "父",
+            "branch": "巳",
+            "wuxing": "火",
+            "note": "内卦"
+          }
+        ],
+        "tai_wuxing": "木（二爻・官・卯）",
+        "you_wuxing": "金（五爻・子・申）",
+        "seikaku_note": "世爻（アンナ）は二爻・官・卯（木）。応爻（ジョン）は五爻・子・申（金）。"
+      },
+      "detailed_case_analysis": {
+        "step_1_youshin": {
+          "question_type": "婚姻・恋愛の成就可否",
+          "framework": "官爻を用神とする婚姻問題＋世爻vs応爻",
+          "youshin": "官（木の五行）＝結婚・夫・正式な関係",
+          "tai_youshin": "世爻（二爻・卯・木）＝アンナ",
+          "you_youshin": "応爻（五爻・申・金）＝ジョン",
+          "reasoning": "婚姻問題では『官爻』を用神とする。官爻は夫・正式な契約・社会的地位を象徴する。アンナにとっての官爻（木）が月日支から旺衰されるかを見る。",
+          "critical_observation": {
+            "seikan": "静卦（動爻なし）",
+            "meaning": "動爻がない卦は『行動がない・変化がない』ことを直接的に示す。婚姻という重大な変化が12カ月以内に起こらないことの第一のシグナル。"
+          }
+        },
+        "step_2_month_analysis": {
+          "month_branch": "申",
+          "month_wuxing": "金",
+          "tai_wuxing": "木（卯・官爻＝アンナの世爻）",
+          "you_wuxing": "金（申・子爻＝ジョン）",
+          "tai_month_relation": {
+            "relationship": "金の月・木の世爻 → 金が木を剋する",
+            "verdict": "アンナの世爻（木）は月建（金）に剋される → 長期的に力が弱まる",
+            "correction": "ただし世爻は『子（金）』の宮に属し、金の月に宮の力で補われる側面もある"
+          },
+          "you_month_relation": {
+            "relationship": "金の月・応爻（金）→ 比和・旺相",
+            "surface_reading": "ジョン（金）は月建（金）に旺相される → 一見強い",
+            "deeper_reading": "しかしこの金（ジョン）は木（官爻・正式な関係）を剋する。ジョンの強さが結婚の実現を妨げる方向に働く。"
+          },
+          "youshin_month_relation": {
+            "youshin": "官（木）",
+            "month_wuxing": "金",
+            "relationship": "金が木を剋する（金剋木）",
+            "verdict": "官爻（木・結婚の象）は月建（金）に剋される → 長期的に結婚の力が弱い"
+          },
+          "anna_strength": {
+            "note": "アンナ自身は金の月において『子（金）』の爻として強い。知性的で強い女性であることを示す。しかし強いのはアンナ個人であり、結婚（官爻）ではない。"
+          },
+          "long_term_outlook": "結婚（官爻・木）は月建（金）に剋され弱体。ジョンの長期的な運勢も強くない。"
+        },
+        "step_3_day_analysis": {
+          "day_branch": "子",
+          "day_wuxing": "水",
+          "you_wuxing": "金（申・ジョン）",
+          "youshin_wuxing": "木（官爻）",
+          "day_you_relation": {
+            "relationship": "水の日・応爻（金）→ 金が水を生じる（泄気）",
+            "verdict": "日辰（水）がジョン（金）を消耗させる"
+          },
+          "day_youshin_relation": {
+            "relationship": "水の日・官爻（木）→ 水が木を生じる（水生木）",
+            "verdict": "日辰（水）が官爻（木）を生じる → 当日の短期的には結婚の可能性がやや高まる",
+            "caveat": "しかし月建（金）が木を剋する長期傾向が支配的。日辰の短期サポートでは覆せない。"
+          },
+          "short_term_outlook": "日辰は官爻をやや支援するが、月建の剋を覆すほどではない"
+        },
+        "step_4_moving_line": {
+          "moving_lines_count": 0,
+          "static_gua_analysis": {
+            "title": "静卦（動爻なし）の読み方",
+            "core_principle": "動爻がない卦は『現状維持・変化なし・行動なし』を意味する",
+            "application": "婚姻という重大な行動（結婚式）が12カ月以内に起こらないことを直接示す",
+            "contrast": "動爻がある場合：変化・動き・具体的事象の発生を示す。動爻がない場合：その逆。",
+            "verdict": "静卦の時点で『12カ月以内の結婚なし』が確定する第一の根拠"
+          },
+          "no_moving_line_note": "動爻がないため、変爻・変卦の分析は不要。静卦そのものが最大のシグナル。"
+        },
+        "step_5_wuxing_chain": {
+          "chain_1_static": {
+            "trigger": "静卦（動爻なし）",
+            "action": "変化・動きが生じない",
+            "result": "結婚という重大な変化が12カ月以内に起こらない",
+            "direction": "BAD（婚姻不成立）"
+          },
+          "chain_2_month_suppresses_youshin": {
+            "trigger": "月建（金）が官爻（木）を剋する",
+            "action": "金剋木",
+            "result": "結婚を象徴する官爻が長期的に抑圧される",
+            "direction": "BAD（婚姻不成立）"
+          },
+          "chain_3_john_suppresses_marriage": {
+            "trigger": "応爻（ジョン・金）が官爻（木）を剋する",
+            "action": "金剋木（ジョン自身が結婚の象を剋する）",
+            "interpretation": "ジョンが結婚に踏み出せない理由が五行的に示されている。ジョン（金）が自ら官爻（木・結婚）を剋する構造。",
+            "real_reason": "ジョンはアンナより成功していない現実があり、結婚に踏み出す自信がない（五行的に金が木を制圧する＝ジョンの弱さが関係を阻む）",
+            "direction": "BAD（ジョン側の問題）"
+          },
+          "summary": "静卦＋官爻が月建と応爻の両方に剋される三重の障壁。12カ月以内の結婚は困難と断ず。"
+        },
+        "step_6_integrated_judgment": {
+          "overall_judgment": "凶（婚姻不成立・12カ月以内）",
+          "verdict_label": "C",
+          "high_koh_classification": "吝（小さな難あり、慎重に）または凶（止まれ、引け）",
+          "reasoning": {
+            "静卦判定": "動爻なし → 変化なし → 結婚という行動が起こらない",
+            "月建判定": "金の月が官爻（木）を剋 → 結婚の象が長期的に弱い",
+            "応爻判定": "ジョン（金）自身が官爻（木）を剋 → ジョン側に結婚への障壁",
+            "アンナ個人": "金の月に強い（知性的・運良し）。しかし結婚相手（官爻）の問題",
+            "総合": "アンナは強いが、ジョンは弱く、結婚の象（官爻）が両方向から剋される。12カ月以内の結婚は実現しない。"
+          },
+          "time_axis": {
+            "12_months": "結婚なし（静卦＋官爻の剋）",
+            "future": "ジョンが自信を回復し、金の剋が弱まる時期まで待つ必要あり"
+          },
+          "action_recommended": "12カ月以内の結婚に期待しないこと。ジョンの内面的な問題（自信の欠如）に向き合う必要がある。"
+        },
+        "step_7_verification": {
+          "prediction": "12カ月以内の結婚はない。ジョンが結婚に踏み出せない内的理由（自信の欠如）が五行的に示されている。",
+          "actual_result": "ジョンはアンナより職業的に成功しておらず、アンナのほうが強く成功していた。それゆえジョンは式を挙げる自信がなかった。（種本に実情として明記）",
+          "accuracy": "完全に的中",
+          "key_insight": "易は表面上の『先延ばし』という行動の背後にある、ジョンの内的理由（自信の欠如）まで五行的に読み取った。応爻（金）が官爻（木）を剋する構造が、ジョン自身が結婚の実現を妨げている現実を正確に示していた。",
+          "key_validations": [
+            "12カ月以内の結婚なし ✓（実際に結婚は実現しなかった）",
+            "ジョンの長期運勢が弱い ✓（職業的に成功していなかった）",
+            "アンナのほうが強い ✓（世爻が金の月に強く、アンナが成功していた）",
+            "ジョン側に障壁 ✓（自信の欠如が主因だった）"
+          ]
+        }
+      },
+      "conclusion": "静卦（動爻なし）が12カ月以内の結婚なしを直接示す。官爻（木・結婚の象）は月建（金）と応爻・ジョン（金）の両方に剋され、三重の障壁がある。アンナ自身は金の月に強く、知性的で良い運を持つ。しかし相手（官爻）の問題が大きい。凶と断ず。",
+      "interpretation_tips": "この例が教える4つの重要概念：(1)【静卦（動爻なし）の読み方】動爻がない卦は変化なし・行動なしの直接的シグナル。時間的な問い（〇カ月以内に〇〇するか）において静卦は『その期間内に実現しない』と読む。(2)【官爻を用神とする婚姻問題】恋愛・婚姻問題では官爻（夫・正式な関係）を用神とする。官爻の旺衰が婚姻の実現可能性を示す。(3)【応爻が用神を剋する構造】ジョン（応爻・金）自身が官爻（木）を剋するという構造は、相手自身が関係の実現を妨げていることを示す。(4)【易は内的現実も読む】表面上の行動（先延ばし）の背後にある内的理由（ジョンの自信欠如）まで五行的に読み取れる。これが易の深さ。"
+    }
+    "example_9": {
+  "title": "易占起例9：ある友人の現状を調べる",
+  "background": "定期的にEメールで連絡を取り合っている友人と、突然一カ月ほど連絡が途絶えてしまった。彼女の身に何が起こったのか、無事であるかを調べるために易占を立てた。占日：己亥（水）日辰、丁巳（火）月建。得卦：地風升（震宮・木）、世爻：二爻（丑・土・妻財）、応爻：五爻（亥・水・父母）。",
+  "question": "今の友人の状況はどうであるか？",
+  "hexagram_data": {
+    "honke": "地風升（震宮）",
+    "honke_type": "静卦（原本解釈において世爻と応爻に関連する部位の発動を追跡）",
+    "henke": "（動爻の変化に基づく変卦）",
+    "miya_gua": "震（雷）",
+    "miya_wuxing": "木",
+    "month_branch": "巳",
+    "month_wuxing": "火",
+    "day_branch": "亥",
+    "day_wuxing": "水",
+    "tai_position": "二爻（丑・土・妻財）※原本において「世爻：友人」として指定",
+    "you_position": "五爻（亥・水・父母）※応爻または状況の象意",
+    "hexagram_lines": [
+      {
+        "position": "六爻",
+        "type": "官",
+        "branch": "酉",
+        "wuxing": "金",
+        "note": "外卦・官鬼（夫・仕事の象意その1）"
+      },
+      {
+        "position": "五爻",
+        "type": "父",
+        "branch": "亥",
+        "wuxing": "水",
+        "note": "外卦・応爻"
+      },
+      {
+        "position": "四爻",
+        "type": "才",
+        "branch": "丑",
+        "wuxing": "土",
+        "note": "外卦・動爻（丑→午へ変化）"
+      },
+      {
+        "position": "三爻",
+        "type": "官",
+        "branch": "酉",
+        "wuxing": "金",
+        "note": "内卦・官鬼（夫・仕事の象意その2）"
+      },
+      {
+        "position": "二爻",
+        "type": "父",
+        "branch": "亥",
+        "wuxing": "水",
+        "note": "内卦・世爻（友人）・動爻（亥→午へ変化）"
+      },
+      {
+        "position": "初爻",
+        "type": "才",
+        "branch": "丑",
+        "wuxing": "土",
+        "note": "内卦"
+      }
+    ],
+    "moving_lines": [2, 4],
+    "tai_wuxing": "土（二爻・妻財・丑）",
+    "you_wuxing": "金（三爻/六爻・官鬼・酉）",
+    "fushin_note": "世爻（土）が動いて火（午）に変化し、火生土（回頭の生）で本人を強める一方、火剋金で夫（官鬼）を激しく剋する構造が核心。"
+  },
+  "detailed_case_analysis": {
+    "step_1_youshin": {
+      "question_type": "他人の安否・現状および夫婦関係",
+      "framework": "世爻（土）と官鬼（金）の強弱分析",
+      "tai_youshin": "世爻（二爻・丑・土）＝友人",
+      "you_youshin": "官鬼（三爻/六爻・酉・金）＝夫",
+      "reasoning": "安否占では対象者＝世爻。周囲の障害＝官鬼（金）。"
+    },
+    "step_2_month_analysis": {
+      "month_branch": "巳",
+      "month_wuxing": "火",
+      "tai_wuxing": "土",
+      "relationship": "火生土（旺相）",
+      "verdict": "友人の健康・活動力・ビジネス運は極めて強い（月生）。"
+    },
+    "step_3_day_analysis": {
+      "day_branch": "亥",
+      "day_wuxing": "水",
+      "tai_wuxing": "土",
+      "relationship": "土剋水（財を動かす）",
+      "verdict": "友人は仕事に没頭しており、安否は問題なし。"
+    },
+    "step_4_moving_line": {
+      "moving_lines_count": 2,
+      "moving_lines": [
+        {
+          "position": "二爻（世爻）",
+          "changing_to": "午（火）",
+          "meaning": "回頭の生で本人を強める／火剋金で夫を激しく剋する",
+          "interpretation": "仕事運はさらに強化されるが、夫（金）との関係は悪化。"
+        },
+        {
+          "position": "四爻（外卦）",
+          "changing_to": "午（火）",
+          "meaning": "外部要因の火が夫（金）をさらに剋す",
+          "interpretation": "家庭外の要因も夫に負荷をかけている。"
+        }
+      ]
+    },
+    "step_5_wuxing_chain": {
+      "chain_1": {
+        "trigger": "世爻（土）旺相＋回頭の生（火→土）",
+        "result": "友人の健康・仕事運は大吉"
+      },
+      "chain_2": {
+        "trigger": "官鬼（金）が火から激しく剋される",
+        "result": "夫の運気が極端に悪化"
+      },
+      "chain_3": {
+        "trigger": "夫（金）の不調が世爻（土）に影響",
+        "result": "友人が精神的に落ち込む"
+      },
+      "summary": "仕事は大吉、家庭は大凶という強烈なコントラスト。"
+    },
+    "step_6_integrated_judgment": {
+      "overall_judgment": "半吉半凶（本人は無事・仕事は大吉・家庭は大凶）",
+      "reasoning": {
+        "health": "世爻（土）が月生＋回頭の生で極めて強い",
+        "career": "火→土の相生でビジネス成功",
+        "family": "官鬼（金）が火剋金で重傷、夫婦関係が深刻"
+      },
+      "action_recommended": "安否は心配不要。連絡が来たら家庭の悩みを聞いてあげること。"
+    },
+    "step_7_verification": {
+      "prediction": "友人は健康で仕事も順調だが、夫との関係悪化で精神的に落ち込んでいる。",
+      "actual_result": "後に、仕事は絶好調だが夫婦関係の深刻な問題で悩んでいたことが判明。",
+      "accuracy": "完全に的中"
+    }
+  },
+  "conclusion": "友人の安否は完全に無事。仕事は大成功。しかし夫（金）が火から激しく剋されており、家庭内の深刻な問題が連絡不通の真因。",
+  "interpretation_tips": "旺相の世爻は安否の無事を示す。官鬼の被剋は身内男性の不運を示す。内外卦で距離を判定し、吉凶同異を複眼的に読むことが重要。"
+}
+"example_10": {
+  "title": "易占起例10：健康問題 医療手術を検査する",
+  "background": "ジェニーは医療検査をして子宮に腫瘍があることがわかった。医師はなるべく早くその腫瘍を取り除く手術をするよう勧めたが、その手術が彼女の将来の妊娠にどの程度の影響を及ぼすか明らかになっていなかったため、手術の是非を占った。占日：乙卯（木）日辰、壬辰（土）月建。得卦：天沢履（艮宮・土）、世爻：五爻（申・金・兄弟）、応爻：二爻（卯・木・官鬼）。",
+  "question": "腫瘍を取り除く手術をしても大丈夫であるか？",
+  "hexagram_data": {
+    "honke": "天沢履（艮宮）",
+    "honke_type": "動卦",
+    "henke": "（動爻の変化に基づく変卦）",
+    "miya_gua": "艮（山）",
+    "miya_wuxing": "土",
+    "month_branch": "辰",
+    "month_wuxing": "土",
+    "day_branch": "卯",
+    "day_wuxing": "木",
+    "tai_position": "五爻（申・金・兄弟）※世爻：ジェニー",
+    "you_position": "四爻（午・火・父母）および三爻（丑・土・兄弟）※動爻・手術の象意",
+    "hexagram_lines": [
+      {
+        "position": "六爻",
+        "type": "兄",
+        "branch": "戌",
+        "wuxing": "土",
+        "note": "外卦・変爻：未（土）"
+      },
+      {
+        "position": "五爻",
+        "type": "父",
+        "branch": "申",
+        "wuxing": "金",
+        "note": "外卦・世爻（ジェニー）・変爻：辰（土）"
+      },
+      {
+        "position": "四爻",
+        "type": "兄",
+        "branch": "午",
+        "wuxing": "火",
+        "note": "外卦・動爻（午→丑へ変化）※原本解釈上「父」として扱う"
+      },
+      {
+        "position": "三爻",
+        "type": "子",
+        "branch": "丑",
+        "wuxing": "土",
+        "note": "内卦・動爻（丑→卯へ変化）※原本解釈上「兄」として扱う"
+      },
+      {
+        "position": "二爻",
+        "type": "官",
+        "branch": "卯",
+        "wuxing": "木",
+        "note": "内卦・応爻"
+      },
+      {
+        "position": "初爻",
+        "type": "父",
+        "branch": "巳",
+        "wuxing": "火",
+        "note": "内卦"
+      }
+    ],
+    "moving_lines": [3, 4],
+    "tai_wuxing": "金（五爻・兄弟・申）",
+    "you_wuxing": "火（四爻・父母・午）",
+    "fushin_note": "四爻の火（父母）が手術の困難を象徴し、それが土に変化して世爻の金を生じる「回頭の生」になる構造が核心。"
+  },
+  "detailed_case_analysis": {
+    "step_1_youshin": {
+      "question_type": "健康問題・医療手術の成否",
+      "framework": "世爻（金）の旺衰と動爻（火/土）の回頭の生",
+      "tai_youshin": "世爻（五爻・申・金）＝ジェニー",
+      "you_youshin": "四爻（午・火・父母）＝手術",
+      "reasoning": "本人の生命力＝世爻（金）。手術の困難＝父母（火）。"
+    },
+    "step_2_month_analysis": {
+      "month_branch": "辰",
+      "month_wuxing": "土",
+      "tai_wuxing": "金",
+      "relationship": "土生金（月生）",
+      "verdict": "世爻（金）は月建から生じられ旺相。生命力が非常に強い。"
+    },
+    "step_3_day_analysis": {
+      "day_branch": "卯",
+      "day_wuxing": "木",
+      "tai_wuxing": "金",
+      "relationship": "金剋木（日辰を剋する）",
+      "verdict": "病因（官鬼・木）を本人（金）が抑え込んでいる。"
+    },
+    "step_4_moving_line": {
+      "moving_lines_count": 2,
+      "moving_lines": [
+        {
+          "position": "四爻（動爻）",
+          "changing_to": "丑（土）",
+          "meaning": "手術の困難（火）が土へ化し、世爻（金）を生じる回頭の生",
+          "interpretation": "火剋金の危機が、火生土→土生金の相生に反転し、手術が本人を助ける結果へ変わる。"
+        },
+        {
+          "position": "三爻（動爻）",
+          "changing_to": "卯（木）",
+          "meaning": "周囲の支援（土）が動き、世爻（金）を助ける",
+          "interpretation": "友人・家族のサポートが強力に働く象意。"
+        }
+      ]
+    },
+    "step_5_wuxing_chain": {
+      "chain_1": {
+        "trigger": "世爻（金）旺相",
+        "result": "手術に耐える強い生命力"
+      },
+      "chain_2": {
+        "trigger": "四爻（火→土）",
+        "result": "困難が利益に反転（回頭の生）"
+      },
+      "chain_3": {
+        "trigger": "三爻（土）",
+        "result": "周囲の助力が世爻をさらに強める"
+      },
+      "summary": "すべての五行が世爻（金）を助ける方向に収束。"
+    },
+    "step_6_integrated_judgment": {
+      "overall_judgment": "大吉（手術は完全に成功し健康を回復）",
+      "reasoning": {
+        "卦象評価": "世爻（金）が月生で強く、動爻がすべて相生に転じる。",
+        "動爻評価": "火→土の化出が決定的に吉。三爻の土も助力。",
+        "総合": "手術は受けるべきであり、結果は極めて良好となる。"
+      },
+      "action_recommended": "医師の勧めに従い、早期に手術を受けること。"
+    },
+    "step_7_verification": {
+      "prediction": "手術は成功し健康を取り戻す。",
+      "actual_result": "手術は成功し、易占の推論は完全に的中した。",
+      "accuracy": "完全に的中"
+    }
+  },
+  "conclusion": "世爻（金）は月生で旺相し、手術を象徴する四爻の火は土へ化して世爻を生じる回頭の生となるため、手術は極めて有益で大成功する。",
+  "interpretation_tips": "回頭の生・父母爻の医療象意・多爻発動の収束・兄弟爻の助力という医療占の核心概念がすべて揃った名例。"
+}
+"example_11": {
+  "title": "易占起例11：健康問題 義父の病状を検査する",
+  "background": "易のクラスにおいて、受講生のひとりが「入院中の義理の父親の回復の見込みを調べてほしい」と願い出たため、実演を兼ねて易占を立てた。占日：甲寅（木）日辰、庚寅（木）月建。得卦：沢山咸（兌宮・金）、世爻：三爻（申・金・兄弟）、応爻：六爻（未・土・父母）。",
+  "question": "義父の病気からの回復の見込みはどうか？",
+  "hexagram_data": {
+    "honke": "沢山咸（兌宮）",
+    "honke_type": "動卦",
+    "henke": "（動爻の変化に基づく変卦）",
+    "miya_gua": "兌（沢）",
+    "miya_wuxing": "金",
+    "month_branch": "寅",
+    "month_wuxing": "木",
+    "day_branch": "寅",
+    "day_wuxing": "木",
+    "tai_position": "三爻（申・金・兄弟）",
+    "you_position": "六爻（未・土・父母）",
+    "hexagram_lines": [
+      {
+        "position": "六爻",
+        "type": "父",
+        "branch": "未",
+        "wuxing": "土",
+        "note": "外卦・用神（義父）"
+      },
+      {
+        "position": "五爻",
+        "type": "兄",
+        "branch": "酉",
+        "wuxing": "金",
+        "note": "外卦"
+      },
+      {
+        "position": "四爻",
+        "type": "子",
+        "branch": "亥",
+        "wuxing": "水",
+        "note": "外卦"
+      },
+      {
+        "position": "三爻",
+        "type": "兄",
+        "branch": "申",
+        "wuxing": "金",
+        "note": "内卦・世爻・動爻（申→卯へ変化）"
+      },
+      {
+        "position": "二爻",
+        "type": "官",
+        "branch": "午",
+        "wuxing": "火",
+        "note": "内卦"
+      },
+      {
+        "position": "初爻",
+        "type": "父",
+        "branch": "辰",
+        "wuxing": "土",
+        "note": "内卦"
+      }
+    ],
+    "moving_lines": [3],
+    "tai_wuxing": "金（三爻・申）",
+    "you_wuxing": "土（六爻・未）",
+    "fushin_note": "世爻の申（金）が月建・日辰の寅（木）から寅申沖（月破・日破）を受け、動爻が木（卯）に化して用神（土）をさらに剋する構造が核心。"
+  },
+  "detailed_case_analysis": {
+    "step_1_youshin": {
+      "question_type": "他人の健康問題・病状の予後",
+      "framework": "父母爻（土）の旺衰と世爻（金）の被沖分析",
+      "tai_youshin": "世爻（三爻・申・金）＝質問者",
+      "you_youshin": "六爻（未・土・父母）＝義父",
+      "reasoning": "義父＝父母爻（土）。質問者の心理＝世爻（金）。"
+    },
+    "step_2_month_analysis": {
+      "month_branch": "寅",
+      "month_wuxing": "木",
+      "tai_wuxing": "金",
+      "relationship": "寅申沖（月破）",
+      "verdict": "世爻（金）は月破で精神的に不安定。義父（土）は木剋土で弱い。"
+    },
+    "step_3_day_analysis": {
+      "day_branch": "寅",
+      "day_wuxing": "木",
+      "tai_wuxing": "金",
+      "relationship": "寅申沖（日破）",
+      "verdict": "世爻（金）は日破で完全に崩れる。義父（土）は木剋土でさらに弱体。"
+    },
+    "step_4_moving_line": {
+      "moving_lines_count": 1,
+      "moving_lines": [
+        {
+          "position": "三爻（世爻）",
+          "changing_to": "卯（木）",
+          "meaning": "変爻の木が用神（土）をさらに剋する（木剋土）",
+          "interpretation": "質問者の動きが義父を助けず、むしろ状況を悪化させる象意。"
+        }
+      ]
+    },
+    "step_5_wuxing_chain": {
+      "chain_1": {
+        "trigger": "世爻の月破・日破",
+        "result": "質問者の恐慌・混乱"
+      },
+      "chain_2": {
+        "trigger": "用神（土）が木から重剋",
+        "result": "義父の生命力が極端に低下"
+      },
+      "chain_3": {
+        "trigger": "変爻の木（卯）",
+        "result": "義父（土）への追撃で回復の余地なし"
+      },
+      "summary": "木剋土が三重に重なり、救神が存在しない最悪の構造。"
+    },
+    "step_6_integrated_judgment": {
+      "overall_judgment": "大凶（回復の見込みは極めて薄い）",
+      "reasoning": {
+        "卦象評価": "用神（土）が月日ともに木から激しく剋されている。",
+        "動爻評価": "変爻の木がさらに用神を損なう。",
+        "総合": "春（木旺）の間は回復の兆しなし。"
+      },
+      "action_recommended": "質問者には冷静さを取り戻すよう促し、医療ケアに専念すること。"
+    },
+    "step_7_verification": {
+      "prediction": "病状は深刻で、呼吸器（金）の問題が根本原因。春の間は回復困難。",
+      "actual_result": "義父の病因が喘息（金の象意）であることが判明し、春の間の悪化も的中。",
+      "accuracy": "完全に的中"
+    }
+  },
+  "conclusion": "義父（土）は春の木から激しく剋され、さらに変爻の木からも追撃を受けて極めて弱い。回復の見込みは薄く、春の間は危機的状況が続く。",
+  "interpretation_tips": "月破・日破の重なり、木剋土の三重構造、救神不在という医療占で最も重い凶象が揃った例。"
+}
+"example_12": {
+  "title": "易占起例12：家の購入の見込みを調べる",
+  "background": "顧客が家の購入を希望し、売り手と契約を結ぶ予定日に、売り手が現れなかった。顧客の身に何が起きたのか、そして七日以内に家を購入できる見込みはあるのかを占った。占日：甲午（火）日辰、癸巳（火）月建。得卦：水天需（坤宮・土）、世爻：三爻（申・金・子孫）、応爻：六爻（子・水・妻財）。",
+  "question": "七日以内に家を購入できる見込みはどうか？",
+  "hexagram_data": {
+    "honke": "水天需（坤宮）",
+    "honke_type": "多爻発動卦",
+    "henke": "（複数の動爻の変化に基づく変卦）",
+    "miya_gua": "坤（地）",
+    "miya_wuxing": "土",
+    "month_branch": "巳",
+    "month_wuxing": "火",
+    "day_branch": "午",
+    "day_wuxing": "火",
+    "tai_position": "三爻（申・金・子孫）",
+    "you_position": "六爻（子・水・妻財）",
+    "hexagram_lines": [
+      {
+        "position": "六爻",
+        "type": "才",
+        "branch": "子",
+        "wuxing": "水",
+        "note": "外卦・応爻（売り手）・動爻（子→戌へ変化・変爻空亡）"
+      },
+      {
+        "position": "五爻",
+        "type": "父",
+        "branch": "戌",
+        "wuxing": "土",
+        "note": "外卦"
+      },
+      {
+        "position": "四爻",
+        "type": "父",
+        "branch": "申",
+        "wuxing": "金",
+        "note": "外卦（原本表示上は父午・火、空亡を伴う）"
+      },
+      {
+        "position": "三爻",
+        "type": "兄",
+        "branch": "辰",
+        "wuxing": "土",
+        "note": "内卦・世爻（顧客）・動爻（申→午へ変化）"
+      },
+      {
+        "position": "二爻",
+        "type": "官",
+        "branch": "寅",
+        "wuxing": "木",
+        "note": "内卦・動爻（寅→午へ変化・障害）"
+      },
+      {
+        "position": "初爻",
+        "type": "父",
+        "branch": "子",
+        "wuxing": "水",
+        "note": "内卦"
+      }
+    ],
+    "moving_lines": [2, 3, 6],
+    "tai_wuxing": "金（三爻・申）",
+    "you_wuxing": "水（六爻・子）",
+    "fushin_note": "世爻（金）、応爻（水）、官鬼（木）が同時に発動し、全てが回頭の剋や相沖で自滅する不成就構造。"
+  },
+  "detailed_case_analysis": {
+    "step_1_youshin": {
+      "question_type": "不動産売買契約・取引の成否",
+      "framework": "世爻（金）と応爻（水）の強弱＋官鬼（木）の障害分析",
+      "tai_youshin": "世爻（三爻・申・金）＝買い手",
+      "you_youshin": "応爻（六爻・子・水）＝売り手・財",
+      "reasoning": "買い手＝世爻（金）、売り手＝応爻（水）、障害＝官鬼（木）。"
+    },
+    "step_2_month_analysis": {
+      "month_branch": "巳",
+      "month_wuxing": "火",
+      "tai_wuxing": "金",
+      "relationship": "火剋金（月剋）",
+      "verdict": "世爻（金）は月建の火から激しく剋され、運気が極端に弱い。"
+    },
+    "step_3_day_analysis": {
+      "day_branch": "午",
+      "day_wuxing": "火",
+      "tai_wuxing": "金",
+      "relationship": "火剋金（日剋）",
+      "verdict": "日辰も火で、世爻は完全に焼かれ無力化。七日以内の成就は不可能。"
+    },
+    "step_4_moving_line": {
+      "moving_lines_count": 3,
+      "moving_lines": [
+        {
+          "position": "三爻（世爻）",
+          "changing_to": "午（火）",
+          "meaning": "回頭の剋（金→火）で自滅",
+          "interpretation": "買い手の行動が逆効果となり、全て裏目に出る象意。"
+        },
+        {
+          "position": "六爻（応爻）",
+          "changing_to": "戌（土・空亡）",
+          "meaning": "売り手の自滅・契約の空虚化",
+          "interpretation": "応爻（水）が土に化し、土剋水で自滅。変爻は空亡で契約が幻に。"
+        },
+        {
+          "position": "二爻（官鬼）",
+          "changing_to": "午（火）",
+          "meaning": "法的障害が世爻を直撃（寅申沖）",
+          "interpretation": "契約不履行の原因は法的トラブル。世爻を破壊する決定打。"
+        }
+      ]
+    },
+    "step_5_wuxing_chain": {
+      "chain_1": {
+        "trigger": "世爻の月剋・日剋",
+        "result": "買い手の運気が完全に消失"
+      },
+      "chain_2": {
+        "trigger": "官鬼（寅）の発動",
+        "result": "法的障害が契約を破壊"
+      },
+      "chain_3": {
+        "trigger": "応爻の回頭の剋＋空亡",
+        "result": "売り手側も自滅し契約が消滅"
+      },
+      "summary": "全ての動爻が破滅ルートに連鎖し、成就の余地ゼロ。"
+    },
+    "step_6_integrated_judgment": {
+      "overall_judgment": "大凶（七日以内の購入は100%不可能）",
+      "reasoning": {
+        "卦象評価": "世爻と応爻が同時に自滅する稀な大凶卦。",
+        "動爻評価": "官鬼の相沖が法的障害を示し、応爻の空亡が契約の空虚化を示す。",
+        "総合": "購入は絶対に不可能。深追いは危険。"
+      },
+      "action_recommended": "顧客には即座に撤退を勧めるべき。法的瑕疵のある物件。"
+    },
+    "step_7_verification": {
+      "prediction": "七日以内の購入は不可能。原因は法的障害（官鬼）。",
+      "actual_result": "売り手が所有権の法的問題を抱えていたことが判明し、契約不能だった。",
+      "accuracy": "完全に的中"
+    }
+  },
+  "conclusion": "買い手（金）と売り手（水）がともに自滅し、官鬼（寅）が法的障害を示すため、七日以内の購入は絶対に不可能。物件には所有権の瑕疵がある。",
+  "interpretation_tips": "多爻発動の相互破滅、官鬼の法的象意、変爻空亡の契約空虚化という不動産占の核心概念がすべて揃った例。"
+}
+"example_13": {
+  "title": "易占起例13：伏神 紛失物を調べる",
+  "background": "講義中の教室の後ろに飾られていた特製デザインの腕時計が紛失した。生徒たちから「誰が時計を盗んだのか調べてほしい」と依頼を受け、紛失物の行方と犯人の特定を占った。占日：甲午（火）日辰、癸巳（火）月建。得卦：風沢中孚（艮宮・土）、世爻：三爻（丑・土・兄弟）、応爻：六爻（卯・木・官鬼）、用神：五爻の伏神（子・水・妻財）。",
+  "question": "誰が時計を盗んだのか？",
+  "hexagram_data": {
+    "honke": "風沢中孚（艮宮）",
+    "honke_type": "静卦（伏神あり）",
+    "henke": "（不変卦のためなし）",
+    "miya_gua": "艮（山）",
+    "miya_wuxing": "土",
+    "month_branch": "巳",
+    "month_wuxing": "火",
+    "day_branch": "午",
+    "day_wuxing": "火",
+    "tai_position": "三爻（丑・土・兄弟）",
+    "you_position": "五爻伏神（子・水・妻財）",
+    "hexagram_lines": [
+      {
+        "position": "六爻",
+        "type": "官",
+        "branch": "卯",
+        "wuxing": "木",
+        "note": "外卦・応爻"
+      },
+      {
+        "position": "五爻",
+        "type": "父",
+        "branch": "巳",
+        "wuxing": "火",
+        "note": "外卦・飛神（父母・巳・火）。この下に用神「妻財・子・水」が伏す"
+      },
+      {
+        "position": "四爻",
+        "type": "兄",
+        "branch": "未",
+        "wuxing": "土",
+        "note": "外卦"
+      },
+      {
+        "position": "三爻",
+        "type": "兄",
+        "branch": "丑",
+        "wuxing": "土",
+        "note": "内卦・世爻（占者）"
+      },
+      {
+        "position": "二爻",
+        "type": "官",
+        "branch": "卯",
+        "wuxing": "木",
+        "note": "内卦"
+      },
+      {
+        "position": "初爻",
+        "type": "父",
+        "branch": "巳",
+        "wuxing": "火",
+        "note": "内卦"
+      }
+    ],
+    "moving_lines": [],
+    "tai_wuxing": "土（三爻・丑）",
+    "you_wuxing": "水（五爻伏神・子）",
+    "fushin_note": "本卦には財爻が表面に出ていないため、宮の首卦から五爻の妻財（水）を伏神として抽出する。"
+  },
+  "detailed_case_analysis": {
+    "step_1_youshin": {
+      "question_type": "盗難事件・紛失物の捜索・犯人特定",
+      "framework": "伏神（水）の出伏可能性と飛神（火）の圧迫",
+      "tai_youshin": "世爻（三爻・丑・土）＝占者・教室",
+      "you_youshin": "五爻伏神（子・水）＝紛失した腕時計",
+      "reasoning": "失物占では妻財（水）を用神とする。本卦に財がないため伏神を採用。",
+      "special_observation": {
+        "youshin_wuxing": "伏神（水）が飛神（火）の下に隠れており、強烈な火の季節に完全に封じられている。"
+      }
+    },
+    "step_2_month_analysis": {
+      "month_branch": "巳",
+      "month_wuxing": "火",
+      "tai_wuxing": "水",
+      "relationship": "火旺で水が絶地",
+      "verdict": "月建の火が伏神（水）を完全に干上がらせ、出伏の可能性はゼロ。"
+    },
+    "step_3_day_analysis": {
+      "day_branch": "午",
+      "day_wuxing": "火",
+      "tai_wuxing": "水",
+      "relationship": "子午沖＋火旺で水が蒸発",
+      "verdict": "日辰も火で、伏神（水）は完全に破砕。発見の可能性は完全否定。"
+    },
+    "step_4_moving_line": {
+      "moving_lines_count": 0,
+      "moving_lines": [
+        {
+          "position": "五爻（飛神）",
+          "changing_to": null,
+          "meaning": "伏神の隠匿場所から犯人像を特定",
+          "interpretation": "飛神＝父母（巳・火）＋巽卦＝成人女性・年長女性を示す。",
+          "rokugou_transformation": {
+            "title": "空亡が示す犯人の不在",
+            "meaning": "犯人はすでに現場から離脱している。"
+          }
+        }
+      ]
+    },
+    "step_5_wuxing_chain": {
+      "chain_1": {
+        "trigger": "伏神（水）が飛神（火）に完全に封じられる",
+        "result": "紛失物は意図的に隠されている"
+      },
+      "chain_2": {
+        "trigger": "月日ともに火旺",
+        "result": "伏神が出伏できず、発見不可"
+      },
+      "chain_3": {
+        "trigger": "飛神（父母・巳）＋巽卦",
+        "result": "犯人は年長の女性で、すでに現場から離脱"
+      },
+      "summary": "伏神が火に封じられ、犯人像は年長女性、時計は戻らない。"
+    },
+    "step_6_integrated_judgment": {
+      "overall_judgment": "大凶（時計は見つからず、犯人は年長の女性で既に立ち去っている）",
+      "reasoning": {
+        "卦象評価": "伏神が火に封じられ、出伏の可能性ゼロ。",
+        "強弱評価": "水（用神）が火旺で完全に枯渇。",
+        "動爻評価": "静卦だが飛神の象意が犯人像を明確に示す。",
+        "総合": "時計は戻らず、犯人は年長女性で現場から離脱済み。"
+      },
+      "action_recommended": "時計の発見は諦めるべき。出入りした年長女性を確認すること。"
+    },
+    "step_7_verification": {
+      "prediction": "時計は見つからず、犯人は年長女性で現場から離脱。",
+      "actual_result": "時計は発見されず、容疑者として年長女性が浮上し既に退出していた。",
+      "accuracy": "完全に的中"
+    }
+  },
+  "conclusion": "伏神（水）は飛神（火）と季節の火に完全に封じられ、発見は不可能。犯人は年長の女性で、すでに現場から離脱している。",
+  "interpretation_tips": "伏神技法・飛神の圧迫・季節の相剋・六親と八卦の象意を組み合わせることで、失物の不可出と犯人像を特定する高度な例。"
+}
+"example_14": {
+  "title": "易占起例14：ある物を推測する①",
+  "background": "占者の誕生日に、アメリカの友人から誕生日プレゼントを送ったという連絡があった。そこで、実際に品物が届く前に易占を立て、どのようなプレゼントが送られてきたのかを推測した事例である。占日：丙申（金）日辰、辛卯（木）月建。得卦：地風升（震宮・木）、世爻：三爻（丑・土・妻財）、応爻：六爻（酉・金・官鬼）、用神：世爻の財爻（丑・土）。",
+  "question": "私の誕生日プレゼントはなんでしょうか？",
+  "hexagram_data": {
+    "honke": "地風升（震宮）",
+    "honke_type": "多爻発動卦",
+    "henke": "（複数の動爻の変化に基づく変卦）",
+    "miya_gua": "震（雷）",
+    "miya_wuxing": "木",
+    "month_branch": "卯",
+    "month_wuxing": "木",
+    "day_branch": "申",
+    "day_wuxing": "金",
+    "tai_position": "三爻（丑・土・妻財）",
+    "you_position": "三爻（丑・土・妻財）",
+    "hexagram_lines": [
+      {
+        "position": "六爻",
+        "type": "官",
+        "branch": "酉",
+        "wuxing": "金",
+        "note": "外卦・応爻（送り手・品物）"
+      },
+      {
+        "position": "五爻",
+        "type": "父",
+        "branch": "亥",
+        "wuxing": "水",
+        "note": "外卦"
+      },
+      {
+        "position": "四爻",
+        "type": "才",
+        "branch": "丑",
+        "wuxing": "土",
+        "note": "外卦"
+      },
+      {
+        "position": "三爻",
+        "type": "官",
+        "branch": "酉",
+        "wuxing": "金",
+        "note": "内卦・動爻（酉→午/火・子孫へ変化）"
+      },
+      {
+        "position": "二爻",
+        "type": "父",
+        "branch": "亥",
+        "wuxing": "水",
+        "note": "内卦"
+      },
+      {
+        "position": "初爻",
+        "type": "才",
+        "branch": "丑",
+        "wuxing": "土",
+        "note": "内卦"
+      }
+    ],
+    "moving_lines": [3],
+    "tai_wuxing": "土（三爻・丑）",
+    "you_wuxing": "土（妻財）",
+    "fushin_note": "三爻の官鬼（酉・金）が子孫（午・火）へ化出する変化が、品物の性質を推理する決定打となる。"
+  },
+  "detailed_case_analysis": {
+    "step_1_youshin": {
+      "question_type": "物品の推測・未着の贈り物の内容予知",
+      "framework": "妻財（土）の旺衰＋動爻（官鬼→子孫）の性質変化",
+      "tai_youshin": "世爻（三爻・丑・土）＝占者",
+      "you_youshin": "妻財（土）＝プレゼント",
+      "reasoning": "物品＝妻財。世爻と同じ場所にあるため、確実に届く。",
+      "special_observation": {
+        "youshin_wuxing": "用神（土）が世爻に臨む＝用神持世で、獲得が確定している。"
+      }
+    },
+    "step_2_month_analysis": {
+      "month_branch": "卯",
+      "month_wuxing": "木",
+      "tai_wuxing": "土",
+      "relationship": "木剋土（月剋）",
+      "verdict": "高価な物ではなく、庶民的・日常的な価格帯の品物。"
+    },
+    "step_3_day_analysis": {
+      "day_branch": "申",
+      "day_wuxing": "金",
+      "tai_wuxing": "土",
+      "relationship": "土生金（洩気）",
+      "verdict": "市場価値は控えめ。しかし動爻の変化が本質を決める。"
+    },
+    "step_4_moving_line": {
+      "moving_lines_count": 1,
+      "moving_lines": [
+        {
+          "position": "三爻（動爻）",
+          "changing_to": "午（火・子孫）",
+          "meaning": "官鬼（金）→子孫（火）への変化で、堅い物から楽しい物へ性質転換",
+          "interpretation": "官鬼（本・文具・実用品）が月破で弱まり、子孫（おもちゃ・娯楽）が主役へ。火生土で世爻を喜ばせる象意。",
+          "rokugou_transformation": {
+            "title": "子孫（火）が世爻（土）を生じる",
+            "meaning": "精神的喜び・可愛らしさ・娯楽性の高い品物である。",
+            "final_verdict": "お堅い実用品ではなく、愛らしいぬいぐるみ・おもちゃ系。"
+          }
+        }
+      ]
+    },
+    "step_5_wuxing_chain": {
+      "chain_1": {
+        "trigger": "用神（土）が世爻に臨む",
+        "result": "プレゼントは確実に届く"
+      },
+      "chain_2": {
+        "trigger": "月日から剋・洩される",
+        "result": "高価ではない"
+      },
+      "chain_3": {
+        "trigger": "官鬼→子孫の化出",
+        "result": "おもちゃ・ぬいぐるみ系の楽しい品物"
+      },
+      "summary": "入手確実・価格控えめ・性質は子孫＝可愛いおもちゃ。"
+    },
+    "step_6_integrated_judgment": {
+      "overall_judgment": "吉（可愛らしいぬいぐるみ・おもちゃ系のプレゼント）",
+      "reasoning": {
+        "卦象評価": "用神持世で到着確実。",
+        "強弱評価": "高価ではないが、心のこもった贈り物。",
+        "動爻評価": "官鬼→子孫の変化が決定打で、娯楽・可愛さが主役。",
+        "総合": "テディベアなどのぬいぐるみ系が最も妥当。"
+      },
+      "action_recommended": "値段よりも、友人の気持ちと遊び心に感謝を伝えると良い。"
+    },
+    "step_7_verification": {
+      "prediction": "可愛いぬいぐるみ（テディベア）が届く。",
+      "actual_result": "実際にテディベアが届き、易占の推測が完全に的中した。",
+      "accuracy": "完全に的中"
+    }
+  },
+  "conclusion": "プレゼントは確実に届き、高価ではないが、子孫の象意から『可愛らしいぬいぐるみ・おもちゃ』であると断定できる。実際にテディベアが届き、卦象と完全一致した。",
+  "interpretation_tips": "用神持世・官鬼→子孫の化出・月日の相剋による価格推定など、物品推測の実戦的技法が詰まった例。"
+}
+"example_15": {
+  "title": "易占起例15：ある物を推測する②",
+  "background": "占者の優秀な生徒が誕生日プレゼントを贈ってくれた際、中身を伏せた状態で何を贈ってくれたのかを易占によって推測した事例である。占者は卦象から導き出したディテールを告げ、その正確さで生徒を非常に驚かせた。占日：庚子（水）日辰、壬辰（土）月建。得卦：地水師（坎宮・水）、世爻：三爻（丑・土・官鬼）、応爻：六爻（酉・金・父母）、用神：世爻の財爻（伏神：午・火）または応爻・動爻の象意。",
+  "question": "私への誕生日プレゼントは何でしょうか？",
+  "hexagram_data": {
+    "honke": "地水師（坎宮）",
+    "honke_type": "単爻発動卦",
+    "henke": "（四爻発動による変卦）",
+    "miya_gua": "坎（水）",
+    "miya_wuxing": "水",
+    "month_branch": "辰",
+    "month_wuxing": "土",
+    "day_branch": "子",
+    "day_wuxing": "水",
+    "tai_position": "三爻（丑・土・官鬼）",
+    "you_position": "六爻（酉・金・父母）",
+    "hexagram_lines": [
+      {
+        "position": "六爻",
+        "type": "父",
+        "branch": "酉",
+        "wuxing": "金",
+        "note": "外卦・応爻（プレゼントの象意）"
+      },
+      {
+        "position": "五爻",
+        "type": "兄",
+        "branch": "亥",
+        "wuxing": "水",
+        "note": "外卦"
+      },
+      {
+        "position": "四爻",
+        "type": "官",
+        "branch": "丑",
+        "wuxing": "土",
+        "note": "外卦・動爻（丑→午/火へ変化）"
+      },
+      {
+        "position": "三爻",
+        "type": "才",
+        "branch": "午",
+        "wuxing": "火",
+        "note": "内卦・世爻（原本表記に従う）"
+      },
+      {
+        "position": "二爻",
+        "type": "官",
+        "branch": "辰",
+        "wuxing": "土",
+        "note": "内卦"
+      },
+      {
+        "position": "初爻",
+        "type": "子",
+        "branch": "寅",
+        "wuxing": "木",
+        "note": "内卦"
+      }
+    ],
+    "moving_lines": [4],
+    "tai_wuxing": "火（三爻・午）",
+    "you_wuxing": "金（六爻・酉）および土（四爻・丑）",
+    "fushin_note": "応爻（金）・動爻（土）・伏神（火）の三層構造から、金属＋プラスチックの実用品を推理する。"
+  },
+  "detailed_case_analysis": {
+    "step_1_youshin": {
+      "question_type": "未着の物品の性質推測",
+      "framework": "応爻（金）の材質＋動爻（土）の用途分析",
+      "tai_youshin": "世爻（三爻・午・火）",
+      "you_youshin": "応爻（六爻・酉・金）",
+      "reasoning": "応爻＝相手から届く物体。酉（金）は小さく精巧な金属製品を示す。",
+      "special_observation": {
+        "youshin_wuxing": "陰金＝小型・精密・金属パーツの象意が強い。"
+      }
+    },
+    "step_2_month_analysis": {
+      "month_branch": "辰",
+      "month_wuxing": "土",
+      "tai_wuxing": "土（四爻・官鬼）",
+      "relationship": "土が金を生じる（土生金）",
+      "verdict": "月建の土が応爻（金）を強め、動爻（土）も旺相。実用品の象意が強まる。"
+    },
+    "step_3_day_analysis": {
+      "day_branch": "子",
+      "day_wuxing": "水",
+      "tai_wuxing": "火（三爻）",
+      "relationship": "子午沖（日破）",
+      "verdict": "財（火）が弱く、高価な品ではない。カジュアル価格帯の実用品。"
+    },
+    "step_4_moving_line": {
+      "moving_lines_count": 1,
+      "moving_lines": [
+        {
+          "position": "四爻（動爻）",
+          "changing_to": "午（火・妻財）",
+          "meaning": "官鬼（土）が動き、用途＝規律・時間管理を示す",
+          "interpretation": "官鬼＝規律・管理・時間。土＝プラスチック素材。金（応爻）と土（動爻）が組み合わさり、金属＋プラスチックの実用品を示す。",
+          "rokugou_transformation": {
+            "title": "金＋土＝金属＋プラスチック",
+            "meaning": "五行の物質分類でプラスチックは土。金属パーツ（金）と土（プラ）が融合した製品。",
+            "final_verdict": "時間を管理する実用品＝時計の象意が最も強い。"
+          }
+        }
+      ]
+    },
+    "step_5_wuxing_chain": {
+      "chain_1": {
+        "trigger": "応爻（金）",
+        "result": "小型で精巧な金属製品"
+      },
+      "chain_2": {
+        "trigger": "動爻（土）",
+        "result": "プラスチック素材を含む"
+      },
+      "chain_3": {
+        "trigger": "官鬼（規律・時間）",
+        "result": "時計・タイマー・管理ツールの象意"
+      },
+      "summary": "金属＋プラスチック＋時間管理＝カジュアルウォッチ。"
+    },
+    "step_6_integrated_judgment": {
+      "overall_judgment": "吉（実用的で小型の金属＋プラスチック製の時計＝スウォッチ）",
+      "reasoning": {
+        "卦象評価": "応爻（金）と動爻（土）が素材を明確化。",
+        "強弱評価": "財が弱く高級品ではない。",
+        "動爻評価": "官鬼（土）が用途＝時間管理を示す。",
+        "総合": "金属パーツ＋プラスチックボディのカジュアル時計（Swatch）。"
+      },
+      "action_recommended": "生徒のセンスを褒め、感謝を伝えると良い。"
+    },
+    "step_7_verification": {
+      "prediction": "小型金属＋プラスチックの実用時計。",
+      "actual_result": "実際にスウォッチが贈られ、完全に的中した。",
+      "accuracy": "完全に的中"
+    }
+  },
+  "conclusion": "応爻（金）が小型金属、動爻（土）がプラスチック素材、官鬼が時間管理を示し、財の弱さが価格帯を示す。これらが合流し、プレゼントはカジュアルな金属＋プラスチック製の時計（スウォッチ）であると断定できる。",
+  "interpretation_tips": "応爻の材質判定、動爻の用途推理、五行による素材分類（土＝プラスチック）、日辰による価格帯推定など、物品推測の高度な技法が詰まった例。"
+}
+{
+  "example_18": {
+    "title": "易占起例18：コールドプレイのコンサートチケットを手に入れることができるか？",
+    "background_bazi": "2008年9月、ドイツ・ベルリンでの易占講座中に立てられた問い。英国の人気ロックバンド「コールドプレイ（Coldplay）」のベルリン公演のチケットが完全ソールドアウト（売り切れ）状態の中、講座に参加していた生徒たちが「ショウが始まる直前に、会場の入口（当日券売り場やダフ屋・譲り手など）で3枚のチケットを無事に購入して中に入ることができるか？」を占った事例。",
+    "bazi_chart": null,
+    "yi_jing_forecast_1": {
+      "question": "質問：コールドプレイのコンサートでチケットを三枚買えるか？",
+      "meta_data": {
+        "date_analyzed": "2008年9月（ベルリンのクラスにて）",
+        "day_branch": "戊午（火）",
+        "month_branch": "辛酉（金）",
+        "palace": "坤（地）",
+        "palace_wuxing": "土"
+      },
+      "hexagram_data": {
+        "honke": "坤為地（坤宮・六衝卦）",
+        "tai_position": "六爻（酉・金・子孫）",
+        "you_position": "三爻（卯・木・官鬼）",
+        "lines": [
+          {"position": "六爻", "type": "子", "branch": "酉", "wuxing": "金", "note": "世爻。日辰（午火）に剋されるが月建（酉金）で旺相"},
+          {"position": "五爻", "type": "才", "branch": "亥", "wuxing": "水", "note": "不変"},
+          {"position": "四爻", "type": "兄", "branch": "丑", "wuxing": "土", "note": "動爻（卯木へ変化）"},
+          {"position": "三爻", "type": "官", "branch": "卯", "wuxing": "木", "note": "応爻。動爻（巳火へ変化）"},
+          {"position": "二爻", "type": "父", "branch": "巳", "wuxing": "火", "note": "不変（伏神の扱い）"},
+          {"position": "初爻", "type": "兄", "branch": "未", "wuxing": "土", "note": "動爻（午火へ変化）"}
+        ],
+        "moving_lines": [
+          {
+            "position": "用神の選定",
+            "original": "父母（父）",
+            "target": "卦内に散在する父母（火）",
+            "interpretation": "契約書・チケット＝父母。卦内に父母（火）が3つ出現し、求めるチケット3枚と一致。"
+          },
+          {
+            "position": "初爻（動爻）",
+            "original": "兄弟・未（土）",
+            "target": "父母・午（火）",
+            "interpretation": "初爻が父母（午火）へ化出。友好的な売り手から定価で2枚入手できる象意。"
+          },
+          {
+            "position": "三爻（応爻・動爻）",
+            "original": "官鬼・卯（木）",
+            "target": "父母・巳（火）",
+            "interpretation": "応爻が父母（巳火）へ化出。木生火→火克金で世爻を克す＝高値を要求する非友好的な売り手。"
+          },
+          {
+            "position": "四爻（動爻）",
+            "original": "兄弟・丑（土）",
+            "target": "官鬼・卯（木）",
+            "interpretation": "四爻も世爻を助ける方向へ連動。もう1人の親切な売り手の象意。"
+          }
+        ]
+      },
+      "verdict": "父母（チケット）が3つ出現しているため、3枚の入手は可能。初爻・四爻の2枚は親切な売り手から定価で、三爻の1枚は高値で購入するという二面性のある入手経路となる。"
+    },
+    "historical_verification": {
+      "actual_outcome": "占断後、実際に会場へ向かったところ、まず親切な男性から定価で2枚の立ち見チケットを入手。その後、もう1枚を別の売り手から購入したが、こちらは高額のプレミアム価格であった。占断の通り、3枚すべて入手できたが、2枚は定価・1枚は高値という内訳まで完全一致した。",
+      "accuracy_assessment": "完全的中（入手枚数・売り手の性質・価格差まで100%一致）。"
+    },
+    "interpretation_tips": "学ぶべき技法：(1)用神の個数＝現実の個数。(2)動爻の生剋＝売り手の性質。(3)六衝卦でも動爻が多い場合は強行突破が可能。"
+  }
+}
+{
+  "example_19": {
+    "title": "易占起例19：マイケル・ジャクソンは殺されたのか？",
+    "background_bazi": "二〇〇九年六月二十五日、世界中に衝撃と深い悲しみをもたらしたポップ界の皇帝マイケル・ジャクソンのあまりにも急な逝去を巡る占断。彼の突然の死の直後から、世界中のメディアやファンの間では「専属医による暗殺（意図的な殺害）ではないか」「何らかの陰謀の犠牲になったのではないか」という凄まじい憶測や他殺説が飛び交い、騒然たる状況が続いていた。この未曾有の疑問に対し、レイモンド・ロー氏の高弟であるMs. Georgia Kiafiが純粋な数理時空間スキャン（断易・六爻占術）を敢行。彼女が導き出した極めて緻密な質問と占断の分析結果は、二〇〇九年七月四日にロー氏の公式コミュニティフォーラムへポストされ、その妥協のないロジックの美しさと冷徹な先見性が世界中の専門家を驚嘆させた。ロー氏自身も、Ms. Georgia Kiafiの卓越した易学の協力と、この歴史的占断のクオリティに対して深い感謝の意を表明している。",
+    "bazi_chart": null,
+    "yi_jing_forecast_1": {
+      "question": "質問：マイケル・ジャクソンは外部の何者か（あるいは専属医ら）によって意図的に殺害（他殺）されたのか、それとも肉体的な限界によるものか？",
+      "meta_data": {
+        "date_analyzed": "二〇〇九年七月四日（フォーラムへの詳細投稿および検証日）",
+        "day_branch": "丙午（火）※真夏の強烈な太陽と燃え盛る猛火が最高潮に達する日辰",
+        "month_branch": "庚午（火）※日辰と同じく、季節の絶頂であり金物質を跡形もなく溶かす最強の火の月建",
+        "palace": "兌（沢）宮",
+        "palace_wuxing": "金"
+      },
+      "hexagram_data": {
+        "honke": "水山蹇（すいざんけん・兌宮に属する卦）",
+        "tai_position": "四爻（兄弟・申金）※世爻：マイケル・ジャクソン本人の生命、およびその身体的エネルギーの現在地",
+        "you_position": "初爻（父母・辰土）※応爻：質問の対象、または周囲を取り巻く環境の物質的基盤",
+        "lines": [
+          {"position": "六爻", "type": "子孫", "branch": "子", "wuxing": "水", "note": "不変（外卦・最上層）。静爻として静まり、世爻を直接救うには至らない"},
+          {"position": "五爻", "type": "父母", "branch": "戌", "wuxing": "土", "note": "不変（外卦・中層）。世爻の直上に位置する静かな土の障壁"},
+          {"position": "四爻", "type": "兄弟", "branch": "申", "wuxing": "金", "note": "動爻（世爻：マイケル・ジャクソン）。激しく発動（変爻）して、内卦から漏れ出る変爻「亥・水・子孫」へとその身を変化させる"},
+          {"position": "三爻", "type": "兄弟", "branch": "申", "wuxing": "金", "note": "不変（内卦・最上層）。世爻と同じ五行でありながらも静止したままの孤立した金"},
+          {"position": "二爻", "type": "官鬼", "branch": "午", "wuxing": "火", "note": "不変（内卦・中層）。時空間の最高権力である日辰・月建と同じ『午（火）』を帯びた、圧倒的な熱量を宿す最強の静爻"},
+          {"position": "初爻", "type": "父母", "branch": "辰", "wuxing": "土", "note": "不変（内卦・最下層。応爻）。世爻のルーツを表す土の基盤"}
+        ],
+        "moving_lines": [
+          {
+            "position": "四爻（世爻・動爻）",
+            "original": "兄弟・申（金）",
+            "target": "子孫・亥（水）への変化",
+            "interpretation": "1. 世爻（申金）は日月の猛烈な火（午火）から全方位的に激破され、生命力が完全に枯渇した極限状態にある。2. 他殺を示す官鬼（午火）は静爻であり、動いていないため、外部の加害者による殺害は完全否定される。3. 世爻が動いて子孫（亥水）を化出しているのは、死の直前にマイケル自身が薬物や治療で必死に延命を試みた象。4. しかし化出した亥水は、日月の午火の猛火に触れた瞬間に蒸発し、病魔（官鬼）を制圧できず、肉体が限界を迎えたことを示す。"
+          }
+        ]
+      },
+      "verdict": "卦象全体の数理分析から、他殺を決定づける「官鬼の発動（加害者の積極的行動）」は1ミリも検出されないため、世間で過熱している「外部の人間による意図的な暗殺・陰謀による殺害」の線は完全に否定される。世爻（申金）は日月の最強の火によって完膚なきまでに激破（火克金・融解）され、それに対抗するために必死に化出した子孫（薬物・治療）も夏の猛火で完全に蒸発・無力化していることから、彼自身の心臓（火）のオーバーヒート、あるいは深刻な急性薬物中毒による心肺停止など、肉体的な限界（治癒不能となった内因性の重病）によって絶命したという「病死（自然死および肉体コントロール不全による事故死の範疇）」という揺るぎない結論が導き出される。"
+    },
+    "historical_verification": {
+      "actual_outcome": "司法解剖および長期捜査の結果、死因は『麻酔薬プロポフォール等の急性中毒による心肺停止』であることが公式に確定。専属医の過失致死は認定されたが、外部の加害者による暗殺・他殺の証拠は一切存在しなかった。これは、占断が事件直後に導き出した「他殺は存在しない」「肉体の限界による死」という結論と完全に一致した。",
+      "accuracy_assessment": "完全的中。世界中が陰謀論に飲み込まれる中、卦象の『官鬼が動いていない』という絶対ロジック一点で他殺を否定し、最終的な医学的・法的結論を先回りして言い当てた歴史的占断例である。"
+    },
+    "interpretation_tips": "この事例から学ぶべき3つの高等技法：(1)【他殺か病死かを分かつ官鬼の動静判定】官鬼が動かない＝外部加害者なし。動く＝加害者の存在。(2)【世爻の発動＝延命・治療の試み】世爻が子孫を化出する相は、薬物治療や応急処置の象。(3)【日月同辰の極旺火による金の融解】午火が極端に強い時期は、金（肺・心肺機能）が焼き尽くされる象であり、心肺停止の物理的メカニズムを完璧に描写する。"
+  }
+}
+{
+  "example_20": {
+    "title": "易占起例20：二〇一二年に地球では破滅的な災害があるか？",
+    "background_bazi": "近年、世界中で「二〇一二年一二月二一日に最後の審判の日（世界最後の日）が訪れる」という終末論が広まり、多くの人々が深刻な不安に駆られていた。このパニックの背景には、ハリウッドのパニック映画『2012』の世界的ヒットがあり、劇中で俳優ジョン・キューザックが演じる主人公がイエローストーン国立公園で出会った男から「最後の審判の日の予言は聖書、マヤ暦、そして易経（経典）の中にすべて見つけることができる」と告げられるシーンが人々の恐怖を増長させていた。特に『易経』と2012年の終末を結びつける根拠とされたのが、2000年に他界したテレンス・マッケナによる著書『非可視の風景：精神、幻覚剤、易経（仮題）』（原題：“The Invisible Landscape: Mind, Hallucinogens, and the I Ching”）である。マッケナは周文王が定めた周易六十四卦の配列（天地の乾坤に始まり、最終的に水火既済・火水未済で終わる螺旋的な発展段階）からインスピレーションを受け、六十四卦の全三百八十四爻のひとつひとつに複雑な数学的数値を割り当てて世界史のバイオリズムを現す「タイムウェーブ理論（Time Wave Theory）」を提唱した。この理論の曲線の最終点を「二〇一二年一二月二一日」に設定すると、曲線上のあらゆる頂点と最下点が人類史の重大なターニングポイントと奇妙に一致するため、彼はこの最下点の日を以て世界が終焉すると結論づけた。しかし、占者（レイモンド・ロー氏）は、易経そのものが二〇一二年について直接的な予言をしているわけではなく、マッケナの数理モデルにヒントを与えたに過ぎないと断言する。六十四卦の最後を締めくくる「既済」と「未済」は、世界の完全な「終わり」を意味するのではなく、むしろ『変化には終わりがないこと（未完成の永続）』を象徴しており、四季が巡りて再び新しい一年が始まるような螺旋状の自然循環を示しているため、易経を根拠とした地球滅亡説は明確な間違いであると論破した。",
+    "皇極経世書による宇宙周期システム": {
+      "overview": "占者が『易経』の数理システムにおいて世界のタイムラインを測る上で最も信頼性が高く、終末論を否定する決定的な根拠として挙げたのが、宋代の易学の大家・邵雍（しょうよう）が著した『皇極経世書（こうきょくけいせいしょ）』である。邵雍は易の陰陽数理から、宇宙と人类文明の興亡を司る壮大な時間単位を発明し、それを「元（げん）」「会（かい）」「運（うん）」「世（せい）」という厳密な数理階層によって区切った。",
+      "time_units_calculation": {
+        "formula_1_generation": "1世（せい） ＝ 30年",
+        "formula_1_fortune": "1運（うん） ＝ 12世 ＝ 360年",
+        "formula_1_assembly": "1会（かい） ＝ 30運 ＝ 360世 ＝ 10,800年",
+        "formula_1_cycle": "1元（げん） ＝ 12会 ＝ 360運 ＝ 4,320世 ＝ 129,600年"
+      },
+      "cosmic_chronology_64_phases": {
+        "total_scale": "邵雍は宇宙全体の生命周期である『1元（129,600年）』をベースに、世界年を文王六十四卦の順序に則って六十四の期間に分割した。乾坤に始まり未済に終わるこの全サイクルの合計時間は「129,600元」に及び、地球の誕生から終焉、精度高い時間の終わりまでのロードマップを極めて長い時間軸で採用・分類している。",
+        "phases_details": [
+          {
+            "phase": "第一期：乾為天（けんいてん）",
+            "duration_yuan": "60,000元",
+            "duration_years": "7,776,000,000年（60,000 × 129,600）",
+            "cosmic_event": "地球の誕生（宇宙の創生と天の形成段階）"
+          },
+          {
+            "phase": "第二期：坤為地（こんいち）",
+            "duration_yuan": "3,600元",
+            "duration_years": "466,560,000年（3,600 × 129,600）",
+            "cosmic_event": "古代（大地の形成と原初的な物質の定着）"
+          },
+          {
+            "phase": "第三期：水雷屯（すいらいちゅん）",
+            "duration_yuan": "1,000元",
+            "duration_years": "129,600,000年（1,000 × 129,600）",
+            "cosmic_event": "大陸と海の形成（混沌からの地殻大変動と海洋の確立）"
+          },
+          {
+            "phase": "第四期：山水蒙（さんすいもう）",
+            "duration_yuan": "124元",
+            "duration_years": "16,070,400年（124 × 129,600）",
+            "cosmic_event": "植物と草木の出現（地表の緑化と生態系の基礎確立）"
+          },
+          {
+            "phase": "第五期：水天需（すいてんじゅ）",
+            "duration_yuan": "36元",
+            "duration_years": "4,665,600年（36 × 129,600）",
+            "cosmic_event": "動物の出現（多種多様な生命体・生物の地上への繁茂）"
+          },
+          {
+            "phase": "第六期：天水訟（てんすいしょう）",
+            "duration_yuan": "10元",
+            "duration_years": "1,296,000年（10 × 129,600）",
+            "cosmic_event": "大洪水（地球規模の激しい気候変動と水害の時代）"
+          },
+          {
+            "phase": "第七期：地水師（ちすいし）",
+            "duration_yuan": "5元",
+            "duration_years": "648,000年（5 × 129,600）",
+            "cosmic_event": "人類の出現（原初の人類の誕生と地上への適応）"
+          },
+          {
+            "phase": "第八期：水地比（すいちひ）※現在のステージ",
+            "duration_yuan": "1元",
+            "duration_years": "129,600年（1 × 129,600）",
+            "cosmic_event": "人類の文明（高度な知的文明の発展期）。「現在、私たちはこの第八期（水地比）のステージのちょうど中間に位置している。すなわち、次の第九期へ移行するだけでも、計算上まだ約六万年もの膨大な時間が残されている」。"
+          },
+          {
+            "phase": "第九期 ～ 第五十七期：風天小畜から巽為風まで",
+            "duration_yuan": "50元",
+            "duration_years": "6,480,000年（50 × 129,600）",
+            "cosmic_event": "文明の存続（人類が数々の興亡を繰り返しながら文明を維持し続ける長い時代）"
+          },
+          {
+            "phase": "第五十八期：兌為沢（だいたく）",
+            "duration_yuan": "5元",
+            "duration_years": "648,000年（5 × 129,600）",
+            "cosmic_event": "人類の衰退（環境の変化や種としての寿命による衰亡の始まり）"
+          },
+          {
+            "phase": "第五十九期：風水渙（ふうすいかん）",
+            "duration_yuan": "10元",
+            "duration_years": "1,296,000年（10 × 129,600）",
+            "cosmic_event": "大洪水（再び地球を襲う終末的な大水害）"
+          },
+          {
+            "phase": "六十期：水沢節（すいたくせつ）",
+            "duration_yuan": "36元",
+            "duration_years": "4,665,600年（36 × 129,600）",
+            "cosmic_event": "種の衰退（生存可能領域の極端な制限による生物の絶滅期）"
+          },
+          {
+            "phase": "六一期 ～ 六二期",
+            "duration_yuan": "不明（原本表中のブランク項目）",
+            "duration_years": "各期に応じた年数",
+            "cosmic_event": "大陸の埋没（地殻の大陥没と海洋への沈下段階）"
+          },
+          {
+            "phase": "六十三期：風沢中孚（ふうたくちゅうふ）",
+            "duration_yuan": "124元",
+            "duration_years": "16,070,400年（124 × 129,600）",
+            "cosmic_event": "植物が生長できなくなる（太陽光の遮断や大気枯渇による植物相の完全停止）"
+          },
+          {
+            "phase": "六十四期：雷山小過（らいざんしょうか）",
+            "duration_yuan": "1,000元",
+            "duration_years": "129,600,000年（1,000 × 129,600）",
+            "cosmic_event": "宇宙的な大変動を伴う最終移行期"
+          },
+          {
+            "phase": "水火既済（すいかきせい）",
+            "duration_yuan": "3,600元",
+            "duration_years": "466,560,000年（3,600 × 129,600）",
+            "cosmic_event": "地球の最後（惑星としての寿命の尽きる物理的な終焉）"
+          },
+          {
+            "phase": "火水未済（かすいびせい）",
+            "duration_yuan": "60,000元",
+            "duration_years": "7,776,000,000年（60,000 × 129,600）",
+            "cosmic_event": "時間の最後（時空間そのものの消滅と、次の新たな1元への大いなる還流）"
+          }
+        ],
+        "system_conclusion": "邵雍はさらにマクロな宇宙周期だけでなく、1年ごとの運気を測るために『皇極経世書』の中で「年卦（ねんか）」というシステムを配した。これによると、二〇一二年の年卦は『地雷復（ちらいふく）』に割り当てられている。地雷復の卦象が意味するものは『一陽来復』、すなわち「再生、一連の暗闇のあとに訪れる新しい段階の始まり」である。この年卦の事実ひとつを取っても、2012年が滅亡の年などではなく、むしろ新しいエネルギーの出発点であることを示しており、文明終末論がいかに荒唐無稽であるかが証明される。"
+      }
+    },
+    "bazi_chart": {
+      "birth_date": "終末の指定日とされた当日：2012年12月21日の四柱推命（八字）の構造",
+      "day_master": "丙火（太陽の火、輝くエネルギー）",
+      "season_status": "仲冬（子月）生まれ。水気が最も激しく、火が最も嫌う過酷な極寒の季節",
+      "three_pillars": {
+        "year_pillar": "壬辰（水・土）※天干の壬は恐ろしい海の水を象徴し、地支の辰は水を強力に蔵干（乙・癸・戊）に蓄える泥土の器",
+        "month_pillar": "壬子（水・水）※天干の壬と地支の子が一体となり、冬の最盛期の制御不能な激流・津波のような破壊的威力を現す",
+        "day_pillar": "丙辰（火・土）※日元の丙が乗る地支は湿った土（辰）であり、火の力を急激に漏気させる",
+        "time_pillar": "不明（三柱による分析）"
+      },
+      "luck_pillars_10_year": [],
+      "current_fortune_2003": {
+        "age_status": "時間の時空間スキャンのため大運は存在しない",
+        "clash_triple_punishment": "天干において、年干と月干に二重に並んだ凶暴な「壬（水）」が、日元の「丙（火）」に対して『丙壬の相衝（激しい正面衝突）』を容赦なく引き起こしている。これは天界における激しい気流の乱れや、急激な天候変化の象である。さらに地支を見ると、年支の「辰」と日支の「辰」という二つの土の器が、月支の「子（水）」を中央に挟み込んでいる。これにより、本来であれば『申・子・辰』の三つの地支が揃うことで成立する三合水局が、申が無くとも子と辰の強烈な結びつきによって『子辰の半三合水局』を二重に形成する形となり、地の下で制御不能なほどに膨れ上がった「巨大な水のエネルギー（大洪水、地殻の液状化、あるいは水害を伴う激震）」を地下深くから創出している。"
+      }
+    },
+    "yi_jing_forecast_1": {
+      "question": "質問：二〇一二年に破滅的な災害があるかどうか？",
+      "meta_data": {
+        "date_analyzed": "2012年の前半（世界的な議論が白熱していた検証期）",
+        "day_branch": "丙寅（木）",
+        "month_branch": "乙亥（水）",
+        "palace": "巽（風）",
+        "palace_wuxing": "木"
+      },
+      "hexagram_data": {
+        "honke": "山雷頤（巽宮）",
+        "tai_position": "四爻（兄弟・戌土）※世爻：地球そのものの肉体と物理的耐久力",
+        "you_position": "二爻（兄弟・寅木）※応爻：対峙する環境や要素",
+        "lines": [
+          {"position": "六爻", "type": "官鬼", "branch": "酉", "wuxing": "金", "note": "不変（外卦・最上層）。静爻として控える"},
+          {"position": "五爻", "type": "父母", "branch": "未", "wuxing": "土", "note": "不変。世爻である戌土のすぐ上に位置する環境"},
+          {"position": "四爻", "type": "兄弟", "branch": "戌", "wuxing": "土", "note": "動爻（世爻：地球）。発動して「酉・金・官鬼」へと変化（化出）する"},
+          {"position": "三爻", "type": "妻財", "branch": "辰", "wuxing": "土", "note": "不変（内卦・最上層）"},
+          {"position": "二爻", "type": "兄弟", "branch": "寅", "wuxing": "木", "note": "動爻（応爻）。発動して「卯・木」へ変化し『進神』となる"},
+          {"position": "初爻", "type": "父母", "branch": "子", "wuxing": "水", "note": "不変（内卦・最下層）"}
+        ],
+        "moving_lines": [
+          {
+            "position": "四爻（世爻・動爻）",
+            "original": "兄弟・戌（土）",
+            "target": "官鬼・酉（金）へ変化",
+            "interpretation": "1. この易占において地球そのものの健康状態・物理的肉体を象徴する世爻は、四爻の「戌（土・兄弟）」である。この土のエネルギーを取り巻く環境は極めて苛酷である。月建の「亥（水）」からは自らの力を大量に吸い取られて漏気（財への過剰なエネルギー流出）しており、さらに日晨の「寅（木）」からは正面から強烈に『木克土』と痛めつけられている。基礎体力が限界まで弱まり、免疫力が低下しきった深刻な衰弱状態にあることを現す。\n2. 内卦（下卦）の二爻に目を向けると、もう一つの木（兄弟・寅）が激しく発動し、十二支の順方向である「卯（木）」へと変化している。これは占術において勢いが倍加しながら前進する『進神（しんしん）』の形態であり、この圧倒的な木のエネルギーが、ただでさえ弱り切っている世爻の土（地球）の肉体を容赦なくズタズタに引き裂き、破壊（木克土）しにかかっている。国家占や環境占において「兄弟」の異常な暴発・進神は『身内・同居人による略奪、内部の破壊者』を意味する。すなわちこれは、地球の外側からやってくる天災などではなく、地球上に同居している人間自らが、自欲のために自然環境を徹底的に痛めつけ、切り刻んでいる「深刻な環境破壊」「エゴによる地球温暖化」「生態系のパニック」の生々しい告発である。\n3. これに対抗すべく、世爻である地球（戌・土）も自ら動いて「官鬼・酉（金）」を化出（変爻）させている。この金は、地球を痛めつける木（人間の傲慢な開発や破壊活動）を『金克木』と力づくで剪定し、引き剥がそうとする作用を持つ。したがって、この化出した官鬼の金は「人類の暴挙にブレーキをかけ、地球を守るために制定される国際的な環境保護法律、二酸化炭素の排出規制、環境保護の条約・枠組み」と解釈できる。しかし、攻めてくる木（破壊活動）は日月（寅・亥）という時空間の最強のバックアップ（水生木、および木旺）を得て無敵の破壊力を誇っているのに対し、地球側が必死の抵抗として生み出した法律（官・金）はあまりにも微力で刃が立たない。人間の際限ない欲望と環境破壊の進撃を完全にストップさせるには至らず、規制の効果が極めて薄い（空回りする）悲しい現実を写し出している。"
+          },
+          {
+            "position": "五爻の飛伏と救済エネルギーの窒息",
+            "original": "子孫・巳（火）",
+            "target": "卦内に現れず（伏神として水の下に沈む、あるいは極度の衰弱）",
+            "interpretation": "満身創痍の地球（土）が本来の生命力を取り戻し、蘇生を果たすには、五行のエネルギー循環（相生）のロジック上、土に無尽蔵の生気と熱量を与えてくれる救いの光『火（子孫）』の強力なサポートが絶対に不可欠である。しかし、この決定的な救済の神である「子孫（火）」は、六爻の表面（表卦）に一切現れておらず、五爻に座する冷徹な水（あるいは父母・未土の下の冷たい水気）の影に隠れて、完全に息の根を止められた「伏神（ふくしん）」の状態にある。日晨の木（寅）から生じられてわずかな火種はあるものの、冷酷な冬の水の季節（月建：亥水）によって上から激しく抑え込まれているため、この『子孫（火）』の生命力はほぼ死滅（窒息）状態にある。断易において子孫は「パニックを鎮める特効薬」「地球環境を劇的に救済する技術的ブレイクスルー」を意味するため、この絶対的な弱さは、人類が現在の地球崩壊への流れを食い止めるための抜本的な解決策やクリーンエネルギーの確立を講じることが, いかに困難であるかを冷徹に裏付けている。"
+          }
+        ]
+      },
+      "verdict": "卦象全体のダイナミズムは、地球が受ける最大の危機・ダメージの根源が「兄弟（内側からの身内の暴発、すなわち人類自身の過ちと強欲）」にあることを明確に示している。2012年以降、地球温暖化に伴う異常気象の凶暴化、極端な気候パニック、局地的な生態系崩壊（木の進神が土を克す象）が急激に牙を剥くことは避けられない。しかしながら、もし「地球滅亡」が真実であるならば、外来の絶対的な絶滅神（たとえば外卦の官鬼が凶暴に発動して世爻を跡形もなく粉砕する相など）が文字通り一撃で全てを終わらせるサインを出すはずであるが、そのような彗星の地球直撃、致命的な太陽嵐による大気消滅、あるいは地軸の完全なひっくり返り（極移動）といった【地球そのものが物理的に消滅・爆発・大破滅を迎えるようなオカルト的滅亡のシグナル】は、卦内のどこを探しても1ミリも出現していない。地球は傷つきながらも存続する。"
+    },
+    "historical_verification": {
+      "actual_outcome": "二〇一二年に地球では破滅的な災害があるか？という問いに対し、二〇一二年一二月二一日に世界中のオカルト主義者やマスコミが騒ぎ立てた「地球滅亡（最後の審判の日）」の予言は当然のごとく完全なデマに終わり、二二日の朝は何事もなく訪れた。しかし、占者が八字（四柱推命）と玄空飛星（風水）の多角的な配置から看破した『局地的な激しい水害と大震災』という物理的な災害ヴィジョンは、2012年12月にまさに恐ろしい精度で現実化した。2012年の流年である「壬辰」は、大量の水分を含んだ泥土の年であり、過去の歴史において丙辰（1976年）の年に24万人以上の死傷者を出し、中国史上最悪の惨劇となった『唐山大地震』が発生したことからも証明されるように、辰の年は地殻が緩みやすく、未曾有の巨大地震や大規模な地殻変動、液状化の引き金になりやすい特異な性質を持つ。さらに、問題の終末論の指定月である12月は「壬子（みずのえね）月」であり、天干のダブル壬（大海の激流）と、地支の子辰半三合水局が完全にロックしたことで、文字通り『地上を飲み込む圧倒的な津波・氾濫のエネルギー』が時空間を満たしていた。この2012年12月の『玄空飛星図（風水の月盤）』を重ね合わせると、事態はさらに深刻であった。東南の宮（東南アジアや環太平洋の南東エリア）において、あらゆる災厄と破滅、不幸を最悪の威力で引き起こす大凶星「五黄土星（破壊の星）」と、激しい激震・大地の震動・突発的なパニックを司る「三碧木星（地震の星）」が、全く同じ宮に同宮するという『五・三の最悪の凶数結合』を形成していた。この配置の通り、2012年12月およびその前後の期間、地球規模の滅亡こそ免れたものの、アジア圏を含む南および南東領域 of 国々において、歴史的な集中豪雨による凄まじい大洪水や、大地を切り裂くような激しい局地的大地震が連続して発生し、甚大な被害をもたらした。地球は滅びなかったが、環境破壊（兄弟の進神）を続ける人類に対する大自然の警告（激流の水）の爪痕は、あまりにも深く歴史に刻まれる結果となった。",
+      "accuracy_assessment": "完全的中（世間の流行や映画が煽る「地球滅亡」という最大級の虚妄を皇極経世書の数理を用いて学術的に完全否定しつつ、地球環境が内側から蝕まれている真の病根【兄弟の進神】を断易で暴き、さらに2012年12月に局地的に発生する洪水・巨大地震の発生時期、物理的な正体、反映された被災領域【東南の五三同宮】にいたるまでを完璧に透視・論破した驚異的な占断である）。"
+    },
+    "interpretation_tips": "この壮大な地球規模の検証例から学ぶべき、占術界最高峰の3つの高等技法：\n\n(1)【人為的オカルト論への「皇極経世書」によるマクロな宇宙的カウンター】\nマスコミやエンタメ、オカルト主義者が目先の数字を都合よく解釈して煽る「最後の審判の日」に対し、邵雍が易の数理から構築した『1元＝12会＝360運＝4320世＝129,600年』という圧倒的な大宇宙のタイムスケールを持ち出し、冷静に人間の文明の現在地（水地比の第八期のまさに中間にすぎず、次のステージまでにまだ6万年以上あるという事実）を証明する手法である。目先の流行や恐怖に一切惑わされることなく、大局的な数理の真理から時代を俯瞰する、本物の命理・易学者が持つべき絶対的な視座がここにある。\n\n(2)【「兄弟の進神」を人類の環境破壊・エゴへと翻訳する断易の直感力】\n国家占や地球環境を占うマクロな鑑定において、世爻（地球の肉体）を木克土とズタズタに克してくる二爻の兄弟（寅木➔卯木への進神）のエネルギーを、彗星の激突や小惑星の激突といった外部からの災厄（官鬼）ではなく、「地球を内側から食い荒らす同居人＝人間そのものの間違った活動、強欲な開発、自然破壊」と定義した点に、断易の通変星（六親五神）を現代の社会問題へダイレクトに接続する最高峰の翻訳妙味がある。動爻の変化の方向性を社会現象として的確に捉える見事な例である。\n\n(3)【四柱推命・断易・飛星図のトリプルクロス・プロファイリングによる現象の立体化】\n地球の長期的・マクロな安全性を『皇極経世書』の年卦（地雷復＝再生）と『山雷頤』の不変官鬼によって担保しつつ、実際の2012年12月当日の危うさを『天干の双壬丙相衝・地支の子辰半三合水局』という八字（四柱推命）の強烈な水害シグナルで即座に検知、さらにその具体的な被災方角を『東南の宮における五黄と三碧の同宮（月盤飛星図）』でピンポイントに特定する。異なる3つの占術の網の目を重ね合わせることで、時空間の波を1ミリの狂いもなく物理現象（局地的な洪水・地震）へとランディングさせる、レイモンド・ロー理論の極致がこの起例20に集約されている。"
+  }
+}
+{
+  "example_17": {
+    "title": "易占起例17：ダイアナ妃は暗殺されたのか？",
+    "background_bazi": "一九九七年八月三十一日にフランス・パリで発生した衝撃的な自動車事故により、元英国皇太子妃ダイアナが急逝。このあまりにも悲劇的かつ突発的な死の直後から、世界中のメディアや民衆の間では「英国王室や情報機関による計画的な暗殺（他殺）ではないか」「パパラッチを隠れ蓑にした意図的な謀殺ではないか」という無数の陰謀論や暗殺説が囁かれ、国際的な大論争へと発展していた。この歴史的な謎に対し、占者（レイモンド・ロー氏）は事件から約二ヶ月が経過した一九九七年十月二十九日、世論の感情的なノイズを完全に排除し、時空間の数理システムである断易（六爻占術）を用いてその死の「真の因果関係」を冷徹に解き明かすべく占断を敢行した事例である。",
+    "bazi_chart": null,
+    "yi_jing_forecast_1": {
+      "question": "質問：ダイアナ妃は外部の陰謀によって暗殺（他殺）されたのか、それとも純粋な偶発的事故（事故死）だったのか？",
+      "meta_data": {
+        "date_analyzed": "一九九七年十月二十九日",
+        "day_branch": "甲戌（土）※世爻を墓に閉じ込める、あるいは激しい衝撃を内包する土のエネルギーの日晨",
+        "month_branch": "庚戌（土）※日晨と全く同じ十二支であり、強烈な土の二重の重圧が空間を支配する月建",
+        "palace": "震（雷）宮",
+        "palace_wuxing": "木"
+      },
+      "hexagram_data": {
+        "honke": "雷風恒（らいふうこう・震宮に属する卦）",
+        "tai_position": "三爻（酉・金・官鬼）※世爻：ダイアナ妃本人の生命、および事故当時の肉体的・物理的な座標",
+        "you_position": "六爻（戌・土・妻財）※応爻：対峙する環境、または事故現場の物理的状況",
+        "lines": [
+          {"position": "六爻", "type": "妻財", "branch": "戌", "wuxing": "土", "note": "不変（外卦・最上層）。応爻。日月の戌土と完全に同調し、逃れられない巨大な壁を形成する"},
+          {"position": "五爻", "type": "官鬼", "branch": "申", "wuxing": "金", "note": "不変（外卦・中層）。世爻の酉金と同じ五行であり、周囲を取り囲む金属（車両）の象"},
+          {"position": "四爻", "type": "子孫", "branch": "午", "wuxing": "火", "note": "不変（外卦・最下層）。静爻。火克金として官鬼を制する力を持つが、動かずに沈黙している"},
+          {"position": "三爻", "type": "官鬼", "branch": "酉", "wuxing": "金", "note": "不変（内卦・最上層）。世爻：ダイアナ妃。日月の戌土から強烈に生じられるが、同時に土の「墓」に閉じ込められる静爻"},
+          {"position": "二爻", "type": "父母", "branch": "亥", "wuxing": "水", "note": "不変（内卦・中層）。静爻。金属の力を漏気させる水エネルギー"},
+          {"position": "初爻", "type": "兄弟", "branch": "子", "wuxing": "水", "note": "不変（内卦・最下層）。静爻。足元を流れる冷たい水"}
+        ],
+        "moving_lines": [
+          {
+            "position": "三爻（世爻・静爻）の環境と、卦全体の静止（六爻不変）",
+            "original": "官鬼・酉（金）",
+            "target": "動爻なし（不変卦）",
+            "interpretation": "1. この占断においてダイアナ妃本人を現す絶対の用神（座標）は、三爻に位置する世爻「酉（金・官鬼）」である。まず断易の根本原則において、外部の暗殺者や陰謀組織が明確な「殺意」を持って彼女を罠に嵌め、計画的に殺害（他殺）したのであれば、その凶手を象徴する爻が激しく発動（動爻）し、世爻を執拗に相克・相破する動態が卦の中に明確に刻まれなければならない。しかし、提示された『雷風恒』という卦は、初爻から六爻に至るまで一本の爻も動いていない、完全な『不変卦（静的な卦）』である。この「動爻が一切存在しない」という圧倒的な数理的事実こそが、外部からの人為的な作意、暗殺計画、意図的な妨害工作が1ミリも介在していないことの動かぬ証拠である。したがって、陰謀論者が主張する暗殺説はこの時点で完全に論破され、根拠を失う。\n2. では、なぜ彼女はあの凄まじい大事故に巻き込まれ、命を落とさねばならなかったのか。その原因は、時空間の五行エネルギーの極端な偏りと「墓（ぼ）」のロジックに鮮やかに写し出されている。この占いがなされた空間、そして事故の因果を支配するエネルギーは、日晨が「甲戌（土）」、月建が「庚戌（土）」という、天の地支がともに『戌（土）』でロックされた、凄まじく強固で巨大な土の質量に満ちた時空間である。十二支の数理において、『戌』という土のエネルギーは、金（申・酉）の五行、特に世爻である『酉（金）』を内部に完全に包み込み、光を遮断して閉じ込める『金の墓（はか・入墓）』としての性質を極めて強く持っている。\n3. 日晨と月建がともに「戌（土）」という『二重の入墓』の力が世爻（酉金）に容赦なく覆いかぶさるこの構造は、ダイアナ妃の肉体が逃げ場のない完全に密閉された頑強な構造物、すなわち「高速で激突した自動車の鋼鉄の車体（潰れた車内）」の中に一瞬にして閉じ込められ、物質的な衝撃によって完全に圧殺・窒息させられた物理的状況をそのまま現している。\n4. さらに、世爻自体が「官鬼」を帯びている点も重要である。自身の座標が官鬼（災厄、疾病、事故の神）を帯び、それが日月という巨大なエネルギーから入墓・激破（あるいは過剰な生による埋金）される状態は、本人自身が強力なトラブルの磁場（事故の運命線）の中に直接身を置いていたことを意味する。外部から官鬼が攻めてきたのではなく、自らが官鬼を背負って強固な土（障害物・トンネルのコンクリート柱）に激突し、入墓（死亡）したという、純粋かつ不可避な「偶発的大事故」のメカズムがここに完全に証明されている。"
+          }
+        ]
+      },
+      "verdict": "卦内に動爻（作意や暗殺の実行）が一切見られないため、英国王室や暗報機関が関与したとされる暗殺・謀殺の可能性は一頭地から完全否定される。日月の「二重の戌土（墓）」が世爻（酉金・官鬼）を強力に閉じ込めている相は、彼女の乗った車両がコンクリートの構造物に猛スピードで激突し、車内で肉体が致命的な衝撃を受けたという「痛ましい自動車激突事故による不慮の事故死」であることを極めて冷徹に物語っている。"
+    },
+    "historical_verification": {
+      "actual_outcome": "ダイアナ妃の悲劇的な急逝直後、パパラッチの追跡を避けるための逃走劇、アル・ファイド氏の息子ドディ氏との関係などから、「MI6（英国情報部）による暗殺」「王室の体面を守るための計画的謀殺」といった刺激的な陰謀論が世界中のマスコミで何年にもわたり報じられ、民衆の疑惑は最高潮に達していた。しかし、フランス当局および英国スコットランドヤード（ロンドン警視庁）が巨額の費用と歳月を投じて実施した大規模な公式合同捜査（「オペレーション・パジェット」など）の結果、死因は陰謀による暗殺ではなく、運転手の過度な飲酒、精神安定剤の服用、および常軌を逸したスピード違反による「コントロール喪失とトンネル内コンクリート柱への自爆的激突」であると公式に結論づけられた。パパラッチの妨害行為や暗殺の直接的証拠は一切検出されず、シートベルトの未着用という偶発的要因が重なったことによる純粋な事故死であることが確定した。レイモンド・ロー氏が事件直後に断易の数理だけを頼りに弾き出した「暗殺の動爻は皆無であり、二重の土の墓に押し潰された純粋な事故死である」という審判は、その後の国家的・科学的捜査の結論を完璧に先回りし、その驚異的な正しさを証明した。",
+      "accuracy_assessment": "完全的中（世間の莫大な感情論や陰謀ビジネスのノイズに一切惑わされることなく、卦の中の『動爻なし・不変卦』というあまりにもシンプルで絶対的な数理事実を以て『他殺の可能性を0%と断定』し、日月の戌土による『入墓の衝撃』のみで大事故の全貌を見事に看破した傑作占例である）。"
+    },
+    "interpretation_tips": "この起例から学ぶべき断易における最高峰の3つの技法：\n\n(1)【陰謀論・暗殺説を「不変卦（動爻なし）」で一刀両断する看命の大原則】\n殺人事件や歴史的な暗殺の疑惑を占断する際、初手で最も注視すべきは「何かが動いているか（発動）」である。人為的な作意、殺意、計画、罠、他殺といった事象には、必ずエネルギーの突発的な方向転換を現す『動爻』が出現する。本例のように、全六爻が不変（静爻）のままである場合は、そこに「人間の作為的なプロット」が一切介在していない自然発生的な事象、すなわち純粋な確率の悪戯による事故や寿命による自然死であることを意味する。この動静の基本原則を徹底するだけで、迷宮入りの事件の性質を瞬時に見抜くことができる。\n\n(2)【「日月同辰の戌土」がもたらす「酉金世爻」への強烈な入墓（圧殺）ロジック】\n世爻（本人）が酉（金）であるとき、時空間を支配する日月がともに「戌（土）」であるという配置は、五行の相生（土生金）という表面的な解釈だけでは致命的な読み誤りを起こす。戌は『金の墓（はか）』である。日月という圧倒的な権力から二重に入墓を迫られる静爻の金は、生じられて強くなるどころか、巨大な土の質量（コンクリートの建造物や大地の壁）によって埋没し、身動きが取れなくなって押し潰される象（圧殺・大事故による車内閉じ込め）となる。五行の十二運星（長生、墓、絶など）の物理的動態をリアリティを持ってイメージする重要性がここにある。\n\n(3)【世爻が「官鬼」を自ら帯びることの真の意味】\n世爻そのものが最初から「官鬼」を帯びて卦に出現する場合、これは本人が他者から危害を加えられる被害者であるというよりは、本人のバイオリズム自体が「災厄のエネルギー（事故、重病、トラブルの磁場）」と同調し、その渦中に深く巻き込まれている主体的状況を現す。自らが官鬼（トラブルの塊）となって日月の墓（障害物）へ自ら飛び込んでいくというこの象象は、運転手の無謀な運転に同乗し、自爆的な激突を回避できなかったダイアナ妃の悲劇的な運命のタイムラインを見事に描写している。"
+  },
+  "example_18": {
+    "title": "易占起例18：ジョン・F・ケネディ・ジュニアの失踪",
+    "background_bazi": "一九九九年七月十六日、元米国大統領ジョン・F・ケネディの長男であり、絶大な人気を誇ったジョン・F・ケネディ・ジュニア（JFK Jr.）が自ら操縦する小型飛行機で、妻らと共にマサチューセッツ州マルサズ・ヴィンヤード島へ向かう途中に突如消息を絶ち、全米が大騒然となった。ケネディ家を襲い続ける「呪い」の噂や、政治的暗殺、撃墜説といった様々な陰謀論がメディアを駆け巡る中、占者（レイモンド・ロー氏）は彼らの安否と失踪の真相を解き明かすべく、失踪から二日後の国を挙げた大捜索が行われていた一九九九年七月十八日、即座に断易（六爻占術）による時空間スキャンを試みた。",
+    "bazi_chart": null,
+    "yi_jing_forecast_1": {
+      "question": "質問：消息を絶ったジョン・F・ケネディ・ジュニアの安否は如何に。彼は生きているのか、それとも既に死亡しているのか？事故の真相は他殺（陰謀）か、それとも事故か？",
+      "meta_data": {
+        "date_analyzed": "一九九九年七月十八日（大規模捜索中の緊迫した局面）",
+        "day_branch": "辛未（土）※世爻の水を強力に相克（土克水）し、水を乾燥させて消し去る日晨",
+        "month_branch": "辛未（土）※日晨と全く同じ十二支であり、真夏の渇いた強烈な土気が空間を支配する月建",
+        "palace": "坎（水）宮",
+        "palace_wuxing": "水"
+      },
+      "hexagram_data": {
+        "honke": "水雷屯（すいらいちゅん・坎宮の基本卦の一つ）",
+        "tai_position": "二爻（寅・木・子孫）※世爻：JFK Jr.本人の肉体および現在の生命状態",
+        "you_position": "五爻（戌・土・官鬼）※応爻：目的地、または彼が直面している外部環境",
+        "lines": [
+          {"position": "六爻", "type": "兄弟", "branch": "子", "wuxing": "水", "note": "不変（外卦・最上層）。坎宮の旺気を持つが静止"},
+          {"position": "五爻", "type": "官鬼", "branch": "戌", "wuxing": "土", "note": "不変（外卦・中層）。応爻。日月の未土から支援を受け、世爻の源を遮断する強固な土の障壁"},
+          {"position": "四爻", "type": "父母", "branch": "申", "wuxing": "金", "note": "不変（外卦・最下層）。本来は世爻を生じるはずの金だが、日月（未土）に埋金され機能停止"},
+          {"position": "三爻", "type": "官鬼", "branch": "辰", "wuxing": "土", "note": "不変（内卦・最上層）。世爻の直上にのしかかる不気味な泥土"},
+          {"position": "二爻", "type": "子孫", "branch": "寅", "wuxing": "木", "note": "不変（内卦・中層）。世爻（本人）。日月の未土に対して極度の無力（死絶・入墓）である静爻"},
+          {"position": "初爻", "type": "妻財", "branch": "子", "wuxing": "水", "note": "不変（内卦・最下層）。伏神として隠れるか、あるいは静止した水"}
+        ],
+        "moving_lines": [
+          {
+            "position": "二爻（世爻・静爻）の絶望的環境と、完全不変卦（六爻不変）の審判",
+            "original": "子孫・寅（木）",
+            "target": "動爻なし（水雷屯の不変卦）",
+            "interpretation": "1. この緊迫した安否占において、失踪したジョン・F・ケネディ・ジュニア本人を指し示す絶対的な用神（座標）は、二爻に位置する世爻「寅（木・子孫）」である。まず、世間で大騒ぎされている「何者かによる航空機へのテロ工作」「撃墜」といった謀殺・他殺の可能性について検討する。ダイアナ妃の事例（起例17）と完全に同じく、この卦も初爻から六爻まで一切の動爻を持たない完全な『不変卦（静爻のみの卦）』である。暗殺や陰謀を示す官鬼の発動（動き）が1ミリも存在しないため、彼の失踪劇の背後に人為的な暗殺計画や第三者の犯罪行為（他殺）は一切存在しないことが数理上、即座に確定する。ケネディ家の呪いというオカルトや陰謀論はこの時点で完全否定される。\n2. それでは、彼の「安否（生存しているか否か）」の冷徹な数理判定に移る。世爻である「寅（木）」を取り巻く時空間は、日晨が「辛未（土）」、月建が「辛未（土）」という、真夏の強烈な太陽に極限まで熱せられ、完全に乾燥しきった『旺土の極点』である。東洋数理の十二支ロジックにおいて、木（寅・卯）のエネルギーは、夏の終わりの渇いた土の塊である『未（ひつじ）』に対して、完全にその生命力を吸い取られて死滅する『死絶（しぜつ）』の段階、あるいは完全に土の中に引きずり込まれて埋没する『木墓（もくぼ・入墓）』の極限状態に落とされる。\n3. 日晨・月建の双方から「二重の未土による死絶・入墓」を同時に受けている静爻の寅木は、時空間の圧倒的な熱量と重圧によって、水分を完全に奪われ枯死した大木の象である。断易の生命力測定において、日月双方から激しく死絶・入墓され、それを救う動爻の助け（相生のエネルギー）が卦内に一切存在しない場合、それは【本人の肉体生命が既に完全に絶たれており、この世に存在しない（死亡している）】という動かし難い絶望のサイン（断命）となる。\n4. さらに、彼が乗っていた乗り物の状況を読み解く。世爻の寅木が属している本卦は『水雷屯』であり、これは坎宮（水）に属する卦である。さらに、屯の卦象の上卦（外卦）は「坎（水・海）」であり、下卦（内卦）は「震（雷・動くもの＝飛行機）」である。これは「動くもの（飛行機・震）」が「巨大な水（広大な海・坎）」の底へ真っ逆さまに突っ込んで沈没している物理的ビジョンそのものを完璧に写し出している。世爻（寅木）が下卦の震（飛行機）のちょうど中心に座しながら、日月の未土（墓・死絶）によって完全に生気を失っているこの配置は、彼が夜間の視界不良（坎水の闇）によって空間識失調に陥り、機体のコントロールを失ってそのまま大西洋の冷たい海原へと激突・水没し、帰らぬ人となった悲劇的な物理的状況を克明に描写している。"
+          }
+        ]
+      },
+      "verdict": "卦象に陰謀を示す動爻が全くないことから他殺の線は100%否定されるが、世爻（寅木）が日月（未土）の二重の死絶・入墓に直撃しているため、生存の可能性は完全にゼロであり「既に死亡している」との冷徹な審判が下される。上卦の坎（海）と下卦の震（飛行機）の組み合わせは、彼が操縦していた機体が海面へ激突・沈没し、その遺体は暗い海の底（坎宮の檻）に沈んでいることを示している。"
+    },
+    "historical_verification": {
+      "actual_outcome": "占断の直後（消息を絶ってから数日後）、米海軍や沿岸警備隊による必死の大規模海底捜索の結果、マサチューセッツ州マルサズ・ヴィンヤード島沖の、大西洋の海底約三十メートルの場所に、無残に大破して沈んでいたジョン・F・ケネディ・ジュニアの愛機の残骸が発見された。機体のコックピットの座席にシートベルトを締めたままの状態で、ケネディ・ジュニア本人、および同乗していた妻とその姉の遺体が発見され、死亡が正式に確認された。米国家運輸安全委員会（NTSB）による公式な事故原因追究報告では、テロや爆破、他殺の形跡は皆無であり、夜間の海上飛行において特有の「空間識失調（バーティゴ）」に陥り、機体の傾きや高度の感覚を喪失して海面へ自ら高速で激突したという、純粋なパイロットミスによる航空事故死であることが証明された。レイモンド・ロー氏が捜索の最中に「既に死亡しており、機体ごと海の底に沈んでいる。陰謀はない」と言い切った占断は、一言半句の狂いもなく現実の物悲しい捜査結果と完全一致し、その数理的透視力の凄まじさを世に知らしめた。",
+      "accuracy_assessment": "完全的中（生死の境目を分かつ日月の『死絶・入墓』の破壊力を正確に見極め、世論の希望的観測を完全に排して『既に死亡』の結論を即座に下し、さらに卦象から海への沈没【水雷屯・坎宮】という物質的物理ビジョンを完璧に言い当てた神懸かり的な占断例である）。"
+    },
+    "interpretation_tips": "この緊迫した安否占から易学者が絶対に学ぶべき3つの高等看命技法：\n\n(1)【生命の灯火を消し去る日月の「死絶・入墓」の同時直撃ロジック】\n安否不明者の生死を判定する際、世爻が受ける日月からのエネルギーレベルは決定的な基準となる。本例のように、木（寅）が土（未）の月日という、自身の生命力が完全に尽き果てる「絶（ぜつ）」のエネルギーをダブルで受け、さらにそれが「墓」として機能する場合、動爻による生扶（救いのエネルギーの供給）がない限り、肉体生命の維持が不可能であることを意味する。未は木の墓かつ死絶の地であるというこの二重の凶作用の理解が、生死判定の絶対的生命線となる。\n\n(2)【「卦宮」と「上下卦の象意」を重ね合わせる空間立体透視】\n単に五行の吉凶を見るだけでなく、本卦が属する『坎宮（水・海）』という根本の属性、放置された『上卦＝坎（水）、下卦＝震（飛行機・動く機体）』という具体的な物理的シンボルを重ね合わせることで、占い師の脳裏には「飛行機が海に沈んでいる」という三次元のリアルな映像が浮かび上がることになる。断易を単なる記号処理から、精緻な物理的状況のプロファイリングへと昇華させるための必須技法がこれである。\n\n(3)【不変卦（静爻のみ）が告げる「大自然の物理法則（不可避の事故）」】\n起例17のダイアナ妃の例に続き、ここでも『動爻なし』が暗殺を完全否定する最高の根拠となっている。動爻がないということは、時空間の自然な五行の歪み（未土の旺気による木の死絶）に肉体が耐えかねてそのまま物理法則通りに落下したことを現しており、人間の邪悪な意図（謀略）が介在していないことを確信を持って依頼者に告げるための最大の武器となる。"
+  },
+  "example_19": {
+    "title": "易占起例19：マイケル・ジャクソンは殺されたのか？",
+    "background_bazi": "二〇〇九年六月二十五日、世界中に計り知れない衝撃と深い悲しみをもたらしたポップ界の皇帝マイケル・ジャクソンのあまりにも急な逝去を巡る占断。彼の突然の死 of 直後から、世界中のメディアやファンの間では「専属医による暗殺（意図的な殺害）ではないか」「何らかの巨大な利権や陰謀の犠牲になったのではないか」という凄まじい憶測や他殺説が飛び交い、民衆の感情は狂乱状態に陥っていた。この未曾有の疑惑に対し、レイモンド・ロー氏の高弟であるMs. Georgia Kiafiが純粋な数理時空間スキャン（断易・六爻占術）を敢行。彼女が導き出した極めて緻密な質問と占断の分析結果は、二〇〇九年七月四日にロー氏の公式コミュニティフォーラムへポストされ、その妥協のないロジックの美しさと冷徹な先見性が世界中の専門家を驚嘆させた。ロー氏自身も、Ms. Georgia Kiafiの卓越した易学の功績と、この歴史的占断のクオリティに対して深い感謝の意を表明している。",
+    "bazi_chart": null,
+    "yi_jing_forecast_1": {
+      "question": "質問：マイケル・ジャクソンは外部の何者か（あるいは専属医ら）によって意図的に殺害（他殺）されたのか、それとも肉体的な限界によるものか？",
+      "meta_data": {
+        "date_analyzed": "二〇〇九年七月四日（フォーラムへの詳細投稿および検証日）",
+        "day_branch": "丙午（火）※真夏の強烈な太陽と燃え盛る猛火が最高潮に達する日辰",
+        "month_branch": "庚午（火）※日辰と同じく、季節の絶頂であり金物質を跡形もなく溶かす最強の火の月建",
+        "palace": "兌（沢）宮",
+        "palace_wuxing": "金"
+      },
+      "hexagram_data": {
+        "honke": "水山蹇（すいざんけん・兌宮に属する卦）",
+        "tai_position": "四爻（兄弟・申金）※世爻：マイケル・ジャクソン本人の生命、およびその身体等エネルギーの現在地",
+        "you_position": "初爻（父母・辰土）※応爻：質問の対象、または周囲を取り巻く環境の物質的基盤",
+        "lines": [
+          {"position": "六爻", "type": "子孫", "branch": "子", "wuxing": "水", "note": "不変（外卦・最上層）。静爻として静まり、世爻を直接救うには至らない"},
+          {"position": "五爻", "type": "父母", "branch": "戌", "wuxing": "土", "note": "不変（外卦・中層）。世爻の直上に位置する静かな土の障壁"},
+          {"position": "四爻", "type": "兄弟", "branch": "申", "wuxing": "金", "note": "動爻（世爻：マイケル・ジャクソン）。激しく発動（変爻）して、内卦から漏れ出る変爻「亥・水・子孫」へとその身を変化させる"},
+          {"position": "三爻", "type": "兄弟", "branch": "申", "wuxing": "金", "note": "不変（内卦・最上層）。世爻と同じ五行でありながらも静止したままの孤立した金"},
+          {"position": "二爻", "type": "官鬼", "branch": "午", "wuxing": "火", "note": "不変（内卦・中層）。時空間の最高権力である日辰・月建と同じ『午（火）』を帯びた、圧倒的な熱量を宿す最強の静爻"},
+          {"position": "初爻", "type": "父母", "branch": "辰", "wuxing": "土", "note": "不変（内卦・最下層。応爻）。世爻のルーツを表す土の基盤"}
+        ],
+        "moving_lines": [
+          {
+            "position": "四爻（世爻・動爻）",
+            "original": "兄弟・申（金）",
+            "target": "子孫・亥（水）への変化",
+            "interpretation": "1. この占断において、マイケル・ジャクソン本人を現す絶対の用神（座標）は、四爻に位置する世爻「申（金・兄弟）」である。この世爻（申金）を取り巻く時空間の五行エネルギーを精査すると、驚くほど危機的な衰弱が浮き彫りになる。この占いがなされた空間は、当日の日辰が「丙午（火）」、当月の月建が「庚午（火）」という、天と地が凄まじい炎の熱風で満たされた『日月同辰の旺火の季節』である。金である世爻（申金）は、この日月を支配する圧倒的な火のエネルギー（午火・午火）から、全方位的に強烈極まる『火克金』の相克（攻撃）をダイレクトに受けている。日月両方からこれほど激しく激破された金は、自力を完全に喪失し、息も絶え絶えで絶命寸前の極度な衰弱・危急の状態（五行における死地・絶地）に追い込まれていることが数理上明白である。\n2. 断易（六爻占術）において、質問が殺人や暗殺といった他殺を疑うものである場合、その『殺害者（暗殺の加害者）』あるいは生命を脅かす『病魔（重病）』を象徴する通変は『官鬼（官）』となる。この卦では二爻に座する「午（火・官鬼）」がそれにあたる。この官鬼（午火）は、日辰（午火）・月建（午火）と全く同じ十二支を帯びており、時空間全体のバックアップを一身に受けて宇宙的な強さを誇っているが、極めて重要な点として、この官鬼は「静爻」のままであり、全く『動爻（発動）』していない。もし外部に悪意を持った「殺害者」が存在し、強烈な殺意をもって彼を暗殺、あるいは強引に死へ追いやったのであれば、官鬼（午火）が激しく動いて世爻を襲う（動いて克す）という攻撃的な相が出現しなければならない。しかし、官鬼がじっと動かない（静爻）ということは、殺意を持った外部の犯人は存在しないことを意味する。これは他者による物理的な暴力事件や暗殺の企て（他殺）ではなく、彼自身の肉体の内側で燃え盛る「重篤な慢性病・内因性の深刻な体調トラブル・コントロール不能となった薬物による心肺停止」が限界点（臨界点）に達し、身体を蝕み尽くしたことを冷静に示している。\n3. マイケル自身を現す四爻の世爻（申・金）は「動爻」として自ら発動し、変化して子孫の「亥（水）」を化出（生み出して）している。断易のロジックにおいて、子孫（水）は官鬼（火）を『水克火』の力で制圧・コントロールする唯一の存在であるため、病気の有無を占う際には病魔を叩き潰す「薬」「医療行為」「生きようとする懸命な治療・延命への足掻き」と解釈される。つまり世爻が動いて子孫を化出したというこの動態は、マイケルが死の直前、自身の体調の異変や急激な心肺機能の悪化（迫り来る病魔の火）に対して必死に抗い、薬の服用（プロポフォールやその他の処方薬などの必死の投与）や応急処置によって、なんとか状況を打開し生き延びようと極限まで闘っていた（激しい闘病と自力救済の試み）という、絶命直前の生々しいプロセスそのものを写し出している。\n4. しかしながら、彼を襲っていた病魔（官鬼・午火）は、日辰・月建という時空間の絶対権力から無限の加護を受け、天を焦がす大火災のような手の付けられない猛威を振るっている。これに対して、彼が身体を振り絞ってひねり出し抵抗の薬とした（化出した子孫・亥水）は、夏の最も熱い炎（午月・午日）の中に投げ込まれた一滴の水のようなものである。この亥水は、あまりにも脆弱で無力であり、強烈な火の熱風に触れた瞬間に一瞬で跡形もなく蒸発（乾燥）してしまう。この極めて微弱な水（薬）では、燃え盛る巨大な劫火（病魔の官鬼）を消し止める（戦う）ことは物理的に到底不可能であり、薬石効なく肉体が熱量に耐えかねて崩壊していくロードマップが確定してしまっている項目。"
+          }
+        ]
+      },
+      "verdict": "卦象全体の数理分析から、他殺を決定づける「官鬼の発動（加害者の積極的行動）」は1ミリも検出されないため、世間で過熱している「外部の人間による意図的な暗殺・陰謀による殺害」の線は完全に否定される。彼自身の座標である世爻が日月の最強の火によって完膚なきまでに激破（火克金・融解）され、それに対抗するために必死に化出した子孫（薬物・治療）も夏の猛火で完全に蒸発・無力化していることから、彼自身の心臓（火）のオーバーヒート、あるいは深刻な急性薬物中毒による心肺停止など、肉体的な限界（治癒不能となった内因性の重病）によって絶命したという「病死（自然死および肉体コントロール不全による事故死の範疇）」という揺るぎない結論が導き出される項目。"
+    },
+    "historical_verification": {
+      "actual_outcome": "マイケル・ジャクソンのあまりにも突然の急逝の直後、世界中のメディアは騒然となり、専属医であるコンラッド・マレーによる「暗殺説」や、何らかの組織的な利権が絡んだ「他殺説」といった無数の陰謀論が飛び交い、民衆の感情は狂乱状態に陥っていた。しかし、その後に実施された長期にわたる詳細な司法解剖、および数年間に及ぶ警察の徹底的な公式捜査と裁判の末に明らかになった法的な最終報告（死因）は、「麻酔薬プロポフォール等の急性中毒による心肺停止」であった。専属医師による過失致死（不適切な医療管理）の罪は認められたものの、それは外部の何者かが計画的に彼を襲撃した「暗殺・強盗殺人（他殺）」ではなく、慢性的で凄まじい不眠症と体調不良を和らげるために彼自身が過剰な薬物投与を求め、それに応じた医療行為の失敗という『肉体的なコントロール不全による実質的な病死・事故死の顛末』であることが司法の場でも完全に証明された。Ms. Georgia Kiafiが事件直後の混迷を極める時期（2009年7月4日）に、易の数理だけでいち早く叩き出した「他殺の加害者は存在しない。単に病気（過酷な肉体の崩壊と薬の不発）が治らずに亡くなった」という占断は、その後に何年もかかって解明された医学的・法的な最終捜査報告と完全に一致し、人間の感情に左右されない断易の恐るべき審判の正しさが歴史的に証明される形となった項目。",
+      "accuracy_assessment": "完全的中。世界中が陰謀論の渦に巻き込まれ冷静な判断を失う中、卦の中の『官鬼が動いていない（静爻）』という、断易における最もシンプルかつ絶対的な数理ロジック一点を迷いなく信頼し、世論のノイズを完全にシャットアウトして『他殺の完全否定と、肉体崩壊（病死）の判定』をジャストで下してみせた、芸術的とも言える先回り的中検証例である項目。"
+    },
+    "interpretation_tips": "この歴史的事例から易学者が絶対に血肉にすべき、極めて高度な3つの看命・解釈技法：\n\n(1)【他殺か病死かを分かつ「官鬼」の動静判定における絶対ロジック】\n著名人の不審死や事件性のある生命の危機を占う際、最も重要な識別基準となるのが官鬼の「発動（動爻）の有無」である。たとえ官鬼が時空間（日月）のエネルギーを得てどれほど最強の威力を誇っていようとも、それが「静爻（じっと動かない）」であるならば、その官鬼が持つ『克す（破壊する）』という属性は外部への攻撃性（殺人犯の凶行や毒殺の実行）としては発露せず、すべて本人の肉体内部の宿痾、すなわち『体内で暴れ狂う病気の圧倒的な勢い』そのものへと変換される。官鬼が動いて初めて外部の加害者が成立するというこの大原則を理解していれば、陰謀論の嘘を見抜くことは容易である。\n\n(2)【世爻の発動が意味する「延命・治療プロセス」とその限界点の見極め】\n世爻（本人）が自ら動爻となって発動し、その変化した先（変爻）に子孫（薬・対策）を化出する相は、本人が死の直前まで生きることを諦めず、凄まじい足掻きを見せていた事実、あるいは何らかの強力な医療的アプローチ（薬物治療や心肺蘇生）がその瞬間に施されていたリアルな現場のプロセスを物語る。しかし、化出した救いの神である子孫（亥水）が、月建・日辰（午火）という強烈な火の海に挟まれて「絶期」や「死地」に落られている場合、その薬は『熱量に負けて一瞬で蒸発し効果を発揮しない』か、最悪の場合は『五行のバランスを完全に崩す劇薬（毒）に変貌して自らを終わらせる』ため、延命には絶対に繋がらない。この場合は「治療や薬の甲斐なく、限界を迎えて死亡する」という悲劇的な終着点を正確に読み解かなければならない。\n\n(3)【日月同辰の「極旺の火」による「申金（肺・心肺機能）」の融解メカニズム】\n本例の時空間配置で最も恐ろしいのは、日辰・月建がともに「午（火）」という、完全に同一の強烈な五行が時空間を極限まで熱している点（日月同辰）である。五行のパワーバランスにおいて、特定の五行（火）がこれほど異常なまでに過熱している時期、その火から強烈に克される金（世爻の申金）は、文字通り『灼熱の炉の中に放り込まれて、ドロドロに溶かされる金属』の悲惨な象（融解）となる。申（金）は人間の身体組織においては「肺」「呼吸器」「大腸」、そして東洋医学的には火（心臓）からの激しい熱が直撃することで「心肺機能の完全な停止・オーバーヒート」をもたらす極めて危険なトリガーとなる。このように特定の五行が極端に偏る時空間の波は、人間の肉体を一瞬で焼き尽くす死期（限界点）を決定づける強力なシグナルとして捉える必要がある。"
+  }
+}
+  },
+  "prompt_template": "【梅花心易 鑑定依頼】\n\n相談テーマ：{{question}}\n本卦：{{honke}}（{{honke_element}}）\n互卦：{{goke}}（{{goke_element}}）\n体卦：{{taikua}}（{{taikua_element}}）\n用卦：{{youkua}}（{{youkua_element}}）\n月建：{{month_branch}}\n日辰：{{day_branch}}\n変爻：{{changing_lines_text}}\n変卦：{{henke}}\n\n上記のデータをもとに、明朝透派の断占スタイルで鑑定してください。五行生剋・月日支旺衰・変爻の読みを必ず含め、高亨四分類（吉・凶・悔・吝）で締めてください。",
+  "breakdown_labels": {
+    "taikua_strength": "体卦の強さ",
+    "youkua_strength": "用卦の強さ",
+    "seikoku": "生剋関係",
+    "month_influence": "月支の影響",
+    "day_influence": "日支の影響",
+    "henke_direction": "変化の方向"
+  },
+  "kikkyo_badges": {
+    "大吉": {
+      "color": "#FFD700",
+      "label": "大吉"
+    },
+    "吉": {
+      "color": "#22c55e",
+      "label": "吉"
+    },
+    "中平": {
+      "color": "#e5e7eb",
+      "label": "中平"
+    },
+    "凶": {
+      "color": "#f97316",
+      "label": "凶"
+    },
+    "大凶": {
+      "color": "#ef4444",
+      "label": "大凶"
+    },
+    "悔": {
+      "color": "#a78bfa",
+      "label": "悔"
+    },
+    "吝": {
+      "color": "#fbbf24",
+      "label": "吝"
+    }
+  },
+  "reference_sources": {
+    "description": "本プロンプト定義の思考ステップは占術書の種本に基づいています",
+    "primary": {
+      "title": "易占学の種本 ～ 五神の応用と月日支の旺衰",
+      "methodology": "明朝透派 + 高亨四分類",
+      "key_concepts": [
+        "用神の自動判定",
+        "月建・日辰の複雑な生剋分析",
+        "体卦・用卦の五行関係",
+        "変卦を通じた事態の行方予測"
+      ]
+    }
+  }
+}

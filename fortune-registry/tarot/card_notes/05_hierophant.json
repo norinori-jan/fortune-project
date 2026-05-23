@@ -1,0 +1,10 @@
+﻿{
+  "number": 5,
+  "name_ja": "教皇",
+  "nori_notes": {
+    "core_image": "",
+    "up": { "keywords": [], "memo": "" },
+    "rev": { "keywords": [], "memo": "" },
+    "combination_hints": []
+  }
+}
