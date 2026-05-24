@@ -1,3 +1,17 @@
+from core.registry_a import load_registry
+
+# SSOT（registry_a.json）を読み込む
+REGISTRY = load_registry()
+
+# 例：後天八卦
+LATER_HEAVEN = REGISTRY["lopan"]["later_heaven_bagua"]
+
+# 例：五行カラー
+WUXING_COLORS = REGISTRY["wuxing"]["colors"]
+
+# 例：八宮首卦
+GONG_SHOU_GUA = REGISTRY["gong_shou_gua"]
+
 from dataclasses import dataclass
 
 

@@ -1,0 +1,1849 @@
+{
+  "_meta": {
+    "version": "2.0.0",
+    "generated": "2026-05-24T06:47:29.804478+00:00",
+    "description": "fortune-project 統合データレジストリ（SSOT）",
+    "schema": "fortune-registry/schema/v2"
+  },
+  "hexagrams": {
+    "hex_01": {
+      "number": 1,
+      "name_ja": "乾為天",
+      "reading": "けんいてん",
+      "upper": "qian",
+      "lower": "qian",
+      "core": "創造と力強さ。天の徳に倣い積極的に進め。",
+      "wuxing": {}
+    },
+    "hex_02": {
+      "number": 2,
+      "name_ja": "坤為地",
+      "reading": "こんいち",
+      "upper": "kun",
+      "lower": "kun",
+      "core": "受容と柔順。大地の如く万物を養い育てよ。",
+      "wuxing": {}
+    },
+    "hex_03": {
+      "number": 3,
+      "name_ja": "水雷屯",
+      "reading": "すいらいちゅん",
+      "upper": "zhen",
+      "lower": "kan",
+      "core": "創業の難。艱難を乗り越えれば前途は開ける。",
+      "wuxing": {}
+    },
+    "hex_04": {
+      "number": 4,
+      "name_ja": "山水蒙",
+      "reading": "さんすいもう",
+      "upper": "gen",
+      "lower": "kan",
+      "core": "未熟と教育。謙虚に学ぶ姿勢が知恵を育む。",
+      "wuxing": {}
+    },
+    "hex_05": {
+      "number": 5,
+      "name_ja": "水天需",
+      "reading": "すいてんじゅ",
+      "upper": "qian",
+      "lower": "kan",
+      "core": "待機の時。焦らず時を待て、機は必ず来る。",
+      "wuxing": {}
+    },
+    "hex_06": {
+      "number": 6,
+      "name_ja": "天水訟",
+      "reading": "てんすいしょう",
+      "upper": "kan",
+      "lower": "qian",
+      "core": "争いを避けよ。和解こそが真の勝利。",
+      "wuxing": {}
+    },
+    "hex_07": {
+      "number": 7,
+      "name_ja": "地水師",
+      "reading": "ちすいし",
+      "upper": "kan",
+      "lower": "kun",
+      "core": "統率と規律。正しい指導者の下に衆心を集めよ。",
+      "wuxing": {}
+    },
+    "hex_08": {
+      "number": 8,
+      "name_ja": "水地比",
+      "reading": "すいちひ",
+      "upper": "kun",
+      "lower": "kan",
+      "core": "親和と連帯。志を同じくする者と手を結べ。",
+      "wuxing": {}
+    },
+    "hex_09": {
+      "number": 9,
+      "name_ja": "風天小畜",
+      "reading": "ふうてんしょうちく",
+      "upper": "xun",
+      "lower": "qian",
+      "core": "小さな蓄積。今は力を蓄える時。",
+      "wuxing": {}
+    },
+    "hex_10": {
+      "number": 10,
+      "name_ja": "天沢履",
+      "reading": "てんたくり",
+      "upper": "qian",
+      "lower": "dui",
+      "core": "礼節を守る。虎の尾を踏むような慎重さで。",
+      "wuxing": {}
+    },
+    "hex_11": {
+      "number": 11,
+      "name_ja": "地天泰",
+      "reading": "ちてんたい",
+      "upper": "kun",
+      "lower": "qian",
+      "core": "太平と繁栄。天地の気が交わり万物が栄える。",
+      "wuxing": {}
+    },
+    "hex_12": {
+      "number": 12,
+      "name_ja": "天地否",
+      "reading": "てんちひ",
+      "upper": "qian",
+      "lower": "kun",
+      "core": "停滞と閉塞。時節を待ち力を温存せよ。",
+      "wuxing": {}
+    },
+    "hex_13": {
+      "number": 13,
+      "name_ja": "天火同人",
+      "reading": "てんかどうじん",
+      "upper": "qian",
+      "lower": "li",
+      "core": "志を同じくする仲間との協力が道を開く。",
+      "wuxing": {}
+    },
+    "hex_14": {
+      "number": 14,
+      "name_ja": "火天大有",
+      "reading": "かてんたいゆう",
+      "upper": "li",
+      "lower": "qian",
+      "core": "大いなる豊かさ。徳をもって衆人を導け。",
+      "wuxing": {}
+    },
+    "hex_15": {
+      "number": 15,
+      "name_ja": "地山謙",
+      "reading": "ちさんけん",
+      "upper": "kun",
+      "lower": "gen",
+      "core": "謙虚さが真の強さ。高ぶらず低く保て。",
+      "wuxing": {}
+    },
+    "hex_16": {
+      "number": 16,
+      "name_ja": "雷地豫",
+      "reading": "らいちよ",
+      "upper": "zhen",
+      "lower": "kun",
+      "core": "喜びと準備。万全の備えが歓喜をもたらす。",
+      "wuxing": {}
+    },
+    "hex_17": {
+      "number": 17,
+      "name_ja": "沢雷随",
+      "reading": "たくらいずい",
+      "upper": "dui",
+      "lower": "zhen",
+      "core": "柔軟に従う。時の流れに乗ることが吉。",
+      "wuxing": {}
+    },
+    "hex_18": {
+      "number": 18,
+      "name_ja": "山風蠱",
+      "reading": "さんぷうこ",
+      "upper": "gen",
+      "lower": "xun",
+      "core": "腐敗を正す。過去の問題に真摯に向き合え。",
+      "wuxing": {}
+    },
+    "hex_19": {
+      "number": 19,
+      "name_ja": "地沢臨",
+      "reading": "ちたくりん",
+      "upper": "kun",
+      "lower": "dui",
+      "core": "進歩と臨近。積極的に前進する好機。",
+      "wuxing": {}
+    },
+    "hex_20": {
+      "number": 20,
+      "name_ja": "風地観",
+      "reading": "ふうちかん",
+      "upper": "xun",
+      "lower": "kun",
+      "core": "観察と洞察。広く見渡して真理を見抜け。",
+      "wuxing": {}
+    },
+    "hex_21": {
+      "number": 21,
+      "name_ja": "火雷噬嗑",
+      "reading": "からいぜいこう",
+      "upper": "li",
+      "lower": "zhen",
+      "core": "障害を噛み砕く。毅然とした決断が必要。",
+      "wuxing": {}
+    },
+    "hex_22": {
+      "number": 22,
+      "name_ja": "山火賁",
+      "reading": "さんかひ",
+      "upper": "gen",
+      "lower": "li",
+      "core": "外見の美しさ。形式よりも本質を大切に。",
+      "wuxing": {}
+    },
+    "hex_23": {
+      "number": 23,
+      "name_ja": "山地剥",
+      "reading": "さんちはく",
+      "upper": "gen",
+      "lower": "kun",
+      "core": "剥ぎ取られる時。無理に動かず耐え忍べ。",
+      "wuxing": {}
+    },
+    "hex_24": {
+      "number": 24,
+      "name_ja": "地雷復",
+      "reading": "ちらいふく",
+      "upper": "kun",
+      "lower": "zhen",
+      "core": "一陽来復。新たな始まりの種が芽吹く。",
+      "wuxing": {}
+    },
+    "hex_25": {
+      "number": 25,
+      "name_ja": "天雷无妄",
+      "reading": "てんらいむぼう",
+      "upper": "qian",
+      "lower": "zhen",
+      "core": "無為自然。作意なく誠実に行動せよ。",
+      "wuxing": {}
+    },
+    "hex_26": {
+      "number": 26,
+      "name_ja": "山天大畜",
+      "reading": "さんてんたいちく",
+      "upper": "gen",
+      "lower": "qian",
+      "core": "大きな蓄積。知識と経験を深める好機。",
+      "wuxing": {}
+    },
+    "hex_27": {
+      "number": 27,
+      "name_ja": "山雷頤",
+      "reading": "さんらいい",
+      "upper": "gen",
+      "lower": "zhen",
+      "core": "養育と節制。何を口にし何を語るか慎め。",
+      "wuxing": {}
+    },
+    "hex_28": {
+      "number": 28,
+      "name_ja": "沢風大過",
+      "reading": "たくふうたいか",
+      "upper": "dui",
+      "lower": "xun",
+      "core": "過剰な負荷。中心軸を保ち崩壊を防げ。",
+      "wuxing": {}
+    },
+    "hex_29": {
+      "number": 29,
+      "name_ja": "坎為水",
+      "reading": "かんいすい",
+      "upper": "kan",
+      "lower": "kan",
+      "core": "重なる困難。信念を持って深淵を渡れ。",
+      "wuxing": {}
+    },
+    "hex_30": {
+      "number": 30,
+      "name_ja": "離為火",
+      "reading": "りいか",
+      "upper": "li",
+      "lower": "li",
+      "core": "明晰な知性。附着することで光輝く。",
+      "wuxing": {}
+    },
+    "hex_31": {
+      "number": 31,
+      "name_ja": "沢山咸",
+      "reading": "たくさんかん",
+      "upper": "dui",
+      "lower": "gen",
+      "core": "感応と恋愛。心が触れ合う喜びを大切に。",
+      "wuxing": {}
+    },
+    "hex_32": {
+      "number": 32,
+      "name_ja": "雷風恒",
+      "reading": "らいふうこう",
+      "upper": "zhen",
+      "lower": "xun",
+      "core": "恒常と持続。変わらぬ誠実さが道を拓く。",
+      "wuxing": {}
+    },
+    "hex_33": {
+      "number": 33,
+      "name_ja": "天山遯",
+      "reading": "てんさんとん",
+      "upper": "qian",
+      "lower": "gen",
+      "core": "賢明な退却。退くことが次の前進を準備する。",
+      "wuxing": {}
+    },
+    "hex_34": {
+      "number": 34,
+      "name_ja": "雷天大壮",
+      "reading": "らいてんたいそう",
+      "upper": "zhen",
+      "lower": "qian",
+      "core": "力の盛り。勢いに任せず礼を忘れるな。",
+      "wuxing": {}
+    },
+    "hex_35": {
+      "number": 35,
+      "name_ja": "火地晋",
+      "reading": "かちしん",
+      "upper": "li",
+      "lower": "kun",
+      "core": "昇進と前進。明るく進む勢いが吉を招く。",
+      "wuxing": {}
+    },
+    "hex_36": {
+      "number": 36,
+      "name_ja": "地火明夷",
+      "reading": "ちかめいい",
+      "upper": "kun",
+      "lower": "li",
+      "core": "光が傷つく時。内なる明知を保ちつつ耐えよ。",
+      "wuxing": {}
+    },
+    "hex_37": {
+      "number": 37,
+      "name_ja": "風火家人",
+      "reading": "ふうかかじん",
+      "upper": "xun",
+      "lower": "li",
+      "core": "家族の和。各自の役割を果たすことが幸福の基。",
+      "wuxing": {}
+    },
+    "hex_38": {
+      "number": 38,
+      "name_ja": "火沢睽",
+      "reading": "かたくけい",
+      "upper": "li",
+      "lower": "dui",
+      "core": "対立と乖離。小事においては吉、大事は慎め。",
+      "wuxing": {}
+    },
+    "hex_39": {
+      "number": 39,
+      "name_ja": "水山蹇",
+      "reading": "すいさんけん",
+      "upper": "kan",
+      "lower": "gen",
+      "core": "進路の障害。助けを求め共に難を超えよ。",
+      "wuxing": {}
+    },
+    "hex_40": {
+      "number": 40,
+      "name_ja": "雷水解",
+      "reading": "らいすいかい",
+      "upper": "zhen",
+      "lower": "kan",
+      "core": "解放と緩和。障害が取り除かれ前途が開ける。",
+      "wuxing": {}
+    },
+    "hex_41": {
+      "number": 41,
+      "name_ja": "山沢損",
+      "reading": "さんたくそん",
+      "upper": "gen",
+      "lower": "dui",
+      "core": "損なうことで益を得る。誠実さが真の利益。",
+      "wuxing": {}
+    },
+    "hex_42": {
+      "number": 42,
+      "name_ja": "風雷益",
+      "reading": "ふうらいえき",
+      "upper": "xun",
+      "lower": "zhen",
+      "core": "増益と発展。上が下を益するとき万物栄える。",
+      "wuxing": {}
+    },
+    "hex_43": {
+      "number": 43,
+      "name_ja": "沢天夬",
+      "reading": "たくてんかい",
+      "upper": "dui",
+      "lower": "qian",
+      "core": "決断と排除。小人を断ち切る強い意志を持て。",
+      "wuxing": {}
+    },
+    "hex_44": {
+      "number": 44,
+      "name_ja": "天風姤",
+      "reading": "てんふうこう",
+      "upper": "qian",
+      "lower": "xun",
+      "core": "出会いと誘惑。強い意志で流れに飲まれるな。",
+      "wuxing": {}
+    },
+    "hex_45": {
+      "number": 45,
+      "name_ja": "沢地萃",
+      "reading": "たくちすい",
+      "upper": "dui",
+      "lower": "kun",
+      "core": "集合と集中。人材と資源を一堂に集めよ。",
+      "wuxing": {}
+    },
+    "hex_46": {
+      "number": 46,
+      "name_ja": "地風升",
+      "reading": "ちふうしょう",
+      "upper": "kun",
+      "lower": "xun",
+      "core": "上昇と成長。着実な努力が高みへと導く。",
+      "wuxing": {}
+    },
+    "hex_47": {
+      "number": 47,
+      "name_ja": "沢水困",
+      "reading": "たくすいこん",
+      "upper": "dui",
+      "lower": "kan",
+      "core": "困窮の時。言葉よりも行動で誠実さを示せ。",
+      "wuxing": {}
+    },
+    "hex_48": {
+      "number": 48,
+      "name_ja": "水風井",
+      "reading": "すいふうせい",
+      "upper": "kan",
+      "lower": "xun",
+      "core": "井戸の如く。深く掘り下げ源泉を涵養せよ。",
+      "wuxing": {}
+    },
+    "hex_49": {
+      "number": 49,
+      "name_ja": "沢火革",
+      "reading": "たくかかく",
+      "upper": "dui",
+      "lower": "li",
+      "core": "変革の時。旧弊を改め新しい秩序を作れ。",
+      "wuxing": {}
+    },
+    "hex_50": {
+      "number": 50,
+      "name_ja": "火風鼎",
+      "reading": "かふうてい",
+      "upper": "li",
+      "lower": "xun",
+      "core": "鼎の新たな役割。賢者の知恵で国を養え。",
+      "wuxing": {}
+    },
+    "hex_51": {
+      "number": 51,
+      "name_ja": "震為雷",
+      "reading": "しんいらい",
+      "upper": "zhen",
+      "lower": "zhen",
+      "core": "驚きと覚醒。震えつつも礼を失わず前進せよ。",
+      "wuxing": {}
+    },
+    "hex_52": {
+      "number": 52,
+      "name_ja": "艮為山",
+      "reading": "ごんいさん",
+      "upper": "gen",
+      "lower": "gen",
+      "core": "静止と瞑想。動くべき時と止まるべき時を知れ。",
+      "wuxing": {}
+    },
+    "hex_53": {
+      "number": 53,
+      "name_ja": "風山漸",
+      "reading": "ふうさんぜん",
+      "upper": "xun",
+      "lower": "gen",
+      "core": "漸進と順序。焦らず段階を踏んで進め。",
+      "wuxing": {}
+    },
+    "hex_54": {
+      "number": 54,
+      "name_ja": "雷沢帰妹",
+      "reading": "らいたくきまい",
+      "upper": "zhen",
+      "lower": "dui",
+      "core": "不完全な関係。従うべき礼と本分を忘れるな。",
+      "wuxing": {}
+    },
+    "hex_55": {
+      "number": 55,
+      "name_ja": "雷火豊",
+      "reading": "らいかほう",
+      "upper": "zhen",
+      "lower": "li",
+      "core": "豊かさの絶頂。驕らず今の充実を大切に。",
+      "wuxing": {}
+    },
+    "hex_56": {
+      "number": 56,
+      "name_ja": "火山旅",
+      "reading": "かさんりょ",
+      "upper": "li",
+      "lower": "gen",
+      "core": "旅人の孤独。謙虚に軽やかに行動せよ。",
+      "wuxing": {}
+    },
+    "hex_57": {
+      "number": 57,
+      "name_ja": "巽為風",
+      "reading": "そんいふう",
+      "upper": "xun",
+      "lower": "xun",
+      "core": "柔順に浸透する。繰り返すことで根付く。",
+      "wuxing": {}
+    },
+    "hex_58": {
+      "number": 58,
+      "name_ja": "兌為沢",
+      "reading": "だいいたく",
+      "upper": "dui",
+      "lower": "dui",
+      "core": "喜びと悦び。真の喜びは内から湧き出るもの。",
+      "wuxing": {}
+    },
+    "hex_59": {
+      "number": 59,
+      "name_ja": "風水渙",
+      "reading": "ふうすいかん",
+      "upper": "xun",
+      "lower": "kan",
+      "core": "離散と融解。心を開き固まった壁を溶かせ。",
+      "wuxing": {}
+    },
+    "hex_60": {
+      "number": 60,
+      "name_ja": "水沢節",
+      "reading": "すいたくせつ",
+      "upper": "kan",
+      "lower": "dui",
+      "core": "節制と節度。適切な限界を設けることが安全。",
+      "wuxing": {}
+    },
+    "hex_61": {
+      "number": 61,
+      "name_ja": "風沢中孚",
+      "reading": "ふうたくちゅうふ",
+      "upper": "xun",
+      "lower": "dui",
+      "core": "内なる誠信。真実の誠実さが他者の心を動かす。",
+      "wuxing": {}
+    },
+    "hex_62": {
+      "number": 62,
+      "name_ja": "雷山小過",
+      "reading": "らいさんしょうか",
+      "upper": "zhen",
+      "lower": "gen",
+      "core": "小さな過ちを超えよ。大きな事は慎み小事に徹せ。",
+      "wuxing": {}
+    },
+    "hex_63": {
+      "number": 63,
+      "name_ja": "水火既済",
+      "reading": "すいかきさい",
+      "upper": "kan",
+      "lower": "li",
+      "core": "成就の後。完成した今こそ油断を戒めよ。",
+      "wuxing": {}
+    },
+    "hex_64": {
+      "number": 64,
+      "name_ja": "火水未済",
+      "reading": "かすいびさい",
+      "upper": "li",
+      "lower": "kan",
+      "core": "未完の可能性。完成への道はまだ続いている。",
+      "wuxing": {}
+    }
+  },
+  "tarot": {
+    "major_00": {
+      "number": 0,
+      "name_ja": "愚者",
+      "name_en": "THE FOOL",
+      "wuxing": "water",
+      "keywords": "新しい出発・可能性・無限",
+      "core": "恐れずに踏み出せ。"
+    },
+    "major_01": {
+      "number": 1,
+      "name_ja": "魔術師",
+      "name_en": "THE MAGICIAN",
+      "wuxing": "fire",
+      "keywords": "意志・技術・実現力",
+      "core": "持てる力をすべて使え。"
+    },
+    "major_02": {
+      "number": 2,
+      "name_ja": "女教皇",
+      "name_en": "THE HIGH PRIESTESS",
+      "wuxing": "water",
+      "keywords": "直感・神秘・潜在意識",
+      "core": "内なる声に耳を傾けよ。"
+    },
+    "major_03": {
+      "number": 3,
+      "name_ja": "女帝",
+      "name_en": "THE EMPRESS",
+      "wuxing": "earth",
+      "keywords": "豊穣・母性・創造",
+      "core": "生命力を信じて育てよ。"
+    },
+    "major_04": {
+      "number": 4,
+      "name_ja": "皇帝",
+      "name_en": "THE EMPEROR",
+      "wuxing": "metal",
+      "keywords": "権威・構造・リーダーシップ",
+      "core": "秩序と規律が基盤を作る。"
+    },
+    "major_05": {
+      "number": 5,
+      "name_ja": "法王",
+      "name_en": "THE HIEROPHANT",
+      "wuxing": "earth",
+      "keywords": "伝統・教義・精神的指導",
+      "core": "先人の知恵に学べ。"
+    },
+    "major_06": {
+      "number": 6,
+      "name_ja": "恋人",
+      "name_en": "THE LOVERS",
+      "wuxing": "fire",
+      "keywords": "選択・愛・調和",
+      "core": "心の声に従い選べ。"
+    },
+    "major_07": {
+      "number": 7,
+      "name_ja": "戦車",
+      "name_en": "THE CHARIOT",
+      "wuxing": "water",
+      "keywords": "勝利・意志力・突破",
+      "core": "制御しながら前進せよ。"
+    },
+    "major_08": {
+      "number": 8,
+      "name_ja": "力",
+      "name_en": "STRENGTH",
+      "wuxing": "fire",
+      "keywords": "勇気・忍耐・内なる力",
+      "core": "優しさが最強の力。"
+    },
+    "major_09": {
+      "number": 9,
+      "name_ja": "隠者",
+      "name_en": "THE HERMIT",
+      "wuxing": "earth",
+      "keywords": "内省・孤独・知恵",
+      "core": "立ち止まり自らを見よ。"
+    },
+    "major_10": {
+      "number": 10,
+      "name_ja": "運命の輪",
+      "name_en": "WHEEL OF FORTUNE",
+      "wuxing": "earth",
+      "keywords": "変化・サイクル・チャンス",
+      "core": "変化の波に乗る時。"
+    },
+    "major_11": {
+      "number": 11,
+      "name_ja": "正義",
+      "name_en": "JUSTICE",
+      "wuxing": "metal",
+      "keywords": "公平・真実・法",
+      "core": "真実を直視せよ。"
+    },
+    "major_12": {
+      "number": 12,
+      "name_ja": "吊られた男",
+      "name_en": "THE HANGED MAN",
+      "wuxing": "water",
+      "keywords": "犠牲・新視点・待機",
+      "core": "逆転の発想が道を開く。"
+    },
+    "major_13": {
+      "number": 13,
+      "name_ja": "死神",
+      "name_en": "DEATH",
+      "wuxing": "water",
+      "keywords": "終わり・変容・再生",
+      "core": "古いものを手放せ。"
+    },
+    "major_14": {
+      "number": 14,
+      "name_ja": "節制",
+      "name_en": "TEMPERANCE",
+      "wuxing": "fire",
+      "keywords": "調和・均衡・癒し",
+      "core": "バランスが力を生む。"
+    },
+    "major_15": {
+      "number": 15,
+      "name_ja": "悪魔",
+      "name_en": "THE DEVIL",
+      "wuxing": "earth",
+      "keywords": "束縛・物質・欲望",
+      "core": "鎖は幻だ。気づけば自由。"
+    },
+    "major_16": {
+      "number": 16,
+      "name_ja": "塔",
+      "name_en": "THE TOWER",
+      "wuxing": "fire",
+      "keywords": "突破・崩壊・啓示",
+      "core": "崩れる時が真の始まり。"
+    },
+    "major_17": {
+      "number": 17,
+      "name_ja": "星",
+      "name_en": "THE STAR",
+      "wuxing": "water",
+      "keywords": "希望・回復・インスピレーション",
+      "core": "光を信じて歩め。"
+    },
+    "major_18": {
+      "number": 18,
+      "name_ja": "月",
+      "name_en": "THE MOON",
+      "wuxing": "water",
+      "keywords": "幻想・不安・無意識",
+      "core": "霧の中でも歩み続けよ。"
+    },
+    "major_19": {
+      "number": 19,
+      "name_ja": "太陽",
+      "name_en": "THE SUN",
+      "wuxing": "fire",
+      "keywords": "喜び・成功・活力",
+      "core": "光の中で輝け。"
+    },
+    "major_20": {
+      "number": 20,
+      "name_ja": "審判",
+      "name_en": "JUDGEMENT",
+      "wuxing": "fire",
+      "keywords": "覚醒・再生・使命",
+      "core": "内なる呼び声に応えよ。"
+    },
+    "major_21": {
+      "number": 21,
+      "name_ja": "世界",
+      "name_en": "THE WORLD",
+      "wuxing": "earth",
+      "keywords": "完成・統合・達成",
+      "core": "旅は完結し新たな旅へ。"
+    }
+  },
+  "bagua": {
+    "qian": {
+      "kanji": "乾",
+      "symbol": "☰",
+      "wuxing": "metal",
+      "direction": "NW",
+      "nature": "天"
+    },
+    "dui": {
+      "kanji": "兌",
+      "symbol": "☱",
+      "wuxing": "metal",
+      "direction": "W",
+      "nature": "沢"
+    },
+    "li": {
+      "kanji": "離",
+      "symbol": "☲",
+      "wuxing": "fire",
+      "direction": "S",
+      "nature": "火"
+    },
+    "zhen": {
+      "kanji": "震",
+      "symbol": "☳",
+      "wuxing": "wood",
+      "direction": "E",
+      "nature": "雷"
+    },
+    "xun": {
+      "kanji": "巽",
+      "symbol": "☴",
+      "wuxing": "wood",
+      "direction": "SE",
+      "nature": "風"
+    },
+    "kan": {
+      "kanji": "坎",
+      "symbol": "☵",
+      "wuxing": "water",
+      "direction": "N",
+      "nature": "水"
+    },
+    "gen": {
+      "kanji": "艮",
+      "symbol": "☶",
+      "wuxing": "earth",
+      "direction": "NE",
+      "nature": "山"
+    },
+    "kun": {
+      "kanji": "坤",
+      "symbol": "☷",
+      "wuxing": "earth",
+      "direction": "SW",
+      "nature": "地"
+    }
+  },
+  "gong_shou_gua": {
+    "qian": [
+      "zi",
+      "yin",
+      "chen",
+      "wu",
+      "shen",
+      "xu"
+    ],
+    "dui": [
+      "si",
+      "wei",
+      "you",
+      "hai",
+      "chou",
+      "mao"
+    ],
+    "li": [
+      "mao",
+      "si",
+      "wei",
+      "you",
+      "hai",
+      "chou"
+    ],
+    "zhen": [
+      "zi",
+      "yin",
+      "chen",
+      "wu",
+      "shen",
+      "xu"
+    ],
+    "xun": [
+      "chou",
+      "hai",
+      "you",
+      "wei",
+      "si",
+      "mao"
+    ],
+    "kan": [
+      "yin",
+      "chen",
+      "wu",
+      "shen",
+      "xu",
+      "zi"
+    ],
+    "gen": [
+      "chen",
+      "yin",
+      "zi",
+      "xu",
+      "shen",
+      "wu"
+    ],
+    "kun": [
+      "wei",
+      "si",
+      "mao",
+      "chou",
+      "hai",
+      "you"
+    ]
+  },
+  "lopan": {
+    "later_heaven_bagua": {
+      "N": {
+        "bagua": "kan",
+        "wuxing": "water",
+        "kyusei": 1,
+        "kanji": "坎"
+      },
+      "NE": {
+        "bagua": "gen",
+        "wuxing": "earth",
+        "kyusei": 8,
+        "kanji": "艮"
+      },
+      "E": {
+        "bagua": "zhen",
+        "wuxing": "wood",
+        "kyusei": 3,
+        "kanji": "震"
+      },
+      "SE": {
+        "bagua": "xun",
+        "wuxing": "wood",
+        "kyusei": 4,
+        "kanji": "巽"
+      },
+      "S": {
+        "bagua": "li",
+        "wuxing": "fire",
+        "kyusei": 9,
+        "kanji": "離"
+      },
+      "SW": {
+        "bagua": "kun",
+        "wuxing": "earth",
+        "kyusei": 2,
+        "kanji": "坤"
+      },
+      "W": {
+        "bagua": "dui",
+        "wuxing": "metal",
+        "kyusei": 7,
+        "kanji": "兌"
+      },
+      "NW": {
+        "bagua": "qian",
+        "wuxing": "metal",
+        "kyusei": 6,
+        "kanji": "乾"
+      }
+    },
+    "lucky_directions_by_kyusei": {
+      "1": {
+        "best": [
+          "SE",
+          "E"
+        ],
+        "avoid": [
+          "SW"
+        ]
+      },
+      "2": {
+        "best": [
+          "NE",
+          "SW"
+        ],
+        "avoid": [
+          "E"
+        ]
+      },
+      "3": {
+        "best": [
+          "S",
+          "N"
+        ],
+        "avoid": [
+          "W"
+        ]
+      },
+      "4": {
+        "best": [
+          "N",
+          "S"
+        ],
+        "avoid": [
+          "NW"
+        ]
+      },
+      "5": {
+        "best": [
+          "NE",
+          "SW"
+        ],
+        "avoid": [
+          "all"
+        ]
+      },
+      "6": {
+        "best": [
+          "W",
+          "NW"
+        ],
+        "avoid": [
+          "SE"
+        ]
+      },
+      "7": {
+        "best": [
+          "NW",
+          "W"
+        ],
+        "avoid": [
+          "E"
+        ]
+      },
+      "8": {
+        "best": [
+          "NE",
+          "SW"
+        ],
+        "avoid": [
+          "S"
+        ]
+      },
+      "9": {
+        "best": [
+          "E",
+          "SE"
+        ],
+        "avoid": [
+          "N"
+        ]
+      }
+    }
+  },
+  "wuxing": {
+    "sheng": {
+      "wood": "fire",
+      "fire": "earth",
+      "earth": "metal",
+      "metal": "water",
+      "water": "wood"
+    },
+    "ke": {
+      "wood": "earth",
+      "earth": "water",
+      "water": "fire",
+      "fire": "metal",
+      "metal": "wood"
+    },
+    "colors": {
+      "wood": "#4a9e6b",
+      "fire": "#c0392b",
+      "earth": "#c8922a",
+      "metal": "#a8b8c8",
+      "water": "#2980b9"
+    }
+  },
+  "shichu": {
+    "stems": [
+      {
+        "kanji": "甲",
+        "yin_yang": "yang",
+        "wuxing": "wood",
+        "nature": "大樹・剛直・外向的",
+        "alias": [
+          "こう"
+        ]
+      },
+      {
+        "kanji": "乙",
+        "yin_yang": "yin",
+        "wuxing": "wood",
+        "nature": "草花・柔軟・内向的",
+        "alias": [
+          "おつ"
+        ]
+      },
+      {
+        "kanji": "丙",
+        "yin_yang": "yang",
+        "wuxing": "fire",
+        "nature": "太陽・明朗・外向的",
+        "alias": [
+          "へい"
+        ]
+      },
+      {
+        "kanji": "丁",
+        "yin_yang": "yin",
+        "wuxing": "fire",
+        "nature": "灯火・繊細・内向的",
+        "alias": [
+          "てい"
+        ]
+      },
+      {
+        "kanji": "戊",
+        "yin_yang": "yang",
+        "wuxing": "earth",
+        "nature": "山岳・安定・包容力",
+        "alias": [
+          "ぼ"
+        ]
+      },
+      {
+        "kanji": "己",
+        "yin_yang": "yin",
+        "wuxing": "earth",
+        "nature": "田畑・調整・実務",
+        "alias": [
+          "き"
+        ]
+      },
+      {
+        "kanji": "庚",
+        "yin_yang": "yang",
+        "wuxing": "metal",
+        "nature": "鋼鉄・決断・突破力",
+        "alias": [
+          "こう"
+        ]
+      },
+      {
+        "kanji": "辛",
+        "yin_yang": "yin",
+        "wuxing": "metal",
+        "nature": "宝石・精密・美意識",
+        "alias": [
+          "しん"
+        ]
+      },
+      {
+        "kanji": "壬",
+        "yin_yang": "yang",
+        "wuxing": "water",
+        "nature": "大河・包容・流動性",
+        "alias": [
+          "じん"
+        ]
+      },
+      {
+        "kanji": "癸",
+        "yin_yang": "yin",
+        "wuxing": "water",
+        "nature": "雨露・知恵・繊細",
+        "alias": [
+          "き"
+        ]
+      }
+    ],
+    "branches": [
+      {
+        "kanji": "子",
+        "yin_yang": "yang",
+        "wuxing": "water",
+        "hidden_stems": [
+          "癸"
+        ],
+        "nature": "始まり・胎動",
+        "alias": [
+          "ね"
+        ]
+      },
+      {
+        "kanji": "丑",
+        "yin_yang": "yin",
+        "wuxing": "earth",
+        "hidden_stems": [
+          "己",
+          "癸",
+          "辛"
+        ],
+        "nature": "蓄え・準備",
+        "alias": [
+          "うし"
+        ]
+      },
+      {
+        "kanji": "寅",
+        "yin_yang": "yang",
+        "wuxing": "wood",
+        "hidden_stems": [
+          "甲",
+          "丙",
+          "戊"
+        ],
+        "nature": "発芽・勢い",
+        "alias": [
+          "とら"
+        ]
+      },
+      {
+        "kanji": "卯",
+        "yin_yang": "yin",
+        "wuxing": "wood",
+        "hidden_stems": [
+          "乙"
+        ],
+        "nature": "成長・拡大",
+        "alias": [
+          "う"
+        ]
+      },
+      {
+        "kanji": "辰",
+        "yin_yang": "yang",
+        "wuxing": "earth",
+        "hidden_stems": [
+          "戊",
+          "乙",
+          "癸"
+        ],
+        "nature": "変化・転換",
+        "alias": [
+          "たつ"
+        ]
+      },
+      {
+        "kanji": "巳",
+        "yin_yang": "yin",
+        "wuxing": "fire",
+        "hidden_stems": [
+          "丙",
+          "戊",
+          "庚"
+        ],
+        "nature": "成熟・熱気",
+        "alias": [
+          "み"
+        ]
+      },
+      {
+        "kanji": "午",
+        "yin_yang": "yang",
+        "wuxing": "fire",
+        "hidden_stems": [
+          "丁",
+          "己"
+        ],
+        "nature": "頂点・盛勢",
+        "alias": [
+          "うま"
+        ]
+      },
+      {
+        "kanji": "未",
+        "yin_yang": "yin",
+        "wuxing": "earth",
+        "hidden_stems": [
+          "己",
+          "丁",
+          "乙"
+        ],
+        "nature": "調整・収穫前",
+        "alias": [
+          "ひつじ"
+        ]
+      },
+      {
+        "kanji": "申",
+        "yin_yang": "yang",
+        "wuxing": "metal",
+        "hidden_stems": [
+          "庚",
+          "壬",
+          "戊"
+        ],
+        "nature": "収縮・整理",
+        "alias": [
+          "さる"
+        ]
+      },
+      {
+        "kanji": "酉",
+        "yin_yang": "yin",
+        "wuxing": "metal",
+        "hidden_stems": [
+          "辛"
+        ],
+        "nature": "完成・収穫",
+        "alias": [
+          "とり"
+        ]
+      },
+      {
+        "kanji": "戌",
+        "yin_yang": "yang",
+        "wuxing": "earth",
+        "hidden_stems": [
+          "戊",
+          "辛",
+          "丁"
+        ],
+        "nature": "守護・固め",
+        "alias": [
+          "いぬ"
+        ]
+      },
+      {
+        "kanji": "亥",
+        "yin_yang": "yin",
+        "wuxing": "water",
+        "hidden_stems": [
+          "壬",
+          "甲"
+        ],
+        "nature": "胎動・準備",
+        "alias": [
+          "い"
+        ]
+      }
+    ],
+    "five_elements": {
+      "wood": {
+        "sheng": "fire",
+        "ke": "earth",
+        "traits": "成長・拡大・柔軟"
+      },
+      "fire": {
+        "sheng": "earth",
+        "ke": "metal",
+        "traits": "情熱・活動・上昇"
+      },
+      "earth": {
+        "sheng": "metal",
+        "ke": "water",
+        "traits": "安定・調和・中心"
+      },
+      "metal": {
+        "sheng": "water",
+        "ke": "wood",
+        "traits": "収縮・決断・硬質"
+      },
+      "water": {
+        "sheng": "wood",
+        "ke": "fire",
+        "traits": "知恵・流動・柔和"
+      }
+    },
+    "ten_gods": [
+      {
+        "name": "比肩",
+        "category": "self",
+        "traits": "自立・競争・対等",
+        "wuxing_relation": "same_element"
+      },
+      {
+        "name": "劫財",
+        "category": "self",
+        "traits": "奪う・突破・兄弟",
+        "wuxing_relation": "same_element_yin_yang_flip"
+      },
+      {
+        "name": "食神",
+        "category": "output",
+        "traits": "創造・自由・表現",
+        "wuxing_relation": "child_same_yin_yang"
+      },
+      {
+        "name": "傷官",
+        "category": "output",
+        "traits": "批判・突破・才能",
+        "wuxing_relation": "child_flip"
+      },
+      {
+        "name": "偏財",
+        "category": "wealth",
+        "traits": "柔軟・社交・流動",
+        "wuxing_relation": "money_same_yin_yang"
+      },
+      {
+        "name": "正財",
+        "category": "wealth",
+        "traits": "安定・誠実・蓄積",
+        "wuxing_relation": "money_flip"
+      },
+      {
+        "name": "偏官",
+        "category": "power",
+        "traits": "行動・刺激・挑戦",
+        "wuxing_relation": "control_same_yin_yang"
+      },
+      {
+        "name": "正官",
+        "category": "power",
+        "traits": "秩序・責任・規律",
+        "wuxing_relation": "control_flip"
+      },
+      {
+        "name": "偏印",
+        "category": "resource",
+        "traits": "直感・柔軟・精神性",
+        "wuxing_relation": "parent_same_yin_yang"
+      },
+      {
+        "name": "印綬",
+        "category": "resource",
+        "traits": "学習・保護・吸収",
+        "wuxing_relation": "parent_flip"
+      }
+    ],
+    "twelve_growth": [
+      {
+        "name": "長生",
+        "traits": "誕生・成長の始まり",
+        "strength": "strong"
+      },
+      {
+        "name": "沐浴",
+        "traits": "浄化・魅力・変化",
+        "strength": "medium"
+      },
+      {
+        "name": "冠帯",
+        "traits": "成熟・発展・自信",
+        "strength": "strong"
+      },
+      {
+        "name": "建禄",
+        "traits": "安定・力・基盤",
+        "strength": "strong"
+      },
+      {
+        "name": "帝旺",
+        "traits": "最盛期・支配・強勢",
+        "strength": "very_strong"
+      },
+      {
+        "name": "衰",
+        "traits": "減退・調整・静寂",
+        "strength": "weak"
+      },
+      {
+        "name": "病",
+        "traits": "不調・停滞・慎重",
+        "strength": "weak"
+      },
+      {
+        "name": "死",
+        "traits": "終息・手放し",
+        "strength": "very_weak"
+      },
+      {
+        "name": "墓",
+        "traits": "蓄積・内省・準備",
+        "strength": "medium"
+      },
+      {
+        "name": "絶",
+        "traits": "断絶・リセット",
+        "strength": "very_weak"
+      },
+      {
+        "name": "胎",
+        "traits": "胎動・準備",
+        "strength": "medium"
+      },
+      {
+        "name": "養",
+        "traits": "育成・保護",
+        "strength": "medium"
+      }
+    ],
+    "relations": {
+      "branch_relations": {
+        "sanhe": [
+          [
+            "申",
+            "子",
+            "辰"
+          ],
+          [
+            "亥",
+            "卯",
+            "未"
+          ],
+          [
+            "寅",
+            "午",
+            "戌"
+          ],
+          [
+            "巳",
+            "酉",
+            "丑"
+          ]
+        ],
+        "liuhe": [
+          [
+            "子",
+            "丑"
+          ],
+          [
+            "寅",
+            "亥"
+          ],
+          [
+            "卯",
+            "戌"
+          ],
+          [
+            "辰",
+            "酉"
+          ],
+          [
+            "巳",
+            "申"
+          ],
+          [
+            "午",
+            "未"
+          ]
+        ],
+        "chong": [
+          [
+            "子",
+            "午"
+          ],
+          [
+            "丑",
+            "未"
+          ],
+          [
+            "寅",
+            "申"
+          ],
+          [
+            "卯",
+            "酉"
+          ],
+          [
+            "辰",
+            "戌"
+          ],
+          [
+            "巳",
+            "亥"
+          ]
+        ]
+      },
+      "stem_relations": {
+        "sheng": {
+          "甲": "丙",
+          "丙": "戊",
+          "戊": "庚",
+          "庚": "壬",
+          "壬": "甲"
+        },
+        "ke": {
+          "甲": "戊",
+          "戊": "壬",
+          "壬": "丙",
+          "丙": "庚",
+          "庚": "甲"
+        }
+      }
+    },
+    "sixty_kanchi": [
+      {
+        "name": "甲子",
+        "wuxing": "water",
+        "traits": "新しい始まり・柔軟"
+      },
+      {
+        "name": "乙丑",
+        "wuxing": "earth",
+        "traits": "安定・調整"
+      },
+      {
+        "name": "丙寅",
+        "wuxing": "wood",
+        "traits": "成長・勢い"
+      },
+      {
+        "name": "丁卯",
+        "wuxing": "wood",
+        "traits": "調和・発展"
+      },
+      {
+        "name": "戊辰",
+        "wuxing": "earth",
+        "traits": "変化・転換"
+      },
+      {
+        "name": "己巳",
+        "wuxing": "fire",
+        "traits": "成熟・熱気"
+      },
+      {
+        "name": "庚午",
+        "wuxing": "fire",
+        "traits": "頂点・強勢"
+      },
+      {
+        "name": "辛未",
+        "wuxing": "earth",
+        "traits": "調整・収穫前"
+      },
+      {
+        "name": "壬申",
+        "wuxing": "metal",
+        "traits": "整理・収縮"
+      },
+      {
+        "name": "癸酉",
+        "wuxing": "metal",
+        "traits": "完成・収穫"
+      },
+      {
+        "name": "甲戌",
+        "wuxing": "earth",
+        "traits": "守護・固め"
+      },
+      {
+        "name": "乙亥",
+        "wuxing": "water",
+        "traits": "胎動・準備"
+      },
+      {
+        "name": "丙子",
+        "wuxing": "water",
+        "traits": "柔軟・流動"
+      },
+      {
+        "name": "丁丑",
+        "wuxing": "earth",
+        "traits": "安定・調整"
+      },
+      {
+        "name": "戊寅",
+        "wuxing": "wood",
+        "traits": "成長・勢い"
+      },
+      {
+        "name": "己卯",
+        "wuxing": "wood",
+        "traits": "調和・発展"
+      },
+      {
+        "name": "庚辰",
+        "wuxing": "earth",
+        "traits": "変化・転換"
+      },
+      {
+        "name": "辛巳",
+        "wuxing": "fire",
+        "traits": "成熟・熱気"
+      },
+      {
+        "name": "壬午",
+        "wuxing": "fire",
+        "traits": "頂点・強勢"
+      },
+      {
+        "name": "癸未",
+        "wuxing": "earth",
+        "traits": "調整・収穫前"
+      },
+      {
+        "name": "甲申",
+        "wuxing": "metal",
+        "traits": "整理・収縮"
+      },
+      {
+        "name": "乙酉",
+        "wuxing": "metal",
+        "traits": "完成・収穫"
+      },
+      {
+        "name": "丙戌",
+        "wuxing": "earth",
+        "traits": "守護・固め"
+      },
+      {
+        "name": "丁亥",
+        "wuxing": "water",
+        "traits": "胎動・準備"
+      },
+      {
+        "name": "戊子",
+        "wuxing": "water",
+        "traits": "柔軟・流動"
+      },
+      {
+        "name": "己丑",
+        "wuxing": "earth",
+        "traits": "安定・調整"
+      },
+      {
+        "name": "庚寅",
+        "wuxing": "wood",
+        "traits": "成長・勢い"
+      },
+      {
+        "name": "辛卯",
+        "wuxing": "wood",
+        "traits": "調和・発展"
+      },
+      {
+        "name": "壬辰",
+        "wuxing": "earth",
+        "traits": "変化・転換"
+      },
+      {
+        "name": "癸巳",
+        "wuxing": "fire",
+        "traits": "成熟・熱気"
+      },
+      {
+        "name": "甲午",
+        "wuxing": "fire",
+        "traits": "頂点・強勢"
+      },
+      {
+        "name": "乙未",
+        "wuxing": "earth",
+        "traits": "調整・収穫前"
+      },
+      {
+        "name": "丙申",
+        "wuxing": "metal",
+        "traits": "整理・収縮"
+      },
+      {
+        "name": "丁酉",
+        "wuxing": "metal",
+        "traits": "完成・収穫"
+      },
+      {
+        "name": "戊戌",
+        "wuxing": "earth",
+        "traits": "守護・固め"
+      },
+      {
+        "name": "己亥",
+        "wuxing": "water",
+        "traits": "胎動・準備"
+      },
+      {
+        "name": "庚子",
+        "wuxing": "water",
+        "traits": "柔軟・流動"
+      },
+      {
+        "name": "辛丑",
+        "wuxing": "earth",
+        "traits": "安定・調整"
+      },
+      {
+        "name": "壬寅",
+        "wuxing": "wood",
+        "traits": "成長・勢い"
+      },
+      {
+        "name": "癸卯",
+        "wuxing": "wood",
+        "traits": "調和・発展"
+      },
+      {
+        "name": "甲辰",
+        "wuxing": "earth",
+        "traits": "変化・転換"
+      },
+      {
+        "name": "乙巳",
+        "wuxing": "fire",
+        "traits": "成熟・熱気"
+      },
+      {
+        "name": "丙午",
+        "wuxing": "fire",
+        "traits": "頂点・強勢"
+      },
+      {
+        "name": "丁未",
+        "wuxing": "earth",
+        "traits": "調整・収穫前"
+      },
+      {
+        "name": "戊申",
+        "wuxing": "metal",
+        "traits": "整理・収縮"
+      },
+      {
+        "name": "己酉",
+        "wuxing": "metal",
+        "traits": "完成・収穫"
+      },
+      {
+        "name": "庚戌",
+        "wuxing": "earth",
+        "traits": "守護・固め"
+      },
+      {
+        "name": "辛亥",
+        "wuxing": "water",
+        "traits": "胎動・準備"
+      },
+      {
+        "name": "壬子",
+        "wuxing": "water",
+        "traits": "柔軟・流動"
+      },
+      {
+        "name": "癸丑",
+        "wuxing": "earth",
+        "traits": "安定・調整"
+      },
+      {
+        "name": "甲寅",
+        "wuxing": "wood",
+        "traits": "成長・勢い"
+      },
+      {
+        "name": "乙卯",
+        "wuxing": "wood",
+        "traits": "調和・発展"
+      },
+      {
+        "name": "丙辰",
+        "wuxing": "earth",
+        "traits": "変化・転換"
+      },
+      {
+        "name": "丁巳",
+        "wuxing": "fire",
+        "traits": "成熟・熱気"
+      },
+      {
+        "name": "戊午",
+        "wuxing": "fire",
+        "traits": "頂点・強勢"
+      },
+      {
+        "name": "己未",
+        "wuxing": "earth",
+        "traits": "調整・収穫前"
+      },
+      {
+        "name": "庚申",
+        "wuxing": "metal",
+        "traits": "整理・収縮"
+      },
+      {
+        "name": "辛酉",
+        "wuxing": "metal",
+        "traits": "完成・収穫"
+      },
+      {
+        "name": "壬戌",
+        "wuxing": "earth",
+        "traits": "守護・固め"
+      },
+      {
+        "name": "癸亥",
+        "wuxing": "water",
+        "traits": "胎動・準備"
+      }
+    ]
+  }
+}

@@ -1,15 +1,16 @@
 from __future__ import annotations
 
-import json
 from functools import lru_cache
-from importlib.resources import files
+from .registry_loader import load_registry
 
 
 @lru_cache(maxsize=1)
 def _load_hexagrams() -> list[dict]:
-    data_path = files("fortune_core").joinpath("data/hexagrams.json")
-    with data_path.open("r", encoding="utf-8") as file:
-        return json.load(file)
+    """
+    SSOT（core/registry_a.json）から六十四卦データを読み込む
+    """
+    registry = load_registry()
+    return registry["hexagrams"]
 
 
 def get_hexagram(hexagram_id: int) -> dict:
