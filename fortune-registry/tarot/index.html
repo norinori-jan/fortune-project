@@ -1,794 +1,455 @@
-<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <html lang="ja">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0,
-viewport-fit=cover">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-
-<meta name="apple-mobile-web-app-status-bar-style"
-content="black-translucent">
-
-<title>タロット占い</title>
-
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>大アルカナ タロット占い</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Shippori+Mincho:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-
-@import
-url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Noto+Serif+JP:wght@300;400;500&display=swap');
-
-/* フォールバック: オフライン時は游明朝→serif */
-
 :root {
-
---bg: #0a0812;
-
---gold: #c9a84c;
-
---gold2: #e8c97a;
-
---purple: #6b3fa0;
-
---purple2: #9b6fd4;
-
---text: #e8dcc8;
-
---text2: #a09080;
-
---card-back: #1a1228;
-
---card-border: #3d2d6b;
-
---glow: rgba(201,168,76,0.3);
-
+  --bg: #07050f;
+  --bg2: #0e0b1a;
+  --gold: #c9a84c;
+  --gold2: #e8c97a;
+  --gold3: #f5e4a8;
+  --purple: #5a2d8a;
+  --purple2: #8b5ccf;
+  --purple3: #b48ae8;
+  --text: #e8dcc8;
+  --text2: #8a7a68;
+  --card-back: #110d1f;
+  --card-border: #2e1f5e;
+  --glow: rgba(201,168,76,0.25);
+  --glow2: rgba(138,92,207,0.2);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Shippori Mincho','游明朝','Yu Mincho',serif;
+  min-height:100svh;
+  overflow-x:hidden;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-
-background: var(--bg);
-
-color: var(--text);
-
-/* 修正3: フォールバック付きフォントスタック */
-
-font-family: 'Noto Serif JP', '游明朝', 'Yu Mincho', 'HiraMinProN-W3',
-'ヒラギノ明朝 ProN', serif;
-
-min-height: 100svh;
-
-overflow-x: hidden;
-
-position: relative;
-
+/* 背景レイヤー */
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(90,45,138,0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 85% 90%, rgba(201,168,76,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 100% 50% at 50% 50%, rgba(14,11,26,0.9) 0%, transparent 100%);
+  pointer-events:none;z-index:0;
 }
 
-body::before {
-
-content: '';
-
-position: fixed;
-
-inset: 0;
-
-background:
-
-radial-gradient(ellipse at 20% 20%, rgba(107,63,160,0.15) 0%,
-transparent 50%),
-
-radial-gradient(ellipse at 80% 80%, rgba(201,168,76,0.08) 0%,
-transparent 50%),
-
-radial-gradient(ellipse at 50% 0%, rgba(155,111,212,0.1) 0%, transparent
-40%);
-
-pointer-events: none;
-
-z-index: 0;
-
+/* 星 */
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.star{
+  position:absolute;background:white;border-radius:50%;
+  animation:twinkle var(--dur,3s) ease-in-out infinite var(--delay,0s);opacity:0;
+}
+@keyframes twinkle{
+  0%,100%{opacity:0;transform:scale(0.4)}
+  50%{opacity:var(--op,.6);transform:scale(1)}
 }
 
-.stars { position: fixed; inset: 0; pointer-events: none; z-index: 0;
-overflow: hidden; }
-
-.star {
-
-position: absolute; background: white; border-radius: 50%;
-
-animation: twinkle var(--dur,3s) ease-in-out infinite;
-
-animation-delay: var(--delay,0s); opacity: 0;
-
+/* ヘッダー */
+header{position:relative;z-index:10;text-align:center;padding:clamp(40px,8vw,70px) 20px 16px}
+.title-en{
+  font-family:'Cinzel Decorative',serif;font-size:clamp(9px,2.5vw,11px);
+  letter-spacing:8px;color:var(--gold);opacity:0.6;margin-bottom:10px;
+}
+.title-ja{
+  font-size:clamp(22px,6vw,30px);font-weight:300;letter-spacing:10px;
+  background:linear-gradient(135deg,var(--gold2) 0%,var(--gold3) 40%,var(--purple3) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.divider{
+  width:80px;height:1px;margin:14px auto;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);
+  position:relative;
+}
+.divider::before{
+  content:'✦';position:absolute;top:-8px;left:50%;transform:translateX(-50%);
+  color:var(--gold);font-size:10px;background:var(--bg);padding:0 6px;
 }
 
-@keyframes twinkle {
-
-0%,100% { opacity:0; transform:scale(0.5); }
-
-50% { opacity:var(--op,0.6); transform:scale(1); }
-
+/* スプレッド選択 */
+.spread-selector{
+  position:relative;z-index:10;
+  display:flex;gap:8px;padding:0 16px;
+  overflow-x:auto;scrollbar-width:none;
+  justify-content:center;flex-wrap:wrap;
+  margin-bottom:4px;
+}
+.spread-selector::-webkit-scrollbar{display:none}
+.spread-btn{
+  flex-shrink:0;padding:7px 14px;
+  border:1px solid var(--card-border);
+  background:rgba(14,11,26,0.8);
+  color:var(--text2);
+  font-family:'Shippori Mincho',serif;font-size:11px;letter-spacing:2px;
+  border-radius:20px;cursor:pointer;transition:all .3s;white-space:nowrap;
+}
+.spread-btn.active{
+  border-color:var(--gold);color:var(--gold);
+  background:rgba(201,168,76,0.08);
+  box-shadow:0 0 14px var(--glow);
 }
 
-header { position:relative; z-index:10; text-align:center; padding:60px
-20px 20px; }
-
-.title-en { font-family:'Cinzel Decorative','Times New Roman',serif;
-font-size:11px; letter-spacing:6px; color:var(--gold); opacity:0.7;
-margin-bottom:8px; }
-
-.title-ja { font-size:26px; font-weight:300; letter-spacing:8px;
-background:linear-gradient(135deg,var(--gold2),var(--gold),var(--purple2));
--webkit-background-clip:text; -webkit-text-fill-color:transparent;
-background-clip:text; }
-
-.divider { width:60px; height:1px;
-background:linear-gradient(90deg,transparent,var(--gold),transparent);
-margin:16px auto; }
-
-.spread-selector { position:relative; z-index:10; display:flex; gap:8px;
-padding:0 16px; overflow-x:auto; scrollbar-width:none;
-justify-content:center; flex-wrap:wrap; }
-
-.spread-btn { flex-shrink:0; padding:8px 16px; border:1px solid
-var(--card-border); background:rgba(26,18,40,0.8); color:var(--text2);
-font-family:inherit; font-size:12px; letter-spacing:1px;
-border-radius:20px; cursor:pointer; transition:all .3s;
-white-space:nowrap; }
-
-.spread-btn.active { border-color:var(--gold); color:var(--gold);
-background:rgba(201,168,76,0.1); box-shadow:0 0 12px var(--glow); }
-
-.question-area { position:relative; z-index:10; padding:20px 20px 0; }
-
-.question-input { width:100%; background:rgba(26,18,40,0.9); border:1px
-solid var(--card-border); border-radius:12px; padding:14px 16px;
-color:var(--text); font-family:inherit; font-size:14px;
-letter-spacing:1px; outline:none; transition:border-color .3s;
-resize:none; height:60px; }
-
-.question-input::placeholder { color:var(--text2); opacity:0.6; }
-
-.question-input:focus { border-color:var(--purple2); }
-
-.card-table { position:relative; z-index:10; min-height:200px;
-display:flex; align-items:center; justify-content:center; padding:24px
-20px; gap:12px; flex-wrap:wrap; }
-
-.card-slot { perspective:800px; }
-
-.card { width:80px; height:130px; position:relative;
-transform-style:preserve-3d; transition:transform .7s
-cubic-bezier(.4,0,.2,1); cursor:pointer; }
-
-.card.flipped { transform:rotateY(180deg); }
-
-.card-face { position:absolute; inset:0; border-radius:10px;
-backface-visibility:hidden; -webkit-backface-visibility:hidden;
-display:flex; flex-direction:column; align-items:center;
-justify-content:center; }
-
-.card-back { background:var(--card-back); border:1.5px solid
-var(--card-border); box-shadow:0 4px 20px rgba(0,0,0,.6),inset 0 0 30px
-rgba(107,63,160,.1); }
-
-.card-back::before { content:''; position:absolute; inset:6px;
-border:1px solid rgba(107,63,160,.3); border-radius:6px;
-background:repeating-linear-gradient(45deg,transparent,transparent
-8px,rgba(107,63,160,.04) 8px,rgba(107,63,160,.04)
-9px),repeating-linear-gradient(-45deg,transparent,transparent
-8px,rgba(201,168,76,.03) 8px,rgba(201,168,76,.03) 9px); }
-
-.card-back-symbol { font-size:28px; opacity:.5; position:relative;
-z-index:1; }
-
-.card-front { background:linear-gradient(160deg,#1e1530 0%,#130f1f
-100%); border:1.5px solid var(--gold); box-shadow:0 4px 20px
-rgba(0,0,0,.8),0 0 15px var(--glow); transform:rotateY(180deg);
-padding:8px 6px; justify-content:space-between; }
-
-.card-number { font-family:'Cinzel Decorative','Times New Roman',serif;
-font-size:8px; color:var(--gold); opacity:.6; letter-spacing:1px;
-align-self:flex-start; }
-
-.card-symbol-front { font-size:32px; line-height:1; }
-
-.card-name-ja { font-size:9px; letter-spacing:2px; color:var(--gold2);
-text-align:center; font-weight:500; }
-
-.card-orientation { font-size:7px; color:var(--text2);
-letter-spacing:1px; }
-
-/* 逆位置はcard-frontを180度回転して表示 */
-
-.card.reversed.flipped .card-front { transform:rotateY(180deg)
-rotate(180deg); }
-
-.action-area { position:relative; z-index:10; display:flex;
-flex-direction:column; align-items:center; gap:12px; padding:0 20px
-20px; }
-
-/* 修正1: 連打防止 loading中はpointer-events:none */
-
-.shuffle-btn { position:relative; width:100%; max-width:320px;
-padding:18px; background:transparent; border:1.5px solid var(--gold);
-border-radius:8px; color:var(--gold); font-family:'Cinzel
-Decorative','Times New Roman',serif; font-size:13px; letter-spacing:3px;
-cursor:pointer; overflow:hidden; transition:all .4s; }
-
-.shuffle-btn::before { content:''; position:absolute; inset:0;
-background:linear-gradient(135deg,transparent 30%,rgba(201,168,76,.15)
-50%,transparent 70%); transform:translateX(-100%); transition:transform
-.6s; }
-
-.shuffle-btn:active::before { transform:translateX(100%); }
-
-.shuffle-btn:active { background:rgba(201,168,76,.1); box-shadow:0 0
-30px var(--glow); }
-
-.shuffle-btn.loading { pointer-events:none; border-color:var(--purple2);
-color:var(--purple2); opacity:.7; }
-
-.reveal-btn { width:100%; max-width:320px; padding:14px;
-background:rgba(107,63,160,.2); border:1px solid var(--purple);
-border-radius:8px; color:var(--purple2); font-family:inherit;
-font-size:13px; letter-spacing:2px; cursor:pointer; transition:all .3s;
-display:none; }
-
-.reveal-btn.show { display:block; }
-
-.reveal-btn:active { background:rgba(107,63,160,.4); }
-
-/* 修正2: リセットボタン */
-
-.reset-btn { width:100%; max-width:320px; padding:12px;
-background:transparent; border:1px solid rgba(255,255,255,.1);
-border-radius:8px; color:var(--text2); font-family:inherit;
-font-size:12px; letter-spacing:3px; cursor:pointer; transition:all .3s;
-display:none; }
-
-.reset-btn.show { display:block; }
-
-.reset-btn:active { border-color:var(--gold); color:var(--gold); }
-
-.instruction { font-size:11px; letter-spacing:2px; color:var(--text2);
-text-align:center; margin-bottom:4px; min-height:20px;
-transition:opacity .3s; }
-
-.result-area { position:relative; z-index:10; padding:0 20px 60px;
-display:none; }
-
-.result-area.show { display:block; }
-
-.result-card { background:rgba(17,14,26,.9); border:1px solid
-var(--card-border); border-radius:16px; padding:20px;
-margin-bottom:12px; animation:fadeUp .5s ease forwards; opacity:0; }
-
-.result-card:nth-child(1){animation-delay:.0s}
-
-.result-card:nth-child(2){animation-delay:.15s}
-
-.result-card:nth-child(3){animation-delay:.3s}
-
-.result-card:nth-child(4){animation-delay:.45s}
-
-.result-card:nth-child(5){animation-delay:.6s}
-
-@keyframes fadeUp { from{opacity:0;transform:translateY(16px)}
-to{opacity:1;transform:translateY(0)} }
-
-.pos-label { font-size:9px; letter-spacing:3px; color:var(--gold);
-opacity:.7; margin-bottom:4px; }
-
-.result-name { display:flex; align-items:center; gap:8px;
-margin-bottom:10px; flex-wrap:wrap; }
-
-.result-name-ja { font-size:20px; font-weight:500; color:var(--gold2);
-letter-spacing:2px; }
-
-.result-ori { font-size:10px; padding:2px 8px; border-radius:10px;
-border:1px solid; }
-
-.result-ori.upright { border-color:var(--gold); color:var(--gold); }
-
-.result-ori.reversed { border-color:#c06060; color:#c06060; }
-
-.result-keywords { display:flex; flex-wrap:wrap; gap:6px;
-margin-bottom:10px; }
-
-.keyword-tag { font-size:10px; padding:3px 10px;
-background:rgba(107,63,160,.2); border:1px solid rgba(107,63,160,.4);
-border-radius:10px; color:var(--purple2); letter-spacing:1px; }
-
-.result-advice { font-size:12px; line-height:1.9; color:var(--text2);
-border-top:1px solid rgba(255,255,255,.05); padding-top:10px; }
-
-.wuxing-badge { font-size:10px; padding:1px 8px; border-radius:8px; }
-
-.wx-木{background:rgba(76,160,76,.2);color:#7dca7d;border:1px solid
-rgba(76,160,76,.3)}
-
-.wx-火{background:rgba(200,80,60,.2);color:#e88c7a;border:1px solid
-rgba(200,80,60,.3)}
-
-.wx-土{background:rgba(180,150,80,.2);color:#d4b870;border:1px solid
-rgba(180,150,80,.3)}
-
-.wx-金{background:rgba(200,180,120,.2);color:#e8d898;border:1px solid
-rgba(200,180,120,.3)}
-
-.wx-水{background:rgba(60,120,200,.2);color:#7aaee8;border:1px solid
-rgba(60,120,200,.3)}
-
-@keyframes cardShuffle {
-
-0%{transform:translateY(0) rotate(0deg)}
-
-25%{transform:translateY(-15px) rotate(-5deg)}
-
-50%{transform:translateY(-8px) rotate(3deg)}
-
-75%{transform:translateY(-18px) rotate(-2deg)}
-
-100%{transform:translateY(0) rotate(0deg)}
-
+/* 質問欄 */
+.question-area{position:relative;z-index:10;padding:16px 20px 0}
+.question-input{
+  width:100%;background:rgba(14,11,26,0.9);
+  border:1px solid var(--card-border);border-radius:12px;
+  padding:13px 16px;color:var(--text);
+  font-family:'Shippori Mincho',serif;font-size:13px;letter-spacing:1px;
+  outline:none;transition:border-color .3s;resize:none;height:56px;
+}
+.question-input::placeholder{color:var(--text2);opacity:0.5}
+.question-input:focus{border-color:var(--purple2)}
+
+/* カードテーブル */
+.card-table{
+  position:relative;z-index:10;
+  min-height:180px;display:flex;
+  align-items:center;justify-content:center;
+  padding:24px 16px;gap:10px;flex-wrap:wrap;
 }
 
-.card.shuffling { animation:cardShuffle .5s ease-in-out infinite; }
+/* カード */
+.card-slot{perspective:900px}
+.card{
+  width:78px;height:128px;
+  position:relative;transform-style:preserve-3d;
+  transition:transform .75s cubic-bezier(.4,0,.2,1);
+  cursor:pointer;
+}
+.card.flipped{transform:rotateY(180deg)}
+.card-face{
+  position:absolute;inset:0;border-radius:10px;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+}
+.card-back{
+  background:var(--card-back);
+  border:1.5px solid var(--card-border);
+  box-shadow:0 4px 24px rgba(0,0,0,.7),inset 0 0 40px rgba(90,45,138,.08);
+}
+.card-back::before{
+  content:'';position:absolute;inset:7px;
+  border:1px solid rgba(90,45,138,.25);border-radius:6px;
+  background:
+    repeating-linear-gradient(45deg,transparent,transparent 7px,rgba(90,45,138,.03) 7px,rgba(90,45,138,.03) 8px),
+    repeating-linear-gradient(-45deg,transparent,transparent 7px,rgba(201,168,76,.025) 7px,rgba(201,168,76,.025) 8px);
+}
+.card-back-symbol{font-size:26px;opacity:.35;position:relative;z-index:1}
+.card-front{
+  background:linear-gradient(160deg,#1a1130 0%,#0f0c1e 100%);
+  border:1.5px solid var(--gold);
+  box-shadow:0 4px 24px rgba(0,0,0,.9),0 0 20px var(--glow);
+  transform:rotateY(180deg);
+  padding:8px 6px;justify-content:space-between;
+}
+.card-number{
+  font-family:'Cinzel Decorative',serif;font-size:7px;
+  color:var(--gold);opacity:.55;letter-spacing:1px;align-self:flex-start;
+}
+.card-symbol-front{font-size:30px;line-height:1}
+.card-name-ja{font-size:9px;letter-spacing:2px;color:var(--gold2);text-align:center;font-weight:500}
+.card-orientation{font-size:7px;color:var(--text2);letter-spacing:1px}
+.card.reversed.flipped .card-front{transform:rotateY(180deg) rotate(180deg)}
 
+/* アクションエリア */
+.action-area{
+  position:relative;z-index:10;
+  display:flex;flex-direction:column;align-items:center;
+  gap:10px;padding:0 20px 20px;
+}
+.instruction{
+  font-size:11px;letter-spacing:2px;color:var(--text2);
+  text-align:center;margin-bottom:2px;min-height:20px;
+}
+.shuffle-btn{
+  position:relative;width:100%;max-width:300px;padding:17px;
+  background:transparent;border:1.5px solid var(--gold);border-radius:8px;
+  color:var(--gold);font-family:'Cinzel Decorative',serif;
+  font-size:12px;letter-spacing:4px;cursor:pointer;overflow:hidden;transition:all .4s;
+}
+.shuffle-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,transparent 30%,rgba(201,168,76,.12) 50%,transparent 70%);
+  transform:translateX(-100%);transition:transform .6s;
+}
+.shuffle-btn:active::before{transform:translateX(100%)}
+.shuffle-btn:active{background:rgba(201,168,76,.08);box-shadow:0 0 30px var(--glow)}
+.shuffle-btn.loading{pointer-events:none;border-color:var(--purple2);color:var(--purple2);opacity:.7}
+.reveal-btn{
+  width:100%;max-width:300px;padding:13px;
+  background:rgba(90,45,138,.15);border:1px solid var(--purple);border-radius:8px;
+  color:var(--purple3);font-family:'Shippori Mincho',serif;
+  font-size:12px;letter-spacing:2px;cursor:pointer;transition:all .3s;display:none;
+}
+.reveal-btn.show{display:block}
+.reveal-btn:active{background:rgba(90,45,138,.35)}
+.reset-btn{
+  width:100%;max-width:300px;padding:11px;
+  background:transparent;border:1px solid rgba(255,255,255,.08);border-radius:8px;
+  color:var(--text2);font-family:'Shippori Mincho',serif;
+  font-size:11px;letter-spacing:3px;cursor:pointer;transition:all .3s;display:none;
+}
+.reset-btn.show{display:block}
+.reset-btn:active{border-color:var(--gold);color:var(--gold)}
+
+/* 結果エリア */
+.result-area{position:relative;z-index:10;padding:0 20px 80px;display:none}
+.result-area.show{display:block}
+.result-card{
+  background:rgba(14,11,26,.95);
+  border:1px solid var(--card-border);border-radius:16px;
+  padding:18px;margin-bottom:10px;
+  animation:fadeUp .55s ease forwards;opacity:0;
+}
+.result-card:nth-child(1){animation-delay:.05s}
+.result-card:nth-child(2){animation-delay:.18s}
+.result-card:nth-child(3){animation-delay:.31s}
+.result-card:nth-child(4){animation-delay:.44s}
+.result-card:nth-child(5){animation-delay:.57s}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.pos-label{font-size:9px;letter-spacing:3px;color:var(--gold);opacity:.65;margin-bottom:4px}
+.result-name{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.result-name-ja{font-size:19px;font-weight:500;color:var(--gold2);letter-spacing:2px}
+.result-ori{font-size:10px;padding:2px 8px;border-radius:10px;border:1px solid}
+.result-ori.upright{border-color:var(--gold);color:var(--gold)}
+.result-ori.reversed{border-color:#c06060;color:#c06060}
+.result-keywords{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.keyword-tag{
+  font-size:10px;padding:3px 10px;
+  background:rgba(90,45,138,.18);
+  border:1px solid rgba(90,45,138,.38);
+  border-radius:10px;color:var(--purple3);letter-spacing:1px;
+}
+.result-advice{
+  font-size:12px;line-height:2;color:var(--text2);
+  border-top:1px solid rgba(255,255,255,.04);padding-top:10px;
+}
+.element-note{
+  font-size:10px;color:rgba(138,122,104,.6);
+  margin-top:8px;letter-spacing:1px;font-style:italic;
+}
+.wuxing-badge{font-size:10px;padding:2px 8px;border-radius:8px;border:1px solid}
+.wx-木{background:rgba(76,160,76,.15);color:#7dca7d;border-color:rgba(76,160,76,.3)}
+.wx-火{background:rgba(200,80,60,.15);color:#e88c7a;border-color:rgba(200,80,60,.3)}
+.wx-土{background:rgba(180,150,80,.15);color:#d4b870;border-color:rgba(180,150,80,.3)}
+.wx-金{background:rgba(200,180,120,.15);color:#e8d898;border-color:rgba(200,180,120,.3)}
+.wx-水{background:rgba(60,120,200,.15);color:#7aaee8;border-color:rgba(60,120,200,.3)}
+
+/* アニメーション */
+@keyframes cardShuffle{
+  0%{transform:translateY(0) rotate(0deg)}
+  25%{transform:translateY(-14px) rotate(-4deg)}
+  50%{transform:translateY(-7px) rotate(3deg)}
+  75%{transform:translateY(-16px) rotate(-2deg)}
+  100%{transform:translateY(0) rotate(0deg)}
+}
+.card.shuffling{animation:cardShuffle .5s ease-in-out infinite}
 .card.shuffling:nth-child(2){animation-delay:.1s}
-
 .card.shuffling:nth-child(3){animation-delay:.2s}
-
-@keyframes wiggle {
-
-0%,100%{transform:rotate(0deg)}
-
-25%{transform:rotate(-2deg) translateY(-3px)}
-
-75%{transform:rotate(2deg) translateY(-3px)}
-
+@keyframes wiggle{
+  0%,100%{transform:rotate(0deg)}
+  30%{transform:rotate(-2deg) translateY(-3px)}
+  70%{transform:rotate(2deg) translateY(-3px)}
 }
-
-.card.ready:not(.flipped) { animation:wiggle 2s ease-in-out infinite;
-cursor:pointer; }
-
+.card.ready:not(.flipped){animation:wiggle 2.5s ease-in-out infinite;cursor:pointer}
 </style>
-
 </head>
-
 <body>
-
 <div class="stars" id="stars"></div>
-
 <header>
-
-<div class="title-en">Major Arcana</div>
-
-<div class="title-ja">大アルカナ</div>
-
-<div class="divider"></div>
-
+  <div class="title-en">Major Arcana Tarot</div>
+  <div class="title-ja">大アルカナ占い</div>
+  <div class="divider"></div>
 </header>
 
 <div class="spread-selector">
-
-<button class="spread-btn active" data-spread="one">一枚引き</button>
-
-<button class="spread-btn" data-spread="three">スリーカード</button>
-
-<button class="spread-btn" data-spread="yesno">YES / NO</button>
-
-<button class="spread-btn" data-spread="daily">今日のカード</button>
-
-<button class="spread-btn" data-spread="celtic">ケルティック</button>
-
+  <button class="spread-btn active" data-spread="one">一枚引き</button>
+  <button class="spread-btn" data-spread="three">スリーカード</button>
+  <button class="spread-btn" data-spread="yesno">YES / NO</button>
+  <button class="spread-btn" data-spread="daily">今日のカード</button>
+  <button class="spread-btn" data-spread="celtic">ケルティック</button>
 </div>
 
 <div class="question-area">
-
-<textarea class="question-input"
-placeholder="問いかけを記してください…（任意）"
-id="question"></textarea>
-
+  <textarea class="question-input" id="question" placeholder="問いかけを記してください…（任意）"></textarea>
 </div>
 
 <div class="card-table" id="cardTable"></div>
 
 <div class="action-area">
-
-<div class="instruction"
-id="instruction">カードをシャッフルして、運命に問いかけてください</div>
-
-<button class="shuffle-btn" id="shuffleBtn" onclick="startShuffle()">✦
-SHUFFLE ✦</button>
-
-<button class="reveal-btn" id="revealBtn"
-onclick="revealAll()">すべて開く</button>
-
-<button class="reset-btn" id="resetBtn" onclick="resetAll()">↺
-もう一度占う</button>
-
+  <div class="instruction" id="instruction">カードをシャッフルして、運命に問いかけてください</div>
+  <button class="shuffle-btn" id="shuffleBtn" onclick="startShuffle()">✦ SHUFFLE ✦</button>
+  <button class="reveal-btn" id="revealBtn" onclick="revealAll()">すべて開く</button>
+  <button class="reset-btn" id="resetBtn" onclick="resetAll()">↺ もう一度占う</button>
 </div>
 
 <div class="result-area" id="resultArea"></div>
 
 <script>
-
-// ── 修正2: major.json
-fetch優先、失敗時はインラインデータにフォールバック ──
-
-const INLINE_CARDS = [{"id":"M00","number":0,"name_en":"The
-Fool","name_ja":"愚者","wuxing":"木","upright":{"keywords":["自由","始まり","純粋","可能性"],"action_advice":"結果を恐れず、まずは直感に従って一歩を踏み出してみる時です。"},"reversed":{"keywords":["無計画","無責任","優柔不断","停滞"],"action_advice":"準備不足や焦りがないか、一度立ち止まって足元を確認してください。"}},{"id":"M01","number":1,"name_en":"The
-Magician","name_ja":"魔術師","wuxing":"火","upright":{"keywords":["創造","技術","自信","集中"],"action_advice":"手元にある道具やスキルは十分揃っています。自信を持って計画を実行に移しましょう。"},"reversed":{"keywords":["空回り","不調装","欺瞞","未熟"],"action_advice":"小手先の技術や嘘で誤魔化さず、基礎スキルの磨き直しや準備の再確認をしてください。"}},{"id":"M02","number":2,"name_en":"The
-High
-Priestess","name_ja":"女教皇","wuxing":"水","upright":{"keywords":["直感","知性","静寂","客観性"],"action_advice":"周囲の雑音から離れ、自分の内なる直感と冷静な分析力に耳を傾けてください。"},"reversed":{"keywords":["批判的","神経質","冷淡","現実逃避"],"action_advice":"白黒ハッキリつけようと批判的になりがちです。寛容な心を持ち、感情の波を落ち着かせましょう。"}},{"id":"M03","number":3,"name_en":"The
-Empress","name_ja":"女帝","wuxing":"木","upright":{"keywords":["豊かさ","包容力","愛情","生産性"],"action_advice":"現状を愛し、育てる時期です。周囲への感謝を形にし、心地よい環境作りに注力しましょう。"},"reversed":{"keywords":["過保護","我儘","怠惰","浪費"],"action_advice":"過剰な干渉や依存心が生じているサインです。甘えを捨て、自立心を取り戻してください。"}},{"id":"M04","number":4,"name_en":"The
-Emperor","name_ja":"皇帝","wuxing":"火","upright":{"keywords":["安定","支配","責任感","リーダー"],"action_advice":"強い意思と責任感を持って主導権を握り、明確なルールや構造を確立してください。"},"reversed":{"keywords":["独裁","横暴","無力感","過労"],"action_advice":"頑固さや高圧的な態度で孤立を招いています。柔軟に周囲の意見を取り入れましょう。"}},{"id":"M05","number":5,"name_en":"The
-Hierophant","name_ja":"法王","wuxing":"土","upright":{"keywords":["モラル","信頼","導き","伝統"],"action_advice":"秩序や伝統的なルールを守り、信頼できる専門家や先輩にアドバイスを求めると道が開けます。"},"reversed":{"keywords":["不信感","偏見","独善","反発"],"action_advice":"視野が狭くなり、マニュアルに固執しています。柔軟でオープンな思考を意識してください。"}},{"id":"M06","number":6,"name_en":"The
-Lovers","name_ja":"恋人","wuxing":"木","upright":{"keywords":["選択","調和","情熱","共感"],"action_advice":"自分の心が真に心地よいと感じる選択、および周囲との調和を最優先に決定してください。"},"reversed":{"keywords":["不調和","誘惑","優柔不断","不実"],"action_advice":"目先の誘惑や他人の意見に流されています。本当に大切な価値観が何か、選び直してください。"}},{"id":"M07","number":7,"name_en":"The
-Chariot","name_ja":"戦車","wuxing":"水","upright":{"keywords":["前進","勝利","克服","自己制御"],"action_advice":"二面性のある葛藤をコントロールし、目標に向かって迷わず一気に突き進んでください。"},"reversed":{"keywords":["暴走","挫折","空回り","制御不能"],"action_advice":"エネルギーが空回り、あるいは暴走しています。一旦スピードを落とし、軌道修正を図りましょう。"}},{"id":"M08","number":8,"name_en":"Strength","name_ja":"力","wuxing":"火","upright":{"keywords":["忍耐","包容力","本能制御","不屈"],"action_advice":"腕力ではなく、粘り強い忍耐力と自己コントロール、そして愛を持って課題に向き合ってください。"},"reversed":{"keywords":["落胆","自信喪失","感情爆発","妥協"],"action_advice":"プレッシャーに負けて弱気になっています。自分の感情（本能）を否定せず、受け入れることから始めてください。"}},{"id":"M09","number":9,"name_en":"The
-Hermit","name_ja":"隠者","wuxing":"土","upright":{"keywords":["探求","内省","孤独","慎重"],"action_advice":"外側の情報に惑わされず、一人の時間を確保して本質を深く見つめ直す必要があります。"},"reversed":{"keywords":["閉鎖的","偏屈","邪推","現実無視"],"action_advice":"自分の世界に閉じこもり、頑固になっています。心の扉を少し開き、客観的な現実に目を向けましょう。"}},{"id":"M10","number":10,"name_en":"Wheel
-of
-Fortune","name_ja":"運命の輪","wuxing":"木","upright":{"keywords":["転換点","好機","幸運","タイミング"],"action_advice":"状況が急激に好転する兆しです。ためらわずにこの変化の波に乗り、チャンスを掴んでください。"},"reversed":{"keywords":["暗転","タイミング悪","抵抗","不運"],"action_advice":"今は逆風のタイミングです。無理に流れを変えようと足掻かず、嵐が過ぎ去るのを待ちましょう。"}},{"id":"M11","number":11,"name_en":"Justice","name_ja":"正義","wuxing":"金","upright":{"keywords":["公平","バランス","誠実","決断"],"action_advice":"感情に流されず、因果関係を客観的に捉えて、公明正大で誠実な判断を下してください。"},"reversed":{"keywords":["不公平","偏見","優柔不断","不釣り合い"],"action_advice":"偏った見方や、不公平な扱いに不満が募っています。まずは自分自身の天秤が傾いていないか確認しましょう。"}},{"id":"M12","number":12,"name_en":"The
-Hanged
-Man","name_ja":"吊るされた男","wuxing":"水","upright":{"keywords":["試練","視点変更","献身","一時停止"],"action_advice":"動けない現状を逆手に取り、物事を180度違う視点から捉え直すことで新しい智慧が得られます。"},"reversed":{"keywords":["無駄な犠牲","骨折り損","自己憐憫","執着"],"action_advice":"報われない努力や我慢に縛られています。「犠牲になっている」という被害者意識を手放してください。"}},{"id":"M13","number":13,"name_en":"Death","name_ja":"死神","wuxing":"水","upright":{"keywords":["終わり","再生","リセット","決別"],"action_advice":"役目を終えた古い状況や関係性を完全に手放してください。それは新しい始まりへの絶対条件です。"},"reversed":{"keywords":["未練","再生遅延","惰性","執着"],"action_advice":"終わったことに執着し、変化を拒んでいます。未練を断ち切り、強制終了を受け入れる覚悟を持ちましょう。"}},{"id":"M14","number":14,"name_en":"Temperance","name_ja":"節制","wuxing":"土","upright":{"keywords":["調和","循環","適応","錬金術"],"action_advice":"異なる要素をうまく調和させ、中庸を保ちましょう。穏やかなコミュニケーションが状況を好転させます。"},"reversed":{"keywords":["不調和","過剰","不摂生","消耗"],"action_advice":"生活や感情のバランスが崩れ、コントロールを失っています。過剰な要素を削ぎ落としてください。"}},{"id":"M15","number":15,"name_en":"The
-Devil","name_ja":"悪魔","wuxing":"土","upright":{"keywords":["束縛","欲望","依存","執着"],"action_advice":"目先の快楽や依存関係、固定観念に縛られています。自分が何に囚われているかを自覚しましょう。"},"reversed":{"keywords":["覚醒","束縛打破","悪習慣改善","自立"],"action_advice":"不健全な関係や悪習慣から抜け出すチャンスが到来しています。強い意志を持って自立の一歩を踏み出してください。"}},{"id":"M16","number":16,"name_en":"The
-Tower","name_ja":"塔","wuxing":"火","upright":{"keywords":["崩壊","劇的変化","衝撃","覚醒"],"action_advice":"既存のプライドや不都合な基盤が崩れ去りますが、これは嘘のない真実へ向かうための必要な崩壊です。"},"reversed":{"keywords":["緊迫状態","現状維持固執","大難小難","慢性ストレス"],"action_advice":"崩壊の危機を前にして、無理にしがみついています。根本原因を放置せず、抜本的な見直しを行ってください。"}},{"id":"M17","number":17,"name_en":"The
-Star","name_ja":"星","wuxing":"金","upright":{"keywords":["希望","インスピレーション","純粋","癒し"],"action_advice":"暗闇の中に希望の光が見えてきます。自らの理想や直感を信じて、純粋なビジョンを描き続けましょう。"},"reversed":{"keywords":["幻滅","高望み","悲観的","インスピ不足"],"action_advice":"理想が高すぎて現実とのギャップに落胆しています。まずは手の届く小さな現実から見つめ直しましょう。"}},{"id":"M18","number":18,"name_en":"The
-Moon","name_ja":"月","wuxing":"水","upright":{"keywords":["不安","幻想","見通し難","潜在意識"],"action_advice":"先が見えず不安が募る時期ですが、無理に動くと迷走します。輪郭がはっきりするまで静観してください。"},"reversed":{"keywords":["霧晴れる","不安解消","真実露見","現実回帰"],"action_advice":"徐々に不透明だった状況から霧が晴れ、真実が見えてきます。確信を持って次の具体的な行動を起こしましょう。"}},{"id":"M19","number":19,"name_en":"The
-Sun","name_ja":"太陽","wuxing":"火","upright":{"keywords":["成功","活力","明確","祝福"],"action_advice":"すべての問題が明るい光に照らされ解決します。エネルギー全開で自己表現し、喜びを周囲と共有しましょう。"},"reversed":{"keywords":["不調","延期","陰り","過信"],"action_advice":"完全な失敗ではないものの、パワー不足や計画の遅延が生じやすいです。過信を捨て、エネルギーを充電してください。"}},{"id":"M20","number":20,"name_en":"Judgement","name_ja":"審判","wuxing":"金","upright":{"keywords":["復活","覚醒","吉報","過去清算"],"action_advice":"過去の努力が報われ、再びチャンスが巡ってきます。心の声（使命）に従って、迷わず立ち上がってください。"},"reversed":{"keywords":["再起不能","後悔","決定遅延","見送り"],"action_advice":"過去の失敗を悔やみ、決断を先送りにしています。同じ過ちを繰り返さないと誓い、今度こそ前を向きましょう。"}},{"id":"M21","number":21,"name_en":"The
-World","name_ja":"世界","wuxing":"土","upright":{"keywords":["完成","統合","達成","完全なる調和"],"action_advice":"現在のサイクルは見事に完成へと至りました。この素晴らしい成果を祝い、次の新たなステージへ進む準備をしてください。"},"reversed":{"keywords":["未完成","中途半端","マンネリ","限界"],"action_advice":"ゴールの一歩手前で停滞、あるいは不完全燃焼を感じています。詰めが甘い部分がないか、最後の一踏ん張りを見せましょう。"}}];
-
-const SYMBOLS =
-{"M00":"🃏","M01":"🔮","M02":"📖","M03":"🌸","M04":"⚔️","M05":"🏛️","M06":"💞","M07":"🏺","M08":"🦁","M09":"🔦","M10":"☸️","M11":"⚖️","M12":"🙃","M13":"💀","M14":"🌊","M15":"⛓️","M16":"⚡","M17":"⭐","M18":"🌙","M19":"☀️","M20":"📯","M21":"🌍"};
-
+const CARDS = [{"id":"M00","number":0,"name_en":"The Fool","name_ja":"愚者","wuxing":"木","element_note":"始まり・出発・春の芽吹き。制御されていない木気。","upright":{"keywords":["自由","始まり","純粋","可能性"],"action_advice":"結果を恐れず、まずは直感に従って一歩を踏み出してみる時です。"},"reversed":{"keywords":["無計画","無責任","優柔不断","停滞"],"action_advice":"準備不足や焦りがないか、一度立ち止まって足元を確認してください。"}},{"id":"M01","number":1,"name_en":"The Magician","name_ja":"魔術師","wuxing":"火","element_note":"意志・顕現・天と地を繋ぐ火の力。","upright":{"keywords":["創造","技術","自信","集中"],"action_advice":"手元にある道具やスキルは十分揃っています。自信を持って計画を実行に移しましょう。"},"reversed":{"keywords":["空回り","不調装","欺瞞","未熟"],"action_advice":"小手先の技術や嘘で誤魔化さず、基礎スキルの磨き直しや準備の再確認をしてください。"}},{"id":"M02","number":2,"name_en":"The High Priestess","name_ja":"女教皇","wuxing":"水","element_note":"隠れた知・直感・深い水。表に出ない力。","upright":{"keywords":["直感","知性","静寂","客観性"],"action_advice":"周囲の雑音から離れ、自分の内なる直感と冷静な分析力に耳を傾けてください。"},"reversed":{"keywords":["批判的","神経質","冷淡","現実逃避"],"action_advice":"白黒ハッキリつけようと批判的になりがちです。寛容な心を持ち、感情の波を落ち着かせましょう。"}},{"id":"M03","number":3,"name_en":"The Empress","name_ja":"女帝","wuxing":"木","element_note":"豊穣・育む木の陰。大地の生産力。","upright":{"keywords":["豊かさ","包容力","愛情","生産性"],"action_advice":"現状を愛し、育てる時期です。周囲への感謝を形にし、心地よい環境作りに注力しましょう。"},"reversed":{"keywords":["過保護","我儘","怠惰","浪費"],"action_advice":"過剰な干渉や依存心が生じているサインです。甘えを捨て、自立心を取り戻してください。"}},{"id":"M04","number":4,"name_en":"The Emperor","name_ja":"皇帝","wuxing":"火","element_note":"支配・権威・陽の極。秩序を作る火。","upright":{"keywords":["安定","支配","責任感","リーダー"],"action_advice":"強い意思と責任感を持って主導権を握り、明確なルールや構造を確立してください。"},"reversed":{"keywords":["独裁","横暴","無力感","過労"],"action_advice":"頑固さや高圧的な態度で孤立を招いています。柔軟に周囲の意見を取り入れましょう。"}},{"id":"M05","number":5,"name_en":"The Hierophant","name_ja":"法王","wuxing":"土","element_note":"伝統・制度・中央の土。橋渡しする力。","upright":{"keywords":["モラル","信頼","導き","伝統"],"action_advice":"秩序や伝統的なルールを守り、信頼できる専門家や先輩にアドバイスを求めると道が開けます。"},"reversed":{"keywords":["不信感","偏見","独善","反発"],"action_advice":"視野が狭くなり、マニュアルに固執しています。柔軟でオープンな思考を意識してください。"}},{"id":"M06","number":6,"name_en":"The Lovers","name_ja":"恋人","wuxing":"木","element_note":"選択・調和・木と木の共鳴。","upright":{"keywords":["選択","調和","情熱","共感"],"action_advice":"自分の心が真に心地よいと感じる選択、および周囲との調和を最優先に決定してください。"},"reversed":{"keywords":["不調和","誘惑","優柔不断","不実"],"action_advice":"目先の誘惑や他人の意見に流されています。本当に大切な価値観が何か、選び直してください。"}},{"id":"M07","number":7,"name_en":"The Chariot","name_ja":"戦車","wuxing":"水","element_note":"意志による制御・水を操る力。前進する気。","upright":{"keywords":["前進","勝利","克服","自己制御"],"action_advice":"二面性のある葛藤をコントロールし、目標に向かって迷わず一気に突き進んでください。"},"reversed":{"keywords":["暴走","挫折","空回り","制御不能"],"action_advice":"エネルギーが空回り、あるいは暴走しています。一旦スピードを落とし、軌道修正を図りましょう。"}},{"id":"M08","number":8,"name_en":"Strength","name_ja":"力","wuxing":"火","element_note":"内なる火・柔らかな意志の強さ。","upright":{"keywords":["忍耐","包容力","本能制御","不屈"],"action_advice":"腕力ではなく、粘り強い忍耐力と自己コントロール、そして愛を持って課題に向き合ってください。"},"reversed":{"keywords":["落胆","自信喪失","感情爆発","妥協"],"action_advice":"プレッシャーに負けて弱気になっています。自分の感情（本能）を否定せず、受け入れることから始めてください。"}},{"id":"M09","number":9,"name_en":"The Hermit","name_ja":"隠者","wuxing":"土","element_note":"孤独・内省・山上の土。静かに待つ力。","upright":{"keywords":["探求","内省","孤独","慎重"],"action_advice":"外側の情報に惑わされず、一人の時間を確保して本質を深く見つめ直す必要があります。"},"reversed":{"keywords":["閉鎖的","偏屈","邪推","現実無視"],"action_advice":"自分の世界に閉じこもり、頑固になっています。心の扉を少し開き、客観的な現実に目を向けましょう。"}},{"id":"M10","number":10,"name_en":"Wheel of Fortune","name_ja":"運命の輪","wuxing":"木","element_note":"巡る気・春夏秋冬の木の循環。","upright":{"keywords":["転換点","好機","幸運","タイミング"],"action_advice":"状況が急激に好転する兆しです。ためらわずにこの変化の波に乗り、チャンスを掴んでください。"},"reversed":{"keywords":["暗転","タイミング悪","抵抗","不運"],"action_advice":"今は逆風のタイミングです。無理に流れを変えようと足掻かず、嵐が過ぎ去るのを待ちましょう。"}},{"id":"M11","number":11,"name_en":"Justice","name_ja":"正義","wuxing":"金","element_note":"裁断・公正・金の剋する力。","upright":{"keywords":["公平","バランス","誠実","決断"],"action_advice":"感情に流されず、因果関係を客観的に捉えて、公明正大で誠実な判断を下してください。"},"reversed":{"keywords":["不公平","偏見","優柔不断","不釣り合い"],"action_advice":"偏った見方や、不公平な扱いに不満が募っています。まずは自分自身の天秤が傾いていないか確認しましょう。"}},{"id":"M12","number":12,"name_en":"The Hanged Man","name_ja":"吊るされた男","wuxing":"水","element_note":"停止・逆さまの視点・水の深さ。","upright":{"keywords":["試練","視点変更","献身","一時停止"],"action_advice":"動けない現状を逆手に取り、物事を180度違う視点から捉え直すことで新しい智慧が得られます。"},"reversed":{"keywords":["無駄な犠牲","骨折り損","自己憐憫","執着"],"action_advice":"報われない努力や我慢に縛られています。「犠牲になっている」という被害者意識を手放してください。"}},{"id":"M13","number":13,"name_en":"Death","name_ja":"死神","wuxing":"水","element_note":"終わりと始まり・冬の水。脱皮する力。","upright":{"keywords":["終わり","再生","リセット","決別"],"action_advice":"役目を終えた古い状況や関係性を完全に手放してください。それは新しい始まりへの絶対条件です。"},"reversed":{"keywords":["未練","再生遅延","惰性","執着"],"action_advice":"終わったことに執着し、変化を拒んでいます。未練を断ち切り、強制終了を受け入れる覚悟を持ちましょう。"}},{"id":"M14","number":14,"name_en":"Temperance","name_ja":"節制","wuxing":"土","element_note":"調和・中庸・水と火を合わせる土の働き。","upright":{"keywords":["調和","循環","適応","錬金術"],"action_advice":"異なる要素をうまく調和させ、中庸を保ちましょう。穏やかなコミュニケーションが状況を好転させます。"},"reversed":{"keywords":["不調和","過剰","不摂生","消耗"],"action_advice":"生活や感情のバランスが崩れ、コントロールを失っています。過剰な要素を削ぎ落としてください。"}},{"id":"M15","number":15,"name_en":"The Devil","name_ja":"悪魔","wuxing":"土","element_note":"執着・束縛・重い土の陰。","upright":{"keywords":["束縛","欲望","依存","執着"],"action_advice":"目先の快楽や依存関係、固定観念に縛られています。自分が何に囚われているかを自覚しましょう。"},"reversed":{"keywords":["覚醒","束縛打破","悪習慣改善","自立"],"action_advice":"不健全な関係や悪習慣から抜け出すチャンスが到来しています。強い意志を持って自立の一歩を踏み出してください。"}},{"id":"M16","number":16,"name_en":"The Tower","name_ja":"塔","wuxing":"火","element_note":"崩壊・雷火・急激な火の爆発。","upright":{"keywords":["崩壊","劇的変化","衝撃","覚醒"],"action_advice":"既存のプライドや不都合な基盤が崩れ去りますが、これは嘘のない真実へ向かうための必要な崩壊です。"},"reversed":{"keywords":["緊迫状態","現状維持固執","大難小難","慢性ストレス"],"action_advice":"崩壊の危機を前にして、無理にしがみついています。根本原因を放置せず、抜本的な見直しを行ってください。"}},{"id":"M17","number":17,"name_en":"The Star","name_ja":"星","wuxing":"金","element_note":"希望・浄化・夜空の金気。","upright":{"keywords":["希望","インスピレーション","純粋","癒し"],"action_advice":"暗闇の中に希望の光が見えてきます。自らの理想や直感を信じて、純粋なビジョンを描き続けましょう。"},"reversed":{"keywords":["幻滅","高望み","悲観的","インスピ不足"],"action_advice":"理想が高すぎて現実とのギャップに落胆しています。まずは手の届く小さな現実から見つめ直しましょう。"}},{"id":"M18","number":18,"name_en":"The Moon","name_ja":"月","wuxing":"水","element_note":"幻想・不安・満ち欠ける水の陰。","upright":{"keywords":["不安","幻想","見通し難","潜在意識"],"action_advice":"先が見えず不安が募る時期ですが、無理に動くと迷走します。輪郭がはっきりするまで静観してください。"},"reversed":{"keywords":["霧晴れる","不安解消","真実露見","現実回帰"],"action_advice":"徐々に不透明だった状況から霧が晴れ、真実が見えてきます。確信を持って次の具体的な行動を起こしましょう。"}},{"id":"M19","number":19,"name_en":"The Sun","name_ja":"太陽","wuxing":"火","element_note":"顕現・陽の極・万物を照らす火。","upright":{"keywords":["成功","活力","明確","祝福"],"action_advice":"すべての問題が明るい光に照らされ解決します。エネルギー全開で自己表現し、喜びを周囲と共有しましょう。"},"reversed":{"keywords":["不調","延期","陰り","過信"],"action_advice":"完全な失敗ではないものの、パワー不足や計画の遅延が生じやすいです。過信を捨て、エネルギーを充電してください。"}},{"id":"M20","number":20,"name_en":"Judgement","name_ja":"審判","wuxing":"金","element_note":"決断・召喚・金の断ち切る力。","upright":{"keywords":["復活","覚醒","吉報","過去清算"],"action_advice":"過去の努力が報われ、再びチャンスが巡ってきます。心の声（使命）に従って、迷わず立ち上がってください。"},"reversed":{"keywords":["再起不能","後悔","決定遅延","見送り"],"action_advice":"過去の失敗を悔やみ、決断を先送りにしています。同じ過ちを繰り返さないと誓い、今度こそ前を向きましょう。"}},{"id":"M21","number":21,"name_en":"The World","name_ja":"世界","wuxing":"土","element_note":"完成・統合・中央の土。すべてを包む。","upright":{"keywords":["完成","統合","達成","完全なる調和"],"action_advice":"現在のサイクルは見事に完成へと至りました。この素晴らしい成果を祝い、次の新たなステージへ進む準備をしてください。"},"reversed":{"keywords":["未完成","中途半端","マンネリ","限界"],"action_advice":"ゴールの一歩手前で停滞、あるいは不完全燃焼を感じています。詰めが甘い部分がないか、最後の一踏ん張りを見せましょう。"}}];
+const SYMBOLS = {"M00": "🃏", "M01": "🔮", "M02": "📖", "M03": "🌸", "M04": "⚔️", "M05": "🏛️", "M06": "💞", "M07": "🏺", "M08": "🦁", "M09": "🔦", "M10": "☸️", "M11": "⚖️", "M12": "🙃", "M13": "💀", "M14": "🌊", "M15": "⛓️", "M16": "⚡", "M17": "⭐", "M18": "🌙", "M19": "☀️", "M20": "📯", "M21": "🌍"};
 const SPREADS = {
-
-one: { count:1, positions:["現在"] },
-
-three: { count:3, positions:["過去","現在","未来"] },
-
-yesno: { count:1, positions:["答え"] },
-
-daily: { count:1, positions:["今日"] },
-
-celtic: { count:5, positions:["状況","課題","顕在","潜在","結果"] },
-
+  one:    {count:1, positions:["現在の状況"]},
+  three:  {count:3, positions:["過去","現在","未来"]},
+  yesno:  {count:1, positions:["答え"]},
+  daily:  {count:1, positions:["今日のメッセージ"]},
+  celtic: {count:5, positions:["現状","課題","顕在意識","潜在意識","結果"]},
 };
 
-let CARDS = [];
-
 let currentSpread = 'one';
-
 let drawnCards = [];
-
 let flippedCount = 0;
-
 let phase = 'idle';
 
-// ── 修正2: major.json fetch → フォールバック ──
-
-async function loadCards() {
-
-try {
-
-const res = await fetch('./major.json');
-
-if (!res.ok) throw new Error('fetch failed');
-
-const data = await res.json();
-
-CARDS = data.cards;
-
-console.log('major.json loaded:', CARDS.length, 'cards');
-
-} catch(e) {
-
-CARDS = INLINE_CARDS;
-
-console.log('fallback to inline data');
-
-}
-
-}
-
-// ── 星生成 ──
-
+// 星生成
 function createStars() {
-
-const container = document.getElementById('stars');
-
-for (let i = 0; i < 80; i++) {
-
-const s = document.createElement('div');
-
-s.className = 'star';
-
-const size = Math.random() * 2 + 0.5;
-
-s.style.cssText =
-`width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*4}s;--delay:${Math.random()*5}s;--op:${0.3+Math.random()*0.7}`;
-
-container.appendChild(s);
-
+  const c = document.getElementById('stars');
+  for (let i = 0; i < 90; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const sz = Math.random() * 2 + 0.4;
+    s.style.cssText = `width:${sz}px;height:${sz}px;left:${Math.random()*100}%;top:${Math.random()*100}%;--dur:${2+Math.random()*5}s;--delay:${Math.random()*6}s;--op:${0.25+Math.random()*0.7}`;
+    c.appendChild(s);
+  }
 }
 
-}
-
-// ── スプレッド選択 ──
-
+// スプレッド切替
 document.querySelectorAll('.spread-btn').forEach(btn => {
-
-btn.addEventListener('click', () => {
-
-document.querySelectorAll('.spread-btn').forEach(b =>
-b.classList.remove('active'));
-
-btn.classList.add('active');
-
-currentSpread = btn.dataset.spread;
-
-resetAll();
-
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.spread-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentSpread = btn.dataset.spread;
+    resetAll();
+  });
 });
 
-});
-
-// ── シャッフル（修正1: 連打防止強化）──
-
+// シャッフル
 function startShuffle() {
+  if (phase === 'shuffling' || phase === 'selecting') return;
+  phase = 'shuffling';
+  resetUI();
+  const spread = SPREADS[currentSpread];
+  const count = spread.count;
+  const table = document.getElementById('cardTable');
+  table.innerHTML = '';
+  for (let i = 0; i < count; i++) {
+    const slot = document.createElement('div');
+    slot.className = 'card-slot';
+    slot.innerHTML = `<div class="card shuffling"><div class="card-face card-back"><div class="card-back-symbol">✦</div></div></div>`;
+    table.appendChild(slot);
+  }
+  const btn = document.getElementById('shuffleBtn');
+  btn.classList.add('loading');
+  btn.textContent = '✦ SHUFFLING ✦';
+  document.getElementById('instruction').textContent = 'シャッフル中…';
 
-if (phase === 'shuffling' || phase === 'selecting') return;
-
-if (CARDS.length === 0) return;
-
-phase = 'shuffling';
-
-resetUI();
-
-const spread = SPREADS[currentSpread];
-
-const count = spread.count;
-
-const table = document.getElementById('cardTable');
-
-table.innerHTML = '';
-
-for (let i = 0; i < count; i++) {
-
-const slot = document.createElement('div');
-
-slot.className = 'card-slot';
-
-slot.innerHTML = `<div class="card shuffling"><div class="card-face
-card-back"><div class="card-back-symbol">✦</div></div></div>`;
-
-table.appendChild(slot);
-
+  setTimeout(() => {
+    const shuffled = [...CARDS].sort(() => Math.random() - 0.5);
+    drawnCards = shuffled.slice(0, count).map(c => ({...c, isReversed: Math.random() < 0.35}));
+    flippedCount = 0;
+    table.innerHTML = '';
+    drawnCards.forEach((card, i) => {
+      const slot = document.createElement('div');
+      slot.className = 'card-slot';
+      slot.innerHTML = `<div class="card ready" id="card-${i}" onclick="flipCard(${i})">
+        <div class="card-face card-back"><div class="card-back-symbol">✦</div></div>
+        <div class="card-face card-front">
+          <div class="card-number">No.${card.number}</div>
+          <div class="card-symbol-front">${SYMBOLS[card.id]}</div>
+          <div class="card-name-ja">${card.name_ja}</div>
+          <div class="card-orientation">${card.isReversed ? '逆位置' : '正位置'}</div>
+        </div>
+      </div>`;
+      table.appendChild(slot);
+    });
+    btn.classList.remove('loading');
+    btn.textContent = '✦ SHUFFLE ✦';
+    document.getElementById('instruction').textContent =
+      count === 1 ? 'カードに触れて、運命を開いてください' : `${count}枚のカードを順に開いてください`;
+    document.getElementById('revealBtn').classList.add('show');
+    phase = 'selecting';
+  }, 1800);
 }
 
-document.getElementById('instruction').textContent = 'シャッフル中…';
-
-const btn = document.getElementById('shuffleBtn');
-
-btn.classList.add('loading');
-
-btn.textContent = '✦ SHUFFLING ✦';
-
-setTimeout(() => {
-
-const shuffled = [...CARDS].sort(() => Math.random() - 0.5);
-
-drawnCards = shuffled.slice(0, count).map(card => ({
-
-...card, isReversed: Math.random() < 0.35
-
-}));
-
-flippedCount = 0;
-
-table.innerHTML = '';
-
-drawnCards.forEach((card, i) => {
-
-const slot = document.createElement('div');
-
-slot.className = 'card-slot';
-
-slot.innerHTML = `<div class="card ready" id="card-${i}"
-onclick="flipCard(${i})">
-
-<div class="card-face card-back"><div
-class="card-back-symbol">✦</div></div>
-
-<div class="card-face card-front">
-
-<div class="card-number">No.${card.number}</div>
-
-<div class="card-symbol-front">${SYMBOLS[card.id]}</div>
-
-<div class="card-name-ja">${card.name_ja}</div>
-
-<div class="card-orientation">${card.isReversed ? '逆位置' :
-'正位置'}</div>
-
-</div>
-
-</div>`;
-
-table.appendChild(slot);
-
-});
-
-document.getElementById('instruction').textContent =
-
-count === 1 ? 'カードに触れて、運命を開いてください' :
-`${count}枚のカードを順に開いてください`;
-
-btn.classList.remove('loading');
-
-btn.textContent = '✦ SHUFFLE ✦';
-
-document.getElementById('revealBtn').classList.add('show');
-
-phase = 'selecting';
-
-}, 1800);
-
+// カードをめくる
+function flipCard(i) {
+  if (phase !== 'selecting') return;
+  const el = document.getElementById(`card-${i}`);
+  if (!el || el.classList.contains('flipped')) return;
+  el.classList.remove('ready');
+  if (drawnCards[i].isReversed) el.classList.add('reversed');
+  el.classList.add('flipped');
+  flippedCount++;
+  if (flippedCount === drawnCards.length) setTimeout(showResults, 650);
 }
 
-// ── カードをめくる ──
-
-function flipCard(index) {
-
-if (phase !== 'selecting') return;
-
-const cardEl = document.getElementById(`card-${index}`);
-
-if (!cardEl || cardEl.classList.contains('flipped')) return;
-
-cardEl.classList.remove('ready');
-
-if (drawnCards[index].isReversed) cardEl.classList.add('reversed');
-
-cardEl.classList.add('flipped');
-
-flippedCount++;
-
-if (flippedCount === drawnCards.length) {
-
-setTimeout(showResults, 600);
-
-}
-
-}
-
-// ── すべて開く ──
-
+// すべて開く
 function revealAll() {
-
-if (phase !== 'selecting') return;
-
-drawnCards.forEach((_, i) => flipCard(i));
-
+  if (phase !== 'selecting') return;
+  drawnCards.forEach((_, i) => flipCard(i));
 }
 
-// ── 結果表示 ──
-
+// 結果表示
 function showResults() {
-
-phase = 'done';
-
-const spread = SPREADS[currentSpread];
-
-const resultArea = document.getElementById('resultArea');
-
-resultArea.innerHTML = '';
-
-drawnCards.forEach((card, i) => {
-
-const ori = card.isReversed ? card.reversed : card.upright;
-
-const oriLabel = card.isReversed ? '逆位置' : '正位置';
-
-const oriClass = card.isReversed ? 'reversed' : 'upright';
-
-const div = document.createElement('div');
-
-div.className = 'result-card';
-
-div.innerHTML = `
-
-<div class="pos-label">${spread.positions[i] || `カード ${i+1}`}</div>
-
-<div class="result-name">
-
-<span class="result-name-ja">${SYMBOLS[card.id]} ${card.name_ja}</span>
-
-<span class="result-ori ${oriClass}">${oriLabel}</span>
-
-<span class="wuxing-badge wx-${card.wuxing}">${card.wuxing}</span>
-
-</div>
-
-<div class="result-keywords">
-
-${ori.keywords.map(k => `<span
-class="keyword-tag">${k}</span>`).join('')}
-
-</div>
-
-<div class="result-advice">${ori.action_advice}</div>
-
-`;
-
-resultArea.appendChild(div);
-
-});
-
-resultArea.classList.add('show');
-
-resultArea.scrollIntoView({ behavior:'smooth', block:'start' });
-
-document.getElementById('revealBtn').classList.remove('show');
-
-// 修正2: リセットボタン表示
-
-document.getElementById('resetBtn').classList.add('show');
-
-document.getElementById('instruction').textContent =
-'カードはあなたに語りかけています';
-
+  phase = 'done';
+  const spread = SPREADS[currentSpread];
+  const area = document.getElementById('resultArea');
+  area.innerHTML = '';
+  drawnCards.forEach((card, i) => {
+    const ori = card.isReversed ? card.reversed : card.upright;
+    const oriLabel = card.isReversed ? '逆位置' : '正位置';
+    const oriClass = card.isReversed ? 'reversed' : 'upright';
+    const div = document.createElement('div');
+    div.className = 'result-card';
+    div.innerHTML = `
+      <div class="pos-label">${spread.positions[i] || `カード ${i+1}`}</div>
+      <div class="result-name">
+        <span class="result-name-ja">${SYMBOLS[card.id]} ${card.name_ja}</span>
+        <span class="result-ori ${oriClass}">${oriLabel}</span>
+        <span class="wuxing-badge wx-${card.wuxing}">${card.wuxing}</span>
+      </div>
+      <div class="result-keywords">${ori.keywords.map(k=>`<span class="keyword-tag">${k}</span>`).join('')}</div>
+      <div class="result-advice">${ori.action_advice}</div>
+      <div class="element-note">${card.element_note}</div>
+    `;
+    area.appendChild(div);
+  });
+  area.classList.add('show');
+  area.scrollIntoView({behavior:'smooth',block:'start'});
+  document.getElementById('revealBtn').classList.remove('show');
+  document.getElementById('resetBtn').classList.add('show');
+  document.getElementById('instruction').textContent = 'カードはあなたに語りかけています';
 }
-
-// ── UIリセット（内部用）──
 
 function resetUI() {
-
-document.getElementById('resultArea').classList.remove('show');
-
-document.getElementById('resultArea').innerHTML = '';
-
-document.getElementById('revealBtn').classList.remove('show');
-
-document.getElementById('resetBtn').classList.remove('show');
-
+  const area = document.getElementById('resultArea');
+  area.classList.remove('show');
+  area.innerHTML = '';
+  document.getElementById('revealBtn').classList.remove('show');
+  document.getElementById('resetBtn').classList.remove('show');
 }
-
-// ── 完全リセット（ボタン用）──
 
 function resetAll() {
-
-drawnCards = [];
-
-flippedCount = 0;
-
-phase = 'idle';
-
-document.getElementById('cardTable').innerHTML = '';
-
-document.getElementById('question').value = '';
-
-resetUI();
-
-document.getElementById('instruction').textContent =
-'カードをシャッフルして、運命に問いかけてください';
-
+  drawnCards = []; flippedCount = 0; phase = 'idle';
+  document.getElementById('cardTable').innerHTML = '';
+  document.getElementById('question').value = '';
+  resetUI();
+  document.getElementById('instruction').textContent = 'カードをシャッフルして、運命に問いかけてください';
 }
 
-// ── 初期化 ──
-
 createStars();
-
-loadCards();
-
 </script>
-
 </body>
-
 </html>
