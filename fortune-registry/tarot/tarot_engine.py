@@ -160,7 +160,7 @@ class TarotEngine:
         self._cards = data["cards"]          # list[dict]  22枚
         self._deck  = list(self._cards)      # シャッフル用コピー
 
-        print(f"[TarotEngine] {self._meta['deck']} v{self._meta['version']} loaded — {len(self._cards)} cards")
+        print(f"[TarotEngine] {"大アルカナタロット"} v{self._meta['version']} loaded — {len(self._cards)} cards")
 
     # ── パブリック API ──────────────────────────
 
@@ -269,11 +269,11 @@ class TarotEngine:
     ) -> DrawnCard:
         """raw dict → DrawnCard"""
         if orientation == Orientation.UPRIGHT:
-            keywords = raw["keywords_upright"]
-            meaning  = raw["meaning_upright"]
+            keywords = raw["upright"]["keywords"]
+            meaning  = raw["upright"]["action_advice"]
         else:
-            keywords = raw["keywords_reversed"]
-            meaning  = raw["meaning_reversed"]
+            keywords = raw["reversed"]["keywords"]
+            meaning  = raw["reversed"]["action_advice"]
 
         return DrawnCard(
             position_label     = position_label,

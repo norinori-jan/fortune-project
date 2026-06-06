@@ -583,184 +583,6 @@
       "wuxing": {}
     }
   },
-  "tarot": {
-    "major_00": {
-      "number": 0,
-      "name_ja": "愚者",
-      "name_en": "THE FOOL",
-      "wuxing": "water",
-      "keywords": "新しい出発・可能性・無限",
-      "core": "恐れずに踏み出せ。"
-    },
-    "major_01": {
-      "number": 1,
-      "name_ja": "魔術師",
-      "name_en": "THE MAGICIAN",
-      "wuxing": "fire",
-      "keywords": "意志・技術・実現力",
-      "core": "持てる力をすべて使え。"
-    },
-    "major_02": {
-      "number": 2,
-      "name_ja": "女教皇",
-      "name_en": "THE HIGH PRIESTESS",
-      "wuxing": "water",
-      "keywords": "直感・神秘・潜在意識",
-      "core": "内なる声に耳を傾けよ。"
-    },
-    "major_03": {
-      "number": 3,
-      "name_ja": "女帝",
-      "name_en": "THE EMPRESS",
-      "wuxing": "earth",
-      "keywords": "豊穣・母性・創造",
-      "core": "生命力を信じて育てよ。"
-    },
-    "major_04": {
-      "number": 4,
-      "name_ja": "皇帝",
-      "name_en": "THE EMPEROR",
-      "wuxing": "metal",
-      "keywords": "権威・構造・リーダーシップ",
-      "core": "秩序と規律が基盤を作る。"
-    },
-    "major_05": {
-      "number": 5,
-      "name_ja": "法王",
-      "name_en": "THE HIEROPHANT",
-      "wuxing": "earth",
-      "keywords": "伝統・教義・精神的指導",
-      "core": "先人の知恵に学べ。"
-    },
-    "major_06": {
-      "number": 6,
-      "name_ja": "恋人",
-      "name_en": "THE LOVERS",
-      "wuxing": "fire",
-      "keywords": "選択・愛・調和",
-      "core": "心の声に従い選べ。"
-    },
-    "major_07": {
-      "number": 7,
-      "name_ja": "戦車",
-      "name_en": "THE CHARIOT",
-      "wuxing": "water",
-      "keywords": "勝利・意志力・突破",
-      "core": "制御しながら前進せよ。"
-    },
-    "major_08": {
-      "number": 8,
-      "name_ja": "力",
-      "name_en": "STRENGTH",
-      "wuxing": "fire",
-      "keywords": "勇気・忍耐・内なる力",
-      "core": "優しさが最強の力。"
-    },
-    "major_09": {
-      "number": 9,
-      "name_ja": "隠者",
-      "name_en": "THE HERMIT",
-      "wuxing": "earth",
-      "keywords": "内省・孤独・知恵",
-      "core": "立ち止まり自らを見よ。"
-    },
-    "major_10": {
-      "number": 10,
-      "name_ja": "運命の輪",
-      "name_en": "WHEEL OF FORTUNE",
-      "wuxing": "earth",
-      "keywords": "変化・サイクル・チャンス",
-      "core": "変化の波に乗る時。"
-    },
-    "major_11": {
-      "number": 11,
-      "name_ja": "正義",
-      "name_en": "JUSTICE",
-      "wuxing": "metal",
-      "keywords": "公平・真実・法",
-      "core": "真実を直視せよ。"
-    },
-    "major_12": {
-      "number": 12,
-      "name_ja": "吊られた男",
-      "name_en": "THE HANGED MAN",
-      "wuxing": "water",
-      "keywords": "犠牲・新視点・待機",
-      "core": "逆転の発想が道を開く。"
-    },
-    "major_13": {
-      "number": 13,
-      "name_ja": "死神",
-      "name_en": "DEATH",
-      "wuxing": "water",
-      "keywords": "終わり・変容・再生",
-      "core": "古いものを手放せ。"
-    },
-    "major_14": {
-      "number": 14,
-      "name_ja": "節制",
-      "name_en": "TEMPERANCE",
-      "wuxing": "fire",
-      "keywords": "調和・均衡・癒し",
-      "core": "バランスが力を生む。"
-    },
-    "major_15": {
-      "number": 15,
-      "name_ja": "悪魔",
-      "name_en": "THE DEVIL",
-      "wuxing": "earth",
-      "keywords": "束縛・物質・欲望",
-      "core": "鎖は幻だ。気づけば自由。"
-    },
-    "major_16": {
-      "number": 16,
-      "name_ja": "塔",
-      "name_en": "THE TOWER",
-      "wuxing": "fire",
-      "keywords": "突破・崩壊・啓示",
-      "core": "崩れる時が真の始まり。"
-    },
-    "major_17": {
-      "number": 17,
-      "name_ja": "星",
-      "name_en": "THE STAR",
-      "wuxing": "water",
-      "keywords": "希望・回復・インスピレーション",
-      "core": "光を信じて歩め。"
-    },
-    "major_18": {
-      "number": 18,
-      "name_ja": "月",
-      "name_en": "THE MOON",
-      "wuxing": "water",
-      "keywords": "幻想・不安・無意識",
-      "core": "霧の中でも歩み続けよ。"
-    },
-    "major_19": {
-      "number": 19,
-      "name_ja": "太陽",
-      "name_en": "THE SUN",
-      "wuxing": "fire",
-      "keywords": "喜び・成功・活力",
-      "core": "光の中で輝け。"
-    },
-    "major_20": {
-      "number": 20,
-      "name_ja": "審判",
-      "name_en": "JUDGEMENT",
-      "wuxing": "fire",
-      "keywords": "覚醒・再生・使命",
-      "core": "内なる呼び声に応えよ。"
-    },
-    "major_21": {
-      "number": 21,
-      "name_ja": "世界",
-      "name_en": "THE WORLD",
-      "wuxing": "earth",
-      "keywords": "完成・統合・達成",
-      "core": "旅は完結し新たな旅へ。"
-    }
-  },
   "bagua": {
     "qian": {
       "kanji": "乾",
@@ -1845,5 +1667,277 @@
         "traits": "胎動・準備"
       }
     ]
-  }
+  },
+  "tarot": [
+    {
+      "type": "tarot_reading",
+      "schema_ver": "1.0.0",
+      "spread": "one_oracle",
+      "spread_label": "ワンオラクル",
+      "drawn_at": "2026-06-06T20:43:04",
+      "question": "test",
+      "cards": [
+        {
+          "position_label": "現在の状況",
+          "position_index": 0,
+          "card_id": "M05",
+          "name_ja": "法王",
+          "name_en": "The Hierophant",
+          "number": 5,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "モラル",
+            "信頼",
+            "導き",
+            "伝統"
+          ],
+          "meaning": "秩序や伝統的なルールを守り、信頼できる専門家や先輩にアドバイスを求めると道が開けます。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": "MAYBE_YES"
+        }
+      ],
+      "prompt_context": "【スプレッド】ワンオラクル\n【質問】test\n\n■ 現在の状況：法王（The Hierophant）正位置\n  キーワード：モラル・信頼・導き・伝統\n  意味：秩序や伝統的なルールを守り、信頼できる専門家や先輩にアドバイスを求めると道が開けます。\n",
+      "sheets_row": {
+        "drawn_at": "2026-06-06T20:43:04",
+        "spread": "ワンオラクル",
+        "question": "test",
+        "現在の状況_card": "法王",
+        "現在の状況_orientation": "正位置",
+        "現在の状況_keywords": "モラル・信頼・導き・伝統"
+      },
+      "idb_payload": {
+        "key": "tarot_2026-06-06T20-43-04",
+        "spread": "one_oracle",
+        "question": "test",
+        "cards": [
+          {
+            "pos": "現在の状況",
+            "id": "M05",
+            "name": "法王",
+            "ori": "upright",
+            "kw": [
+              "モラル",
+              "信頼",
+              "導き",
+              "伝統"
+            ]
+          }
+        ],
+        "saved_at": "2026-06-06T20:43:04"
+      }
+    },
+    {
+      "type": "tarot_reading",
+      "schema_ver": "1.0.0",
+      "spread": "celtic_mini",
+      "spread_label": "ケルティッククロス（簡易5枚）",
+      "drawn_at": "2026-06-06T20:43:30",
+      "question": "",
+      "cards": [
+        {
+          "position_label": "現在の状況",
+          "position_index": 0,
+          "card_id": "M01",
+          "name_ja": "魔術師",
+          "name_en": "The Magician",
+          "number": 1,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "空回り",
+            "不調装",
+            "欺瞞",
+            "未熟"
+          ],
+          "meaning": "小手先の技術や嘘で誤魔化さず、基礎スキルの磨き直しや準備の再確認をしてください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "課題・障害",
+          "position_index": 1,
+          "card_id": "M18",
+          "name_ja": "月",
+          "name_en": "The Moon",
+          "number": 18,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "不安",
+            "幻想",
+            "見通し難",
+            "潜在意識"
+          ],
+          "meaning": "先が見えず不安が募る時期ですが、無理に動くと迷走します。輪郭がはっきりするまで静観してください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "顕在意識",
+          "position_index": 2,
+          "card_id": "M02",
+          "name_ja": "女教皇",
+          "name_en": "The High Priestess",
+          "number": 2,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "直感",
+            "知性",
+            "静寂",
+            "客観性"
+          ],
+          "meaning": "周囲の雑音から離れ、自分の内なる直感と冷静な分析力に耳を傾けてください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "潜在意識",
+          "position_index": 3,
+          "card_id": "M10",
+          "name_ja": "運命の輪",
+          "name_en": "Wheel of Fortune",
+          "number": 10,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "暗転",
+            "タイミング悪",
+            "抵抗",
+            "不運"
+          ],
+          "meaning": "今は逆風のタイミングです。無理に流れを変えようと足掻かず、嵐が過ぎ去るのを待ちましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "結果",
+          "position_index": 4,
+          "card_id": "M12",
+          "name_ja": "吊るされた男",
+          "name_en": "The Hanged Man",
+          "number": 12,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "試練",
+            "視点変更",
+            "献身",
+            "一時停止"
+          ],
+          "meaning": "動けない現状を逆手に取り、物事を180度違う視点から捉え直すことで新しい智慧が得られます。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        }
+      ],
+      "prompt_context": "【スプレッド】ケルティッククロス（簡易5枚）\n【質問】（指定なし）\n\n■ 現在の状況：魔術師（The Magician）逆位置\n  キーワード：空回り・不調装・欺瞞・未熟\n  意味：小手先の技術や嘘で誤魔化さず、基礎スキルの磨き直しや準備の再確認をしてください。\n\n■ 課題・障害：月（The Moon）正位置\n  キーワード：不安・幻想・見通し難・潜在意識\n  意味：先が見えず不安が募る時期ですが、無理に動くと迷走します。輪郭がはっきりするまで静観してください。\n\n■ 顕在意識：女教皇（The High Priestess）正位置\n  キーワード：直感・知性・静寂・客観性\n  意味：周囲の雑音から離れ、自分の内なる直感と冷静な分析力に耳を傾けてください。\n\n■ 潜在意識：運命の輪（Wheel of Fortune）逆位置\n  キーワード：暗転・タイミング悪・抵抗・不運\n  意味：今は逆風のタイミングです。無理に流れを変えようと足掻かず、嵐が過ぎ去るのを待ちましょう。\n\n■ 結果：吊るされた男（The Hanged Man）正位置\n  キーワード：試練・視点変更・献身・一時停止\n  意味：動けない現状を逆手に取り、物事を180度違う視点から捉え直すことで新しい智慧が得られます。\n",
+      "sheets_row": {
+        "drawn_at": "2026-06-06T20:43:30",
+        "spread": "ケルティッククロス（簡易5枚）",
+        "question": "",
+        "現在の状況_card": "魔術師",
+        "現在の状況_orientation": "逆位置",
+        "現在の状況_keywords": "空回り・不調装・欺瞞・未熟",
+        "課題・障害_card": "月",
+        "課題・障害_orientation": "正位置",
+        "課題・障害_keywords": "不安・幻想・見通し難・潜在意識",
+        "顕在意識_card": "女教皇",
+        "顕在意識_orientation": "正位置",
+        "顕在意識_keywords": "直感・知性・静寂・客観性",
+        "潜在意識_card": "運命の輪",
+        "潜在意識_orientation": "逆位置",
+        "潜在意識_keywords": "暗転・タイミング悪・抵抗・不運",
+        "結果_card": "吊るされた男",
+        "結果_orientation": "正位置",
+        "結果_keywords": "試練・視点変更・献身・一時停止"
+      },
+      "idb_payload": {
+        "key": "tarot_2026-06-06T20-43-30",
+        "spread": "celtic_mini",
+        "question": "",
+        "cards": [
+          {
+            "pos": "現在の状況",
+            "id": "M01",
+            "name": "魔術師",
+            "ori": "reversed",
+            "kw": [
+              "空回り",
+              "不調装",
+              "欺瞞",
+              "未熟"
+            ]
+          },
+          {
+            "pos": "課題・障害",
+            "id": "M18",
+            "name": "月",
+            "ori": "upright",
+            "kw": [
+              "不安",
+              "幻想",
+              "見通し難",
+              "潜在意識"
+            ]
+          },
+          {
+            "pos": "顕在意識",
+            "id": "M02",
+            "name": "女教皇",
+            "ori": "upright",
+            "kw": [
+              "直感",
+              "知性",
+              "静寂",
+              "客観性"
+            ]
+          },
+          {
+            "pos": "潜在意識",
+            "id": "M10",
+            "name": "運命の輪",
+            "ori": "reversed",
+            "kw": [
+              "暗転",
+              "タイミング悪",
+              "抵抗",
+              "不運"
+            ]
+          },
+          {
+            "pos": "結果",
+            "id": "M12",
+            "name": "吊るされた男",
+            "ori": "upright",
+            "kw": [
+              "試練",
+              "視点変更",
+              "献身",
+              "一時停止"
+            ]
+          }
+        ],
+        "saved_at": "2026-06-06T20:43:30"
+      }
+    }
+  ]
 }

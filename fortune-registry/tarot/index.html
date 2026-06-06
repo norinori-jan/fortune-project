@@ -303,11 +303,20 @@ header{position:relative;z-index:10;text-align:center;padding:clamp(40px,8vw,70p
 <!-- ═══ AI読み解きセクション ═══ -->
 <div class="ai-section" id="aiSection">
 
-  <!-- サーバー接続ステータス -->
+  <!-- APIキー入力 -->
   <div class="api-keys-panel">
-    <div class="api-keys-title">◈ AI 読み解き（サーバー経由） ◈</div>
-    <div style="font-size:11px; color:var(--text2); text-align:center; margin-bottom:10px;">
-      ✓ APIキーはサーバーで安全に管理されます
+    <div class="api-keys-title">◈ AI 読み解き設定 ◈</div>
+    <div class="api-key-row">
+      <div class="ai-label"><div class="ai-dot dot-claude"></div><span class="claude-name">Claude</span></div>
+      <input class="api-key-input" id="keyC" type="password" placeholder="sk-ant-api03-..." autocomplete="off">
+    </div>
+    <div class="api-key-row">
+      <div class="ai-label"><div class="ai-dot dot-gemini"></div><span class="gemini-name">Gemini</span></div>
+      <input class="api-key-input" id="keyG" type="password" placeholder="AIzaSy..." autocomplete="off">
+    </div>
+    <div class="api-key-row">
+      <div class="ai-label"><div class="ai-dot dot-copilot"></div><span class="copilot-name">Copilot</span></div>
+      <input class="api-key-input" id="keyP" type="password" placeholder="Azure OpenAI key..." autocomplete="off">
     </div>
   </div>
 
@@ -409,14 +418,8 @@ document.querySelectorAll('.spread-btn').forEach(btn => {
   });
 });
 
-// ═══ サーバー設定 ═══
-const SERVER_URL = "http://localhost:5000";
-
-// ───────────────────────────────────────
-// シャッフル処理の改修（サーバー経由）
-// ───────────────────────────────────────
-
-async function startShuffle() {
+// ── シャッフル ──
+function startShuffle() {
   if (phase === 'shuffling' || phase === 'selecting') return;
   phase = 'shuffling';
   resetUI();
@@ -433,35 +436,9 @@ async function startShuffle() {
   btn.classList.add('loading'); btn.textContent = '✦ SHUFFLING ✦';
   document.getElementById('instruction').textContent = 'シャッフル中…';
 
-  try {
-    // サーバーに占い実行をリクエスト
-    const response = await fetch(`${SERVER_URL}/api/tarot/draw`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        spread_type: currentSpread,
-        question: document.getElementById('question').value.trim(),
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Server error: ${response.status}`);
-    }
-
-    const data = await response.json();
-    if (!data.success) {
-      throw new Error(data.error || 'Unknown error');
-    }
-
-    // サーバーから返ってきたカード情報を使用
-    const registryEntry = data.data;
-    drawnCards = registryEntry.cards.map(c => ({
-      ...CARDS.find(card => card.id === `M${String(c.card_id).padStart(2, '0')}`),
-      isReversed: c.orientation === 'reversed',
-      position_label: c.position_label,
-      position_index: c.position_index,
-    }));
-
+  setTimeout(() => {
+    const shuffled = [...CARDS].sort(() => Math.random()-0.5);
+    drawnCards = shuffled.slice(0, spread.count).map(c => ({...c, isReversed: Math.random()<0.35}));
     flippedCount = 0;
     table.innerHTML = '';
     drawnCards.forEach((card, i) => {
@@ -483,12 +460,7 @@ async function startShuffle() {
       spread.count===1 ? 'カードに触れて、運命を開いてください' : `${spread.count}枚のカードを順に開いてください`;
     document.getElementById('revealBtn').classList.add('show');
     phase = 'selecting';
-  } catch (error) {
-    console.error('Shuffle error:', error);
-    btn.classList.remove('loading'); btn.textContent = '✦ SHUFFLE ✦';
-    document.getElementById('instruction').textContent = `エラー: ${error.message}`;
-    phase = 'idle';
-  }
+  }, 1800);
 }
 
 function flipCard(i) {
@@ -602,7 +574,6 @@ function setResponse(ai, text, isError=false) {
 function resetAIPanels() {
   ['Claude','Gemini','Copilot'].forEach(ai => {
     setStatus(ai, '', '待機中');
-    document.getElementById(`placeholder${ai}`).textContent = 'サーバーで読み解き中...';
     document.getElementById(`placeholder${ai}`).style.display = 'block';
     document.getElementById(`resp${ai}`).style.display = 'none';
     document.getElementById(`resp${ai}`).textContent = '';
@@ -627,9 +598,9 @@ function switchTab(ai) {
   });
 }
 
-// ─── Claude API ──
-function callClaude(prompt, apiKey) {
-  return fetch('https://api.anthropic.com/v1/messages', {
+// ── Claude API ──
+async function callClaude(prompt, apiKey) {
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -642,31 +613,32 @@ function callClaude(prompt, apiKey) {
       system: SYSTEM_PROMPT,
       messages: [{role:'user', content: prompt}],
     })
-  }).then(res => {
-    if (!res.ok) throw new Error(`Claude API Error: ${res.status}`);
-    return res.json().then(data => data.content[0].text);
   });
+  if (!res.ok) throw new Error(`Claude API Error: ${res.status}`);
+  const data = await res.json();
+  return data.content[0].text;
 }
 
-// ─── Gemini API ──
-function callGemini(prompt, apiKey) {
+// ── Gemini API ──
+async function callGemini(prompt, apiKey) {
   const body = {
     system_instruction: {parts:[{text: SYSTEM_PROMPT}]},
     contents: [{parts:[{text: prompt}]}],
     generationConfig: {maxOutputTokens: 1000}
   };
-  return fetch(
+  const res = await fetch(
     `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
     {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)}
-  ).then(res => {
-    if (!res.ok) throw new Error(`Gemini API Error: ${res.status}`);
-    return res.json().then(data => data.candidates[0].content.parts[0].text);
-  });
+  );
+  if (!res.ok) throw new Error(`Gemini API Error: ${res.status}`);
+  const data = await res.json();
+  return data.candidates[0].content.parts[0].text;
 }
 
-// ─── Copilot (Azure OpenAI / OpenAI互換) ──
-function callCopilot(prompt, apiKey) {
-  return fetch('https://api.openai.com/v1/chat/completions', {
+// ── Copilot (Azure OpenAI / OpenAI互換) ──
+async function callCopilot(prompt, apiKey) {
+  // OpenAI互換エンドポイント（Copilot Studioまたは直接OpenAI）
+  const res = await fetch('https://api.openai.com/v1/chat/completions', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -680,77 +652,70 @@ function callCopilot(prompt, apiKey) {
         {role:'user', content: prompt}
       ],
     })
-  }).then(res => {
-    if (!res.ok) throw new Error(`Copilot API Error: ${res.status}`);
-    return res.json().then(data => data.choices[0].message.content);
   });
+  if (!res.ok) throw new Error(`Copilot API Error: ${res.status}`);
+  const data = await res.json();
+  return data.choices[0].message.content;
 }
 
-// ── メイン読み解き（サーバー経由） ──
+// ── メイン読み解き ──
 async function readWithAI() {
   const btn = document.getElementById('aiReadBtn');
   btn.classList.add('loading');
   btn.textContent = '✦ 読み解き中… ✦';
 
   const prompt = buildPrompt();
+  const keyC = document.getElementById('keyC').value.trim();
+  const keyG = document.getElementById('keyG').value.trim();
+  const keyP = document.getElementById('keyP').value.trim();
 
-  try {
-    const response = await fetch(`${SERVER_URL}/api/tarot/interpret`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        cards_context: prompt,
-        ais: ['claude', 'gemini', 'openai'],
-      }),
-    });
+  const tasks = [];
 
-    if (!response.ok) {
-      throw new Error(`Server error: ${response.status}`);
-    }
+  // Claude
+  if (keyC) {
+    setStatus('Claude','thinking','思考中…');
+    tasks.push(
+      callClaude(prompt, keyC)
+        .then(t => { setStatus('Claude','done','完了 ✓'); setResponse('Claude', t); })
+        .catch(e => { setStatus('Claude','error','エラー'); setResponse('Claude', e.message, true); })
+    );
+  } else {
+    document.getElementById('placeholderClaude').innerHTML = '<div class="ai-no-key">APIキー未入力</div>';
+  }
 
-    const data = await response.json();
-    if (!data.success) {
-      throw new Error(data.error || 'Unknown error');
-    }
+  // Gemini
+  if (keyG) {
+    setStatus('Gemini','thinking','思考中…');
+    tasks.push(
+      callGemini(prompt, keyG)
+        .then(t => { setStatus('Gemini','done','完了 ✓'); setResponse('Gemini', t); })
+        .catch(e => { setStatus('Gemini','error','エラー'); setResponse('Gemini', e.message, true); })
+    );
+  } else {
+    document.getElementById('placeholderGemini').innerHTML = '<div class="ai-no-key">APIキー未入力</div>';
+  }
 
-    // 各AIの結果を表示
-    const interpretations = data.interpretations;
-    
-    if (interpretations.claude?.success) {
-      setStatus('Claude', 'done', '完了 ✓');
-      setResponse('Claude', interpretations.claude.text);
-    } else {
-      setStatus('Claude', 'error', 'エラー');
-      setResponse('Claude', interpretations.claude?.text || 'APIキー未設定', true);
-    }
+  // Copilot
+  if (keyP) {
+    setStatus('Copilot','thinking','思考中…');
+    tasks.push(
+      callCopilot(prompt, keyP)
+        .then(t => { setStatus('Copilot','done','完了 ✓'); setResponse('Copilot', t); })
+        .catch(e => { setStatus('Copilot','error','エラー'); setResponse('Copilot', e.message, true); })
+    );
+  } else {
+    document.getElementById('placeholderCopilot').innerHTML = '<div class="ai-no-key">APIキー未入力</div>';
+  }
 
-    if (interpretations.gemini?.success) {
-      setStatus('Gemini', 'done', '完了 ✓');
-      setResponse('Gemini', interpretations.gemini.text);
-    } else {
-      setStatus('Gemini', 'error', 'エラー');
-      setResponse('Gemini', interpretations.gemini?.text || 'APIキー未設定', true);
-    }
-
-    if (interpretations.openai?.success) {
-      setStatus('Copilot', 'done', '完了 ✓');
-      setResponse('Copilot', interpretations.openai.text);
-    } else {
-      setStatus('Copilot', 'error', 'エラー');
-      setResponse('Copilot', interpretations.openai?.text || 'APIキー未設定', true);
-    }
-
-    btn.classList.remove('loading');
-    btn.textContent = '✦ 再度読み解く ✦';
-  } catch (error) {
-    console.error('AI read error:', error);
+  if (tasks.length === 0) {
     btn.classList.remove('loading');
     btn.textContent = '✦ 3つのAIで読み解く ✦';
-    
-    // エラーメッセージ表示
-    setStatus('Claude', 'error', 'エラー');
-    setResponse('Claude', error.message, true);
+    return;
   }
+
+  await Promise.allSettled(tasks);
+  btn.classList.remove('loading');
+  btn.textContent = '✦ 再度読み解く ✦';
 }
 
 createStars();

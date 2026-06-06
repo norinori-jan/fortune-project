@@ -1,34 +1,9 @@
-"""
-tarot_engine.py
-===============
+from __future__ import annotations
 
-fortune-core  /  TarotEngine
-
-78 枚のフルデッキから「ケルト十字スプレッド（10枚）」を展開するエンジン。
-
-戻り値フォーマット（draw_celtic_cross）:
-    {
-        "query":     str,              # ユーザーの相談内容
-        "seed":      int,              # user_seed（ミリ秒タイムスタンプ）
-        "timestamp": str,              # ISO 8601 形式の鑑定日時
-        "spread":    "celtic_cross",
-        "positions": {                 # ← キー: ポジション定数名（大文字）
-            "CURRENT_SITUATION": {
-                "position_label": "現在の状況",
-                "position_index": 1,
-                "card": { ... },       # tarot_cards.json の cards[n]
-                "is_reversed": bool,
-            },
-            "CROSSING_CHALLENGE": { ... },
-            ...（全10ポジション）
-        }
-    }
-"""
-
-import json
 import random
 from datetime import datetime, timezone
-from pathlib import Path
+from functools import lru_cache
+from .registry_loader import load_registry
 
 # ---------------------------------------------------------------------------
 # ポジション定義（挿入順序が展開順）
@@ -47,48 +22,27 @@ CELTIC_CROSS_POSITIONS: list[tuple[str, str]] = [
 ]
 
 # ---------------------------------------------------------------------------
-# TarotEngine
+# TarotEngine（SSOT版）
 # ---------------------------------------------------------------------------
 
 class TarotEngine:
     """
-    タロットエンジン。
+    タロットエンジン（SSOT: core/registry_a.json を参照）
 
-    初期化時に tarot_cards.json を読み込み、draw_celtic_cross() で
-    10枚のケルト十字スプレッドを展開して positions 辞書を返す。
-
-    Parameters
-    ----------
-    data_path : Path | str | None
-        tarot_cards.json のパス。None のとき自動解決。
+    78 枚のフルデッキを registry_a.json["tarot"] から読み込み、
+    ケルト十字スプレッド（10枚）を展開する。
     """
 
-    def __init__(self, data_path: "Path | str | None" = None) -> None:
-        if data_path is None:
-            # 優先順 1: このファイルと同じ data/ ディレクトリ
-            # 優先順 2: このファイルと同じディレクトリ（フラット配置）
-            candidates = [
-                Path(__file__).parent / "data" / "tarot_cards.json",
-                Path(__file__).parent / "tarot_cards.json",
-            ]
-            resolved = next((p for p in candidates if p.exists()), None)
-            if resolved is None:
-                raise FileNotFoundError(
-                    "tarot_cards.json が見つかりません。\n"
-                    f"  探索パス: {[str(p) for p in candidates]}\n"
-                    "  src/fortune_core/data/tarot_cards.json に配置してください。"
-                )
-            data_path = resolved
+    @lru_cache(maxsize=1)
+    def _load_cards(self) -> list[dict]:
+        registry = load_registry()
+        cards = registry["tarot"]
+        if len(cards) != 78:
+            raise ValueError(f"registry_a.json の tarot が {len(cards)} 枚です。78 枚である必要があります。")
+        return cards
 
-        with open(data_path, encoding="utf-8") as f:
-            raw = json.load(f)
-
-        self._cards: list[dict] = raw["cards"]
-        if len(self._cards) != 78:
-            raise ValueError(
-                f"tarot_cards.json のカード枚数が {len(self._cards)} 枚です。"
-                "78 枚である必要があります。"
-            )
+    def __init__(self) -> None:
+        self._cards = self._load_cards()
 
     # ------------------------------------------------------------------
     # Public API
@@ -99,36 +53,6 @@ class TarotEngine:
         user_seed: int,
         query: str = "",
     ) -> dict:
-        """
-        ケルト十字スプレッド（10枚）を展開する。
-
-        Parameters
-        ----------
-        user_seed : int
-            シャッフルを止めた瞬間のタイムスタンプ（ミリ秒）。
-            同じ seed なら常に同じ結果が再現される。
-        query : str
-            ユーザーの相談内容。
-
-        Returns
-        -------
-        dict
-            {
-                "query": str,
-                "seed": int,
-                "timestamp": str,
-                "spread": "celtic_cross",
-                "positions": {
-                    "CURRENT_SITUATION": {
-                        "position_label": str,
-                        "position_index": int,
-                        "card": dict,
-                        "is_reversed": bool,
-                    },
-                    ...
-                }
-            }
-        """
         rng = random.Random(user_seed)
 
         # 78 枚をシャッフルして先頭 10 枚を使う
@@ -162,9 +86,7 @@ class TarotEngine:
     # ------------------------------------------------------------------
 
     def all_cards(self) -> list[dict]:
-        """デッキ全 78 枚を返す（読み取り専用コピー）"""
         return list(self._cards)
 
     def card_count(self) -> int:
-        """デッキのカード枚数（常に 78）"""
         return len(self._cards)

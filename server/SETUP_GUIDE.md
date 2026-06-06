@@ -28,21 +28,32 @@ cp .env.example .env
 **`.env` ファイルを編集してAPIキーを設定：**
 
 ```env
-# Claude API キー
-CLAUDE_API_KEY=sk-ant-api03-...
+# Gemini API キー（必須）
+GEMINI_API_KEY=AIzaSy_YOUR_KEY_HERE
 
-# Gemini API キー
-GEMINI_API_KEY=AIzaSy...
-
-# OpenAI API キー (Copilot/GPT-4)
-OPENAI_API_KEY=sk-...
+# OpenAI API キー（必須）
+OPENAI_API_KEY=sk-proj-YOUR_KEY_HERE
 ```
 
 **APIキー取得方法：**
 
-- **Claude**: https://console.anthropic.com/ → API Keys
-- **Gemini**: https://makersuite.google.com/app/apikey
-- **OpenAI**: https://platform.openai.com/api-keys
+#### 🔑 Gemini API キー
+1. https://console.cloud.google.com/apis/credentials にアクセス
+2. 「+ 認証情報を作成」 → 「APIキー」
+3. 生成されたキーをコピー
+4. `.env` の `GEMINI_API_KEY` に貼り付け
+
+#### 🔑 OpenAI API キー
+1. https://platform.openai.com/api-keys にアクセス
+2. 「+ Create new secret key」
+3. 生成されたキーをコピー（1度だけ表示される）
+4. `.env` の `OPENAI_API_KEY` に貼り付け
+
+⚠️ **重要**
+- `.env` には実APIキーが含まれます
+- `.env` は **絶対に Git にコミットしない**（`.gitignore` で除外済み）
+- `.env` をバージョン管理外の安全な場所で管理してください
+- 定期的にAPIキーをローテーションしてください
 
 ---
 
@@ -331,10 +342,43 @@ fortune-project/
 - HTTPS対応可能（本番環境）
 
 ⚠️ **本番環境での注意：**
-- `.env` を絶対に Git リポジトリに追加しない（`.gitignore` に記載）
+- `.env` を絶対に Git リポジトリに追加しない（`.gitignore` に記載済み）
 - HTTPS/SSL/TLS の設定
 - CORS設定の見直し（現在は全許可）
 - 認証・認可の実装検討
+
+🔐 **APIキーのセキュリティ**
+1. `.env.example` には実キーを入れない（テンプレートのみ）
+2. `.env` は `.gitignore` に含まれているため Git にコミットされない
+3. ローカル開発時：`.env` をローカルマシンのみに保持
+4. 本番環境：環境変数またはシークレット管理サービス（Azure Key Vault など）を使用
+
+---
+
+## 🎯 nori流 タロット鑑定スタイル
+
+このサーバーは以下の鑑定スタイルに対応しています：
+
+### 【読み解きの原則】
+1. **4層構造で読む**：心理・状況・流れ・アドバイス
+2. **エネルギーの方向性**：正位置/逆位置を吉凶ではなく流れとして扱う
+3. **可能性提示**：未来を断定せず、選択肢を提示
+4. **象徴から導く**：質問者の状況を想像しすぎず、カードの象徴から導く
+5. **行動アドバイス**：最後に必ず1つの行動ヒントを提示
+
+### 【出力フォーマット】
+- カードの象徴
+- 今の状況の読み解き
+- 心理的背景
+- これからの流れ
+- 行動アドバイス（1つ）
+
+### 【読み解きの特徴】
+- 3〜6文で簡潔にまとめる
+- 不安を煽らない
+- 断定的な未来予言をしない
+- 医療・法律の判断をしない
+- 詩的かつ親しみやすい文体
 
 ---
 
@@ -343,8 +387,7 @@ fortune-project/
 - **Backend**: Flask 3.0.0 (Python)
 - **Frontend**: Vanilla JavaScript (API互換)
 - **AI Models**: 
-  - Claude (Anthropic)
-  - Gemini (Google)
+  - Gemini 1.5 Flash (Google)
   - GPT-4o (OpenAI)
 - **Storage**: registry_a.json (JSON)
 

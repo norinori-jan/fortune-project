@@ -1,4 +1,4 @@
-# 🔮 ローカルフラスク サーバー　クイックスタート
+# 🔮 ローカルフラスク サーバー　セットアップガイド
 
 ## 📋 5分で完成！
 
@@ -12,19 +12,34 @@ cp .env.example .env
 `.env` ファイルを編集して、以下を入力：
 
 ```env
-CLAUDE_API_KEY=sk-ant-api03-YOUR_KEY_HERE
+# Gemini API キー
 GEMINI_API_KEY=AIzaSy_YOUR_KEY_HERE
-OPENAI_API_KEY=sk-YOUR_KEY_HERE
+
+# OpenAI API キー
+OPENAI_API_KEY=sk-proj-YOUR_KEY_HERE
 ```
 
 **キー取得方法：**
-- Claude: https://console.anthropic.com/
-- Gemini: https://makersuite.google.com/app/apikey
-- OpenAI: https://platform.openai.com/api-keys
+- **Gemini**: https://console.cloud.google.com/apis/credentials
+- **OpenAI**: https://platform.openai.com/api-keys
 
 ---
 
-### 2️⃣ サーバー起動（1分）
+### 2️⃣ Python依存関係インストール（1分）
+
+```powershell
+cd c:\Users\norin\fortune-project\server
+pip install -r requirements.txt
+```
+
+**出力例：**
+```
+Successfully installed Flask-3.0.0 flask-cors-4.0.0 python-dotenv-1.0.0 requests-2.31.0
+```
+
+---
+
+### 3️⃣ Flaskサーバー起動（1分）
 
 **方法A: スクリプト使用（推奨）**
 ```powershell
@@ -35,19 +50,24 @@ cd c:\Users\norin\fortune-project\server
 **方法B: 手動起動**
 ```powershell
 cd c:\Users\norin\fortune-project\server
-pip install -r requirements.txt  # 初回のみ
 python app.py
 ```
 
 **成功時の表示：**
 ```
+🔮 Tarot Fortune Server Starting...
+📁 Registry path: c:\Users\norin\fortune-project\core\registry_a.json
+📁 Tarot module path: c:\Users\norin\fortune-project\fortune-registry\tarot
+🔑 API Keys configured: {'claude': 'not configured', 'gemini': 'configured', 'openai': 'configured'}
+
 ✨ Server running on http://localhost:5000
    Use /health to check status
+ * Running on http://0.0.0.0:5000/
 ```
 
 ---
 
-### 3️⃣ ブラウザ起動（1分）
+### 4️⃣ ブラウザ起動（1分）
 
 別ウィンドウで：
 
@@ -63,7 +83,7 @@ http://localhost:8080/index.html
 
 ---
 
-### 4️⃣ 占いを実行（2分）
+### 5️⃣ 占いを実行（2分）
 
 1. **スプレッド選択** → 「一枚引き」など
 2. **質問入力** （オプション）
@@ -71,7 +91,7 @@ http://localhost:8080/index.html
 4. **カードをクリック** → 開く
 5. **✦ 3つのAIで読み解く ✦** クリック
 
-✨ **3つのAIの解読が同時表示されます！**
+✨ **複数のAIの解読が同時表示されます！**
 
 ---
 
@@ -86,7 +106,7 @@ curl http://localhost:5000/health
 ```bash
 curl -X POST http://localhost:5000/api/tarot/draw \
   -H "Content-Type: application/json" \
-  -d '{"spread_type": "one_oracle", "question": "今日の運勢は？"}'
+  -d '{\"spread_type\": \"one_oracle\", \"question\": \"今日の運勢は？\"}'
 ```
 
 ---
@@ -109,16 +129,16 @@ fortune-project/
 ├── server/
 │   ├── app.py              ← メインサーバー
 │   ├── requirements.txt
-│   ├── .env                ← APIキー（作成必須）
+│   ├── .env                ← APIキー（作成必須・Git無視）
 │   ├── .env.example        ← テンプレート
 │   ├── start_server.ps1    ← 起動スクリプト
 │   └── SETUP_GUIDE.md      ← 詳細ガイド
 ├── fortune-registry/tarot/
-│   ├── index.html          ← ブラウザUI（改修済み）
-│   ├── tarot_engine.py
-│   └── major.json
+│   ├── index.html          ← ブラウザUI
+│   ├── tarot_engine.py     ← タロットロジック
+│   └── major.json          ← タロットカード定義
 └── core/
-    └── registry_a.json     ← 占い履歴
+    └── registry_a.json     ← 占い履歴保存先
 ```
 
 ---
