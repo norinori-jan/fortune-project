@@ -38,7 +38,7 @@ class SpreadType(str, Enum):
 SPREAD_POSITIONS: dict[str, list[str]] = {
     SpreadType.ONE_ORACLE : ["現在の状況"],
     SpreadType.THREE_CARD : ["過去", "現在", "未来"],
-    SpreadType.CELTIC_MINI: ["現在の状況", "課題・障害", "顕在意識", "潜在意識", "結果"],
+    SpreadType.CELTIC_MINI: ["①現在の状況","②課題・妨げ","③遠い過去（根底）","④近い過去","⑤可能な未来","⑥近い未来","⑦自己の本音","⑧周囲の影響","⑨希望と恐れ","⑩最終結果"],
     SpreadType.YES_NO     : ["答え"],
     SpreadType.DAILY      : ["今日のメッセージ"],
 }

@@ -1938,6 +1938,1582 @@
         ],
         "saved_at": "2026-06-06T20:43:30"
       }
+    },
+    {
+      "type": "tarot_reading",
+      "schema_ver": "1.0.0",
+      "spread": "celtic_mini",
+      "spread_label": "ケルティッククロス（簡易5枚）",
+      "drawn_at": "2026-06-07T11:59:38",
+      "question": "",
+      "cards": [
+        {
+          "position_label": "①現在の状況",
+          "position_index": 0,
+          "card_id": "M05",
+          "name_ja": "法王",
+          "name_en": "The Hierophant",
+          "number": 5,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "不信感",
+            "偏見",
+            "独善",
+            "反発"
+          ],
+          "meaning": "視野が狭くなり、マニュアルに固執しています。柔軟でオープンな思考を意識してください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "②課題・妨げ",
+          "position_index": 1,
+          "card_id": "M06",
+          "name_ja": "恋人",
+          "name_en": "The Lovers",
+          "number": 6,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "選択",
+            "調和",
+            "情熱",
+            "共感"
+          ],
+          "meaning": "自分の心が真に心地よいと感じる選択、および周囲との調和を最優先に決定してください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "③遠い過去（根底）",
+          "position_index": 2,
+          "card_id": "M12",
+          "name_ja": "吊るされた男",
+          "name_en": "The Hanged Man",
+          "number": 12,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "無駄な犠牲",
+            "骨折り損",
+            "自己憐憫",
+            "執着"
+          ],
+          "meaning": "報われない努力や我慢に縛られています。「犠牲になっている」という被害者意識を手放してください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "④近い過去",
+          "position_index": 3,
+          "card_id": "M13",
+          "name_ja": "死神",
+          "name_en": "Death",
+          "number": 13,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "未練",
+            "再生遅延",
+            "惰性",
+            "執着"
+          ],
+          "meaning": "終わったことに執着し、変化を拒んでいます。未練を断ち切り、強制終了を受け入れる覚悟を持ちましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑤可能な未来",
+          "position_index": 4,
+          "card_id": "M19",
+          "name_ja": "太陽",
+          "name_en": "The Sun",
+          "number": 19,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "不調",
+            "延期",
+            "陰り",
+            "過信"
+          ],
+          "meaning": "完全な失敗ではないものの、パワー不足や計画の遅延が生じやすいです。過信を捨て、エネルギーを充電してください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑥近い未来",
+          "position_index": 5,
+          "card_id": "M03",
+          "name_ja": "女帝",
+          "name_en": "The Empress",
+          "number": 3,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "過保護",
+            "我儘",
+            "怠惰",
+            "浪費"
+          ],
+          "meaning": "過剰な干渉や依存心が生じているサインです。甘えを捨て、自立心を取り戻してください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑦自己の本音",
+          "position_index": 6,
+          "card_id": "M20",
+          "name_ja": "審判",
+          "name_en": "Judgement",
+          "number": 20,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "再起不能",
+            "後悔",
+            "決定遅延",
+            "見送り"
+          ],
+          "meaning": "過去の失敗を悔やみ、決断を先送りにしています。同じ過ちを繰り返さないと誓い、今度こそ前を向きましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑧周囲の影響",
+          "position_index": 7,
+          "card_id": "M07",
+          "name_ja": "戦車",
+          "name_en": "The Chariot",
+          "number": 7,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "前進",
+            "勝利",
+            "克服",
+            "自己制御"
+          ],
+          "meaning": "二面性のある葛藤をコントロールし、目標に向かって迷わず一気に突き進んでください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑨希望と恐れ",
+          "position_index": 8,
+          "card_id": "M01",
+          "name_ja": "魔術師",
+          "name_en": "The Magician",
+          "number": 1,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "創造",
+            "技術",
+            "自信",
+            "集中"
+          ],
+          "meaning": "手元にある道具やスキルは十分揃っています。自信を持って計画を実行に移しましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑩最終結果",
+          "position_index": 9,
+          "card_id": "M17",
+          "name_ja": "星",
+          "name_en": "The Star",
+          "number": 17,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "幻滅",
+            "高望み",
+            "悲観的",
+            "インスピ不足"
+          ],
+          "meaning": "理想が高すぎて現実とのギャップに落胆しています。まずは手の届く小さな現実から見つめ直しましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        }
+      ],
+      "prompt_context": "【スプレッド】ケルティッククロス（簡易5枚）\n【質問】（指定なし）\n\n■ ①現在の状況：法王（The Hierophant）逆位置\n  キーワード：不信感・偏見・独善・反発\n  意味：視野が狭くなり、マニュアルに固執しています。柔軟でオープンな思考を意識してください。\n\n■ ②課題・妨げ：恋人（The Lovers）正位置\n  キーワード：選択・調和・情熱・共感\n  意味：自分の心が真に心地よいと感じる選択、および周囲との調和を最優先に決定してください。\n\n■ ③遠い過去（根底）：吊るされた男（The Hanged Man）逆位置\n  キーワード：無駄な犠牲・骨折り損・自己憐憫・執着\n  意味：報われない努力や我慢に縛られています。「犠牲になっている」という被害者意識を手放してください。\n\n■ ④近い過去：死神（Death）逆位置\n  キーワード：未練・再生遅延・惰性・執着\n  意味：終わったことに執着し、変化を拒んでいます。未練を断ち切り、強制終了を受け入れる覚悟を持ちましょう。\n\n■ ⑤可能な未来：太陽（The Sun）逆位置\n  キーワード：不調・延期・陰り・過信\n  意味：完全な失敗ではないものの、パワー不足や計画の遅延が生じやすいです。過信を捨て、エネルギーを充電してください。\n\n■ ⑥近い未来：女帝（The Empress）逆位置\n  キーワード：過保護・我儘・怠惰・浪費\n  意味：過剰な干渉や依存心が生じているサインです。甘えを捨て、自立心を取り戻してください。\n\n■ ⑦自己の本音：審判（Judgement）逆位置\n  キーワード：再起不能・後悔・決定遅延・見送り\n  意味：過去の失敗を悔やみ、決断を先送りにしています。同じ過ちを繰り返さないと誓い、今度こそ前を向きましょう。\n\n■ ⑧周囲の影響：戦車（The Chariot）正位置\n  キーワード：前進・勝利・克服・自己制御\n  意味：二面性のある葛藤をコントロールし、目標に向かって迷わず一気に突き進んでください。\n\n■ ⑨希望と恐れ：魔術師（The Magician）正位置\n  キーワード：創造・技術・自信・集中\n  意味：手元にある道具やスキルは十分揃っています。自信を持って計画を実行に移しましょう。\n\n■ ⑩最終結果：星（The Star）逆位置\n  キーワード：幻滅・高望み・悲観的・インスピ不足\n  意味：理想が高すぎて現実とのギャップに落胆しています。まずは手の届く小さな現実から見つめ直しましょう。\n",
+      "sheets_row": {
+        "drawn_at": "2026-06-07T11:59:38",
+        "spread": "ケルティッククロス（簡易5枚）",
+        "question": "",
+        "①現在の状況_card": "法王",
+        "①現在の状況_orientation": "逆位置",
+        "①現在の状況_keywords": "不信感・偏見・独善・反発",
+        "②課題・妨げ_card": "恋人",
+        "②課題・妨げ_orientation": "正位置",
+        "②課題・妨げ_keywords": "選択・調和・情熱・共感",
+        "③遠い過去（根底）_card": "吊るされた男",
+        "③遠い過去（根底）_orientation": "逆位置",
+        "③遠い過去（根底）_keywords": "無駄な犠牲・骨折り損・自己憐憫・執着",
+        "④近い過去_card": "死神",
+        "④近い過去_orientation": "逆位置",
+        "④近い過去_keywords": "未練・再生遅延・惰性・執着",
+        "⑤可能な未来_card": "太陽",
+        "⑤可能な未来_orientation": "逆位置",
+        "⑤可能な未来_keywords": "不調・延期・陰り・過信",
+        "⑥近い未来_card": "女帝",
+        "⑥近い未来_orientation": "逆位置",
+        "⑥近い未来_keywords": "過保護・我儘・怠惰・浪費",
+        "⑦自己の本音_card": "審判",
+        "⑦自己の本音_orientation": "逆位置",
+        "⑦自己の本音_keywords": "再起不能・後悔・決定遅延・見送り",
+        "⑧周囲の影響_card": "戦車",
+        "⑧周囲の影響_orientation": "正位置",
+        "⑧周囲の影響_keywords": "前進・勝利・克服・自己制御",
+        "⑨希望と恐れ_card": "魔術師",
+        "⑨希望と恐れ_orientation": "正位置",
+        "⑨希望と恐れ_keywords": "創造・技術・自信・集中",
+        "⑩最終結果_card": "星",
+        "⑩最終結果_orientation": "逆位置",
+        "⑩最終結果_keywords": "幻滅・高望み・悲観的・インスピ不足"
+      },
+      "idb_payload": {
+        "key": "tarot_2026-06-07T11-59-38",
+        "spread": "celtic_mini",
+        "question": "",
+        "cards": [
+          {
+            "pos": "①現在の状況",
+            "id": "M05",
+            "name": "法王",
+            "ori": "reversed",
+            "kw": [
+              "不信感",
+              "偏見",
+              "独善",
+              "反発"
+            ]
+          },
+          {
+            "pos": "②課題・妨げ",
+            "id": "M06",
+            "name": "恋人",
+            "ori": "upright",
+            "kw": [
+              "選択",
+              "調和",
+              "情熱",
+              "共感"
+            ]
+          },
+          {
+            "pos": "③遠い過去（根底）",
+            "id": "M12",
+            "name": "吊るされた男",
+            "ori": "reversed",
+            "kw": [
+              "無駄な犠牲",
+              "骨折り損",
+              "自己憐憫",
+              "執着"
+            ]
+          },
+          {
+            "pos": "④近い過去",
+            "id": "M13",
+            "name": "死神",
+            "ori": "reversed",
+            "kw": [
+              "未練",
+              "再生遅延",
+              "惰性",
+              "執着"
+            ]
+          },
+          {
+            "pos": "⑤可能な未来",
+            "id": "M19",
+            "name": "太陽",
+            "ori": "reversed",
+            "kw": [
+              "不調",
+              "延期",
+              "陰り",
+              "過信"
+            ]
+          },
+          {
+            "pos": "⑥近い未来",
+            "id": "M03",
+            "name": "女帝",
+            "ori": "reversed",
+            "kw": [
+              "過保護",
+              "我儘",
+              "怠惰",
+              "浪費"
+            ]
+          },
+          {
+            "pos": "⑦自己の本音",
+            "id": "M20",
+            "name": "審判",
+            "ori": "reversed",
+            "kw": [
+              "再起不能",
+              "後悔",
+              "決定遅延",
+              "見送り"
+            ]
+          },
+          {
+            "pos": "⑧周囲の影響",
+            "id": "M07",
+            "name": "戦車",
+            "ori": "upright",
+            "kw": [
+              "前進",
+              "勝利",
+              "克服",
+              "自己制御"
+            ]
+          },
+          {
+            "pos": "⑨希望と恐れ",
+            "id": "M01",
+            "name": "魔術師",
+            "ori": "upright",
+            "kw": [
+              "創造",
+              "技術",
+              "自信",
+              "集中"
+            ]
+          },
+          {
+            "pos": "⑩最終結果",
+            "id": "M17",
+            "name": "星",
+            "ori": "reversed",
+            "kw": [
+              "幻滅",
+              "高望み",
+              "悲観的",
+              "インスピ不足"
+            ]
+          }
+        ],
+        "saved_at": "2026-06-07T11:59:38"
+      }
+    },
+    {
+      "type": "tarot_reading",
+      "schema_ver": "1.0.0",
+      "spread": "celtic_mini",
+      "spread_label": "ケルティッククロス（簡易5枚）",
+      "drawn_at": "2026-06-07T12:06:19",
+      "question": "",
+      "cards": [
+        {
+          "position_label": "①現在の状況",
+          "position_index": 0,
+          "card_id": "M18",
+          "name_ja": "月",
+          "name_en": "The Moon",
+          "number": 18,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "霧晴れる",
+            "不安解消",
+            "真実露見",
+            "現実回帰"
+          ],
+          "meaning": "徐々に不透明だった状況から霧が晴れ、真実が見えてきます。確信を持って次の具体的な行動を起こしましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "②課題・妨げ",
+          "position_index": 1,
+          "card_id": "M15",
+          "name_ja": "悪魔",
+          "name_en": "The Devil",
+          "number": 15,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "束縛",
+            "欲望",
+            "依存",
+            "執着"
+          ],
+          "meaning": "目先の快楽や依存関係、固定観念に縛られています。自分が何に囚われているかを自覚しましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "③遠い過去（根底）",
+          "position_index": 2,
+          "card_id": "M21",
+          "name_ja": "世界",
+          "name_en": "The World",
+          "number": 21,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "完成",
+            "統合",
+            "達成",
+            "完全なる調和"
+          ],
+          "meaning": "現在のサイクルは見事に完成へと至りました。この素晴らしい成果を祝い、次の新たなステージへ進む準備をしてください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "④近い過去",
+          "position_index": 3,
+          "card_id": "M10",
+          "name_ja": "運命の輪",
+          "name_en": "Wheel of Fortune",
+          "number": 10,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "暗転",
+            "タイミング悪",
+            "抵抗",
+            "不運"
+          ],
+          "meaning": "今は逆風のタイミングです。無理に流れを変えようと足掻かず、嵐が過ぎ去るのを待ちましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑤可能な未来",
+          "position_index": 4,
+          "card_id": "M13",
+          "name_ja": "死神",
+          "name_en": "Death",
+          "number": 13,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "終わり",
+            "再生",
+            "リセット",
+            "決別"
+          ],
+          "meaning": "役目を終えた古い状況や関係性を完全に手放してください。それは新しい始まりへの絶対条件です。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑥近い未来",
+          "position_index": 5,
+          "card_id": "M01",
+          "name_ja": "魔術師",
+          "name_en": "The Magician",
+          "number": 1,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "空回り",
+            "不調装",
+            "欺瞞",
+            "未熟"
+          ],
+          "meaning": "小手先の技術や嘘で誤魔化さず、基礎スキルの磨き直しや準備の再確認をしてください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑦自己の本音",
+          "position_index": 6,
+          "card_id": "M08",
+          "name_ja": "力",
+          "name_en": "Strength",
+          "number": 8,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "落胆",
+            "自信喪失",
+            "感情爆発",
+            "妥協"
+          ],
+          "meaning": "プレッシャーに負けて弱気になっています。自分の感情（本能）を否定せず、受け入れることから始めてください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑧周囲の影響",
+          "position_index": 7,
+          "card_id": "M16",
+          "name_ja": "塔",
+          "name_en": "The Tower",
+          "number": 16,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "崩壊",
+            "劇的変化",
+            "衝撃",
+            "覚醒"
+          ],
+          "meaning": "既存のプライドや不都合な基盤が崩れ去りますが、これは嘘のない真実へ向かうための必要な崩壊です。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑨希望と恐れ",
+          "position_index": 8,
+          "card_id": "M03",
+          "name_ja": "女帝",
+          "name_en": "The Empress",
+          "number": 3,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "豊かさ",
+            "包容力",
+            "愛情",
+            "生産性"
+          ],
+          "meaning": "現状を愛し、育てる時期です。周囲への感謝を形にし、心地よい環境作りに注力しましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑩最終結果",
+          "position_index": 9,
+          "card_id": "M09",
+          "name_ja": "隠者",
+          "name_en": "The Hermit",
+          "number": 9,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "探求",
+            "内省",
+            "孤独",
+            "慎重"
+          ],
+          "meaning": "外側の情報に惑わされず、一人の時間を確保して本質を深く見つめ直す必要があります。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        }
+      ],
+      "prompt_context": "【スプレッド】ケルティッククロス（簡易5枚）\n【質問】（指定なし）\n\n■ ①現在の状況：月（The Moon）逆位置\n  キーワード：霧晴れる・不安解消・真実露見・現実回帰\n  意味：徐々に不透明だった状況から霧が晴れ、真実が見えてきます。確信を持って次の具体的な行動を起こしましょう。\n\n■ ②課題・妨げ：悪魔（The Devil）正位置\n  キーワード：束縛・欲望・依存・執着\n  意味：目先の快楽や依存関係、固定観念に縛られています。自分が何に囚われているかを自覚しましょう。\n\n■ ③遠い過去（根底）：世界（The World）正位置\n  キーワード：完成・統合・達成・完全なる調和\n  意味：現在のサイクルは見事に完成へと至りました。この素晴らしい成果を祝い、次の新たなステージへ進む準備をしてください。\n\n■ ④近い過去：運命の輪（Wheel of Fortune）逆位置\n  キーワード：暗転・タイミング悪・抵抗・不運\n  意味：今は逆風のタイミングです。無理に流れを変えようと足掻かず、嵐が過ぎ去るのを待ちましょう。\n\n■ ⑤可能な未来：死神（Death）正位置\n  キーワード：終わり・再生・リセット・決別\n  意味：役目を終えた古い状況や関係性を完全に手放してください。それは新しい始まりへの絶対条件です。\n\n■ ⑥近い未来：魔術師（The Magician）逆位置\n  キーワード：空回り・不調装・欺瞞・未熟\n  意味：小手先の技術や嘘で誤魔化さず、基礎スキルの磨き直しや準備の再確認をしてください。\n\n■ ⑦自己の本音：力（Strength）逆位置\n  キーワード：落胆・自信喪失・感情爆発・妥協\n  意味：プレッシャーに負けて弱気になっています。自分の感情（本能）を否定せず、受け入れることから始めてください。\n\n■ ⑧周囲の影響：塔（The Tower）正位置\n  キーワード：崩壊・劇的変化・衝撃・覚醒\n  意味：既存のプライドや不都合な基盤が崩れ去りますが、これは嘘のない真実へ向かうための必要な崩壊です。\n\n■ ⑨希望と恐れ：女帝（The Empress）正位置\n  キーワード：豊かさ・包容力・愛情・生産性\n  意味：現状を愛し、育てる時期です。周囲への感謝を形にし、心地よい環境作りに注力しましょう。\n\n■ ⑩最終結果：隠者（The Hermit）正位置\n  キーワード：探求・内省・孤独・慎重\n  意味：外側の情報に惑わされず、一人の時間を確保して本質を深く見つめ直す必要があります。\n",
+      "sheets_row": {
+        "drawn_at": "2026-06-07T12:06:19",
+        "spread": "ケルティッククロス（簡易5枚）",
+        "question": "",
+        "①現在の状況_card": "月",
+        "①現在の状況_orientation": "逆位置",
+        "①現在の状況_keywords": "霧晴れる・不安解消・真実露見・現実回帰",
+        "②課題・妨げ_card": "悪魔",
+        "②課題・妨げ_orientation": "正位置",
+        "②課題・妨げ_keywords": "束縛・欲望・依存・執着",
+        "③遠い過去（根底）_card": "世界",
+        "③遠い過去（根底）_orientation": "正位置",
+        "③遠い過去（根底）_keywords": "完成・統合・達成・完全なる調和",
+        "④近い過去_card": "運命の輪",
+        "④近い過去_orientation": "逆位置",
+        "④近い過去_keywords": "暗転・タイミング悪・抵抗・不運",
+        "⑤可能な未来_card": "死神",
+        "⑤可能な未来_orientation": "正位置",
+        "⑤可能な未来_keywords": "終わり・再生・リセット・決別",
+        "⑥近い未来_card": "魔術師",
+        "⑥近い未来_orientation": "逆位置",
+        "⑥近い未来_keywords": "空回り・不調装・欺瞞・未熟",
+        "⑦自己の本音_card": "力",
+        "⑦自己の本音_orientation": "逆位置",
+        "⑦自己の本音_keywords": "落胆・自信喪失・感情爆発・妥協",
+        "⑧周囲の影響_card": "塔",
+        "⑧周囲の影響_orientation": "正位置",
+        "⑧周囲の影響_keywords": "崩壊・劇的変化・衝撃・覚醒",
+        "⑨希望と恐れ_card": "女帝",
+        "⑨希望と恐れ_orientation": "正位置",
+        "⑨希望と恐れ_keywords": "豊かさ・包容力・愛情・生産性",
+        "⑩最終結果_card": "隠者",
+        "⑩最終結果_orientation": "正位置",
+        "⑩最終結果_keywords": "探求・内省・孤独・慎重"
+      },
+      "idb_payload": {
+        "key": "tarot_2026-06-07T12-06-19",
+        "spread": "celtic_mini",
+        "question": "",
+        "cards": [
+          {
+            "pos": "①現在の状況",
+            "id": "M18",
+            "name": "月",
+            "ori": "reversed",
+            "kw": [
+              "霧晴れる",
+              "不安解消",
+              "真実露見",
+              "現実回帰"
+            ]
+          },
+          {
+            "pos": "②課題・妨げ",
+            "id": "M15",
+            "name": "悪魔",
+            "ori": "upright",
+            "kw": [
+              "束縛",
+              "欲望",
+              "依存",
+              "執着"
+            ]
+          },
+          {
+            "pos": "③遠い過去（根底）",
+            "id": "M21",
+            "name": "世界",
+            "ori": "upright",
+            "kw": [
+              "完成",
+              "統合",
+              "達成",
+              "完全なる調和"
+            ]
+          },
+          {
+            "pos": "④近い過去",
+            "id": "M10",
+            "name": "運命の輪",
+            "ori": "reversed",
+            "kw": [
+              "暗転",
+              "タイミング悪",
+              "抵抗",
+              "不運"
+            ]
+          },
+          {
+            "pos": "⑤可能な未来",
+            "id": "M13",
+            "name": "死神",
+            "ori": "upright",
+            "kw": [
+              "終わり",
+              "再生",
+              "リセット",
+              "決別"
+            ]
+          },
+          {
+            "pos": "⑥近い未来",
+            "id": "M01",
+            "name": "魔術師",
+            "ori": "reversed",
+            "kw": [
+              "空回り",
+              "不調装",
+              "欺瞞",
+              "未熟"
+            ]
+          },
+          {
+            "pos": "⑦自己の本音",
+            "id": "M08",
+            "name": "力",
+            "ori": "reversed",
+            "kw": [
+              "落胆",
+              "自信喪失",
+              "感情爆発",
+              "妥協"
+            ]
+          },
+          {
+            "pos": "⑧周囲の影響",
+            "id": "M16",
+            "name": "塔",
+            "ori": "upright",
+            "kw": [
+              "崩壊",
+              "劇的変化",
+              "衝撃",
+              "覚醒"
+            ]
+          },
+          {
+            "pos": "⑨希望と恐れ",
+            "id": "M03",
+            "name": "女帝",
+            "ori": "upright",
+            "kw": [
+              "豊かさ",
+              "包容力",
+              "愛情",
+              "生産性"
+            ]
+          },
+          {
+            "pos": "⑩最終結果",
+            "id": "M09",
+            "name": "隠者",
+            "ori": "upright",
+            "kw": [
+              "探求",
+              "内省",
+              "孤独",
+              "慎重"
+            ]
+          }
+        ],
+        "saved_at": "2026-06-07T12:06:19"
+      }
+    },
+    {
+      "type": "tarot_reading",
+      "schema_ver": "1.0.0",
+      "spread": "celtic_mini",
+      "spread_label": "ケルティッククロス（簡易5枚）",
+      "drawn_at": "2026-06-07T12:07:56",
+      "question": "",
+      "cards": [
+        {
+          "position_label": "①現在の状況",
+          "position_index": 0,
+          "card_id": "M15",
+          "name_ja": "悪魔",
+          "name_en": "The Devil",
+          "number": 15,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "束縛",
+            "欲望",
+            "依存",
+            "執着"
+          ],
+          "meaning": "目先の快楽や依存関係、固定観念に縛られています。自分が何に囚われているかを自覚しましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "②課題・妨げ",
+          "position_index": 1,
+          "card_id": "M09",
+          "name_ja": "隠者",
+          "name_en": "The Hermit",
+          "number": 9,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "閉鎖的",
+            "偏屈",
+            "邪推",
+            "現実無視"
+          ],
+          "meaning": "自分の世界に閉じこもり、頑固になっています。心の扉を少し開き、客観的な現実に目を向けましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "③遠い過去（根底）",
+          "position_index": 2,
+          "card_id": "M20",
+          "name_ja": "審判",
+          "name_en": "Judgement",
+          "number": 20,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "再起不能",
+            "後悔",
+            "決定遅延",
+            "見送り"
+          ],
+          "meaning": "過去の失敗を悔やみ、決断を先送りにしています。同じ過ちを繰り返さないと誓い、今度こそ前を向きましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "④近い過去",
+          "position_index": 3,
+          "card_id": "M08",
+          "name_ja": "力",
+          "name_en": "Strength",
+          "number": 8,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "忍耐",
+            "包容力",
+            "本能制御",
+            "不屈"
+          ],
+          "meaning": "腕力ではなく、粘り強い忍耐力と自己コントロール、そして愛を持って課題に向き合ってください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑤可能な未来",
+          "position_index": 4,
+          "card_id": "M05",
+          "name_ja": "法王",
+          "name_en": "The Hierophant",
+          "number": 5,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "モラル",
+            "信頼",
+            "導き",
+            "伝統"
+          ],
+          "meaning": "秩序や伝統的なルールを守り、信頼できる専門家や先輩にアドバイスを求めると道が開けます。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑥近い未来",
+          "position_index": 5,
+          "card_id": "M06",
+          "name_ja": "恋人",
+          "name_en": "The Lovers",
+          "number": 6,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "選択",
+            "調和",
+            "情熱",
+            "共感"
+          ],
+          "meaning": "自分の心が真に心地よいと感じる選択、および周囲との調和を最優先に決定してください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑦自己の本音",
+          "position_index": 6,
+          "card_id": "M17",
+          "name_ja": "星",
+          "name_en": "The Star",
+          "number": 17,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "幻滅",
+            "高望み",
+            "悲観的",
+            "インスピ不足"
+          ],
+          "meaning": "理想が高すぎて現実とのギャップに落胆しています。まずは手の届く小さな現実から見つめ直しましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑧周囲の影響",
+          "position_index": 7,
+          "card_id": "M03",
+          "name_ja": "女帝",
+          "name_en": "The Empress",
+          "number": 3,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "豊かさ",
+            "包容力",
+            "愛情",
+            "生産性"
+          ],
+          "meaning": "現状を愛し、育てる時期です。周囲への感謝を形にし、心地よい環境作りに注力しましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑨希望と恐れ",
+          "position_index": 8,
+          "card_id": "M02",
+          "name_ja": "女教皇",
+          "name_en": "The High Priestess",
+          "number": 2,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "直感",
+            "知性",
+            "静寂",
+            "客観性"
+          ],
+          "meaning": "周囲の雑音から離れ、自分の内なる直感と冷静な分析力に耳を傾けてください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑩最終結果",
+          "position_index": 9,
+          "card_id": "M16",
+          "name_ja": "塔",
+          "name_en": "The Tower",
+          "number": 16,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "崩壊",
+            "劇的変化",
+            "衝撃",
+            "覚醒"
+          ],
+          "meaning": "既存のプライドや不都合な基盤が崩れ去りますが、これは嘘のない真実へ向かうための必要な崩壊です。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        }
+      ],
+      "prompt_context": "【スプレッド】ケルティッククロス（簡易5枚）\n【質問】（指定なし）\n\n■ ①現在の状況：悪魔（The Devil）正位置\n  キーワード：束縛・欲望・依存・執着\n  意味：目先の快楽や依存関係、固定観念に縛られています。自分が何に囚われているかを自覚しましょう。\n\n■ ②課題・妨げ：隠者（The Hermit）逆位置\n  キーワード：閉鎖的・偏屈・邪推・現実無視\n  意味：自分の世界に閉じこもり、頑固になっています。心の扉を少し開き、客観的な現実に目を向けましょう。\n\n■ ③遠い過去（根底）：審判（Judgement）逆位置\n  キーワード：再起不能・後悔・決定遅延・見送り\n  意味：過去の失敗を悔やみ、決断を先送りにしています。同じ過ちを繰り返さないと誓い、今度こそ前を向きましょう。\n\n■ ④近い過去：力（Strength）正位置\n  キーワード：忍耐・包容力・本能制御・不屈\n  意味：腕力ではなく、粘り強い忍耐力と自己コントロール、そして愛を持って課題に向き合ってください。\n\n■ ⑤可能な未来：法王（The Hierophant）正位置\n  キーワード：モラル・信頼・導き・伝統\n  意味：秩序や伝統的なルールを守り、信頼できる専門家や先輩にアドバイスを求めると道が開けます。\n\n■ ⑥近い未来：恋人（The Lovers）正位置\n  キーワード：選択・調和・情熱・共感\n  意味：自分の心が真に心地よいと感じる選択、および周囲との調和を最優先に決定してください。\n\n■ ⑦自己の本音：星（The Star）逆位置\n  キーワード：幻滅・高望み・悲観的・インスピ不足\n  意味：理想が高すぎて現実とのギャップに落胆しています。まずは手の届く小さな現実から見つめ直しましょう。\n\n■ ⑧周囲の影響：女帝（The Empress）正位置\n  キーワード：豊かさ・包容力・愛情・生産性\n  意味：現状を愛し、育てる時期です。周囲への感謝を形にし、心地よい環境作りに注力しましょう。\n\n■ ⑨希望と恐れ：女教皇（The High Priestess）正位置\n  キーワード：直感・知性・静寂・客観性\n  意味：周囲の雑音から離れ、自分の内なる直感と冷静な分析力に耳を傾けてください。\n\n■ ⑩最終結果：塔（The Tower）正位置\n  キーワード：崩壊・劇的変化・衝撃・覚醒\n  意味：既存のプライドや不都合な基盤が崩れ去りますが、これは嘘のない真実へ向かうための必要な崩壊です。\n",
+      "sheets_row": {
+        "drawn_at": "2026-06-07T12:07:56",
+        "spread": "ケルティッククロス（簡易5枚）",
+        "question": "",
+        "①現在の状況_card": "悪魔",
+        "①現在の状況_orientation": "正位置",
+        "①現在の状況_keywords": "束縛・欲望・依存・執着",
+        "②課題・妨げ_card": "隠者",
+        "②課題・妨げ_orientation": "逆位置",
+        "②課題・妨げ_keywords": "閉鎖的・偏屈・邪推・現実無視",
+        "③遠い過去（根底）_card": "審判",
+        "③遠い過去（根底）_orientation": "逆位置",
+        "③遠い過去（根底）_keywords": "再起不能・後悔・決定遅延・見送り",
+        "④近い過去_card": "力",
+        "④近い過去_orientation": "正位置",
+        "④近い過去_keywords": "忍耐・包容力・本能制御・不屈",
+        "⑤可能な未来_card": "法王",
+        "⑤可能な未来_orientation": "正位置",
+        "⑤可能な未来_keywords": "モラル・信頼・導き・伝統",
+        "⑥近い未来_card": "恋人",
+        "⑥近い未来_orientation": "正位置",
+        "⑥近い未来_keywords": "選択・調和・情熱・共感",
+        "⑦自己の本音_card": "星",
+        "⑦自己の本音_orientation": "逆位置",
+        "⑦自己の本音_keywords": "幻滅・高望み・悲観的・インスピ不足",
+        "⑧周囲の影響_card": "女帝",
+        "⑧周囲の影響_orientation": "正位置",
+        "⑧周囲の影響_keywords": "豊かさ・包容力・愛情・生産性",
+        "⑨希望と恐れ_card": "女教皇",
+        "⑨希望と恐れ_orientation": "正位置",
+        "⑨希望と恐れ_keywords": "直感・知性・静寂・客観性",
+        "⑩最終結果_card": "塔",
+        "⑩最終結果_orientation": "正位置",
+        "⑩最終結果_keywords": "崩壊・劇的変化・衝撃・覚醒"
+      },
+      "idb_payload": {
+        "key": "tarot_2026-06-07T12-07-56",
+        "spread": "celtic_mini",
+        "question": "",
+        "cards": [
+          {
+            "pos": "①現在の状況",
+            "id": "M15",
+            "name": "悪魔",
+            "ori": "upright",
+            "kw": [
+              "束縛",
+              "欲望",
+              "依存",
+              "執着"
+            ]
+          },
+          {
+            "pos": "②課題・妨げ",
+            "id": "M09",
+            "name": "隠者",
+            "ori": "reversed",
+            "kw": [
+              "閉鎖的",
+              "偏屈",
+              "邪推",
+              "現実無視"
+            ]
+          },
+          {
+            "pos": "③遠い過去（根底）",
+            "id": "M20",
+            "name": "審判",
+            "ori": "reversed",
+            "kw": [
+              "再起不能",
+              "後悔",
+              "決定遅延",
+              "見送り"
+            ]
+          },
+          {
+            "pos": "④近い過去",
+            "id": "M08",
+            "name": "力",
+            "ori": "upright",
+            "kw": [
+              "忍耐",
+              "包容力",
+              "本能制御",
+              "不屈"
+            ]
+          },
+          {
+            "pos": "⑤可能な未来",
+            "id": "M05",
+            "name": "法王",
+            "ori": "upright",
+            "kw": [
+              "モラル",
+              "信頼",
+              "導き",
+              "伝統"
+            ]
+          },
+          {
+            "pos": "⑥近い未来",
+            "id": "M06",
+            "name": "恋人",
+            "ori": "upright",
+            "kw": [
+              "選択",
+              "調和",
+              "情熱",
+              "共感"
+            ]
+          },
+          {
+            "pos": "⑦自己の本音",
+            "id": "M17",
+            "name": "星",
+            "ori": "reversed",
+            "kw": [
+              "幻滅",
+              "高望み",
+              "悲観的",
+              "インスピ不足"
+            ]
+          },
+          {
+            "pos": "⑧周囲の影響",
+            "id": "M03",
+            "name": "女帝",
+            "ori": "upright",
+            "kw": [
+              "豊かさ",
+              "包容力",
+              "愛情",
+              "生産性"
+            ]
+          },
+          {
+            "pos": "⑨希望と恐れ",
+            "id": "M02",
+            "name": "女教皇",
+            "ori": "upright",
+            "kw": [
+              "直感",
+              "知性",
+              "静寂",
+              "客観性"
+            ]
+          },
+          {
+            "pos": "⑩最終結果",
+            "id": "M16",
+            "name": "塔",
+            "ori": "upright",
+            "kw": [
+              "崩壊",
+              "劇的変化",
+              "衝撃",
+              "覚醒"
+            ]
+          }
+        ],
+        "saved_at": "2026-06-07T12:07:56"
+      }
+    },
+    {
+      "type": "tarot_reading",
+      "schema_ver": "1.0.0",
+      "spread": "celtic_mini",
+      "spread_label": "ケルティッククロス（簡易5枚）",
+      "drawn_at": "2026-06-07T12:12:34",
+      "question": "",
+      "cards": [
+        {
+          "position_label": "①現在の状況",
+          "position_index": 0,
+          "card_id": "M05",
+          "name_ja": "法王",
+          "name_en": "The Hierophant",
+          "number": 5,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "不信感",
+            "偏見",
+            "独善",
+            "反発"
+          ],
+          "meaning": "視野が狭くなり、マニュアルに固執しています。柔軟でオープンな思考を意識してください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "②課題・妨げ",
+          "position_index": 1,
+          "card_id": "M20",
+          "name_ja": "審判",
+          "name_en": "Judgement",
+          "number": 20,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "再起不能",
+            "後悔",
+            "決定遅延",
+            "見送り"
+          ],
+          "meaning": "過去の失敗を悔やみ、決断を先送りにしています。同じ過ちを繰り返さないと誓い、今度こそ前を向きましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "③遠い過去（根底）",
+          "position_index": 2,
+          "card_id": "M03",
+          "name_ja": "女帝",
+          "name_en": "The Empress",
+          "number": 3,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "過保護",
+            "我儘",
+            "怠惰",
+            "浪費"
+          ],
+          "meaning": "過剰な干渉や依存心が生じているサインです。甘えを捨て、自立心を取り戻してください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "④近い過去",
+          "position_index": 3,
+          "card_id": "M17",
+          "name_ja": "星",
+          "name_en": "The Star",
+          "number": 17,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "幻滅",
+            "高望み",
+            "悲観的",
+            "インスピ不足"
+          ],
+          "meaning": "理想が高すぎて現実とのギャップに落胆しています。まずは手の届く小さな現実から見つめ直しましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑤可能な未来",
+          "position_index": 4,
+          "card_id": "M07",
+          "name_ja": "戦車",
+          "name_en": "The Chariot",
+          "number": 7,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "暴走",
+            "挫折",
+            "空回り",
+            "制御不能"
+          ],
+          "meaning": "エネルギーが空回り、あるいは暴走しています。一旦スピードを落とし、軌道修正を図りましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑥近い未来",
+          "position_index": 5,
+          "card_id": "M06",
+          "name_ja": "恋人",
+          "name_en": "The Lovers",
+          "number": 6,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "不調和",
+            "誘惑",
+            "優柔不断",
+            "不実"
+          ],
+          "meaning": "目先の誘惑や他人の意見に流されています。本当に大切な価値観が何か、選び直してください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑦自己の本音",
+          "position_index": 6,
+          "card_id": "M21",
+          "name_ja": "世界",
+          "name_en": "The World",
+          "number": 21,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "未完成",
+            "中途半端",
+            "マンネリ",
+            "限界"
+          ],
+          "meaning": "ゴールの一歩手前で停滞、あるいは不完全燃焼を感じています。詰めが甘い部分がないか、最後の一踏ん張りを見せましょう。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑧周囲の影響",
+          "position_index": 7,
+          "card_id": "M16",
+          "name_ja": "塔",
+          "name_en": "The Tower",
+          "number": 16,
+          "symbol": "",
+          "orientation": "reversed",
+          "orientation_ja": "逆位置",
+          "keywords": [
+            "緊迫状態",
+            "現状維持固執",
+            "大難小難",
+            "慢性ストレス"
+          ],
+          "meaning": "崩壊の危機を前にして、無理にしがみついています。根本原因を放置せず、抜本的な見直しを行ってください。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑨希望と恐れ",
+          "position_index": 8,
+          "card_id": "M14",
+          "name_ja": "節制",
+          "name_en": "Temperance",
+          "number": 14,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "調和",
+            "循環",
+            "適応",
+            "錬金術"
+          ],
+          "meaning": "異なる要素をうまく調和させ、中庸を保ちましょう。穏やかなコミュニケーションが状況を好転させます。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        },
+        {
+          "position_label": "⑩最終結果",
+          "position_index": 9,
+          "card_id": "M09",
+          "name_ja": "隠者",
+          "name_en": "The Hermit",
+          "number": 9,
+          "symbol": "",
+          "orientation": "upright",
+          "orientation_ja": "正位置",
+          "keywords": [
+            "探求",
+            "内省",
+            "孤独",
+            "慎重"
+          ],
+          "meaning": "外側の情報に惑わされず、一人の時間を確保して本質を深く見つめ直す必要があります。",
+          "element": "",
+          "planet": "",
+          "fortune_prompt_hint": "",
+          "yes_no_answer": null
+        }
+      ],
+      "prompt_context": "【スプレッド】ケルティッククロス（簡易5枚）\n【質問】（指定なし）\n\n■ ①現在の状況：法王（The Hierophant）逆位置\n  キーワード：不信感・偏見・独善・反発\n  意味：視野が狭くなり、マニュアルに固執しています。柔軟でオープンな思考を意識してください。\n\n■ ②課題・妨げ：審判（Judgement）逆位置\n  キーワード：再起不能・後悔・決定遅延・見送り\n  意味：過去の失敗を悔やみ、決断を先送りにしています。同じ過ちを繰り返さないと誓い、今度こそ前を向きましょう。\n\n■ ③遠い過去（根底）：女帝（The Empress）逆位置\n  キーワード：過保護・我儘・怠惰・浪費\n  意味：過剰な干渉や依存心が生じているサインです。甘えを捨て、自立心を取り戻してください。\n\n■ ④近い過去：星（The Star）逆位置\n  キーワード：幻滅・高望み・悲観的・インスピ不足\n  意味：理想が高すぎて現実とのギャップに落胆しています。まずは手の届く小さな現実から見つめ直しましょう。\n\n■ ⑤可能な未来：戦車（The Chariot）逆位置\n  キーワード：暴走・挫折・空回り・制御不能\n  意味：エネルギーが空回り、あるいは暴走しています。一旦スピードを落とし、軌道修正を図りましょう。\n\n■ ⑥近い未来：恋人（The Lovers）逆位置\n  キーワード：不調和・誘惑・優柔不断・不実\n  意味：目先の誘惑や他人の意見に流されています。本当に大切な価値観が何か、選び直してください。\n\n■ ⑦自己の本音：世界（The World）逆位置\n  キーワード：未完成・中途半端・マンネリ・限界\n  意味：ゴールの一歩手前で停滞、あるいは不完全燃焼を感じています。詰めが甘い部分がないか、最後の一踏ん張りを見せましょう。\n\n■ ⑧周囲の影響：塔（The Tower）逆位置\n  キーワード：緊迫状態・現状維持固執・大難小難・慢性ストレス\n  意味：崩壊の危機を前にして、無理にしがみついています。根本原因を放置せず、抜本的な見直しを行ってください。\n\n■ ⑨希望と恐れ：節制（Temperance）正位置\n  キーワード：調和・循環・適応・錬金術\n  意味：異なる要素をうまく調和させ、中庸を保ちましょう。穏やかなコミュニケーションが状況を好転させます。\n\n■ ⑩最終結果：隠者（The Hermit）正位置\n  キーワード：探求・内省・孤独・慎重\n  意味：外側の情報に惑わされず、一人の時間を確保して本質を深く見つめ直す必要があります。\n",
+      "sheets_row": {
+        "drawn_at": "2026-06-07T12:12:34",
+        "spread": "ケルティッククロス（簡易5枚）",
+        "question": "",
+        "①現在の状況_card": "法王",
+        "①現在の状況_orientation": "逆位置",
+        "①現在の状況_keywords": "不信感・偏見・独善・反発",
+        "②課題・妨げ_card": "審判",
+        "②課題・妨げ_orientation": "逆位置",
+        "②課題・妨げ_keywords": "再起不能・後悔・決定遅延・見送り",
+        "③遠い過去（根底）_card": "女帝",
+        "③遠い過去（根底）_orientation": "逆位置",
+        "③遠い過去（根底）_keywords": "過保護・我儘・怠惰・浪費",
+        "④近い過去_card": "星",
+        "④近い過去_orientation": "逆位置",
+        "④近い過去_keywords": "幻滅・高望み・悲観的・インスピ不足",
+        "⑤可能な未来_card": "戦車",
+        "⑤可能な未来_orientation": "逆位置",
+        "⑤可能な未来_keywords": "暴走・挫折・空回り・制御不能",
+        "⑥近い未来_card": "恋人",
+        "⑥近い未来_orientation": "逆位置",
+        "⑥近い未来_keywords": "不調和・誘惑・優柔不断・不実",
+        "⑦自己の本音_card": "世界",
+        "⑦自己の本音_orientation": "逆位置",
+        "⑦自己の本音_keywords": "未完成・中途半端・マンネリ・限界",
+        "⑧周囲の影響_card": "塔",
+        "⑧周囲の影響_orientation": "逆位置",
+        "⑧周囲の影響_keywords": "緊迫状態・現状維持固執・大難小難・慢性ストレス",
+        "⑨希望と恐れ_card": "節制",
+        "⑨希望と恐れ_orientation": "正位置",
+        "⑨希望と恐れ_keywords": "調和・循環・適応・錬金術",
+        "⑩最終結果_card": "隠者",
+        "⑩最終結果_orientation": "正位置",
+        "⑩最終結果_keywords": "探求・内省・孤独・慎重"
+      },
+      "idb_payload": {
+        "key": "tarot_2026-06-07T12-12-34",
+        "spread": "celtic_mini",
+        "question": "",
+        "cards": [
+          {
+            "pos": "①現在の状況",
+            "id": "M05",
+            "name": "法王",
+            "ori": "reversed",
+            "kw": [
+              "不信感",
+              "偏見",
+              "独善",
+              "反発"
+            ]
+          },
+          {
+            "pos": "②課題・妨げ",
+            "id": "M20",
+            "name": "審判",
+            "ori": "reversed",
+            "kw": [
+              "再起不能",
+              "後悔",
+              "決定遅延",
+              "見送り"
+            ]
+          },
+          {
+            "pos": "③遠い過去（根底）",
+            "id": "M03",
+            "name": "女帝",
+            "ori": "reversed",
+            "kw": [
+              "過保護",
+              "我儘",
+              "怠惰",
+              "浪費"
+            ]
+          },
+          {
+            "pos": "④近い過去",
+            "id": "M17",
+            "name": "星",
+            "ori": "reversed",
+            "kw": [
+              "幻滅",
+              "高望み",
+              "悲観的",
+              "インスピ不足"
+            ]
+          },
+          {
+            "pos": "⑤可能な未来",
+            "id": "M07",
+            "name": "戦車",
+            "ori": "reversed",
+            "kw": [
+              "暴走",
+              "挫折",
+              "空回り",
+              "制御不能"
+            ]
+          },
+          {
+            "pos": "⑥近い未来",
+            "id": "M06",
+            "name": "恋人",
+            "ori": "reversed",
+            "kw": [
+              "不調和",
+              "誘惑",
+              "優柔不断",
+              "不実"
+            ]
+          },
+          {
+            "pos": "⑦自己の本音",
+            "id": "M21",
+            "name": "世界",
+            "ori": "reversed",
+            "kw": [
+              "未完成",
+              "中途半端",
+              "マンネリ",
+              "限界"
+            ]
+          },
+          {
+            "pos": "⑧周囲の影響",
+            "id": "M16",
+            "name": "塔",
+            "ori": "reversed",
+            "kw": [
+              "緊迫状態",
+              "現状維持固執",
+              "大難小難",
+              "慢性ストレス"
+            ]
+          },
+          {
+            "pos": "⑨希望と恐れ",
+            "id": "M14",
+            "name": "節制",
+            "ori": "upright",
+            "kw": [
+              "調和",
+              "循環",
+              "適応",
+              "錬金術"
+            ]
+          },
+          {
+            "pos": "⑩最終結果",
+            "id": "M09",
+            "name": "隠者",
+            "ori": "upright",
+            "kw": [
+              "探求",
+              "内省",
+              "孤独",
+              "慎重"
+            ]
+          }
+        ],
+        "saved_at": "2026-06-07T12:12:34"
+      }
     }
   ]
 }

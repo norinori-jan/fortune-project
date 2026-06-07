@@ -117,9 +117,9 @@ def call_gemini(prompt: str) -> tuple[bool, str]:
         return False, "Gemini API key not configured"
     try:
         response = requests.post(
-            f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={API_KEYS['gemini']}",
+            f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={API_KEYS['gemini']}",
             headers={"Content-Type": "application/json"},
-            json={"system_instruction": {"parts": [{"text": SYSTEM_PROMPT}]}, "contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"maxOutputTokens": 1000}},
+            json={"system_instruction": {"parts": [{"text": SYSTEM_PROMPT}]}, "contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"maxOutputTokens": 8192}},
         )
         if response.status_code != 200:
             return False, f"Gemini API Error: {response.status_code}"
