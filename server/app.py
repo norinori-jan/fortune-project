@@ -1,221 +1,484 @@
 """
-Flask API Server for Tarot Fortune Reading
+server/app.py
+fortune-project 統合 API サーバー（FastAPI）
+
+エンドポイント:
+  POST /fortune/run    - 占術実行（易・タロット・風水・四柱）
+  POST /fortune/query  - AI読み解き生成（Claude API）
+  GET  /fortune/health - ヘルスチェック
+  GET  /fortune/tools  - 利用可能ツール一覧
+
+起動方法:
+  cd C:\\Users\\norin\\fortune-project
+  uvicorn server.app:app --reload --port 8000
+
+依存:
+  pip install fastapi uvicorn anthropic python-dotenv
 """
+
+import sys
 import os
 import json
-import sys
-from datetime import datetime
 from pathlib import Path
-from typing import Optional
+from datetime import datetime, timezone
+from typing import Optional, Literal
+
+from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
+
+# パス設定（core/ を import 可能にする）
+ROOT = Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT))
+sys.path.insert(0, str(ROOT / "core"))
+sys.path.insert(0, str(ROOT / "fortune-core" / "src"))
+
+# ─────────────────────────────────────────────
+# 環境変数
+# ─────────────────────────────────────────────
 from dotenv import load_dotenv
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
-import requests
+load_dotenv(ROOT / ".env")
+ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 
-load_dotenv()
+# ─────────────────────────────────────────────
+# FastAPI アプリ
+# ─────────────────────────────────────────────
+app = FastAPI(
+    title="fortune-project API",
+    description="易・タロット・風水・四柱推命 統合占術エンジン",
+    version="2.0.0",
+)
 
-FORTUNE_PROJECT_ROOT = Path(__file__).parent.parent
-TAROT_REGISTRY_PATH = FORTUNE_PROJECT_ROOT / "fortune-registry" / "tarot"
-REGISTRY_FILE = FORTUNE_PROJECT_ROOT / "core" / "registry_a.json"
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],   # 本番では適切に制限すること
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-sys.path.insert(0, str(TAROT_REGISTRY_PATH))
+# ─────────────────────────────────────────────
+# リクエスト/レスポンス型
+# ─────────────────────────────────────────────
 
-try:
-    from tarot_engine import TarotEngine, SpreadType
-    from tarot_registry_bridge import TarotRegistryBridge
-except ImportError as e:
-    print(f"Warning: Could not import tarot modules: {e}")
+ToolName = Literal["iching", "tarot", "lopan", "shichu", "meihua"]
 
-app = Flask(__name__)
-CORS(app)
+class FortuneRunRequest(BaseModel):
+    tool:      ToolName
+    question:  str = Field(..., min_length=1, max_length=200, description="占いたい内容")
+    params:    dict = Field(default_factory=dict, description="ツール固有パラメータ")
+    timestamp: Optional[int] = None
 
-TAROT_DIR = os.path.join(os.path.dirname(__file__), '..', 'fortune-registry', 'tarot')
+class FortuneQueryRequest(BaseModel):
+    tool:       ToolName
+    raw_result: dict = Field(..., description="FortuneRunResponse.raw_result をそのまま渡す")
+    question:   str
+    language:   str = Field(default="ja", description="応答言語")
 
-@app.route('/')
-def index():
-    return send_from_directory(TAROT_DIR, 'index.html', mimetype='text/html')
+class WuxingVector(BaseModel):
+    wood:  float = 0.0
+    fire:  float = 0.0
+    earth: float = 0.0
+    metal: float = 0.0
+    water: float = 0.0
 
-@app.route('/manifest.json')
-def manifest():
-    return send_from_directory(TAROT_DIR, 'manifest.json')
+class FortuneRunResponse(BaseModel):
+    tool:        ToolName
+    timestamp:   int
+    wuxing:      WuxingVector
+    raw_result:  dict
+    summary:     str
+    symbols:     list[str]
+    time_context: dict
 
-@app.route('/service-worker.js')
-def service_worker():
-    return send_from_directory(TAROT_DIR, 'service-worker.js')
+class FortuneQueryResponse(BaseModel):
+    tool:     ToolName
+    core:     str   # 核心メッセージ（50字以内）
+    detail:   str   # 詳細解釈
+    action:   str   # 推奨アクション
+    resonance: Optional[dict] = None
 
-@app.route('/icon-192.png')
-def icon192():
-    return send_from_directory(TAROT_DIR, 'icon-192.png')
+# ─────────────────────────────────────────────
+# レジストリ読み込み
+# ─────────────────────────────────────────────
 
-@app.route('/icon-512.png')
-def icon512():
-    return send_from_directory(TAROT_DIR, 'icon-512.png')
-
-@app.route('/tarot/<path:filename>')
-def tarot_static(filename):
-    return send_from_directory(TAROT_DIR, filename)
-
-API_KEYS = {
-    "gemini": os.getenv("GEMINI_API_KEY", ""),
-    "openai": os.getenv("OPENAI_API_KEY", ""),
-    "claude": os.getenv("CLAUDE_API_KEY", ""),
-}
-
-bridge = None
-try:
-    MAJOR_JSON_PATH = TAROT_REGISTRY_PATH / "major.json"
-    if MAJOR_JSON_PATH.exists():
-        bridge = TarotRegistryBridge(str(MAJOR_JSON_PATH))
-    else:
-        print(f"Warning: major.json not found at {MAJOR_JSON_PATH}")
-except Exception as e:
-    print(f"Error initializing TarotRegistryBridge: {e}")
+_registry_cache: Optional[dict] = None
 
 def load_registry() -> dict:
-    if REGISTRY_FILE.exists():
-        with open(REGISTRY_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {"tarot": []}
+    global _registry_cache
+    if _registry_cache:
+        return _registry_cache
 
-def save_registry(registry: dict):
-    REGISTRY_FILE.parent.mkdir(parents=True, exist_ok=True)
-    with open(REGISTRY_FILE, "w", encoding="utf-8") as f:
-        json.dump(registry, f, ensure_ascii=False, indent=2)
+    # 優先順位: core/ → fortune-core/docs/
+    candidates = [
+        ROOT / "core" / "registry_a.json",
+        ROOT / "fortune-core" / "docs" / "index.json",
+        ROOT / "fortune-registry" / "registry.json",
+    ]
+    for path in candidates:
+        if path.exists():
+            with open(path, encoding="utf-8") as f:
+                _registry_cache = json.load(f)
+            print(f"[registry] loaded: {path}")
+            return _registry_cache
 
-def append_tarot_entry(entry: dict):
-    registry = load_registry()
-    if "tarot" not in registry:
-        registry["tarot"] = []
-    registry["tarot"].append(entry)
-    save_registry(registry)
+    raise RuntimeError("registry_a.json が見つかりません")
 
-SYSTEM_PROMPT = """あなたは神秘的で洞察力のあるタロット占い師「叡智の声」です。以下のルールで占いの解読を行ってください。
-- 日本語で、詩的かつ親しみやすい文体で語りかけてください
-- 各カードの意味を統合し、全体的なメッセージとして伝えてください
-- スプレッドの文脈（位置の意味）を必ず考慮してください
-- 五行（木火土金水）の観点も織り交ぜてください
-- 300～400文字程度でまとめてください
-- 最後に一言、励ましや行動のヒントを添えてください"""
+# ─────────────────────────────────────────────
+# 時間コンテキスト生成（timeAxis.py の Python版）
+# ─────────────────────────────────────────────
 
-def call_claude(prompt: str) -> tuple[bool, str]:
-    if not API_KEYS["claude"]:
-        return False, "Claude API key not configured"
+TIANGAN = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"]
+DIZHI   = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"]
+DIZHI_WX = ["water","earth","wood","wood","earth","fire",
+             "fire","earth","metal","metal","earth","water"]
+
+def get_time_context(dt: Optional[datetime] = None) -> dict:
+    dt = dt or datetime.now()
+    y = dt.year
+    gan_idx  = (y - 4)  % 10
+    zhi_idx  = (y - 4)  % 12
+    day_diff = (dt.date() - datetime(2024, 1, 1).date()).days
+    d_gan = TIANGAN[((day_diff % 10) + 10) % 10]
+    d_zhi = DIZHI[((day_diff % 12) + 12) % 12]
+    m_zhi = DIZHI[((dt.month - 1 + 2) % 12)]
+    kyusei = ((11 - (y % 9)) % 9) or 9
+    return {
+        "yearKanshi":  f"{TIANGAN[gan_idx % 10]}{DIZHI[zhi_idx % 12]}",
+        "monthKanshi": f"？{m_zhi}",
+        "dayKanshi":   f"{d_gan}{d_zhi}",
+        "junishi":     d_zhi,
+        "yuejian":     m_zhi,
+        "rizhen":      d_zhi,
+        "kyusei":      kyusei,
+        "kanshi":      f"{TIANGAN[gan_idx % 10]}{DIZHI[zhi_idx % 12]}",
+    }
+
+# ─────────────────────────────────────────────
+# ツール別ロジック ディスパッチャ
+# ─────────────────────────────────────────────
+
+def _run_iching(question: str, params: dict, registry: dict) -> dict:
+    """梅花心易・六爻占術"""
     try:
-        response = requests.post(
-            "https://api.anthropic.com/v1/messages",
-            headers={"Content-Type": "application/json", "x-api-key": API_KEYS["claude"], "anthropic-version": "2023-06-01"},
-            json={"model": "claude-sonnet-4-20250514", "max_tokens": 1000, "system": SYSTEM_PROMPT, "messages": [{"role": "user", "content": prompt}]},
-        )
-        if response.status_code != 200:
-            return False, f"Claude API Error: {response.status_code}"
-        return True, response.json()["content"][0]["text"]
-    except Exception as e:
-        return False, str(e)
+        from meihua.meihuaEngine import run as meihua_run
+        result = meihua_run(question, params)
+        return {"engine": "meihua", "result": result}
+    except ImportError:
+        pass
 
-def call_gemini(prompt: str) -> tuple[bool, str]:
-    if not API_KEYS["gemini"]:
-        return False, "Gemini API key not configured"
+    # フォールバック：簡易起卦（時間数）
+    import random
+    now = datetime.now()
+    upper = ((now.year + now.month + now.day + now.hour) % 8) or 8
+    lower = ((upper + now.hour) % 8) or 8
+    dong  = ((now.year + now.month + now.day + now.hour) % 6) or 6
+
+    bagua_names = ["","乾","兌","離","震","巽","坎","艮","坤"]
+    upper_name  = bagua_names[upper]
+    lower_name  = bagua_names[lower]
+
+    hexagrams = registry.get("hexagrams", {})
+    # 上卦下卦からIDを検索
+    bagua_ids  = ["","qian","dui","li","zhen","xun","kan","gen","kun"]
+    hex_entry  = next(
+        (v for v in hexagrams.values()
+         if v.get("upper") == bagua_ids[upper]
+         and v.get("lower") == bagua_ids[lower]),
+        None
+    )
+    return {
+        "engine":     "iching_fallback",
+        "upperGua":   upper_name,
+        "lowerGua":   lower_name,
+        "dongYao":    dong,
+        "hexName":    hex_entry["name_ja"] if hex_entry else f"{upper_name}上/{lower_name}下",
+        "hexCore":    hex_entry["core"]    if hex_entry else "卦を読み解いています。",
+        "hexNumber":  hex_entry["number"]  if hex_entry else 0,
+    }
+
+
+def _run_tarot(question: str, params: dict, registry: dict) -> dict:
+    """タロット（大アルカナ3枚引き）"""
+    import random
+    tarot = registry.get("tarot", {})
+    if not tarot:
+        raise HTTPException(500, "タロットデータがレジストリに見つかりません")
+
+    cards = list(tarot.values())
+    drawn = random.sample(cards, min(3, len(cards)))
+    positions = ["過去", "現在", "未来"]
+    spread = []
+    wuxing_acc = {"wood":0,"fire":0,"earth":0,"metal":0,"water":0}
+
+    for i, card in enumerate(drawn):
+        reversed_card = random.random() < 0.3
+        spread.append({
+            "position": positions[i],
+            "card":     card["name_ja"],
+            "name_en":  card["name_en"],
+            "number":   card["number"],
+            "wuxing":   card["wuxing"],
+            "keywords": card["keywords"],
+            "reversed": reversed_card,
+            "core":     card["core"],
+        })
+        wx = card["wuxing"]
+        if wx in wuxing_acc:
+            wuxing_acc[wx] += 1
+
+    return {
+        "engine":   "tarot_major_arcana",
+        "spread":   spread,
+        "wuxing_raw": wuxing_acc,
+    }
+
+
+def _run_shichu(question: str, params: dict, registry: dict) -> dict:
+    """四柱推命（簡易）"""
     try:
-        response = requests.post(
-            f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={API_KEYS['gemini']}",
-            headers={"Content-Type": "application/json"},
-            json={"system_instruction": {"parts": [{"text": SYSTEM_PROMPT}]}, "contents": [{"parts": [{"text": prompt}]}], "generationConfig": {"maxOutputTokens": 8192}},
-        )
-        if response.status_code != 200:
-            return False, f"Gemini API Error: {response.status_code}"
-        return True, response.json()["candidates"][0]["content"]["parts"][0]["text"]
-    except Exception as e:
-        return False, str(e)
+        from shichu.engine import run as shichu_run
+        return {"engine": "shichu", "result": shichu_run(params)}
+    except ImportError:
+        pass
 
-def call_openai(prompt: str) -> tuple[bool, str]:
-    if not API_KEYS["openai"]:
-        return False, "OpenAI API key not configured"
+    birth = params.get("birth_date", "")
+    if not birth:
+        raise HTTPException(400, "四柱推命には birth_date (YYYY-MM-DD) が必要です")
+
     try:
-        response = requests.post(
-            "https://api.openai.com/v1/chat/completions",
-            headers={"Content-Type": "application/json", "Authorization": f"Bearer {API_KEYS['openai']}"},
-            json={"model": "gpt-4o", "max_tokens": 1000, "messages": [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": prompt}]},
-        )
-        if response.status_code != 200:
-            return False, f"OpenAI API Error: {response.status_code}"
-        return True, response.json()["choices"][0]["message"]["content"]
-    except Exception as e:
-        return False, str(e)
+        dt  = datetime.strptime(birth, "%Y-%m-%d")
+        ctx = get_time_context(dt)
+    except ValueError:
+        raise HTTPException(400, "birth_date の形式が不正です（YYYY-MM-DD）")
 
-@app.route("/health", methods=["GET"])
-def health():
-    return jsonify({"status": "ok", "timestamp": datetime.now().isoformat(), "tarot_available": bridge is not None})
+    return {
+        "engine":      "shichu_fallback",
+        "birth":       birth,
+        "yearKanshi":  ctx["yearKanshi"],
+        "note":        "詳細は core/shichu/engine.py を参照",
+    }
 
-@app.route("/api/tarot/draw", methods=["POST"])
-def draw_tarot():
-    if not bridge:
-        return jsonify({"success": False, "error": "Tarot engine not available"}), 500
-    try:
-        body = request.get_json()
-        spread_type_str = body.get("spread_type", "one_oracle")
-        question = body.get("question", "")
-        # フロントエンドのスプレッド名をSpreadTypeに変換
-        spread_map = {
-            "one": "one_oracle",
-            "three": "three_card",
-            "yesno": "yes_no",
-            "daily": "daily",
-            "celtic": "celtic_mini",
+
+def _run_lopan(question: str, params: dict, registry: dict) -> dict:
+    """風水・羅盤"""
+    lopan = registry.get("lopan", {})
+    lhb   = lopan.get("later_heaven_bagua", {})
+    kyusei_map = lopan.get("lucky_directions_by_kyusei", {})
+    ctx   = get_time_context()
+    ky    = str(ctx["kyusei"])
+
+    lucky = kyusei_map.get(ky, {})
+    return {
+        "engine":       "lopan",
+        "kyusei":       ky,
+        "best_dirs":    lucky.get("best", []),
+        "avoid_dirs":   lucky.get("avoid", []),
+        "directions":   lhb,
+        "note":         f"今年の九星：{ky}星　吉方位：{', '.join(lucky.get('best', []))}",
+    }
+
+
+TOOL_DISPATCH = {
+    "iching": _run_iching,
+    "meihua": _run_iching,
+    "tarot":  _run_tarot,
+    "shichu": _run_shichu,
+    "lopan":  _run_lopan,
+}
+
+def calc_wuxing(tool: str, raw: dict) -> WuxingVector:
+    """生結果から五行ベクトルを計算"""
+    v = {"wood":0.0,"fire":0.0,"earth":0.0,"metal":0.0,"water":0.0}
+
+    if tool in ("iching", "meihua"):
+        # 上卦・下卦の五行
+        bagua_wx = {
+            "qian":"metal","dui":"metal","li":"fire","zhen":"wood",
+            "xun":"wood","kan":"water","gen":"earth","kun":"earth",
         }
-        spread_type_str = spread_map.get(spread_type_str, spread_type_str)
-        spread_type = SpreadType[spread_type_str.upper()] if spread_type_str.upper() in SpreadType.__members__ else SpreadType.ONE_ORACLE
-        result = bridge.execute_and_export(spread_type, question)
-        append_tarot_entry(result)
-        return jsonify({"success": True, "data": result})
-    except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 400
+        bagua_names = {"乾":"qian","兌":"dui","離":"li","震":"zhen",
+                       "巽":"xun","坎":"kan","艮":"gen","坤":"kun"}
+        for key in ("upperGua","lowerGua"):
+            gname = raw.get(key,"")
+            bid   = bagua_names.get(gname)
+            if bid and bid in bagua_wx:
+                wx = bagua_wx[bid]
+                v[wx] = min(1.0, v[wx] + 0.4)
 
-@app.route("/api/tarot/interpret", methods=["POST"])
-def interpret_tarot():
+    elif tool == "tarot":
+        raw_wx = raw.get("wuxing_raw", {})
+        total  = sum(raw_wx.values()) or 1
+        for k in v:
+            v[k] = raw_wx.get(k, 0) / total
+
+    elif tool == "shichu":
+        # 年干支の五行
+        wx_map = {"甲":"wood","乙":"wood","丙":"fire","丁":"fire",
+                  "戊":"earth","己":"earth","庚":"metal","辛":"metal",
+                  "壬":"water","癸":"water"}
+        yk = raw.get("yearKanshi","")
+        if yk and yk[0] in wx_map:
+            v[wx_map[yk[0]]] = 0.6
+
+    elif tool == "lopan":
+        dir_wx = {"N":"water","NE":"earth","E":"wood","SE":"wood",
+                  "S":"fire","SW":"earth","W":"metal","NW":"metal"}
+        for d in raw.get("best_dirs", []):
+            wx = dir_wx.get(d)
+            if wx:
+                v[wx] = min(1.0, v[wx] + 0.35)
+
+    total = sum(v.values()) or 1
+    return WuxingVector(**{k: round(val/total, 3) for k, val in v.items()})
+
+# ─────────────────────────────────────────────
+# エンドポイント
+# ─────────────────────────────────────────────
+
+@app.get("/fortune/health")
+def health():
+    return {
+        "status": "ok",
+        "version": "2.0.0",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "tools": list(TOOL_DISPATCH.keys()),
+    }
+
+
+@app.get("/fortune/tools")
+def list_tools():
+    return {
+        "tools": [
+            {"id":"iching",  "name":"梅花心易・六爻", "status":"available"},
+            {"id":"tarot",   "name":"タロット",        "status":"available"},
+            {"id":"shichu",  "name":"四柱推命",        "status":"available"},
+            {"id":"lopan",   "name":"風水・羅盤",      "status":"available"},
+            {"id":"meihua",  "name":"梅花心易（詳細）","status":"available"},
+        ]
+    }
+
+
+@app.post("/fortune/run", response_model=FortuneRunResponse)
+def fortune_run(req: FortuneRunRequest):
+    registry   = load_registry()
+    dispatcher = TOOL_DISPATCH.get(req.tool)
+    if not dispatcher:
+        raise HTTPException(400, f"未対応のツール: {req.tool}")
+
     try:
-        body = request.get_json()
-        cards_context = body.get("cards_context", "")
-        ais = body.get("ais", ["gemini", "openai"])
-        if not cards_context:
-            return jsonify({"success": False, "error": "cards_context required"}), 400
-        interpretations = {}
-        if "claude" in ais:
-            success, text = call_claude(cards_context)
-            interpretations["claude"] = {"success": success, "text": text}
-        if "gemini" in ais:
-            success, text = call_gemini(cards_context)
-            interpretations["gemini"] = {"success": success, "text": text}
-        if "openai" in ais:
-            success, text = call_openai(cards_context)
-            interpretations["openai"] = {"success": success, "text": text}
-        return jsonify({"success": True, "interpretations": interpretations})
+        raw = dispatcher(req.question, req.params, registry)
+    except HTTPException:
+        raise
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 400
+        raise HTTPException(500, f"占術実行エラー: {str(e)}")
 
-@app.route("/api/registry/tarot", methods=["GET"])
-def get_tarot_history():
+    wuxing   = calc_wuxing(req.tool, raw)
+    time_ctx = get_time_context()
+    ts       = req.timestamp or int(datetime.now().timestamp() * 1000)
+
+    # シンボル生成
+    symbols: list[str] = []
+    if req.tool in ("iching","meihua"):
+        bgmap = {"乾":"☰","兌":"☱","離":"☲","震":"☳","巽":"☴","坎":"☵","艮":"☶","坤":"☷"}
+        for k in ("upperGua","lowerGua"):
+            g = raw.get(k,"")
+            if g in bgmap:
+                symbols.append(bgmap[g])
+        if raw.get("hexName"):
+            symbols.append(raw["hexName"])
+    elif req.tool == "tarot":
+        symbols = [s["card"] for s in raw.get("spread",[])]
+    elif req.tool == "lopan":
+        symbols = raw.get("best_dirs", [])
+
+    summary = (
+        raw.get("hexCore") or
+        (raw.get("spread") and raw["spread"][1]["core"] if raw.get("spread") else None) or
+        raw.get("note") or
+        "占断結果を生成しました。"
+    )
+
+    return FortuneRunResponse(
+        tool=req.tool,
+        timestamp=ts,
+        wuxing=wuxing,
+        raw_result=raw,
+        summary=summary,
+        symbols=symbols,
+        time_context=time_ctx,
+    )
+
+
+@app.post("/fortune/query", response_model=FortuneQueryResponse)
+async def fortune_query(req: FortuneQueryRequest):
+    """Claude APIを呼び出してAI読み解きを生成"""
+    if not ANTHROPIC_API_KEY:
+        raise HTTPException(503, "ANTHROPIC_API_KEY が設定されていません（.env を確認してください）")
+
+    # プロンプト読み込み
+    prompt_path = ROOT / "fortune-registry" / "prompts" / f"{req.tool}.json"
+    if not prompt_path.exists():
+        prompt_path = ROOT / "fortune-registry" / "prompts" / "base.json"
+
+    tool_prompt = ""
+    if prompt_path.exists():
+        with open(prompt_path, encoding="utf-8") as f:
+            pdata = json.load(f)
+            tool_prompt = pdata.get("system", "")
+
+    system_prompt = f"""あなたは東洋の伝統的な思想体系——易経・風水・陰陽五行——に精通した占術師です。
+占断は「当たる・当たらない」の問題ではなく、「現在の気の流れを読み、最善の選択を導く羅針盤」として機能します。
+
+回答時の原則：
+1. 五行（木火土金水）の言語で現象を解釈する
+2. 変化の方向性（動爻・流れ）を必ず示す
+3. 具体的な行動指針で締める
+4. 恐怖ではなく、智慧として伝える
+5. 必ず以下のJSON形式のみで返答する（前置き・マークダウン不要）:
+{{
+  "core": "核心メッセージ（50字以内）",
+  "detail": "詳細解釈（200字程度）",
+  "action": "推奨アクション（100字程度）",
+  "resonance": {{
+    "suggestedTool": "iching|tarot|lopan のいずれか",
+    "reason": "なぜそのツールを勧めるか（50字）"
+  }}
+}}
+
+{tool_prompt}"""
+
+    user_message = f"""質問: {req.question}
+
+占術ツール: {req.tool}
+占断結果: {json.dumps(req.raw_result, ensure_ascii=False, indent=2)}
+
+上記の結果を読み解き、JSON形式で回答してください。"""
+
     try:
-        registry = load_registry()
-        return jsonify({"success": True, "count": len(registry.get("tarot", [])), "entries": registry.get("tarot", [])})
+        import anthropic
+        client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+        response = client.messages.create(
+            model="claude-sonnet-4-6",
+            max_tokens=1000,
+            system=system_prompt,
+            messages=[{"role": "user", "content": user_message}],
+        )
+        raw_text = response.content[0].text.strip()
+        # JSONブロックの抽出
+        if "```" in raw_text:
+            raw_text = raw_text.split("```")[1]
+            if raw_text.startswith("json"):
+                raw_text = raw_text[4:]
+        parsed = json.loads(raw_text)
+    except json.JSONDecodeError as e:
+        raise HTTPException(500, f"Claude APIの応答をJSONに変換できませんでした: {e}")
     except Exception as e:
-        return jsonify({"success": False, "error": str(e)}), 400
+        raise HTTPException(500, f"Claude API呼び出しエラー: {str(e)}")
 
-@app.route("/api/config", methods=["GET"])
-def get_config():
-    return jsonify({
-        "api_keys": {k: "configured" if v else "not configured" for k, v in API_KEYS.items()},
-        "registry_file": str(REGISTRY_FILE),
-        "tarot_registry_path": str(TAROT_REGISTRY_PATH),
-    })
-
-@app.errorhandler(404)
-def not_found(e):
-    return jsonify({"success": False, "error": "Not found"}), 404
-
-@app.errorhandler(500)
-def server_error(e):
-    return jsonify({"success": False, "error": "Internal server error"}), 500
-
-if __name__ == "__main__":
-    print(f"Tarot Fortune Server Starting...")
-    app.run(debug=True, host="0.0.0.0", port=5000)
+    return FortuneQueryResponse(
+        tool=req.tool,
+        core=parsed.get("core", ""),
+        detail=parsed.get("detail", ""),
+        action=parsed.get("action", ""),
+        resonance=parsed.get("resonance"),
+    )

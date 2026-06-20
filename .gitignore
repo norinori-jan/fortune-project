@@ -1,8 +1,7 @@
+﻿venv/
 __pycache__/
 *.pyc
-*.pyo
 .env
-*.log
-
-server/.env
-server/__pycache__/
+*.db
+node_modules/
+dist/

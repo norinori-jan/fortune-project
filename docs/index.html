@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>fortune-project</title>
+<style>
+  :root {
+    --bg:    #0a0a0f;
+    --card:  #1a1a28;
+    --gold:  #d4af6a;
+    --text:  #e8dcc8;
+    --sub:   #8a7a6a;
+    --wood:  #4a9e6b;
+    --fire:  #c0392b;
+    --earth: #c8922a;
+    --metal: #a8b8c8;
+    --water: #2980b9;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Serif JP', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3rem 1.5rem 6rem;
+  }
+  header { text-align: center; margin-bottom: 3rem; }
+  h1 {
+    font-size: 2.5rem;
+    color: var(--gold);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+  .subtitle { color: var(--sub); font-size: 1rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 860px;
+    margin-bottom: 3rem;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid rgba(212,175,106,0.15);
+    border-radius: 12px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: border-color 0.3s;
+  }
+  .card:hover { border-color: var(--gold); }
+  .symbol { font-size: 3rem; margin-bottom: 0.75rem; }
+  .card h2 { font-size: 1.1rem; color: var(--gold); margin-bottom: 0.5rem; }
+  .card p  { font-size: 0.85rem; color: var(--sub); line-height: 1.6; }
+  .api-section {
+    width: 100%;
+    max-width: 860px;
+    background: var(--card);
+    border: 1px solid rgba(212,175,106,0.15);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  .api-section h2 { color: var(--gold); margin-bottom: 1.25rem; font-size: 1.2rem; }
+  .endpoint {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.9rem;
+  }
+  .method {
+    font-family: monospace;
+    font-size: 0.75rem;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+  }
+  .post { background: rgba(74,158,107,0.2); color: var(--wood); }
+  .get  { background: rgba(41,128,185,0.2); color: var(--water); }
+  .path { font-family: monospace; color: var(--text); }
+  .desc { color: var(--sub); font-size: 0.82rem; }
+  footer { color: var(--sub); font-size: 0.8rem; text-align: center; margin-top: 2rem; }
+  a { color: var(--gold); }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔮 fortune-project</h1>
+  <p class="subtitle">易・タロット・風水・四柱推命 統合占術プラットフォーム</p>
+</header>
+
+<div class="grid">
+  <div class="card">
+    <div class="symbol">☰</div>
+    <h2>梅花心易・六爻</h2>
+    <p>時間の流れを卦に変換し、変化の方向を読む</p>
+  </div>
+  <div class="card">
+    <div class="symbol">🃏</div>
+    <h2>タロット</h2>
+    <p>象徴と直感で今の状況の本質を映し出す</p>
+  </div>
+  <div class="card">
+    <div class="symbol">☵</div>
+    <h2>風水・羅盤</h2>
+    <p>空間のエネルギーを測定し吉方位を示す</p>
+  </div>
+  <div class="card">
+    <div class="symbol">⏰</div>
+    <h2>四柱推命</h2>
+    <p>生年月日時から命盤を生成し運気を読む</p>
+  </div>
+</div>
+
+<div class="api-section">
+  <h2>API エンドポイント</h2>
+  <div class="endpoint">
+    <span class="method post">POST</span>
+    <span class="path">/fortune/run</span>
+    <span class="desc">占術実行（ツール・質問を渡すと五行ベクトルと生結果を返す）</span>
+  </div>
+  <div class="endpoint">
+    <span class="method post">POST</span>
+    <span class="path">/fortune/query</span>
+    <span class="desc">AI読み解き生成（Claude APIで核心・詳細・行動指針を生成）</span>
+  </div>
+  <div class="endpoint">
+    <span class="method get">GET</span>
+    <span class="path">/fortune/health</span>
+    <span class="desc">ヘルスチェック・バージョン確認</span>
+  </div>
+  <div class="endpoint">
+    <span class="method get">GET</span>
+    <span class="path">/fortune/tools</span>
+    <span class="desc">利用可能ツール一覧</span>
+  </div>
+</div>
+
+<div class="api-section">
+  <h2>共通データ（SSOT）</h2>
+  <div class="endpoint">
+    <span class="method get">GET</span>
+    <span class="path">
+      <a href="https://norinori-jan.github.io/fortune-core/registry_a.json" target="_blank">
+        /fortune-core/registry_a.json
+      </a>
+    </span>
+    <span class="desc">64卦・タロット・八卦・羅盤データ（GitHub Pages配信）</span>
+  </div>
+</div>
+
+<footer>
+  <p>fortune-project &copy; norinori-jan &nbsp;|&nbsp;
+  <a href="https://github.com/norinori-jan/fortune-project" target="_blank">GitHub</a>
+  </p>
+</footer>
+
+</body>
+</html>
