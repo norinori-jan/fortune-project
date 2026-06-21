@@ -1,10 +1,22 @@
-# 🔮 fortune-project
+# fortune-project
 
-> 易・タロット・風水・四柱推命を「一つの思想体系の異なる表現」として統合した占術プラットフォーム
+> 易・タロット・風水・四柱推命を「一つの思想体系の異なる表現」として統合した占術プラットフォーム  
+> Claude / Gemini / OpenAI のマルチAIモデルに対応
 
 ---
 
-## 概要
+## 🌐 公開URL
+
+| サービス | URL |
+|---------|-----|
+| **fortune-project API** | https://fortune-project-api.onrender.com |
+| **API ドキュメント** | https://fortune-project-api.onrender.com/docs |
+| **fortune-hub UI** | `apps/fortune-hub/index.html` |
+| **registry_a.json (CDN)** | https://norinori-jan.github.io/fortune-core/registry_a.json |
+
+---
+
+## 🔮 概要
 
 | ツール | 認識の軸 | 問いの形式 |
 |-------|---------|-----------|
@@ -13,134 +25,128 @@
 | 羅盤（風水） | 空間軸・地気の配置 | 「この場所のエネルギーはどうか」 |
 | 四柱推命 | 時間の気質 | 「今という時間はどんな性格か」 |
 
-これらは**同一の「問い」を異なる次元で照らすレンズ**です。
-
 ---
 
-## セットアップ
-
-### 1. リポジトリのクローン（初回のみ）
-
-```powershell
-cd C:\Users\norin
-git clone https://github.com/norinori-jan/fortune-project.git
-cd fortune-project
-```
-
-### 2. 環境変数の設定
-
-```powershell
-# .env ファイルを作成
-@"
-ANTHROPIC_API_KEY=sk-ant-ここにキーを貼る
-"@ | Set-Content .env -Encoding UTF8
-```
-
-### 3. Python依存パッケージのインストール
-
-```powershell
-pip install fastapi uvicorn anthropic python-dotenv pydantic
-```
-
-### 4. サーバー起動
-
-```powershell
-cd C:\Users\norin\fortune-project
-uvicorn server.app:app --reload --port 8000
-```
-
-ブラウザで http://localhost:8000/docs を開くと Swagger UI が表示されます。
-
----
-
-## クイックスタート
-
-### 易で占う（PowerShell）
-
-```powershell
-Invoke-RestMethod -Uri http://localhost:8000/fortune/run `
-  -Method POST `
-  -ContentType "application/json" `
-  -Body '{"tool":"iching","question":"転職の時期はいつが良いですか"}'
-```
-
-### タロットで占う
-
-```powershell
-Invoke-RestMethod -Uri http://localhost:8000/fortune/run `
-  -Method POST `
-  -ContentType "application/json" `
-  -Body '{"tool":"tarot","question":"今の恋愛の行方を教えてください"}'
-```
-
-### AI読み解きを生成する
-
-```powershell
-# Step1: 占術実行
-$result = Invoke-RestMethod -Uri http://localhost:8000/fortune/run `
-  -Method POST -ContentType "application/json" `
-  -Body '{"tool":"iching","question":"新しいビジネスを始めるべきか"}'
-
-# Step2: AI読み解き
-$body = @{
-  tool       = "iching"
-  question   = "新しいビジネスを始めるべきか"
-  raw_result = $result.raw_result
-} | ConvertTo-Json
-
-Invoke-RestMethod -Uri http://localhost:8000/fortune/query `
-  -Method POST -ContentType "application/json" -Body $body
-```
-
----
-
-## registry_a.json の更新
-
-データを更新したい場合：
-
-```powershell
-cd C:\Users\norin\fortune-project\core
-python registry_a.py
-```
-
-`core/registry_a.json` が再生成されます。変更後は `fortune-core` にも push してください：
-
-```powershell
-cd C:\Users\norin\_migration_work\fortune-core
-Copy-Item C:\Users\norin\fortune-project\core\registry_a.json .\
-git add registry_a.json
-git commit -m "update: registry_a.json"
-git push origin main
-```
-
----
-
-## プロジェクト構造
-
-詳細は [docs/PROJECT_SUMMARY.md](docs/PROJECT_SUMMARY.md) を参照してください。
+## 🏗️ リポジトリ構造
 
 ```
 fortune-project/
-├── core/shared/      ← 全アプリ共通（cosmology.js, reading.js, ui-tokens.css）
-├── server/app.py     ← FastAPI エンドポイント
-├── fortune-core/     ← 梅花心易・タロットエンジン
-├── fortune-registry/ ← プロンプト・カードデータ
-├── fenshui_map/      ← 風水マップ（React+Firebase）
-└── docs/             ← ドキュメント
+├── core/
+│   ├── registry_a.json      ← SSOT（64卦・タロット・八卦・羅盤）
+│   ├── registry_a.py        ← JSON生成スクリプト
+│   └── shared/
+│       ├── cosmology.js     ← 八卦・五行・十二支 共通型
+│       ├── timeAxis.js      ← 干支・九星・梅花心易 時間計算
+│       ├── reading.js       ← DivinationReading型・ReadingBridge
+│       └── ui-tokens.css    ← 全UI共通デザイントークン
+│
+├── server/
+│   └── app.py               ← FastAPI（Claude / Gemini / OpenAI 対応）
+│
+├── apps/
+│   └── fortune-hub/
+│       └── index.html       ← 統合ハブUI（五行レーダーチャート）
+│
+├── fortune-core/src/
+│   ├── meihua/              ← 梅花心易エンジン（JS）
+│   └── fortune_core/        ← Python占術ライブラリ
+│
+├── fortune-registry/
+│   ├── prompts/             ← Claude / Gemini / OpenAI プロンプト
+│   └── tarot/card_notes/    ← 大アルカナ22枚個別JSON
+│
+├── requirements.txt
+├── render.yaml              ← Render デプロイ設定
+└── run_fortune.ps1          ← ローカル起動スクリプト
 ```
 
 ---
 
-## GitHub Pages
+## 🚀 セットアップ
 
-`fortune-core` リポジトリの GitHub Pages で registry_a.json を配信中：
+### ローカル起動
 
+```powershell
+# 1. 環境変数設定
+@"
+ANTHROPIC_API_KEY=sk-ant-...
+GEMINI_API_KEY=...
+OPENAI_API_KEY=sk-...
+"@ | Set-Content .env -Encoding UTF8
+
+# 2. 依存パッケージ
+pip install -r requirements.txt
+
+# 3. 起動
+.\run_fortune.ps1
+# または
+uvicorn server.app:app --reload --port 8000
 ```
-https://norinori-jan.github.io/fortune-core/registry_a.json
+
+### registry_a.json 再生成
+
+```powershell
+cd core
+python registry_a.py
 ```
 
 ---
 
-## ライセンス
+## 📡 API 仕様
 
-Private Repository — norinori-jan
+### `GET /fortune/health`
+
+```json
+{
+  "status": "ok",
+  "version": "2.1.0",
+  "tools": ["iching", "meihua", "tarot", "shichu", "lopan"],
+  "ai_models": { "claude": true, "gemini": true, "openai": true }
+}
+```
+
+### `POST /fortune/run`
+
+```json
+{
+  "tool": "iching",
+  "question": "転職のタイミングはいつが良いですか"
+}
+```
+
+### `POST /fortune/query`
+
+```json
+{
+  "tool": "iching",
+  "question": "転職のタイミングはいつが良いですか",
+  "raw_result": { ... },
+  "ai_model": "claude"
+}
+```
+
+`ai_model` は `claude` / `gemini` / `openai` から選択可能。
+
+---
+
+## 🔗 関連リポジトリ
+
+| リポジトリ | 役割 |
+|-----------|------|
+| [fortune-core](https://github.com/norinori-jan/fortune-core) | 梅花心易エンジン・registry CDN配信 |
+| [fortune-registry](https://github.com/norinori-jan/fortune-registry) | プロンプト・タロットデータ管理 |
+| [fenshui_map](https://github.com/norinori-jan/fenshui_map) | 風水マップ（React + Firebase） |
+| [security-hub](https://github.com/norinori-jan/security-hub) | セキュリティ統合ダッシュボード |
+
+---
+
+## 📦 技術スタック
+
+| レイヤー | 技術 |
+|---------|------|
+| API | FastAPI + uvicorn（Python） |
+| AI | Anthropic Claude / Google Gemini / OpenAI GPT |
+| フロントエンド | Vanilla JS + SVG（依存ゼロ） |
+| データ | JSON（registry_a.json） |
+| ホスティング | Render（API）/ GitHub Pages（UI） |
+| CI/CD | GitHub Actions |
