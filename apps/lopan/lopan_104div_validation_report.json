@@ -1,0 +1,177 @@
+{
+  "metadata": {
+    "grid_specification": {
+      "total_divisions": 104,
+      "degree_per_cell": 3.461538,
+      "scan_date": "2026-04-18"
+    },
+    "analysis_scope": "14 traditional compass layers",
+    "validation_method": "mathematical compliance check"
+  },
+  "layer_analysis": [
+    {
+      "layer_name": "Layer 1: 方位・八卦（八方位）",
+      "divisions": 8,
+      "ideal_cells_per_division": 13.0,
+      "actual_cells_per_division": 13,
+      "error_per_division_degrees": 0.0,
+      "total_error_degrees": 0.0,
+      "exactness_score": 1.0,
+      "visual_risk_level": "🟢 Low"
+    },
+    {
+      "layer_name": "Layer 2: 地盤二十四山（24山）",
+      "divisions": 24,
+      "ideal_cells_per_division": 4.3333,
+      "actual_cells_per_division": 4,
+      "error_per_division_degrees": -1.153846,
+      "total_error_degrees": -27.692308,
+      "exactness_score": 0.9231,
+      "visual_risk_level": "🔴 Critical"
+    },
+    {
+      "layer_name": "Layer 3: 透地六十龍（60龍）",
+      "divisions": 60,
+      "ideal_cells_per_division": 1.7333,
+      "actual_cells_per_division": 2,
+      "error_per_division_degrees": 0.923077,
+      "total_error_degrees": 55.384615,
+      "exactness_score": 0.8462,
+      "visual_risk_level": "🔴 Critical"
+    },
+    {
+      "layer_name": "Layer 4: 百二十分金（120分金）",
+      "divisions": 120,
+      "ideal_cells_per_division": 0.8667,
+      "actual_cells_per_division": 1,
+      "error_per_division_degrees": 0.461538,
+      "total_error_degrees": 55.384615,
+      "exactness_score": 0.8462,
+      "visual_risk_level": "🟠 High"
+    },
+    {
+      "layer_name": "Layer 5: 二十八宿（28宿）",
+      "divisions": 28,
+      "ideal_cells_per_division": 3.7143,
+      "actual_cells_per_division": 4,
+      "error_per_division_degrees": 0.989011,
+      "total_error_degrees": 27.692308,
+      "exactness_score": 0.9231,
+      "visual_risk_level": "🔴 Critical"
+    },
+    {
+      "layer_name": "Layer 6: 二十四節気（24節気）",
+      "divisions": 24,
+      "ideal_cells_per_division": 4.3333,
+      "actual_cells_per_division": 4,
+      "error_per_division_degrees": -1.153846,
+      "total_error_degrees": -27.692308,
+      "exactness_score": 0.9231,
+      "visual_risk_level": "🔴 Critical"
+    },
+    {
+      "layer_name": "Layer 7: 天盤（トリア30°オフセット）",
+      "divisions": 24,
+      "ideal_cells_per_division": 4.3333,
+      "actual_cells_per_division": 4,
+      "error_per_division_degrees": -1.153846,
+      "total_error_degrees": -27.692308,
+      "exactness_score": 0.9231,
+      "visual_risk_level": "🔴 Critical"
+    },
+    {
+      "layer_name": "Layer 8: 人盤（トリア60°オフセット）",
+      "divisions": 24,
+      "ideal_cells_per_division": 4.3333,
+      "actual_cells_per_division": 4,
+      "error_per_division_degrees": -1.153846,
+      "total_error_degrees": -27.692308,
+      "exactness_score": 0.9231,
+      "visual_risk_level": "🔴 Critical"
+    },
+    {
+      "layer_name": "Layer 9: 十天干層",
+      "divisions": 10,
+      "ideal_cells_per_division": 10.4,
+      "actual_cells_per_division": 10,
+      "error_per_division_degrees": -1.384615,
+      "total_error_degrees": -13.846154,
+      "exactness_score": 0.9615,
+      "visual_risk_level": "🔴 Critical"
+    },
+    {
+      "layer_name": "Layer 10: 十二支層",
+      "divisions": 12,
+      "ideal_cells_per_division": 8.6667,
+      "actual_cells_per_division": 9,
+      "error_per_division_degrees": 1.153846,
+      "total_error_degrees": 13.846154,
+      "exactness_score": 0.9615,
+      "visual_risk_level": "🔴 Critical"
+    },
+    {
+      "layer_name": "Layer 11: 九星層",
+      "divisions": 9,
+      "ideal_cells_per_division": 11.5556,
+      "actual_cells_per_division": 12,
+      "error_per_division_degrees": 1.538462,
+      "total_error_degrees": 13.846154,
+      "exactness_score": 0.9615,
+      "visual_risk_level": "🔴 Critical"
+    },
+    {
+      "layer_name": "Layer 12: 五行層",
+      "divisions": 5,
+      "ideal_cells_per_division": 20.8,
+      "actual_cells_per_division": 21,
+      "error_per_division_degrees": 0.692308,
+      "total_error_degrees": 3.461538,
+      "exactness_score": 0.9904,
+      "visual_risk_level": "🔴 Critical"
+    },
+    {
+      "layer_name": "Layer 13: 大游年盤層",
+      "divisions": 20,
+      "ideal_cells_per_division": 5.2,
+      "actual_cells_per_division": 5,
+      "error_per_division_degrees": -0.692308,
+      "total_error_degrees": -13.846154,
+      "exactness_score": 0.9615,
+      "visual_risk_level": "🔴 Critical"
+    },
+    {
+      "layer_name": "Layer 14: 月令八卦層",
+      "divisions": 8,
+      "ideal_cells_per_division": 13.0,
+      "actual_cells_per_division": 13,
+      "error_per_division_degrees": 0.0,
+      "total_error_degrees": 0.0,
+      "exactness_score": 1.0,
+      "visual_risk_level": "🟢 Low"
+    }
+  ],
+  "host_28_analysis": {
+    "total_hosts": 28,
+    "statistical_summary": {
+      "mean_degree": 14.0,
+      "std_deviation": 5.61,
+      "max_degree": 26.0,
+      "min_degree": 4.0,
+      "degree_variance": 22.0
+    },
+    "grid_integration_error": {
+      "total_error": 26.6923,
+      "average_error_per_host": 0.9533,
+      "max_cell_width": 3.4615
+    }
+  },
+  "risk_assessment": {
+    "distribution": {
+      "🟢 Low": 2,
+      "🔴 Critical": 11,
+      "🟠 High": 1
+    },
+    "high_risk_count": 12,
+    "recommendation": "Implement hybrid approach with LCM optimization for core layers"
+  }
+}

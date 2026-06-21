@@ -1,0 +1,1232 @@
+{
+  "mountain_24": [
+    {
+      "id": 1,
+      "ideal": 0.0,
+      "actual": 0.0,
+      "correction": 0.0
+    },
+    {
+      "id": 2,
+      "ideal": 15.0,
+      "actual": 15.0,
+      "correction": 0.0
+    },
+    {
+      "id": 3,
+      "ideal": 30.0,
+      "actual": 30.0,
+      "correction": 0.0
+    },
+    {
+      "id": 4,
+      "ideal": 45.0,
+      "actual": 45.0,
+      "correction": 0.0
+    },
+    {
+      "id": 5,
+      "ideal": 60.0,
+      "actual": 60.0,
+      "correction": 0.0
+    },
+    {
+      "id": 6,
+      "ideal": 75.0,
+      "actual": 75.0,
+      "correction": 0.0
+    },
+    {
+      "id": 7,
+      "ideal": 90.0,
+      "actual": 90.0,
+      "correction": 0.0
+    },
+    {
+      "id": 8,
+      "ideal": 105.0,
+      "actual": 105.0,
+      "correction": 0.0
+    },
+    {
+      "id": 9,
+      "ideal": 120.0,
+      "actual": 120.0,
+      "correction": 0.0
+    },
+    {
+      "id": 10,
+      "ideal": 135.0,
+      "actual": 135.0,
+      "correction": 0.0
+    },
+    {
+      "id": 11,
+      "ideal": 150.0,
+      "actual": 150.0,
+      "correction": 0.0
+    },
+    {
+      "id": 12,
+      "ideal": 165.0,
+      "actual": 165.0,
+      "correction": 0.0
+    },
+    {
+      "id": 13,
+      "ideal": 180.0,
+      "actual": 180.0,
+      "correction": 0.0
+    },
+    {
+      "id": 14,
+      "ideal": 195.0,
+      "actual": 195.0,
+      "correction": 0.0
+    },
+    {
+      "id": 15,
+      "ideal": 210.0,
+      "actual": 210.0,
+      "correction": 0.0
+    },
+    {
+      "id": 16,
+      "ideal": 225.0,
+      "actual": 225.0,
+      "correction": 0.0
+    },
+    {
+      "id": 17,
+      "ideal": 240.0,
+      "actual": 240.0,
+      "correction": 0.0
+    },
+    {
+      "id": 18,
+      "ideal": 255.0,
+      "actual": 255.0,
+      "correction": 0.0
+    },
+    {
+      "id": 19,
+      "ideal": 270.0,
+      "actual": 270.0,
+      "correction": 0.0
+    },
+    {
+      "id": 20,
+      "ideal": 285.0,
+      "actual": 285.0,
+      "correction": 0.0
+    },
+    {
+      "id": 21,
+      "ideal": 300.0,
+      "actual": 300.0,
+      "correction": 0.0
+    },
+    {
+      "id": 22,
+      "ideal": 315.0,
+      "actual": 315.0,
+      "correction": 0.0
+    },
+    {
+      "id": 23,
+      "ideal": 330.0,
+      "actual": 330.0,
+      "correction": 0.0
+    },
+    {
+      "id": 24,
+      "ideal": 345.0,
+      "actual": 345.0,
+      "correction": 0.0
+    }
+  ],
+  "dragon_60": [
+    {
+      "id": 1,
+      "ideal": 0.0,
+      "actual": 0.0,
+      "correction": 0.0
+    },
+    {
+      "id": 2,
+      "ideal": 6.0,
+      "actual": 6.0,
+      "correction": 0.0
+    },
+    {
+      "id": 3,
+      "ideal": 12.0,
+      "actual": 12.0,
+      "correction": 0.0
+    },
+    {
+      "id": 4,
+      "ideal": 18.0,
+      "actual": 18.0,
+      "correction": 0.0
+    },
+    {
+      "id": 5,
+      "ideal": 24.0,
+      "actual": 24.0,
+      "correction": 0.0
+    },
+    {
+      "id": 6,
+      "ideal": 30.0,
+      "actual": 30.0,
+      "correction": -0.0
+    },
+    {
+      "id": 7,
+      "ideal": 36.0,
+      "actual": 36.0,
+      "correction": 0.0
+    },
+    {
+      "id": 8,
+      "ideal": 42.0,
+      "actual": 42.0,
+      "correction": 0.0
+    },
+    {
+      "id": 9,
+      "ideal": 48.0,
+      "actual": 48.0,
+      "correction": 0.0
+    },
+    {
+      "id": 10,
+      "ideal": 54.0,
+      "actual": 54.0,
+      "correction": -0.0
+    },
+    {
+      "id": 11,
+      "ideal": 60.0,
+      "actual": 60.0,
+      "correction": -0.0
+    },
+    {
+      "id": 12,
+      "ideal": 66.0,
+      "actual": 66.0,
+      "correction": 0.0
+    },
+    {
+      "id": 13,
+      "ideal": 72.0,
+      "actual": 72.0,
+      "correction": 0.0
+    },
+    {
+      "id": 14,
+      "ideal": 78.0,
+      "actual": 78.0,
+      "correction": -0.0
+    },
+    {
+      "id": 15,
+      "ideal": 84.0,
+      "actual": 84.0,
+      "correction": 0.0
+    },
+    {
+      "id": 16,
+      "ideal": 90.0,
+      "actual": 90.0,
+      "correction": 0.0
+    },
+    {
+      "id": 17,
+      "ideal": 96.0,
+      "actual": 96.0,
+      "correction": 0.0
+    },
+    {
+      "id": 18,
+      "ideal": 102.0,
+      "actual": 102.0,
+      "correction": -0.0
+    },
+    {
+      "id": 19,
+      "ideal": 108.0,
+      "actual": 108.0,
+      "correction": -0.0
+    },
+    {
+      "id": 20,
+      "ideal": 114.0,
+      "actual": 114.0,
+      "correction": -0.0
+    },
+    {
+      "id": 21,
+      "ideal": 120.0,
+      "actual": 120.0,
+      "correction": -0.0
+    },
+    {
+      "id": 22,
+      "ideal": 126.0,
+      "actual": 126.0,
+      "correction": 0.0
+    },
+    {
+      "id": 23,
+      "ideal": 132.0,
+      "actual": 132.0,
+      "correction": 0.0
+    },
+    {
+      "id": 24,
+      "ideal": 138.0,
+      "actual": 138.0,
+      "correction": 0.0
+    },
+    {
+      "id": 25,
+      "ideal": 144.0,
+      "actual": 144.0,
+      "correction": 0.0
+    },
+    {
+      "id": 26,
+      "ideal": 150.0,
+      "actual": 150.0,
+      "correction": 0.0
+    },
+    {
+      "id": 27,
+      "ideal": 156.0,
+      "actual": 156.0,
+      "correction": -0.0
+    },
+    {
+      "id": 28,
+      "ideal": 162.0,
+      "actual": 162.0,
+      "correction": -0.0
+    },
+    {
+      "id": 29,
+      "ideal": 168.0,
+      "actual": 168.0,
+      "correction": 0.0
+    },
+    {
+      "id": 30,
+      "ideal": 174.0,
+      "actual": 174.0,
+      "correction": 0.0
+    },
+    {
+      "id": 31,
+      "ideal": 180.0,
+      "actual": 180.0,
+      "correction": 0.0
+    },
+    {
+      "id": 32,
+      "ideal": 186.0,
+      "actual": 186.0,
+      "correction": 0.0
+    },
+    {
+      "id": 33,
+      "ideal": 192.0,
+      "actual": 192.0,
+      "correction": 0.0
+    },
+    {
+      "id": 34,
+      "ideal": 198.0,
+      "actual": 198.0,
+      "correction": -0.0
+    },
+    {
+      "id": 35,
+      "ideal": 204.0,
+      "actual": 204.0,
+      "correction": -0.0
+    },
+    {
+      "id": 36,
+      "ideal": 210.0,
+      "actual": 210.0,
+      "correction": -0.0
+    },
+    {
+      "id": 37,
+      "ideal": 216.0,
+      "actual": 216.0,
+      "correction": -0.0
+    },
+    {
+      "id": 38,
+      "ideal": 222.0,
+      "actual": 222.0,
+      "correction": -0.0
+    },
+    {
+      "id": 39,
+      "ideal": 228.0,
+      "actual": 228.0,
+      "correction": -0.0
+    },
+    {
+      "id": 40,
+      "ideal": 234.0,
+      "actual": 234.0,
+      "correction": -0.0
+    },
+    {
+      "id": 41,
+      "ideal": 240.0,
+      "actual": 240.0,
+      "correction": -0.0
+    },
+    {
+      "id": 42,
+      "ideal": 246.0,
+      "actual": 246.0,
+      "correction": 0.0
+    },
+    {
+      "id": 43,
+      "ideal": 252.0,
+      "actual": 252.0,
+      "correction": 0.0
+    },
+    {
+      "id": 44,
+      "ideal": 258.0,
+      "actual": 258.0,
+      "correction": 0.0
+    },
+    {
+      "id": 45,
+      "ideal": 264.0,
+      "actual": 264.0,
+      "correction": 0.0
+    },
+    {
+      "id": 46,
+      "ideal": 270.0,
+      "actual": 270.0,
+      "correction": 0.0
+    },
+    {
+      "id": 47,
+      "ideal": 276.0,
+      "actual": 276.0,
+      "correction": 0.0
+    },
+    {
+      "id": 48,
+      "ideal": 282.0,
+      "actual": 282.0,
+      "correction": 0.0
+    },
+    {
+      "id": 49,
+      "ideal": 288.0,
+      "actual": 288.0,
+      "correction": 0.0
+    },
+    {
+      "id": 50,
+      "ideal": 294.0,
+      "actual": 294.0,
+      "correction": 0.0
+    },
+    {
+      "id": 51,
+      "ideal": 300.0,
+      "actual": 300.0,
+      "correction": 0.0
+    },
+    {
+      "id": 52,
+      "ideal": 306.0,
+      "actual": 306.0,
+      "correction": -0.0
+    },
+    {
+      "id": 53,
+      "ideal": 312.0,
+      "actual": 312.0,
+      "correction": -0.0
+    },
+    {
+      "id": 54,
+      "ideal": 318.0,
+      "actual": 318.0,
+      "correction": -0.0
+    },
+    {
+      "id": 55,
+      "ideal": 324.0,
+      "actual": 324.0,
+      "correction": -0.0
+    },
+    {
+      "id": 56,
+      "ideal": 330.0,
+      "actual": 330.0,
+      "correction": -0.0
+    },
+    {
+      "id": 57,
+      "ideal": 336.0,
+      "actual": 336.0,
+      "correction": 0.0
+    },
+    {
+      "id": 58,
+      "ideal": 342.0,
+      "actual": 342.0,
+      "correction": 0.0
+    },
+    {
+      "id": 59,
+      "ideal": 348.0,
+      "actual": 348.0,
+      "correction": 0.0
+    },
+    {
+      "id": 60,
+      "ideal": 354.0,
+      "actual": 354.0,
+      "correction": 0.0
+    }
+  ],
+  "gold_120": [
+    {
+      "id": 1,
+      "ideal": 0.0,
+      "actual": 0.0,
+      "correction": 0.0
+    },
+    {
+      "id": 2,
+      "ideal": 3.0,
+      "actual": 3.0,
+      "correction": 0.0
+    },
+    {
+      "id": 3,
+      "ideal": 6.0,
+      "actual": 6.0,
+      "correction": 0.0
+    },
+    {
+      "id": 4,
+      "ideal": 9.0,
+      "actual": 9.0,
+      "correction": 0.0
+    },
+    {
+      "id": 5,
+      "ideal": 12.0,
+      "actual": 12.0,
+      "correction": 0.0
+    },
+    {
+      "id": 6,
+      "ideal": 15.0,
+      "actual": 15.0,
+      "correction": -0.0
+    },
+    {
+      "id": 7,
+      "ideal": 18.0,
+      "actual": 18.0,
+      "correction": 0.0
+    },
+    {
+      "id": 8,
+      "ideal": 21.0,
+      "actual": 21.0,
+      "correction": 0.0
+    },
+    {
+      "id": 9,
+      "ideal": 24.0,
+      "actual": 24.0,
+      "correction": 0.0
+    },
+    {
+      "id": 10,
+      "ideal": 27.0,
+      "actual": 27.0,
+      "correction": -0.0
+    },
+    {
+      "id": 11,
+      "ideal": 30.0,
+      "actual": 30.0,
+      "correction": -0.0
+    },
+    {
+      "id": 12,
+      "ideal": 33.0,
+      "actual": 33.0,
+      "correction": 0.0
+    },
+    {
+      "id": 13,
+      "ideal": 36.0,
+      "actual": 36.0,
+      "correction": 0.0
+    },
+    {
+      "id": 14,
+      "ideal": 39.0,
+      "actual": 39.0,
+      "correction": -0.0
+    },
+    {
+      "id": 15,
+      "ideal": 42.0,
+      "actual": 42.0,
+      "correction": 0.0
+    },
+    {
+      "id": 16,
+      "ideal": 45.0,
+      "actual": 45.0,
+      "correction": 0.0
+    },
+    {
+      "id": 17,
+      "ideal": 48.0,
+      "actual": 48.0,
+      "correction": 0.0
+    },
+    {
+      "id": 18,
+      "ideal": 51.0,
+      "actual": 51.0,
+      "correction": -0.0
+    },
+    {
+      "id": 19,
+      "ideal": 54.0,
+      "actual": 54.0,
+      "correction": -0.0
+    },
+    {
+      "id": 20,
+      "ideal": 57.0,
+      "actual": 57.0,
+      "correction": -0.0
+    },
+    {
+      "id": 21,
+      "ideal": 60.0,
+      "actual": 60.0,
+      "correction": -0.0
+    },
+    {
+      "id": 22,
+      "ideal": 63.0,
+      "actual": 63.0,
+      "correction": 0.0
+    },
+    {
+      "id": 23,
+      "ideal": 66.0,
+      "actual": 66.0,
+      "correction": 0.0
+    },
+    {
+      "id": 24,
+      "ideal": 69.0,
+      "actual": 69.0,
+      "correction": 0.0
+    },
+    {
+      "id": 25,
+      "ideal": 72.0,
+      "actual": 72.0,
+      "correction": 0.0
+    },
+    {
+      "id": 26,
+      "ideal": 75.0,
+      "actual": 75.0,
+      "correction": 0.0
+    },
+    {
+      "id": 27,
+      "ideal": 78.0,
+      "actual": 78.0,
+      "correction": -0.0
+    },
+    {
+      "id": 28,
+      "ideal": 81.0,
+      "actual": 81.0,
+      "correction": -0.0
+    },
+    {
+      "id": 29,
+      "ideal": 84.0,
+      "actual": 84.0,
+      "correction": 0.0
+    },
+    {
+      "id": 30,
+      "ideal": 87.0,
+      "actual": 87.0,
+      "correction": 0.0
+    },
+    {
+      "id": 31,
+      "ideal": 90.0,
+      "actual": 90.0,
+      "correction": 0.0
+    },
+    {
+      "id": 32,
+      "ideal": 93.0,
+      "actual": 93.0,
+      "correction": 0.0
+    },
+    {
+      "id": 33,
+      "ideal": 96.0,
+      "actual": 96.0,
+      "correction": 0.0
+    },
+    {
+      "id": 34,
+      "ideal": 99.0,
+      "actual": 99.0,
+      "correction": -0.0
+    },
+    {
+      "id": 35,
+      "ideal": 102.0,
+      "actual": 102.0,
+      "correction": -0.0
+    },
+    {
+      "id": 36,
+      "ideal": 105.0,
+      "actual": 105.0,
+      "correction": -0.0
+    },
+    {
+      "id": 37,
+      "ideal": 108.0,
+      "actual": 108.0,
+      "correction": -0.0
+    },
+    {
+      "id": 38,
+      "ideal": 111.0,
+      "actual": 111.0,
+      "correction": -0.0
+    },
+    {
+      "id": 39,
+      "ideal": 114.0,
+      "actual": 114.0,
+      "correction": -0.0
+    },
+    {
+      "id": 40,
+      "ideal": 117.0,
+      "actual": 117.0,
+      "correction": -0.0
+    },
+    {
+      "id": 41,
+      "ideal": 120.0,
+      "actual": 120.0,
+      "correction": -0.0
+    },
+    {
+      "id": 42,
+      "ideal": 123.0,
+      "actual": 123.0,
+      "correction": 0.0
+    },
+    {
+      "id": 43,
+      "ideal": 126.0,
+      "actual": 126.0,
+      "correction": 0.0
+    },
+    {
+      "id": 44,
+      "ideal": 129.0,
+      "actual": 129.0,
+      "correction": 0.0
+    },
+    {
+      "id": 45,
+      "ideal": 132.0,
+      "actual": 132.0,
+      "correction": 0.0
+    },
+    {
+      "id": 46,
+      "ideal": 135.0,
+      "actual": 135.0,
+      "correction": 0.0
+    },
+    {
+      "id": 47,
+      "ideal": 138.0,
+      "actual": 138.0,
+      "correction": 0.0
+    },
+    {
+      "id": 48,
+      "ideal": 141.0,
+      "actual": 141.0,
+      "correction": 0.0
+    },
+    {
+      "id": 49,
+      "ideal": 144.0,
+      "actual": 144.0,
+      "correction": 0.0
+    },
+    {
+      "id": 50,
+      "ideal": 147.0,
+      "actual": 147.0,
+      "correction": 0.0
+    },
+    {
+      "id": 51,
+      "ideal": 150.0,
+      "actual": 150.0,
+      "correction": 0.0
+    },
+    {
+      "id": 52,
+      "ideal": 153.0,
+      "actual": 153.0,
+      "correction": -0.0
+    },
+    {
+      "id": 53,
+      "ideal": 156.0,
+      "actual": 156.0,
+      "correction": -0.0
+    },
+    {
+      "id": 54,
+      "ideal": 159.0,
+      "actual": 159.0,
+      "correction": -0.0
+    },
+    {
+      "id": 55,
+      "ideal": 162.0,
+      "actual": 162.0,
+      "correction": -0.0
+    },
+    {
+      "id": 56,
+      "ideal": 165.0,
+      "actual": 165.0,
+      "correction": -0.0
+    },
+    {
+      "id": 57,
+      "ideal": 168.0,
+      "actual": 168.0,
+      "correction": 0.0
+    },
+    {
+      "id": 58,
+      "ideal": 171.0,
+      "actual": 171.0,
+      "correction": 0.0
+    },
+    {
+      "id": 59,
+      "ideal": 174.0,
+      "actual": 174.0,
+      "correction": 0.0
+    },
+    {
+      "id": 60,
+      "ideal": 177.0,
+      "actual": 177.0,
+      "correction": 0.0
+    },
+    {
+      "id": 61,
+      "ideal": 180.0,
+      "actual": 180.0,
+      "correction": 0.0
+    },
+    {
+      "id": 62,
+      "ideal": 183.0,
+      "actual": 183.0,
+      "correction": 0.0
+    },
+    {
+      "id": 63,
+      "ideal": 186.0,
+      "actual": 186.0,
+      "correction": 0.0
+    },
+    {
+      "id": 64,
+      "ideal": 189.0,
+      "actual": 189.0,
+      "correction": 0.0
+    },
+    {
+      "id": 65,
+      "ideal": 192.0,
+      "actual": 192.0,
+      "correction": 0.0
+    },
+    {
+      "id": 66,
+      "ideal": 195.0,
+      "actual": 195.0,
+      "correction": -0.0
+    },
+    {
+      "id": 67,
+      "ideal": 198.0,
+      "actual": 198.0,
+      "correction": -0.0
+    },
+    {
+      "id": 68,
+      "ideal": 201.0,
+      "actual": 201.0,
+      "correction": -0.0
+    },
+    {
+      "id": 69,
+      "ideal": 204.0,
+      "actual": 204.0,
+      "correction": -0.0
+    },
+    {
+      "id": 70,
+      "ideal": 207.0,
+      "actual": 207.0,
+      "correction": -0.0
+    },
+    {
+      "id": 71,
+      "ideal": 210.0,
+      "actual": 210.0,
+      "correction": -0.0
+    },
+    {
+      "id": 72,
+      "ideal": 213.0,
+      "actual": 213.0,
+      "correction": -0.0
+    },
+    {
+      "id": 73,
+      "ideal": 216.0,
+      "actual": 216.0,
+      "correction": -0.0
+    },
+    {
+      "id": 74,
+      "ideal": 219.0,
+      "actual": 219.0,
+      "correction": 0.0
+    },
+    {
+      "id": 75,
+      "ideal": 222.0,
+      "actual": 222.0,
+      "correction": -0.0
+    },
+    {
+      "id": 76,
+      "ideal": 225.0,
+      "actual": 225.0,
+      "correction": 0.0
+    },
+    {
+      "id": 77,
+      "ideal": 228.0,
+      "actual": 228.0,
+      "correction": -0.0
+    },
+    {
+      "id": 78,
+      "ideal": 231.0,
+      "actual": 231.0,
+      "correction": 0.0
+    },
+    {
+      "id": 79,
+      "ideal": 234.0,
+      "actual": 234.0,
+      "correction": -0.0
+    },
+    {
+      "id": 80,
+      "ideal": 237.0,
+      "actual": 237.0,
+      "correction": -0.0
+    },
+    {
+      "id": 81,
+      "ideal": 240.0,
+      "actual": 240.0,
+      "correction": -0.0
+    },
+    {
+      "id": 82,
+      "ideal": 243.0,
+      "actual": 243.0,
+      "correction": -0.0
+    },
+    {
+      "id": 83,
+      "ideal": 246.0,
+      "actual": 246.0,
+      "correction": 0.0
+    },
+    {
+      "id": 84,
+      "ideal": 249.0,
+      "actual": 249.0,
+      "correction": -0.0
+    },
+    {
+      "id": 85,
+      "ideal": 252.0,
+      "actual": 252.0,
+      "correction": 0.0
+    },
+    {
+      "id": 86,
+      "ideal": 255.0,
+      "actual": 255.0,
+      "correction": -0.0
+    },
+    {
+      "id": 87,
+      "ideal": 258.0,
+      "actual": 258.0,
+      "correction": 0.0
+    },
+    {
+      "id": 88,
+      "ideal": 261.0,
+      "actual": 261.0,
+      "correction": -0.0
+    },
+    {
+      "id": 89,
+      "ideal": 264.0,
+      "actual": 264.0,
+      "correction": 0.0
+    },
+    {
+      "id": 90,
+      "ideal": 267.0,
+      "actual": 267.0,
+      "correction": -0.0
+    },
+    {
+      "id": 91,
+      "ideal": 270.0,
+      "actual": 270.0,
+      "correction": 0.0
+    },
+    {
+      "id": 92,
+      "ideal": 273.0,
+      "actual": 273.0,
+      "correction": -0.0
+    },
+    {
+      "id": 93,
+      "ideal": 276.0,
+      "actual": 276.0,
+      "correction": 0.0
+    },
+    {
+      "id": 94,
+      "ideal": 279.0,
+      "actual": 279.0,
+      "correction": -0.0
+    },
+    {
+      "id": 95,
+      "ideal": 282.0,
+      "actual": 282.0,
+      "correction": 0.0
+    },
+    {
+      "id": 96,
+      "ideal": 285.0,
+      "actual": 285.0,
+      "correction": -0.0
+    },
+    {
+      "id": 97,
+      "ideal": 288.0,
+      "actual": 288.0,
+      "correction": 0.0
+    },
+    {
+      "id": 98,
+      "ideal": 291.0,
+      "actual": 291.0,
+      "correction": 0.0
+    },
+    {
+      "id": 99,
+      "ideal": 294.0,
+      "actual": 294.0,
+      "correction": 0.0
+    },
+    {
+      "id": 100,
+      "ideal": 297.0,
+      "actual": 297.0,
+      "correction": 0.0
+    },
+    {
+      "id": 101,
+      "ideal": 300.0,
+      "actual": 300.0,
+      "correction": 0.0
+    },
+    {
+      "id": 102,
+      "ideal": 303.0,
+      "actual": 303.0,
+      "correction": 0.0
+    },
+    {
+      "id": 103,
+      "ideal": 306.0,
+      "actual": 306.0,
+      "correction": -0.0
+    },
+    {
+      "id": 104,
+      "ideal": 309.0,
+      "actual": 309.0,
+      "correction": 0.0
+    },
+    {
+      "id": 105,
+      "ideal": 312.0,
+      "actual": 312.0,
+      "correction": -0.0
+    },
+    {
+      "id": 106,
+      "ideal": 315.0,
+      "actual": 315.0,
+      "correction": 0.0
+    },
+    {
+      "id": 107,
+      "ideal": 318.0,
+      "actual": 318.0,
+      "correction": -0.0
+    },
+    {
+      "id": 108,
+      "ideal": 321.0,
+      "actual": 321.0,
+      "correction": 0.0
+    },
+    {
+      "id": 109,
+      "ideal": 324.0,
+      "actual": 324.0,
+      "correction": -0.0
+    },
+    {
+      "id": 110,
+      "ideal": 327.0,
+      "actual": 327.0,
+      "correction": 0.0
+    },
+    {
+      "id": 111,
+      "ideal": 330.0,
+      "actual": 330.0,
+      "correction": -0.0
+    },
+    {
+      "id": 112,
+      "ideal": 333.0,
+      "actual": 333.0,
+      "correction": 0.0
+    },
+    {
+      "id": 113,
+      "ideal": 336.0,
+      "actual": 336.0,
+      "correction": 0.0
+    },
+    {
+      "id": 114,
+      "ideal": 339.0,
+      "actual": 339.0,
+      "correction": 0.0
+    },
+    {
+      "id": 115,
+      "ideal": 342.0,
+      "actual": 342.0,
+      "correction": 0.0
+    },
+    {
+      "id": 116,
+      "ideal": 345.0,
+      "actual": 345.0,
+      "correction": -0.0
+    },
+    {
+      "id": 117,
+      "ideal": 348.0,
+      "actual": 348.0,
+      "correction": 0.0
+    },
+    {
+      "id": 118,
+      "ideal": 351.0,
+      "actual": 351.0,
+      "correction": -0.0
+    },
+    {
+      "id": 119,
+      "ideal": 354.0,
+      "actual": 354.0,
+      "correction": 0.0
+    },
+    {
+      "id": 120,
+      "ideal": 357.0,
+      "actual": 357.0,
+      "correction": -0.0
+    }
+  ]
+}

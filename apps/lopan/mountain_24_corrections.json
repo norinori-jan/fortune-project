@@ -1,0 +1,103 @@
+{
+  "layer": "地盤二十四山",
+  "base_division": 104,
+  "target_division": 24,
+  "corrections": [
+    {
+      "index": 0,
+      "offset_deg": 0.0
+    },
+    {
+      "index": 4,
+      "offset_deg": 1.1538
+    },
+    {
+      "index": 9,
+      "offset_deg": -1.1538
+    },
+    {
+      "index": 13,
+      "offset_deg": 0.0
+    },
+    {
+      "index": 17,
+      "offset_deg": 1.1538
+    },
+    {
+      "index": 22,
+      "offset_deg": -1.1538
+    },
+    {
+      "index": 26,
+      "offset_deg": 0.0
+    },
+    {
+      "index": 30,
+      "offset_deg": 1.1538
+    },
+    {
+      "index": 35,
+      "offset_deg": -1.1538
+    },
+    {
+      "index": 39,
+      "offset_deg": 0.0
+    },
+    {
+      "index": 43,
+      "offset_deg": 1.1538
+    },
+    {
+      "index": 48,
+      "offset_deg": -1.1538
+    },
+    {
+      "index": 52,
+      "offset_deg": 0.0
+    },
+    {
+      "index": 56,
+      "offset_deg": 1.1538
+    },
+    {
+      "index": 61,
+      "offset_deg": -1.1538
+    },
+    {
+      "index": 65,
+      "offset_deg": 0.0
+    },
+    {
+      "index": 69,
+      "offset_deg": 1.1538
+    },
+    {
+      "index": 74,
+      "offset_deg": -1.1538
+    },
+    {
+      "index": 78,
+      "offset_deg": 0.0
+    },
+    {
+      "index": 82,
+      "offset_deg": 1.1538
+    },
+    {
+      "index": 87,
+      "offset_deg": -1.1538
+    },
+    {
+      "index": 91,
+      "offset_deg": 0.0
+    },
+    {
+      "index": 95,
+      "offset_deg": 1.1538
+    },
+    {
+      "index": 100,
+      "offset_deg": -1.1538
+    }
+  ]
+}
