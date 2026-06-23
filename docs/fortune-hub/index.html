@@ -1,465 +1,579 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>fortune-hub 窶・豌励・鄒・・逶､</title>
+<title>fortune-hub — 気の羅針盤</title>
 <style>
-:root {
-  --bg:     #0a0a0f;
-  --surf:   #12121a;
-  --card:   #1a1a28;
-  --border: rgba(212,175,106,0.13);
-  --bact:   rgba(212,175,106,0.5);
-  --gold:   #d4af6a;
-  --goldd:  rgba(212,175,106,0.14);
-  --text:   #e8dcc8;
-  --sub:    #6a6058;
-  --muted:  #2e2e3e;
-  --wood:   #4a9e6b; --woodd: rgba(74,158,107,0.18);
-  --fire:   #c0392b; --fired: rgba(192,57,43,0.18);
-  --earth:  #c8922a; --earthd:rgba(200,146,42,0.18);
-  --metal:  #a8b8c8; --metald:rgba(168,184,200,0.18);
-  --water:  #2980b9; --waterd:rgba(41,128,185,0.18);
-  --fk: 'Noto Serif JP',serif;
-  --fu: 'Noto Sans JP',sans-serif;
-  --safe-b: env(safe-area-inset-bottom);
+:root{
+  --bg:#0a0a0f;--surf:#12121a;--card:#1a1a28;
+  --border:rgba(212,175,106,0.13);--bact:rgba(212,175,106,0.5);
+  --gold:#d4af6a;--goldd:rgba(212,175,106,0.14);
+  --text:#e8dcc8;--sub:#6a6058;--muted:#2e2e3e;
+  --wood:#4a9e6b;--fire:#c0392b;--earth:#c8922a;--metal:#a8b8c8;--water:#2980b9;
+  --fk:'Noto Serif JP',serif;--fu:'Noto Sans JP',sans-serif;
+  --safe-b:env(safe-area-inset-bottom);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px}
-body{background:var(--bg);color:var(--text);font-family:var(--fu);
-  min-height:100dvh;overscroll-behavior:none;
-  display:flex;flex-direction:column;align-items:center}
+body{background:var(--bg);color:var(--text);font-family:var(--fu);min-height:100dvh;overscroll-behavior:none;display:flex;flex-direction:column;align-items:center}
 
-/* 笏笏 HEADER 笏笏 */
-header{width:100%;max-width:480px;padding:2.2rem 1.4rem .8rem;text-align:center}
-.eyebrow{font-size:.65rem;letter-spacing:.22em;color:var(--sub);text-transform:uppercase;margin-bottom:.4rem}
-h1{font-family:var(--fk);font-size:1.75rem;color:var(--gold);letter-spacing:.07em;font-weight:400}
-.h-sub{font-size:.75rem;color:var(--sub);margin-top:.3rem}
-
-/* 譎ょ綾繝舌ャ繧ｸ */
-.time-row{display:flex;justify-content:center;gap:1.2rem;margin:.8rem 0 .2rem;font-size:.72rem;color:var(--sub)}
+/* ── HEADER ── */
+header{width:100%;max-width:480px;padding:2rem 1.4rem .6rem;text-align:center}
+.eyebrow{font-size:.62rem;letter-spacing:.22em;color:var(--sub);text-transform:uppercase;margin-bottom:.4rem}
+h1{font-family:var(--fk);font-size:1.65rem;color:var(--gold);letter-spacing:.07em;font-weight:400}
+.h-sub{font-size:.72rem;color:var(--sub);margin-top:.3rem}
+.time-row{display:flex;justify-content:center;gap:1.1rem;margin:.7rem 0 .2rem;font-size:.7rem;color:var(--sub)}
 .time-row b{color:var(--gold);font-family:var(--fk)}
 
-main{width:100%;max-width:480px;padding:0 1.2rem;flex:1}
+main{width:100%;max-width:480px;padding:0 1.1rem;flex:1}
 
-/* 笏笏 雉ｪ蝠・笏笏 */
-textarea{width:100%;background:var(--card);border:1px solid var(--border);
-  border-radius:14px;color:var(--text);font-family:var(--fk);font-size:.93rem;
-  line-height:1.75;padding:.9rem 1rem;resize:none;outline:none;
-  transition:border-color .25s;min-height:76px;margin-bottom:1rem}
+/* ── タブナビ ── */
+.tab-nav{display:flex;gap:.5rem;margin-bottom:1rem;background:var(--surf);border-radius:12px;padding:4px}
+.tab-btn{flex:1;padding:.55rem .4rem;border:none;border-radius:9px;background:transparent;color:var(--sub);cursor:pointer;font-family:var(--fu);font-size:.72rem;font-weight:500;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.tab-btn.on{background:var(--card);color:var(--gold);box-shadow:0 1px 4px rgba(0,0,0,.4)}
+
+/* ── パネル ── */
+.panel{display:none}.panel.on{display:block}
+
+/* ── 共通カード ── */
+.sec-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.2rem 1rem;margin-bottom:1rem}
+.sec-lbl{font-size:.6rem;letter-spacing:.18em;color:var(--sub);text-transform:uppercase;margin-bottom:.8rem;text-align:center}
+
+/* ── 易 パネル ── */
+textarea{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:var(--fk);font-size:.9rem;line-height:1.75;padding:.85rem .95rem;resize:none;outline:none;transition:border-color .25s;min-height:72px;margin-bottom:.9rem}
 textarea::placeholder{color:var(--muted)}
 textarea:focus{border-color:var(--bact)}
-
-/* 笏笏 繝・・繝ｫ繧ｰ繝ｪ繝・ラ 笏笏 */
-.tools{display:grid;grid-template-columns:1fr 1fr;gap:.65rem;margin-bottom:1rem}
-.tool{background:var(--card);border:1px solid var(--border);border-radius:14px;
-  color:var(--text);cursor:pointer;display:flex;flex-direction:column;
-  align-items:center;gap:.25rem;padding:.9rem .5rem .75rem;
-  transition:all .2s;-webkit-tap-highlight-color:transparent}
-.tool:hover{border-color:var(--bact);background:#1e1e2e}
-.tool:active{transform:scale(.96)}
-.tool.on{border-color:var(--gold);background:var(--goldd)}
-.tool-sym{font-size:1.5rem;line-height:1}
-.tool-nm{font-family:var(--fk);font-size:.75rem;color:var(--gold)}
-.tool-ds{font-size:.62rem;color:var(--sub)}
-
-/* 笏笏 蜊縺・・繧ｿ繝ｳ 笏笏 */
-.go{width:100%;background:linear-gradient(135deg,#b8942a,var(--gold));
-  border:none;border-radius:14px;color:#0a0a0f;cursor:pointer;
-  font-family:var(--fk);font-size:.95rem;font-weight:700;
-  letter-spacing:.1em;padding:.9rem;transition:filter .2s,transform .15s;
-  -webkit-tap-highlight-color:transparent;margin-bottom:1.4rem}
-.go:hover{filter:brightness(1.08)}
-.go:active{transform:scale(.98)}
-.go:disabled{opacity:.4;cursor:not-allowed}
-
-/* 笏笏 繧ｨ繝ｩ繝ｼ 笏笏 */
-.err{background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.3);
-  border-radius:10px;color:#e07070;font-size:.8rem;padding:.65rem .9rem;
-  margin-bottom:1rem;display:none}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.9rem}
+.tool{background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--text);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:.2rem;padding:.8rem .4rem .7rem;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.tool:hover{border-color:var(--bact)}.tool:active{transform:scale(.96)}.tool.on{border-color:var(--gold);background:var(--goldd)}
+.tool-sym{font-size:1.4rem;line-height:1}.tool-nm{font-family:var(--fk);font-size:.72rem;color:var(--gold)}.tool-ds{font-size:.6rem;color:var(--sub)}
+.go{width:100%;background:linear-gradient(135deg,#b8942a,var(--gold));border:none;border-radius:12px;color:#0a0a0f;cursor:pointer;font-family:var(--fk);font-size:.9rem;font-weight:700;letter-spacing:.1em;padding:.85rem;transition:filter .2s,transform .15s;-webkit-tap-highlight-color:transparent;margin-bottom:1.2rem}
+.go:hover{filter:brightness(1.08)}.go:active{transform:scale(.98)}.go:disabled{opacity:.4;cursor:not-allowed}
+.err{background:rgba(192,57,43,.12);border:1px solid rgba(192,57,43,.3);border-radius:10px;color:#e07070;font-size:.78rem;padding:.6rem .85rem;margin-bottom:.9rem;display:none}
 .err.on{display:block}
-
-/* 笏笏 繝ｭ繝ｼ繝・ぅ繝ｳ繧ｰ 笏笏 */
-.loading{display:none;flex-direction:column;align-items:center;gap:.7rem;padding:1.8rem}
+.loading{display:none;flex-direction:column;align-items:center;gap:.65rem;padding:1.6rem}
 .loading.on{display:flex}
-.spin{width:34px;height:34px;border:2px solid var(--muted);
-  border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite}
+.spin{width:32px;height:32px;border:2px solid var(--muted);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-.load-txt{font-family:var(--fk);font-size:.82rem;color:var(--sub)}
+.load-txt{font-family:var(--fk);font-size:.8rem;color:var(--sub)}
 
-/* 笏笏 繝ｬ繝ｼ繝繝ｼ繧ｻ繧ｯ繧ｷ繝ｧ繝ｳ 笏笏 */
-.radar-sec{background:var(--card);border:1px solid var(--border);
-  border-radius:20px;padding:1.4rem 1.1rem 1.1rem;margin-bottom:1.1rem;display:none}
-.radar-sec.on{display:block}
-.sec-lbl{font-size:.62rem;letter-spacing:.18em;color:var(--sub);
-  text-transform:uppercase;margin-bottom:1rem;text-align:center}
-
-/* SVG繝ｬ繝ｼ繝繝ｼ */
-.radar-wrap{display:flex;justify-content:center;margin-bottom:1rem}
-svg#radar{width:180px;height:180px;overflow:visible}
-
-/* 莠碑｡後ヰ繝ｼ */
-.wx-bars{display:flex;flex-direction:column;gap:.5rem}
-.wx-row{display:grid;grid-template-columns:1.6rem 1fr 2.2rem;align-items:center;gap:.55rem}
-.wx-k{font-family:var(--fk);font-size:.85rem;text-align:center}
-.bar-bg{background:var(--muted);border-radius:99px;height:5px;overflow:hidden}
+/* レーダー */
+.radar-sec{display:none}.radar-sec.on{display:block}
+.radar-wrap{display:flex;justify-content:center;margin-bottom:.9rem}
+svg#radar{width:160px;height:160px;overflow:visible}
+.wx-bars{display:flex;flex-direction:column;gap:.45rem}
+.wx-row{display:grid;grid-template-columns:1.5rem 1fr 2rem;align-items:center;gap:.5rem}
+.wx-k{font-family:var(--fk);font-size:.82rem;text-align:center}
+.bar-bg{background:var(--muted);border-radius:99px;height:4px;overflow:hidden}
 .bar-f{height:100%;border-radius:99px;transition:width .85s cubic-bezier(.23,1,.32,1);width:0}
-.wx-v{font-size:.68rem;color:var(--sub);text-align:right}
+.wx-v{font-size:.65rem;color:var(--sub);text-align:right}
 
-/* 笏笏 邨先棡繧ｫ繝ｼ繝・笏笏 */
-.result{background:var(--card);border:1px solid var(--border);
-  border-radius:20px;padding:1.4rem 1.1rem;margin-bottom:.9rem;
-  display:none;animation:fadeUp .5s cubic-bezier(.23,1,.32,1) both}
+/* 結果 */
+.result{display:none;animation:fadeUp .5s cubic-bezier(.23,1,.32,1) both}
 .result.on{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.syms{display:flex;justify-content:center;gap:.4rem;font-size:1.6rem;margin-bottom:.8rem;letter-spacing:.07em}
+.hex-nm{font-family:var(--fk);font-size:1.15rem;color:var(--gold);text-align:center;margin-bottom:.25rem}
+.core{font-family:var(--fk);font-size:.84rem;text-align:center;line-height:1.75;margin-bottom:1rem;padding:0 .4rem}
+.spread{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.9rem}
+.spread-row{background:var(--surf);border-radius:9px;padding:.5rem .75rem}
+.spread-pos{font-size:.6rem;color:var(--sub);margin-bottom:.12rem}
+.spread-card{font-family:var(--fk);font-size:.87rem;color:var(--gold)}
+.spread-rev{font-size:.6rem;color:var(--fire);margin-left:.35rem}
+.spread-kw{font-size:.68rem;color:var(--sub);margin-top:.12rem}
+.ai-sec{border-top:1px solid var(--border);padding-top:.85rem}
+.ai-lbl{font-size:.6rem;letter-spacing:.16em;color:var(--sub);text-transform:uppercase;margin-bottom:.5rem}
+.ai-core{font-family:var(--fk);font-size:.93rem;color:var(--gold);line-height:1.65;margin-bottom:.65rem}
+.ai-detail{font-size:.8rem;line-height:1.85;margin-bottom:.65rem}
+.ai-action{background:var(--goldd);border-left:3px solid var(--gold);border-radius:0 9px 9px 0;font-size:.78rem;line-height:1.7;padding:.5rem .7rem}
+.res-btn{width:100%;background:transparent;border:1px solid var(--border);border-radius:11px;color:var(--sub);cursor:pointer;font-family:var(--fu);font-size:.73rem;padding:.55rem .85rem;text-align:left;margin-top:.65rem;transition:border-color .2s,color .2s;display:none}
+.res-btn.on{display:block}.res-btn:hover{border-color:var(--bact);color:var(--gold)}
 
-.syms{display:flex;justify-content:center;gap:.4rem;font-size:1.7rem;
-  margin-bottom:.9rem;letter-spacing:.08em}
-.hex-nm{font-family:var(--fk);font-size:1.2rem;color:var(--gold);
-  text-align:center;margin-bottom:.3rem}
-.core{font-family:var(--fk);font-size:.87rem;color:var(--text);
-  text-align:center;line-height:1.75;margin-bottom:1.1rem;padding:0 .4rem}
+/* ── タロット パネル ── */
+.tarot-tabs{display:flex;gap:.5rem;margin-bottom:1rem}
+.tarot-tab{flex:1;padding:.5rem;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--sub);cursor:pointer;font-size:.72rem;font-weight:500;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.tarot-tab.on{border-color:var(--gold);background:var(--goldd);color:var(--gold)}
+.tarot-panel{display:none}.tarot-panel.on{display:block}
 
-/* 繧ｿ繝ｭ繝・ヨ繧ｹ繝励Ξ繝・ラ */
-.spread{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
-.spread-row{background:var(--surf);border-radius:10px;padding:.55rem .8rem}
-.spread-pos{font-size:.62rem;color:var(--sub);margin-bottom:.15rem}
-.spread-card{font-family:var(--fk);font-size:.9rem;color:var(--gold)}
-.spread-rev{font-size:.62rem;color:var(--fire);margin-left:.4rem}
-.spread-kw{font-size:.7rem;color:var(--sub);margin-top:.15rem}
+/* シャッフルUI */
+.deck-area{position:relative;width:100%;height:130px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem}
+.t-card{position:absolute;width:60px;height:94px;border-radius:8px;cursor:pointer;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.23,1,.32,1),left .5s cubic-bezier(.23,1,.32,1)}
+.t-card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.23,1,.32,1)}
+.t-card.flipped .t-card-inner{transform:rotateY(180deg)}
+.t-back,.t-front{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:3px}
+.t-back{background:var(--card);border:1px solid var(--border)}
+.t-back-pat{width:44px;height:68px;border-radius:4px;border:1px solid var(--border);display:grid;grid-template-columns:repeat(4,1fr);gap:2px;padding:3px}
+.t-back-pat span{background:var(--muted);border-radius:1px}
+.t-front{background:var(--surf);border:1px solid rgba(212,175,106,.3);transform:rotateY(180deg);padding:5px 3px;justify-content:space-between}
+.t-num{font-size:9px;color:var(--sub);align-self:flex-start}
+.t-sym{font-size:22px;line-height:1}
+.t-nm{font-size:8px;font-weight:500;color:var(--text);text-align:center;line-height:1.3}
 
-/* AI隱ｭ縺ｿ隗｣縺・*/
-.ai-sec{border-top:1px solid var(--border);padding-top:.9rem}
-.ai-lbl{font-size:.62rem;letter-spacing:.16em;color:var(--sub);
-  text-transform:uppercase;margin-bottom:.55rem}
-.ai-core{font-family:var(--fk);font-size:.97rem;color:var(--gold);
-  line-height:1.65;margin-bottom:.7rem}
-.ai-detail{font-size:.83rem;color:var(--text);line-height:1.85;margin-bottom:.7rem}
-.ai-action{background:var(--goldd);border-left:3px solid var(--gold);
-  border-radius:0 10px 10px 0;font-size:.8rem;color:var(--text);
-  line-height:1.7;padding:.55rem .75rem}
-.res-btn{width:100%;background:transparent;border:1px solid var(--border);
-  border-radius:12px;color:var(--sub);cursor:pointer;font-family:var(--fu);
-  font-size:.75rem;padding:.6rem .9rem;text-align:left;margin-top:.7rem;
-  transition:border-color .2s,color .2s;display:none}
-.res-btn.on{display:block}
-.res-btn:hover{border-color:var(--bact);color:var(--gold)}
+/* 3枚スプレッド */
+.three-result{display:none}.three-result.on{display:flex;gap:.5rem;justify-content:center;margin-bottom:.9rem}
+.three-card{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;max-width:96px}
+.three-pos{font-size:.6rem;color:var(--sub);text-align:center}
+.three-face{width:64px;height:100px;border-radius:8px;background:var(--surf);border:1px solid rgba(212,175,106,.3);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:5px 3px;animation:fadeUp .4s cubic-bezier(.23,1,.32,1) both}
+.three-face.rev{transform:rotate(180deg)}
+.three-revlbl{font-size:.6rem;color:var(--sub)}
+.t-n{font-size:9px;color:var(--sub);align-self:flex-start}
+.t-s{font-size:22px;line-height:1}
+.t-l{font-size:8px;font-weight:500;color:var(--text);text-align:center;line-height:1.3}
 
-/* 笏笏 螻･豁ｴ 笏笏 */
-.hist-sec{margin-bottom:1.8rem}
-.hist-lbl{font-size:.62rem;letter-spacing:.16em;color:var(--sub);
-  text-transform:uppercase;margin-bottom:.55rem}
-.hist-list{display:flex;flex-direction:column;gap:.45rem}
-.hist-item{background:var(--surf);border:1px solid var(--border);
-  border-radius:10px;cursor:pointer;display:grid;
-  grid-template-columns:auto 1fr auto;align-items:center;
-  gap:.65rem;padding:.6rem .85rem;transition:border-color .2s}
+/* ケルト十字 */
+.cross-wrap{position:relative;width:100%;margin-bottom:.9rem}
+.cross-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(5,56px);gap:3px}
+.cc{display:flex;flex-direction:column;align-items:center;gap:1px}
+.cc-face{width:100%;height:46px;border-radius:6px;background:var(--muted);border:0.5px dashed rgba(212,175,106,.2);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:3px;transition:all .4s cubic-bezier(.23,1,.32,1)}
+.cc-face.revealed{background:var(--surf);border:1px solid rgba(212,175,106,.35);animation:pop .35s cubic-bezier(.23,1,.32,1) both}
+.cc-face.cross-c{border-color:rgba(41,128,185,.5)}
+.cc-face.rev-c{transform:rotate(180deg)}
+.cc-face.rev-c.revealed{animation:popRev .35s cubic-bezier(.23,1,.32,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.82)}to{opacity:1;transform:scale(1)}}
+@keyframes popRev{from{opacity:0;transform:scale(.82) rotate(180deg)}to{opacity:1;transform:scale(1) rotate(180deg)}}
+.cc-n{font-size:7px;color:var(--sub);align-self:flex-start;line-height:1}
+.cc-s{font-size:14px;line-height:1}
+.cc-l{font-size:6px;color:var(--text);text-align:center;line-height:1.2}
+.cc-pos{font-size:6px;color:var(--sub);text-align:center;line-height:1.2}
+.cc-pn{font-size:7px;font-weight:500;color:var(--sub)}
+.cross-pair{grid-column:2;grid-row:3;position:relative;display:flex;flex-direction:column;align-items:center;gap:1px}
+.cross-over{position:absolute;inset:0;transform:rotate(90deg);display:flex;flex-direction:column;align-items:center;gap:1px;z-index:2}
+.detail-box{background:var(--surf);border:1px solid var(--border);border-radius:12px;padding:.85rem;margin-bottom:.9rem;display:none;animation:fadeUp .3s ease both}
+.detail-box.on{display:block}
+.db-head{display:flex;align-items:center;gap:8px;margin-bottom:.5rem}
+.db-sym{font-size:24px;line-height:1}
+.db-name{font-size:.9rem;font-weight:500;color:var(--gold)}
+.db-meta{font-size:.7rem;color:var(--sub)}
+.db-desc{font-size:.78rem;color:var(--sub);line-height:1.6}
+.card-list{display:flex;flex-direction:column;gap:3px;max-height:160px;overflow-y:auto;margin-bottom:.9rem}
+.cl-item{display:flex;gap:6px;align-items:center;padding:5px 7px;border-radius:8px;background:var(--surf);border:0.5px solid var(--border);cursor:pointer;font-size:.72rem;transition:border-color .15s}
+.cl-item:hover{border-color:var(--bact)}
+.cl-sym{font-size:14px;width:20px;text-align:center}
+.cl-nm{font-weight:500;color:var(--text)}.cl-pos{color:var(--sub)}.cl-rv{color:var(--sub);font-size:.65rem}
+
+/* 共通ボタン */
+.sub-btn{width:100%;background:transparent;border:1px solid var(--border);border-radius:11px;color:var(--sub);cursor:pointer;font-family:var(--fu);font-size:.73rem;padding:.6rem .85rem;transition:all .2s;margin-bottom:.5rem}
+.sub-btn:hover{border-color:var(--bact);color:var(--gold)}
+.sub-btn.gold{border-color:rgba(212,175,106,.4);color:var(--gold)}
+
+/* 履歴 */
+.hist-list{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.9rem}
+.hist-item{background:var(--surf);border:1px solid var(--border);border-radius:9px;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.6rem;padding:.55rem .8rem;transition:border-color .2s}
 .hist-item:hover{border-color:var(--bact)}
-.hist-t{font-size:.95rem}
-.hist-q{font-size:.76rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hist-time{font-size:.62rem;color:var(--sub);white-space:nowrap}
+.h-t{font-size:.9rem}.h-q{font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.h-time{font-size:.6rem;color:var(--sub);white-space:nowrap}
 
-/* 笏笏 繝翫ン 笏笏 */
-.nav{position:fixed;bottom:0;left:0;right:0;background:var(--surf);
-  border-top:1px solid var(--border);display:flex;justify-content:space-around;
-  padding:.45rem 0 max(.45rem,var(--safe-b));z-index:50}
-.nav a{display:flex;flex-direction:column;align-items:center;gap:2px;
-  color:var(--sub);font-size:.58rem;min-width:44px;min-height:44px;
-  justify-content:center;text-decoration:none;
-  -webkit-tap-highlight-color:transparent;transition:color .2s}
+/* ナビ */
+.nav{position:fixed;bottom:0;left:0;right:0;background:var(--surf);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:.4rem 0 max(.4rem,var(--safe-b));z-index:50}
+.nav a{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--sub);font-size:.56rem;min-width:44px;min-height:44px;justify-content:center;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:color .2s}
 .nav a.on,.nav a:hover{color:var(--gold)}
-.nav-ic{font-size:1.2rem;line-height:1}
-.spacer{height:calc(58px + max(0px,var(--safe-b)))}
+.nav-ic{font-size:1.15rem;line-height:1}
+.spacer{height:calc(56px + max(0px,var(--safe-b)))}
 </style>
 </head>
 <body>
 
 <header>
-  <p class="eyebrow">譚ｱ豢句頃陦・邨ｱ蜷医ワ繝・/p>
-  <h1>豌励・鄒・・逶､</h1>
-  <p class="h-sub">譏薙・繧ｿ繝ｭ繝・ヨ繝ｻ鬚ｨ豌ｴ繝ｻ蝗帶浤 窶・縺ｲ縺ｨ縺､縺ｮ蝠上＞繧貞屁縺､縺ｮ繝ｬ繝ｳ繧ｺ縺ｧ</p>
+  <p class="eyebrow">東洋占術 統合ハブ</p>
+  <h1>気の羅針盤</h1>
+  <p class="h-sub">易・タロット・風水・四柱 — ひとつの問いを四つのレンズで</p>
   <div class="time-row">
-    <span>譌･蟷ｲ謾ｯ <b id="dk">窶・/b></span>
-    <span>荵晄弌 <b id="ky">窶・/b></span>
-    <span>譛亥ｻｺ <b id="yj">窶・/b></span>
+    <span>日干支 <b id="dk">—</b></span>
+    <span>九星 <b id="ky">—</b></span>
+    <span>月建 <b id="yj">—</b></span>
   </div>
 </header>
 
 <main>
-  <textarea id="q" rows="3" placeholder="莉翫・迥ｶ豕√↓縺､縺・※蝠上＞繧堤ｫ九※繧銀ｦ&#10;萓具ｼ夊ｻ｢閨ｷ縺ｮ繧ｿ繧､繝溘Φ繧ｰ縺ｯ縺・▽縺瑚憶縺・〒縺吶°"></textarea>
-
-  <div class="tools">
-    <button class="tool on" data-tool="iching" onclick="pick(this)">
-      <span class="tool-sym">笘ｰ</span>
-      <span class="tool-nm">譴・干蠢・・</span>
-      <span class="tool-ds">螟牙喧縺ｮ豬√ｌ繧定ｪｭ繧</span>
-    </button>
-    <button class="tool" data-tool="tarot" onclick="pick(this)">
-      <span class="tool-sym">ワ</span>
-      <span class="tool-nm">繧ｿ繝ｭ繝・ヨ</span>
-      <span class="tool-ds">雎｡蠕ｴ縺ｧ譛ｬ雉ｪ繧呈丐縺・/span>
-    </button>
-    <button class="tool" data-tool="lopan" onclick="pick(this)">
-      <span class="tool-sym">ｧｭ</span>
-      <span class="tool-nm">鬚ｨ豌ｴ繝ｻ鄒・乢</span>
-      <span class="tool-ds">遨ｺ髢薙・豌励ｒ貂ｬ繧・/span>
-    </button>
-    <button class="tool" data-tool="shichu" onclick="pick(this)">
-      <span class="tool-sym">竢ｳ</span>
-      <span class="tool-nm">蝗帶浤謗ｨ蜻ｽ</span>
-      <span class="tool-ds">譎る俣縺ｮ豌苓ｳｪ繧定ｪｭ繧</span>
-    </button>
+  <!-- タブナビ -->
+  <div class="tab-nav">
+    <button class="tab-btn on" onclick="switchTab('iching',this)">易・占術</button>
+    <button class="tab-btn" onclick="switchTab('tarot',this)">タロット</button>
+    <button class="tab-btn" onclick="switchTab('hist',this)">履歴</button>
   </div>
 
-  <button class="go" id="go" onclick="run()">蜊 縺・/button>
-  <div class="err" id="err"></div>
-  <div class="loading" id="ld"><div class="spin"></div><p class="load-txt" id="lt">蜊ｦ繧堤ｫ九※縺ｦ縺・∪縺吮ｦ</p></div>
-
-  <!-- 莠碑｡後Ξ繝ｼ繝繝ｼ -->
-  <div class="radar-sec" id="rs">
-    <p class="sec-lbl">莠碑｡後ヰ繝ｩ繝ｳ繧ｹ</p>
-    <div class="radar-wrap">
-      <svg id="radar" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
-        <!-- 繧ｰ繝ｪ繝・ラ -->
-        <polygon points="90,18 152,54 152,126 90,162 28,126 28,54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-        <polygon points="90,36 136,63 136,117 90,144 44,117 44,63"  fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-        <polygon points="90,54 120,72 120,108 90,126 60,108 60,72"  fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
-        <!-- 繝・・繧ｿ -->
-        <polygon id="rp" points="90,90 90,90 90,90 90,90 90,90"
-          fill="rgba(212,175,106,0.13)" stroke="var(--gold)" stroke-width="1.5"
-          style="transition:points .85s cubic-bezier(.23,1,.32,1)"/>
-        <circle id="r0" cx="90" cy="90" r="3.5" fill="#4a9e6b"/>
-        <circle id="r1" cx="90" cy="90" r="3.5" fill="#c0392b"/>
-        <circle id="r2" cx="90" cy="90" r="3.5" fill="#c8922a"/>
-        <circle id="r3" cx="90" cy="90" r="3.5" fill="#a8b8c8"/>
-        <circle id="r4" cx="90" cy="90" r="3.5" fill="#2980b9"/>
-        <!-- 繝ｩ繝吶Ν -->
-        <text x="90"  y="11"  text-anchor="middle" font-size="9" fill="#4a9e6b" font-family="serif">譛ｨ</text>
-        <text x="159" y="57"  text-anchor="start"  font-size="9" fill="#c0392b" font-family="serif">轣ｫ</text>
-        <text x="159" y="130" text-anchor="start"  font-size="9" fill="#c8922a" font-family="serif">蝨・/text>
-        <text x="21"  y="130" text-anchor="end"    font-size="9" fill="#a8b8c8" font-family="serif">驥・/text>
-        <text x="21"  y="57"  text-anchor="end"    font-size="9" fill="#2980b9" font-family="serif">豌ｴ</text>
-      </svg>
+  <!-- ═══ 易・占術 パネル ═══ -->
+  <div class="panel on" id="panel-iching">
+    <textarea id="q" rows="3" placeholder="今の状況について問いを立てる…&#10;例：転職のタイミングはいつが良いですか"></textarea>
+    <div class="tools">
+      <button class="tool on" data-tool="iching" onclick="pickTool(this)">
+        <span class="tool-sym">☰</span><span class="tool-nm">梅花心易</span><span class="tool-ds">変化の流れを読む</span>
+      </button>
+      <button class="tool" data-tool="tarot" onclick="pickTool(this)">
+        <span class="tool-sym">🃏</span><span class="tool-nm">タロット</span><span class="tool-ds">象徴で本質を映す</span>
+      </button>
+      <button class="tool" data-tool="lopan" onclick="pickTool(this)">
+        <span class="tool-sym">🧭</span><span class="tool-nm">風水・羅盤</span><span class="tool-ds">空間の気を測る</span>
+      </button>
+      <button class="tool" data-tool="shichu" onclick="pickTool(this)">
+        <span class="tool-sym">⏳</span><span class="tool-nm">四柱推命</span><span class="tool-ds">時間の気質を読む</span>
+      </button>
     </div>
-    <div class="wx-bars" id="wb"></div>
-  </div>
+    <button class="go" id="go-btn" onclick="runFortune()">占 う</button>
+    <div class="err" id="err"></div>
+    <div class="loading" id="ld"><div class="spin"></div><p class="load-txt" id="lt">卦を立てています…</p></div>
 
-  <!-- 邨先棡繧ｫ繝ｼ繝・-->
-  <div class="result" id="rc">
-    <div class="syms"  id="syms"></div>
-    <div class="hex-nm" id="hn"></div>
-    <div class="core"   id="cm"></div>
-    <div id="spread-wrap"></div>
-    <div class="ai-sec" id="ai" style="display:none">
-      <p class="ai-lbl">AI 隱ｭ縺ｿ隗｣縺・/p>
-      <p class="ai-core"   id="ac"></p>
-      <p class="ai-detail" id="ad"></p>
-      <div class="ai-action" id="aa"></div>
-      <button class="res-btn" id="rb" onclick="switchTool()"></button>
+    <div class="sec-card radar-sec" id="rs">
+      <p class="sec-lbl">五行バランス</p>
+      <div class="radar-wrap">
+        <svg id="radar" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+          <polygon points="80,16 134,48 134,112 80,144 26,112 26,48" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <polygon points="80,32 120,56 120,104 80,128 40,104 40,56"  fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <polygon points="80,48 106,64 106,96 80,112 54,96 54,64"   fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+          <polygon id="rp" points="80,80 80,80 80,80 80,80 80,80" fill="rgba(212,175,106,0.12)" stroke="var(--gold)" stroke-width="1.5" style="transition:points .85s cubic-bezier(.23,1,.32,1)"/>
+          <circle id="r0" cx="80" cy="80" r="3" fill="#4a9e6b"/>
+          <circle id="r1" cx="80" cy="80" r="3" fill="#c0392b"/>
+          <circle id="r2" cx="80" cy="80" r="3" fill="#c8922a"/>
+          <circle id="r3" cx="80" cy="80" r="3" fill="#a8b8c8"/>
+          <circle id="r4" cx="80" cy="80" r="3" fill="#2980b9"/>
+          <text x="80" y="10"  text-anchor="middle" font-size="8" fill="#4a9e6b" font-family="serif">木</text>
+          <text x="140" y="51" text-anchor="start"  font-size="8" fill="#c0392b" font-family="serif">火</text>
+          <text x="140" y="116" text-anchor="start" font-size="8" fill="#c8922a" font-family="serif">土</text>
+          <text x="20"  y="116" text-anchor="end"   font-size="8" fill="#a8b8c8" font-family="serif">金</text>
+          <text x="20"  y="51"  text-anchor="end"   font-size="8" fill="#2980b9" font-family="serif">水</text>
+        </svg>
+      </div>
+      <div class="wx-bars" id="wb"></div>
+    </div>
+
+    <div class="sec-card result" id="rc">
+      <div class="syms" id="syms"></div>
+      <div class="hex-nm" id="hn"></div>
+      <div class="core" id="cm"></div>
+      <div id="spread-wrap"></div>
+      <div class="ai-sec" id="ai-sec" style="display:none">
+        <p class="ai-lbl">AI 読み解き</p>
+        <p class="ai-core" id="ac"></p>
+        <p class="ai-detail" id="ad"></p>
+        <div class="ai-action" id="aa"></div>
+        <button class="res-btn" id="rb" onclick="switchToolFromRes()"></button>
+      </div>
     </div>
   </div>
 
-  <!-- 螻･豁ｴ -->
-  <div class="hist-sec" id="hs" style="display:none">
-    <p class="hist-lbl">逶ｴ霑代・蜊譁ｭ</p>
-    <div class="hist-list" id="hl"></div>
+  <!-- ═══ タロット パネル ═══ -->
+  <div class="panel" id="panel-tarot">
+    <div class="tarot-tabs">
+      <button class="tarot-tab on" onclick="switchTarotTab('three',this)">3枚引き</button>
+      <button class="tarot-tab" onclick="switchTarotTab('celtic',this)">ケルト十字</button>
+    </div>
+
+    <!-- 3枚引き -->
+    <div class="tarot-panel on" id="tp-three">
+      <div class="sec-card">
+        <p class="sec-lbl">3枚引き（過去・現在・未来）</p>
+        <div class="deck-area" id="deck3"></div>
+        <div class="btn-row" style="display:flex;gap:.6rem;margin-top:.5rem">
+          <button class="sub-btn" style="margin:0" onclick="shuffleThree()">シャッフル</button>
+          <button class="sub-btn" style="margin:0" id="draw3-btn" onclick="drawThree()" disabled>3枚引く</button>
+        </div>
+      </div>
+      <div class="three-result" id="three-result"></div>
+      <button class="sub-btn gold" id="ask3-btn" onclick="askThree()" style="display:none">この3枚をAIに読み解かせる ↗</button>
+    </div>
+
+    <!-- ケルト十字 -->
+    <div class="tarot-panel" id="tp-celtic">
+      <div class="sec-card">
+        <p class="sec-lbl">ケルト十字（10枚展開）</p>
+        <div class="btn-row" style="display:flex;gap:.6rem;margin-bottom:.8rem">
+          <button class="sub-btn" style="margin:0" onclick="celticShuffle()">シャッフル</button>
+          <button class="sub-btn" style="margin:0" id="celtic-rev-btn" onclick="celticReveal()" disabled>展開する</button>
+          <button class="sub-btn" style="margin:0" onclick="celticReset()">リセット</button>
+        </div>
+        <p style="font-size:.68rem;color:var(--sub);text-align:center;margin-bottom:.8rem" id="celtic-msg">シャッフルして展開してください</p>
+        <div class="cross-wrap"><div class="cross-grid" id="celtic-grid"></div></div>
+      </div>
+      <div class="detail-box" id="celtic-detail"></div>
+      <div class="card-list" id="celtic-list" style="display:none"></div>
+      <button class="sub-btn gold" id="ask-celtic-btn" onclick="askCeltic()" style="display:none">この展開をAIに読み解かせる ↗</button>
+    </div>
+  </div>
+
+  <!-- ═══ 履歴 パネル ═══ -->
+  <div class="panel" id="panel-hist">
+    <div class="sec-card">
+      <p class="sec-lbl">直近の占断</p>
+      <div class="hist-list" id="hl"></div>
+      <button class="sub-btn" onclick="clearHist()">履歴を消去</button>
+    </div>
   </div>
 
   <div class="spacer"></div>
 </main>
 
 <nav class="nav">
-  <a class="on" href="#"><span class="nav-ic">醗</span>蜊縺・/a>
-  <a href="http://localhost:8000/docs" target="_blank"><span class="nav-ic">笞呻ｸ・/span>API</a>
-  <a href="#" onclick="clearAll()"><span class="nav-ic">笨ｨ</span>繝ｪ繧ｻ繝・ヨ</a>
+  <a class="on" href="#" onclick="switchTab('iching',this)"><span class="nav-ic">☰</span>易・占術</a>
+  <a href="#" onclick="switchTab('tarot',this)"><span class="nav-ic">🃏</span>タロット</a>
+  <a href="#" onclick="clearAll()"><span class="nav-ic">✨</span>リセット</a>
 </nav>
 
 <script>
-const API = 'https://fortune-project-api.onrender.com';
-const TM = {
-  iching:{name:'譴・干蠢・・',sym:'笘ｰ',lt:'蜊ｦ繧堤ｫ九※縺ｦ縺・∪縺吮ｦ'},
-  tarot: {name:'繧ｿ繝ｭ繝・ヨ', sym:'ワ',lt:'繧ｫ繝ｼ繝峨ｒ蠑輔＞縺ｦ縺・∪縺吮ｦ'},
-  lopan: {name:'鬚ｨ豌ｴ繝ｻ鄒・乢',sym:'ｧｭ',lt:'譁ｹ菴阪ｒ貂ｬ縺｣縺ｦ縺・∪縺吮ｦ'},
-  shichu:{name:'蝗帶浤謗ｨ蜻ｽ',sym:'竢ｳ',lt:'蜻ｽ逶､繧堤函謌舌＠縺ｦ縺・∪縺吮ｦ'},
-};
-const WX = [
-  {id:'wood', k:'譛ｨ',c:'#4a9e6b'},{id:'fire', k:'轣ｫ',c:'#c0392b'},
-  {id:'earth',k:'蝨・,c:'#c8922a'},{id:'metal',k:'驥・,c:'#a8b8c8'},
-  {id:'water',k:'豌ｴ',c:'#2980b9'},
-];
-const ANCHORS=[[90,18],[152,54],[152,126],[28,126],[28,54]];
+const API='https://fortune-project-api.onrender.com';
+const TM={iching:{name:'梅花心易',sym:'☰',lt:'卦を立てています…'},tarot:{name:'タロット',sym:'🃏',lt:'カードを引いています…'},lopan:{name:'風水・羅盤',sym:'🧭',lt:'方位を測っています…'},shichu:{name:'四柱推命',sym:'⏳',lt:'命盤を生成しています…'}};
+const WX=[{id:'wood',k:'木',c:'#4a9e6b'},{id:'fire',k:'火',c:'#c0392b'},{id:'earth',k:'土',c:'#c8922a'},{id:'metal',k:'金',c:'#a8b8c8'},{id:'water',k:'水',c:'#2980b9'}];
+const ANCHORS=[[80,16],[134,48],[134,112],[26,112],[26,48]];
 const WXK=['wood','fire','earth','metal','water'];
+const TAROT_CARDS=[
+  {n:0,sym:'🌟',name:'愚者',wx:'water'},{n:1,sym:'⚡',name:'魔術師',wx:'fire'},{n:2,sym:'🌙',name:'女教皇',wx:'water'},
+  {n:3,sym:'🌸',name:'女帝',wx:'earth'},{n:4,sym:'👑',name:'皇帝',wx:'metal'},{n:5,sym:'🏛',name:'法王',wx:'earth'},
+  {n:6,sym:'💞',name:'恋人',wx:'fire'},{n:7,sym:'🏆',name:'戦車',wx:'water'},{n:8,sym:'🦁',name:'力',wx:'fire'},
+  {n:9,sym:'🕯',name:'隠者',wx:'earth'},{n:10,sym:'☯',name:'運命の輪',wx:'earth'},{n:11,sym:'⚖',name:'正義',wx:'metal'},
+  {n:12,sym:'🔄',name:'吊られた男',wx:'water'},{n:13,sym:'🥀',name:'死神',wx:'water'},{n:14,sym:'🌈',name:'節制',wx:'fire'},
+  {n:15,sym:'⛓',name:'悪魔',wx:'earth'},{n:16,sym:'🌩',name:'塔',wx:'fire'},{n:17,sym:'✨',name:'星',wx:'water'},
+  {n:18,sym:'🌕',name:'月',wx:'water'},{n:19,sym:'☀',name:'太陽',wx:'fire'},{n:20,sym:'🎺',name:'審判',wx:'fire'},
+  {n:21,sym:'🌍',name:'世界',wx:'earth'},
+];
+const CPOS=[
+  {label:'現在の状況',short:'現在'},
+  {label:'障害・交差',short:'障害'},
+  {label:'根底・潜在意識',short:'根底'},
+  {label:'近い過去',short:'近過去'},
+  {label:'最善の結果',short:'最善'},
+  {label:'近い未来',short:'近未来'},
+  {label:'自己認識',short:'自己'},
+  {label:'外部の影響',short:'外部'},
+  {label:'希望と恐れ',short:'希望/恐'},
+  {label:'最終結果',short:'結果'},
+];
 
-let tool='iching', lastRaw=null, lastRes=null;
+let tool='iching',lastRaw=null,lastRes=null;
 let hist=[];try{hist=JSON.parse(localStorage.getItem('fh_hist')||'[]')}catch(_){}
+let threeDrawn=[],threeShuffled=false,threeDeck=[];
+let celticDrawn=[],celticShuffled=false,celticDeck=[];
 
-// 蛻晄悄蛹・(()=>{
-  const TG=['逕ｲ','荵・,'荳・,'荳・,'謌・,'蟾ｱ','蠎・,'霎・,'螢ｬ','逋ｸ'];
-  const DZ=['蟄・,'荳・,'蟇・,'蜊ｯ','霎ｰ','蟾ｳ','蜊・,'譛ｪ','逕ｳ','驟・,'謌・,'莠･'];
+// ── 時刻 ────────────────────────────────────────
+(()=>{
+  const TG=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+  const DZ=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
   const now=new Date();
   const d=Math.floor((now-new Date(2024,0,1))/86400000);
   document.getElementById('dk').textContent=TG[((d%10)+10)%10]+DZ[((d%12)+12)%12];
   document.getElementById('yj').textContent=DZ[((now.getMonth()+2)%12)];
-  const y=now.getFullYear();
-  document.getElementById('ky').textContent=(((11-(y%9))%9)||9)+'譏・;
-  renderHist();
+  document.getElementById('ky').textContent=(((11-(now.getFullYear()%9))%9)||9)+'星';
 })();
 
-function pick(btn){
+// ── タブ ─────────────────────────────────────────
+function switchTab(id,el){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn,.nav a').forEach(b=>b.classList.remove('on'));
+  document.getElementById('panel-'+id).classList.add('on');
+  if(el)el.classList.add('on');
+  if(id==='hist')renderHist();
+}
+function switchTarotTab(id,btn){
+  document.querySelectorAll('.tarot-panel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tarot-tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('tp-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+
+// ── 易ツール選択 ──────────────────────────────────
+function pickTool(btn){
   document.querySelectorAll('.tool').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   tool=btn.dataset.tool;
 }
 
-async function run(){
+// ── 易 実行 ──────────────────────────────────────
+async function runFortune(){
   const q=document.getElementById('q').value.trim();
-  if(!q){showErr('蝠上＞繧貞・蜉帙＠縺ｦ縺上□縺輔＞縲・);return}
-  setLoad(true); hideErr(); hideRes();
+  if(!q){showErr('問いを入力してください。');return}
+  setLoad(true);hideErr();hideResult();
   document.getElementById('lt').textContent=TM[tool].lt;
   try{
-    const r=await fetch(`${API}/fortune/run`,{method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({tool,question:q})});
-    if(!r.ok)throw new Error(`${r.status}`);
+    const r=await fetch(`${API}/fortune/run`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tool,question:q})});
+    if(!r.ok)throw new Error(r.status);
     const d=await r.json();
     lastRaw=d;
     drawRadar(d.wuxing);
     drawRun(d);
     saveHist({tool,question:q,summary:d.summary,ts:Date.now()});
-    document.getElementById('lt').textContent='AI 縺瑚ｪｭ縺ｿ隗｣縺・※縺・∪縺吮ｦ';
+    document.getElementById('lt').textContent='AI が読み解いています…';
     try{
-      const qr=await fetch(`${API}/fortune/query`,{method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({tool,question:q,raw_result:d.raw_result})});
+      const qr=await fetch(`${API}/fortune/query`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tool,question:q,raw_result:d.raw_result})});
       if(qr.ok)drawAI(await qr.json());
     }catch(_){}
-  }catch(e){showErr(`繧ｨ繝ｩ繝ｼ: ${e.message} 窶・繧ｵ繝ｼ繝舌・縺瑚ｵｷ蜍輔＠縺ｦ縺・ｋ縺狗｢ｺ隱阪＠縺ｦ縺上□縺輔＞縲Ａ)}
+  }catch(e){showErr(`エラー: ${e.message}`)}
   finally{setLoad(false)}
 }
 
-// 笏笏 繝ｬ繝ｼ繝繝ｼ謠冗判 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 function drawRadar(wx){
-  const pts=WXK.map((k,i)=>{
-    const v=wx[k]||0,[ax,ay]=ANCHORS[i];
-    return[90+(ax-90)*v, 90+(ay-90)*v];
-  });
+  const pts=WXK.map((k,i)=>{const v=wx[k]||0,[ax,ay]=ANCHORS[i];return[80+(ax-80)*v,80+(ay-80)*v]});
   document.getElementById('rp').setAttribute('points',pts.map(p=>p.join(',')).join(' '));
-  pts.forEach(([x,y],i)=>{
-    document.getElementById(`r${i}`).setAttribute('cx',x);
-    document.getElementById(`r${i}`).setAttribute('cy',y);
-  });
-  // 繝舌・
-  document.getElementById('wb').innerHTML=WX.map(w=>{
-    const pct=Math.round((wx[w.id]||0)*100);
-    return`<div class="wx-row">
-      <span class="wx-k" style="color:${w.c}">${w.k}</span>
-      <div class="bar-bg"><div class="bar-f" style="background:${w.c};width:${pct}%"></div></div>
-      <span class="wx-v">${pct}%</span>
-    </div>`;
-  }).join('');
+  pts.forEach(([x,y],i)=>{document.getElementById(`r${i}`).setAttribute('cx',x);document.getElementById(`r${i}`).setAttribute('cy',y)});
+  document.getElementById('wb').innerHTML=WX.map(w=>{const pct=Math.round((wx[w.id]||0)*100);return`<div class="wx-row"><span class="wx-k" style="color:${w.c}">${w.k}</span><div class="bar-bg"><div class="bar-f" style="background:${w.c};width:${pct}%"></div></div><span class="wx-v">${pct}%</span></div>`}).join('');
   document.getElementById('rs').classList.add('on');
 }
 
-// 笏笏 蜊陦鍋ｵ先棡謠冗判 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 function drawRun(d){
   document.getElementById('syms').textContent=(d.symbols||[]).join(' ');
   const raw=d.raw_result||{};
   document.getElementById('hn').textContent=raw.hexName||raw.note||'';
-
-  // 繧ｿ繝ｭ繝・ヨ
   if(d.tool==='tarot'&&raw.spread){
     document.getElementById('cm').textContent='';
-    document.getElementById('spread-wrap').innerHTML=
-      `<div class="spread">${raw.spread.map(s=>`
-        <div class="spread-row">
-          <div class="spread-pos">${s.position}</div>
-          <div><span class="spread-card">${s.card}</span>
-            ${s.reversed?'<span class="spread-rev">騾・ｽ咲ｽｮ</span>':''}
-          </div>
-          <div class="spread-kw">${s.keywords}</div>
-        </div>`).join('')}</div>`;
-  }else{
-    document.getElementById('cm').textContent=d.summary||'';
-    document.getElementById('spread-wrap').innerHTML='';
-  }
+    document.getElementById('spread-wrap').innerHTML=`<div class="spread">${raw.spread.map(s=>`<div class="spread-row"><div class="spread-pos">${s.position}</div><div><span class="spread-card">${s.card}</span>${s.reversed?'<span class="spread-rev">逆位置</span>':''}</div><div style="font-size:.66rem;color:var(--sub)">${s.keywords}</div></div>`).join('')}</div>`;
+  }else{document.getElementById('cm').textContent=d.summary||'';document.getElementById('spread-wrap').innerHTML=''}
   document.getElementById('rc').classList.add('on');
 }
 
-// 笏笏 AI謠冗判 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 function drawAI(d){
   document.getElementById('ac').textContent=d.core||'';
   document.getElementById('ad').textContent=d.detail||'';
   document.getElementById('aa').textContent=d.action||'';
-  if(d.resonance?.suggestedTool){
-    lastRes=d.resonance;
-    const m=TM[d.resonance.suggestedTool];
-    const rb=document.getElementById('rb');
-    rb.textContent=`${m?.sym||''} ${d.resonance.reason} 竊・${m?.name}縺ｧ豺ｱ謗倥ｊ縺吶ｋ`;
-    rb.classList.add('on');
-  }
-  document.getElementById('ai').style.display='block';
+  if(d.resonance?.suggestedTool){lastRes=d.resonance;const m=TM[d.resonance.suggestedTool];const rb=document.getElementById('rb');rb.textContent=`${m?.sym||''} ${d.resonance.reason} → ${m?.name}で深掘り`;rb.classList.add('on')}
+  document.getElementById('ai-sec').style.display='block';
 }
 
-function switchTool(){
-  if(!lastRes)return;
-  const b=document.querySelector(`[data-tool="${lastRes.suggestedTool}"]`);
-  if(b)pick(b);
-  document.getElementById('q').focus();
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-// 笏笏 螻･豁ｴ 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
-function saveHist(item){
-  hist.unshift(item);hist=hist.slice(0,10);
-  try{localStorage.setItem('fh_hist',JSON.stringify(hist))}catch(_){}
-  renderHist();
-}
-function renderHist(){
-  if(!hist.length)return;
-  document.getElementById('hs').style.display='block';
-  document.getElementById('hl').innerHTML=hist.slice(0,5).map((h,i)=>{
-    const m=TM[h.tool]||{};
-    const t=new Date(h.ts).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});
-    return`<div class="hist-item" onclick="replay(${i})">
-      <span class="hist-t">${m.sym||'醗'}</span>
-      <span class="hist-q">${h.question}</span>
-      <span class="hist-time">${t}</span>
-    </div>`;
-  }).join('');
-}
-function replay(i){
-  const h=hist[i];
-  document.getElementById('q').value=h.question;
-  const b=document.querySelector(`[data-tool="${h.tool}"]`);
-  if(b)pick(b);
-  run();
-}
-
-// 笏笏 繝ｦ繝ｼ繝・ぅ繝ｪ繝・ぅ 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
-function setLoad(v){
-  document.getElementById('ld').classList.toggle('on',v);
-  document.getElementById('go').disabled=v;
-}
+function switchToolFromRes(){if(!lastRes)return;const b=document.querySelector(`[data-tool="${lastRes.suggestedTool}"]`);if(b)pickTool(b);document.getElementById('q').focus();window.scrollTo({top:0,behavior:'smooth'})}
+function setLoad(v){document.getElementById('ld').classList.toggle('on',v);document.getElementById('go-btn').disabled=v}
 function showErr(m){const e=document.getElementById('err');e.textContent=m;e.classList.add('on')}
 function hideErr(){document.getElementById('err').classList.remove('on')}
-function hideRes(){
-  document.getElementById('rc').classList.remove('on');
-  document.getElementById('rs').classList.remove('on');
-  document.getElementById('ai').style.display='none';
-  document.getElementById('rb').classList.remove('on');
+function hideResult(){document.getElementById('rc').classList.remove('on');document.getElementById('rs').classList.remove('on');document.getElementById('ai-sec').style.display='none';document.getElementById('rb').classList.remove('on')}
+function clearAll(){document.getElementById('q').value='';hideResult();hideErr();lastRaw=null;lastRes=null}
+
+// ── 3枚引き ──────────────────────────────────────
+function buildDeck3(){
+  const a=document.getElementById('deck3');a.innerHTML='';
+  for(let i=0;i<7;i++){
+    const el=document.createElement('div');el.className='t-card';
+    el.style.cssText=`left:50%;top:50%;transform:translateX(-50%) translateY(-50%) translateZ(${i}px)`;
+    el.innerHTML=`<div class="t-card-inner"><div class="t-back"><div class="t-back-pat">${'<span></span>'.repeat(16)}</div></div></div>`;
+    a.appendChild(el);
+  }
 }
-function clearAll(){
-  document.getElementById('q').value='';
-  hideRes();hideErr();
-  lastRaw=null;lastRes=null;
+function shuffleThree(){
+  threeDeck=[...TAROT_CARDS].sort(()=>Math.random()-.5);
+  threeShuffled=true;threeDrawn=[];
+  document.getElementById('three-result').classList.remove('on');
+  document.getElementById('ask3-btn').style.display='none';
+  document.getElementById('draw3-btn').disabled=false;
+  const cards=document.querySelectorAll('#deck3 .t-card');
+  cards.forEach((c,i)=>{setTimeout(()=>{const off=(i-3)*10;c.style.transform=`translateX(calc(-50% + ${off}px)) translateY(-50%)`;},i*40)});
 }
-document.getElementById('q').addEventListener('keydown',e=>{
-  if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();run()}
-});
+function drawThree(){
+  if(!threeShuffled)return;
+  threeDrawn=[];
+  for(let i=0;i<3;i++){const idx=Math.floor(Math.random()*threeDeck.length);threeDrawn.push({...threeDeck[idx],reversed:Math.random()<.3});threeDeck.splice(idx,1)}
+  document.getElementById('draw3-btn').disabled=true;
+  const cards=document.querySelectorAll('#deck3 .t-card');
+  cards.forEach((c,i)=>{if(i<3){setTimeout(()=>{const card=threeDrawn[i];c.classList.add('flipped');c.querySelector('.t-card-inner').innerHTML=`<div class="t-back"><div class="t-back-pat">${'<span></span>'.repeat(16)}</div></div><div class="t-front" style="${card.reversed?'transform:rotateY(180deg) rotate(180deg)':'transform:rotateY(180deg)'}"><span class="t-num">${String(card.n).padStart(2,'0')}</span><span class="t-sym">${card.sym}</span><span class="t-nm">${card.name}</span></div>`;},i*200)}});
+  setTimeout(()=>{
+    const pos=['過去','現在','未来'];
+    const res=document.getElementById('three-result');
+    res.innerHTML=threeDrawn.map((c,i)=>`<div class="three-card"><div class="three-pos">${pos[i]}</div><div class="three-face${c.reversed?' rev':''}" style="animation-delay:${i*.15}s"><span class="t-n">${String(c.n).padStart(2,'0')}</span><span class="t-s">${c.sym}</span><span class="t-l">${c.name}</span></div><div class="three-revlbl">${c.reversed?'逆位置':''}</div></div>`).join('');
+    res.classList.add('on');
+    document.getElementById('ask3-btn').style.display='block';
+  },800);
+}
+function askThree(){
+  const pos=['過去','現在','未来'];
+  const desc=threeDrawn.map((c,i)=>`${pos[i]}:${c.name}${c.reversed?'(逆)':''}`).join('、');
+  sendChatPrompt(`タロット3枚引き：${desc}。読み解いてください。`);
+}
+buildDeck3();
+
+// ── ケルト十字 ────────────────────────────────────
+const CGRID=[
+  {col:2,row:2,pi:2},{col:4,row:1,pi:9},{col:null,row:null,pi:null},
+  {col:1,row:3,pi:4},{col:null,row:null,pi:null},{col:3,row:3,pi:5},
+  {col:null,row:null,pi:null},{col:2,row:4,pi:3},{col:4,row:2,pi:8},
+  {col:4,row:3,pi:6},{col:4,row:4,pi:7},{col:4,row:5,pi:null},
+];
+function celticReset(){
+  celticShuffled=false;celticDrawn=[];celticDeck=[...TAROT_CARDS];
+  document.getElementById('celtic-rev-btn').disabled=true;
+  document.getElementById('celtic-msg').textContent='シャッフルして展開してください';
+  document.getElementById('celtic-detail').classList.remove('on');
+  document.getElementById('celtic-list').style.display='none';
+  document.getElementById('ask-celtic-btn').style.display='none';
+  buildCelticGrid();
+}
+function buildCelticGrid(){
+  const g=document.getElementById('celtic-grid');g.innerHTML='';
+  const makeCell=(pi,isCross=false,isOver=false)=>{
+    const div=document.createElement('div');div.className='cc';
+    div.innerHTML=`<div class="cc-face" id="${isCross?'cface-1':isOver?'cface-2':`cface-${pi}`}"></div>${pi?`<span class="cc-pn">${pi}</span><span class="cc-pos">${CPOS[pi-1]?.short||''}</span>`:''}`;
+    return div;
+  };
+  for(let r=1;r<=5;r++){
+    for(let c=1;c<=4;c++){
+      const pi=(r===1&&c===2)?3:(r===2&&c===2)?null:(r===3&&c===1)?5:(r===3&&c===2)?null:(r===3&&c===3)?6:(r===4&&c===2)?4:(r===5&&c===2)?null:
+                (r===1&&c===4)?10:(r===2&&c===4)?9:(r===3&&c===4)?8:(r===4&&c===4)?7:(r===5&&c===4)?null:null;
+      if(r===3&&c===2){
+        const pair=document.createElement('div');pair.className='cc';pair.style.cssText='grid-column:2;grid-row:3;position:relative';
+        pair.innerHTML=`<div class="cc-face" id="cface-1"></div><span class="cc-pn">1</span><span class="cc-pos">${CPOS[0].short}</span><div style="position:absolute;inset:0;transform:rotate(90deg);display:flex;flex-direction:column;align-items:center;gap:1px;z-index:2;pointer-events:none"><div class="cc-face cross-c" id="cface-2" style="pointer-events:auto"></div><span class="cc-pn" style="font-size:6px">2</span></div>`;
+        g.appendChild(pair);
+      }else if(pi){
+        const d=makeCell(pi);d.style.cssText=`grid-column:${c};grid-row:${r}`;g.appendChild(d);
+      }else{
+        const empty=document.createElement('div');empty.style.cssText=`grid-column:${c};grid-row:${r}`;g.appendChild(empty);
+      }
+    }
+  }
+}
+function celticShuffle(){
+  celticDeck=[...TAROT_CARDS].sort(()=>Math.random()-.5);
+  celticShuffled=true;celticDrawn=[];
+  document.getElementById('celtic-rev-btn').disabled=false;
+  document.getElementById('celtic-msg').textContent='シャッフル完了。展開してください。';
+  document.getElementById('celtic-detail').classList.remove('on');
+  document.getElementById('celtic-list').style.display='none';
+  document.getElementById('ask-celtic-btn').style.display='none';
+  buildCelticGrid();
+}
+function celticReveal(){
+  if(!celticShuffled)return;
+  celticDrawn=celticDeck.slice(0,10).map(c=>({...c,reversed:Math.random()<.3}));
+  document.getElementById('celtic-rev-btn').disabled=true;
+  document.getElementById('celtic-msg').textContent='カードをタップして詳細確認';
+  const order=[1,2,3,4,5,6,7,8,9,10];
+  order.forEach((pi,i)=>{
+    setTimeout(()=>{
+      const card=celticDrawn[pi-1];
+      const face=document.getElementById(`cface-${pi}`);
+      if(!face)return;
+      face.className='cc-face revealed'+(card.reversed?' rev-c':'')+(pi===2?' cross-c':'');
+      face.innerHTML=`<span class="cc-n">${String(card.n).padStart(2,'0')}</span><span class="cc-s">${card.sym}</span><span class="cc-l">${card.name}</span>`;
+      face.onclick=()=>showCelticDetail(pi-1);
+    },i*120);
+  });
+  setTimeout(()=>{
+    renderCelticList();
+    document.getElementById('celtic-list').style.display='flex';
+    document.getElementById('ask-celtic-btn').style.display='block';
+  },10*120+400);
+}
+function showCelticDetail(i){
+  const card=celticDrawn[i];const pos=CPOS[i];
+  const det=document.getElementById('celtic-detail');
+  det.innerHTML=`<div class="db-head"><span class="db-sym">${card.sym}</span><div><div class="db-name">${card.name}</div><div class="db-meta">${i+1}枚目 — ${pos.label} / ${card.reversed?'逆位置':'正位置'}</div></div></div><div class="db-desc">${pos.label}のポジションはあなたの${pos.short}を示します。</div>`;
+  det.classList.add('on');
+}
+function renderCelticList(){
+  document.getElementById('celtic-list').innerHTML=celticDrawn.map((c,i)=>`<div class="cl-item" onclick="showCelticDetail(${i})"><span class="cl-sym">${c.sym}</span><div><div class="cl-nm">${c.name} <span class="cl-rv">${c.reversed?'逆':''}</span></div><div class="cl-pos">${i+1}. ${CPOS[i].label}</div></div></div>`).join('');
+}
+function askCeltic(){
+  const desc=celticDrawn.map((c,i)=>`${i+1}.${CPOS[i].short}:${c.name}${c.reversed?'(逆)':''}`).join('、');
+  sendChatPrompt(`タロット ケルト十字：${desc}。10枚を総合的に読み解いてください。`);
+}
+celticReset();
+
+// ── 履歴 ─────────────────────────────────────────
+function saveHist(item){hist.unshift(item);hist=hist.slice(0,20);try{localStorage.setItem('fh_hist',JSON.stringify(hist))}catch(_){}}
+function renderHist(){
+  const el=document.getElementById('hl');
+  if(!hist.length){el.innerHTML='<p style="font-size:.78rem;color:var(--sub);text-align:center">まだ占断がありません</p>';return}
+  el.innerHTML=hist.slice(0,10).map((h,i)=>{const m=TM[h.tool]||{};const t=new Date(h.ts).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});return`<div class="hist-item" onclick="replayHist(${i})"><span class="h-t">${m.sym||'🔮'}</span><span class="h-q">${h.question}</span><span class="h-time">${t}</span></div>`}).join('');
+}
+function replayHist(i){const h=hist[i];document.getElementById('q').value=h.question;const b=document.querySelector(`[data-tool="${h.tool}"]`);if(b)pickTool(b);switchTab('iching');runFortune()}
+function clearHist(){hist=[];try{localStorage.removeItem('fh_hist')}catch(_){}renderHist()}
+
+// チャット送信
+function sendChatPrompt(text){if(typeof sendPrompt==='function'){sendPrompt(text)}else{alert('AI読み解き: '+text)}}
+
+document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();runFortune()}});
 </script>
 </body>
 </html>
-
