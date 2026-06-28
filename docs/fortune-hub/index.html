@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>fortune-hub — 気の羅針盤</title>
+<title>fortune-hub 窶・豌励・鄒・・逶､</title>
 <style>
 :root{
   --bg:#0a0a0f;--surf:#12121a;--card:#1a1a28;
@@ -19,7 +19,7 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--fu);min-height:100dvh;overscroll-behavior:none;display:flex;flex-direction:column;align-items:center}
 
-/* ── HEADER ── */
+/* 笏笏 HEADER 笏笏 */
 header{width:100%;max-width:480px;padding:2rem 1.4rem .6rem;text-align:center}
 .eyebrow{font-size:.62rem;letter-spacing:.22em;color:var(--sub);text-transform:uppercase;margin-bottom:.4rem}
 h1{font-family:var(--fk);font-size:1.65rem;color:var(--gold);letter-spacing:.07em;font-weight:400}
@@ -29,19 +29,19 @@ h1{font-family:var(--fk);font-size:1.65rem;color:var(--gold);letter-spacing:.07e
 
 main{width:100%;max-width:480px;padding:0 1.1rem;flex:1}
 
-/* ── タブナビ ── */
+/* 笏笏 繧ｿ繝悶リ繝・笏笏 */
 .tab-nav{display:flex;gap:.5rem;margin-bottom:1rem;background:var(--surf);border-radius:12px;padding:4px}
 .tab-btn{flex:1;padding:.55rem .4rem;border:none;border-radius:9px;background:transparent;color:var(--sub);cursor:pointer;font-family:var(--fu);font-size:.72rem;font-weight:500;transition:all .2s;-webkit-tap-highlight-color:transparent}
 .tab-btn.on{background:var(--card);color:var(--gold);box-shadow:0 1px 4px rgba(0,0,0,.4)}
 
-/* ── パネル ── */
+/* 笏笏 繝代ロ繝ｫ 笏笏 */
 .panel{display:none}.panel.on{display:block}
 
-/* ── 共通カード ── */
+/* 笏笏 蜈ｱ騾壹き繝ｼ繝・笏笏 */
 .sec-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.2rem 1rem;margin-bottom:1rem}
 .sec-lbl{font-size:.6rem;letter-spacing:.18em;color:var(--sub);text-transform:uppercase;margin-bottom:.8rem;text-align:center}
 
-/* ── 易 パネル ── */
+/* 笏笏 譏・繝代ロ繝ｫ 笏笏 */
 textarea{width:100%;background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--text);font-family:var(--fk);font-size:.9rem;line-height:1.75;padding:.85rem .95rem;resize:none;outline:none;transition:border-color .25s;min-height:72px;margin-bottom:.9rem}
 textarea::placeholder{color:var(--muted)}
 textarea:focus{border-color:var(--bact)}
@@ -59,7 +59,7 @@ textarea:focus{border-color:var(--bact)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .load-txt{font-family:var(--fk);font-size:.8rem;color:var(--sub)}
 
-/* レーダー */
+/* 繝ｬ繝ｼ繝繝ｼ */
 .radar-sec{display:none}.radar-sec.on{display:block}
 .radar-wrap{display:flex;justify-content:center;margin-bottom:.9rem}
 svg#radar{width:160px;height:160px;overflow:visible}
@@ -70,7 +70,7 @@ svg#radar{width:160px;height:160px;overflow:visible}
 .bar-f{height:100%;border-radius:99px;transition:width .85s cubic-bezier(.23,1,.32,1);width:0}
 .wx-v{font-size:.65rem;color:var(--sub);text-align:right}
 
-/* 結果 */
+/* 邨先棡 */
 .result{display:none;animation:fadeUp .5s cubic-bezier(.23,1,.32,1) both}
 .result.on{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
@@ -91,13 +91,13 @@ svg#radar{width:160px;height:160px;overflow:visible}
 .res-btn{width:100%;background:transparent;border:1px solid var(--border);border-radius:11px;color:var(--sub);cursor:pointer;font-family:var(--fu);font-size:.73rem;padding:.55rem .85rem;text-align:left;margin-top:.65rem;transition:border-color .2s,color .2s;display:none}
 .res-btn.on{display:block}.res-btn:hover{border-color:var(--bact);color:var(--gold)}
 
-/* ── タロット パネル ── */
+/* 笏笏 繧ｿ繝ｭ繝・ヨ 繝代ロ繝ｫ 笏笏 */
 .tarot-tabs{display:flex;gap:.5rem;margin-bottom:1rem}
 .tarot-tab{flex:1;padding:.5rem;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--sub);cursor:pointer;font-size:.72rem;font-weight:500;transition:all .2s;-webkit-tap-highlight-color:transparent}
 .tarot-tab.on{border-color:var(--gold);background:var(--goldd);color:var(--gold)}
 .tarot-panel{display:none}.tarot-panel.on{display:block}
 
-/* シャッフルUI */
+/* 繧ｷ繝｣繝・ヵ繝ｫUI */
 .deck-area{position:relative;width:100%;height:130px;display:flex;align-items:center;justify-content:center;margin-bottom:.9rem}
 .t-card{position:absolute;width:60px;height:94px;border-radius:8px;cursor:pointer;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.23,1,.32,1),left .5s cubic-bezier(.23,1,.32,1)}
 .t-card-inner{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.23,1,.32,1)}
@@ -111,7 +111,7 @@ svg#radar{width:160px;height:160px;overflow:visible}
 .t-sym{font-size:22px;line-height:1}
 .t-nm{font-size:8px;font-weight:500;color:var(--text);text-align:center;line-height:1.3}
 
-/* 3枚スプレッド */
+/* 3譫壹せ繝励Ξ繝・ラ */
 .three-result{display:none}.three-result.on{display:flex;gap:.5rem;justify-content:center;margin-bottom:.9rem}
 .three-card{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1;max-width:96px}
 .three-pos{font-size:.6rem;color:var(--sub);text-align:center}
@@ -122,7 +122,7 @@ svg#radar{width:160px;height:160px;overflow:visible}
 .t-s{font-size:22px;line-height:1}
 .t-l{font-size:8px;font-weight:500;color:var(--text);text-align:center;line-height:1.3}
 
-/* ケルト十字 */
+/* 繧ｱ繝ｫ繝亥香蟄・*/
 .cross-wrap{position:relative;width:100%;margin-bottom:.9rem}
 .cross-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(5,56px);gap:3px}
 .cc{display:flex;flex-direction:column;align-items:center;gap:1px}
@@ -153,18 +153,18 @@ svg#radar{width:160px;height:160px;overflow:visible}
 .cl-sym{font-size:14px;width:20px;text-align:center}
 .cl-nm{font-weight:500;color:var(--text)}.cl-pos{color:var(--sub)}.cl-rv{color:var(--sub);font-size:.65rem}
 
-/* 共通ボタン */
+/* 蜈ｱ騾壹・繧ｿ繝ｳ */
 .sub-btn{width:100%;background:transparent;border:1px solid var(--border);border-radius:11px;color:var(--sub);cursor:pointer;font-family:var(--fu);font-size:.73rem;padding:.6rem .85rem;transition:all .2s;margin-bottom:.5rem}
 .sub-btn:hover{border-color:var(--bact);color:var(--gold)}
 .sub-btn.gold{border-color:rgba(212,175,106,.4);color:var(--gold)}
 
-/* 履歴 */
+/* 螻･豁ｴ */
 .hist-list{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.9rem}
 .hist-item{background:var(--surf);border:1px solid var(--border);border-radius:9px;cursor:pointer;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:.6rem;padding:.55rem .8rem;transition:border-color .2s}
 .hist-item:hover{border-color:var(--bact)}
 .h-t{font-size:.9rem}.h-q{font-size:.74rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.h-time{font-size:.6rem;color:var(--sub);white-space:nowrap}
 
-/* ナビ */
+/* 繝翫ン */
 .nav{position:fixed;bottom:0;left:0;right:0;background:var(--surf);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:.4rem 0 max(.4rem,var(--safe-b));z-index:50}
 .nav a{display:flex;flex-direction:column;align-items:center;gap:2px;color:var(--sub);font-size:.56rem;min-width:44px;min-height:44px;justify-content:center;text-decoration:none;-webkit-tap-highlight-color:transparent;transition:color .2s}
 .nav a.on,.nav a:hover{color:var(--gold)}
@@ -175,47 +175,47 @@ svg#radar{width:160px;height:160px;overflow:visible}
 <body>
 
 <header>
-  <p class="eyebrow">東洋占術 統合ハブ</p>
-  <h1>気の羅針盤</h1>
-  <p class="h-sub">易・タロット・風水・四柱 — ひとつの問いを四つのレンズで</p>
+  <p class="eyebrow">譚ｱ豢句頃陦・邨ｱ蜷医ワ繝・/p>
+  <h1>豌励・鄒・・逶､</h1>
+  <p class="h-sub">譏薙・繧ｿ繝ｭ繝・ヨ繝ｻ鬚ｨ豌ｴ繝ｻ蝗帶浤 窶・縺ｲ縺ｨ縺､縺ｮ蝠上＞繧貞屁縺､縺ｮ繝ｬ繝ｳ繧ｺ縺ｧ</p>
   <div class="time-row">
-    <span>日干支 <b id="dk">—</b></span>
-    <span>九星 <b id="ky">—</b></span>
-    <span>月建 <b id="yj">—</b></span>
+    <span>譌･蟷ｲ謾ｯ <b id="dk">窶・/b></span>
+    <span>荵晄弌 <b id="ky">窶・/b></span>
+    <span>譛亥ｻｺ <b id="yj">窶・/b></span>
   </div>
 </header>
 
 <main>
-  <!-- タブナビ -->
+  <!-- 繧ｿ繝悶リ繝・-->
   <div class="tab-nav">
-    <button class="tab-btn on" onclick="switchTab('iching',this)">易・占術</button>
-    <button class="tab-btn" onclick="switchTab('tarot',this)">タロット</button>
-    <button class="tab-btn" onclick="switchTab('hist',this)">履歴</button>
+    <button class="tab-btn on" onclick="switchTab('iching',this)">譏薙・蜊陦・/button>
+    <button class="tab-btn" onclick="switchTab('tarot',this)">繧ｿ繝ｭ繝・ヨ</button>
+    <button class="tab-btn" onclick="switchTab('hist',this)">螻･豁ｴ</button>
   </div>
 
-  <!-- ═══ 易・占術 パネル ═══ -->
+  <!-- 笊絶武笊・譏薙・蜊陦・繝代ロ繝ｫ 笊絶武笊・-->
   <div class="panel on" id="panel-iching">
-    <textarea id="q" rows="3" placeholder="今の状況について問いを立てる…&#10;例：転職のタイミングはいつが良いですか"></textarea>
+    <textarea id="q" rows="3" placeholder="莉翫・迥ｶ豕√↓縺､縺・※蝠上＞繧堤ｫ九※繧銀ｦ&#10;萓具ｼ夊ｻ｢閨ｷ縺ｮ繧ｿ繧､繝溘Φ繧ｰ縺ｯ縺・▽縺瑚憶縺・〒縺吶°"></textarea>
     <div class="tools">
       <button class="tool on" data-tool="iching" onclick="pickTool(this)">
-        <span class="tool-sym">☰</span><span class="tool-nm">梅花心易</span><span class="tool-ds">変化の流れを読む</span>
+        <span class="tool-sym">笘ｰ</span><span class="tool-nm">譴・干蠢・・</span><span class="tool-ds">螟牙喧縺ｮ豬√ｌ繧定ｪｭ繧</span>
       </button>
       <button class="tool" data-tool="tarot" onclick="pickTool(this)">
-        <span class="tool-sym">🃏</span><span class="tool-nm">タロット</span><span class="tool-ds">象徴で本質を映す</span>
+        <span class="tool-sym">ワ</span><span class="tool-nm">繧ｿ繝ｭ繝・ヨ</span><span class="tool-ds">雎｡蠕ｴ縺ｧ譛ｬ雉ｪ繧呈丐縺・/span>
       </button>
       <button class="tool" data-tool="lopan" onclick="pickTool(this)">
-        <span class="tool-sym">🧭</span><span class="tool-nm">風水・羅盤</span><span class="tool-ds">空間の気を測る</span>
+        <span class="tool-sym">ｧｭ</span><span class="tool-nm">鬚ｨ豌ｴ繝ｻ鄒・乢</span><span class="tool-ds">遨ｺ髢薙・豌励ｒ貂ｬ繧・/span>
       </button>
       <button class="tool" data-tool="shichu" onclick="pickTool(this)">
-        <span class="tool-sym">⏳</span><span class="tool-nm">四柱推命</span><span class="tool-ds">時間の気質を読む</span>
+        <span class="tool-sym">竢ｳ</span><span class="tool-nm">蝗帶浤謗ｨ蜻ｽ</span><span class="tool-ds">譎る俣縺ｮ豌苓ｳｪ繧定ｪｭ繧</span>
       </button>
     </div>
-    <button class="go" id="go-btn" onclick="runFortune()">占 う</button>
+    <button class="go" id="go-btn" onclick="runFortune()">蜊 縺・/button>
     <div class="err" id="err"></div>
-    <div class="loading" id="ld"><div class="spin"></div><p class="load-txt" id="lt">卦を立てています…</p></div>
+    <div class="loading" id="ld"><div class="spin"></div><p class="load-txt" id="lt">蜊ｦ繧堤ｫ九※縺ｦ縺・∪縺吮ｦ</p></div>
 
     <div class="sec-card radar-sec" id="rs">
-      <p class="sec-lbl">五行バランス</p>
+      <p class="sec-lbl">莠碑｡後ヰ繝ｩ繝ｳ繧ｹ</p>
       <div class="radar-wrap">
         <svg id="radar" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
           <polygon points="80,16 134,48 134,112 80,144 26,112 26,48" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
@@ -227,11 +227,11 @@ svg#radar{width:160px;height:160px;overflow:visible}
           <circle id="r2" cx="80" cy="80" r="3" fill="#c8922a"/>
           <circle id="r3" cx="80" cy="80" r="3" fill="#a8b8c8"/>
           <circle id="r4" cx="80" cy="80" r="3" fill="#2980b9"/>
-          <text x="80" y="10"  text-anchor="middle" font-size="8" fill="#4a9e6b" font-family="serif">木</text>
-          <text x="140" y="51" text-anchor="start"  font-size="8" fill="#c0392b" font-family="serif">火</text>
-          <text x="140" y="116" text-anchor="start" font-size="8" fill="#c8922a" font-family="serif">土</text>
-          <text x="20"  y="116" text-anchor="end"   font-size="8" fill="#a8b8c8" font-family="serif">金</text>
-          <text x="20"  y="51"  text-anchor="end"   font-size="8" fill="#2980b9" font-family="serif">水</text>
+          <text x="80" y="10"  text-anchor="middle" font-size="8" fill="#4a9e6b" font-family="serif">譛ｨ</text>
+          <text x="140" y="51" text-anchor="start"  font-size="8" fill="#c0392b" font-family="serif">轣ｫ</text>
+          <text x="140" y="116" text-anchor="start" font-size="8" fill="#c8922a" font-family="serif">蝨・/text>
+          <text x="20"  y="116" text-anchor="end"   font-size="8" fill="#a8b8c8" font-family="serif">驥・/text>
+          <text x="20"  y="51"  text-anchor="end"   font-size="8" fill="#2980b9" font-family="serif">豌ｴ</text>
         </svg>
       </div>
       <div class="wx-bars" id="wb"></div>
@@ -243,7 +243,7 @@ svg#radar{width:160px;height:160px;overflow:visible}
       <div class="core" id="cm"></div>
       <div id="spread-wrap"></div>
       <div class="ai-sec" id="ai-sec" style="display:none">
-        <p class="ai-lbl">AI 読み解き</p>
+        <p class="ai-lbl">AI 隱ｭ縺ｿ隗｣縺・/p>
         <p class="ai-core" id="ac"></p>
         <p class="ai-detail" id="ad"></p>
         <div class="ai-action" id="aa"></div>
@@ -252,51 +252,51 @@ svg#radar{width:160px;height:160px;overflow:visible}
     </div>
   </div>
 
-  <!-- ═══ タロット パネル ═══ -->
+  <!-- 笊絶武笊・繧ｿ繝ｭ繝・ヨ 繝代ロ繝ｫ 笊絶武笊・-->
   <div class="panel" id="panel-tarot">
     <div class="tarot-tabs">
-      <button class="tarot-tab on" onclick="switchTarotTab('three',this)">3枚引き</button>
-      <button class="tarot-tab" onclick="switchTarotTab('celtic',this)">ケルト十字</button>
+      <button class="tarot-tab on" onclick="switchTarotTab('three',this)">3譫壼ｼ輔″</button>
+      <button class="tarot-tab" onclick="switchTarotTab('celtic',this)">繧ｱ繝ｫ繝亥香蟄・/button>
     </div>
 
-    <!-- 3枚引き -->
+    <!-- 3譫壼ｼ輔″ -->
     <div class="tarot-panel on" id="tp-three">
       <div class="sec-card">
-        <p class="sec-lbl">3枚引き（過去・現在・未来）</p>
+        <p class="sec-lbl">3譫壼ｼ輔″・磯℃蜴ｻ繝ｻ迴ｾ蝨ｨ繝ｻ譛ｪ譚･・・/p>
         <div class="deck-area" id="deck3"></div>
         <div class="btn-row" style="display:flex;gap:.6rem;margin-top:.5rem">
-          <button class="sub-btn" style="margin:0" onclick="shuffleThree()">シャッフル</button>
-          <button class="sub-btn" style="margin:0" id="draw3-btn" onclick="drawThree()" disabled>3枚引く</button>
+          <button class="sub-btn" style="margin:0" onclick="shuffleThree()">繧ｷ繝｣繝・ヵ繝ｫ</button>
+          <button class="sub-btn" style="margin:0" id="draw3-btn" onclick="drawThree()" disabled>3譫壼ｼ輔￥</button>
         </div>
       </div>
       <div class="three-result" id="three-result"></div>
-      <button class="sub-btn gold" id="ask3-btn" onclick="askThree()" style="display:none">この3枚をAIに読み解かせる ↗</button>
+      <button class="sub-btn gold" id="ask3-btn" onclick="askThree()" style="display:none">縺薙・3譫壹ｒAI縺ｫ隱ｭ縺ｿ隗｣縺九○繧・竊・/button>
     </div>
 
-    <!-- ケルト十字 -->
+    <!-- 繧ｱ繝ｫ繝亥香蟄・-->
     <div class="tarot-panel" id="tp-celtic">
       <div class="sec-card">
-        <p class="sec-lbl">ケルト十字（10枚展開）</p>
+        <p class="sec-lbl">繧ｱ繝ｫ繝亥香蟄暦ｼ・0譫壼ｱ暮幕・・/p>
         <div class="btn-row" style="display:flex;gap:.6rem;margin-bottom:.8rem">
-          <button class="sub-btn" style="margin:0" onclick="celticShuffle()">シャッフル</button>
-          <button class="sub-btn" style="margin:0" id="celtic-rev-btn" onclick="celticReveal()" disabled>展開する</button>
-          <button class="sub-btn" style="margin:0" onclick="celticReset()">リセット</button>
+          <button class="sub-btn" style="margin:0" onclick="celticShuffle()">繧ｷ繝｣繝・ヵ繝ｫ</button>
+          <button class="sub-btn" style="margin:0" id="celtic-rev-btn" onclick="celticReveal()" disabled>螻暮幕縺吶ｋ</button>
+          <button class="sub-btn" style="margin:0" onclick="celticReset()">繝ｪ繧ｻ繝・ヨ</button>
         </div>
-        <p style="font-size:.68rem;color:var(--sub);text-align:center;margin-bottom:.8rem" id="celtic-msg">シャッフルして展開してください</p>
+        <p style="font-size:.68rem;color:var(--sub);text-align:center;margin-bottom:.8rem" id="celtic-msg">繧ｷ繝｣繝・ヵ繝ｫ縺励※螻暮幕縺励※縺上□縺輔＞</p>
         <div class="cross-wrap"><div class="cross-grid" id="celtic-grid"></div></div>
       </div>
       <div class="detail-box" id="celtic-detail"></div>
       <div class="card-list" id="celtic-list" style="display:none"></div>
-      <button class="sub-btn gold" id="ask-celtic-btn" onclick="askCeltic()" style="display:none">この展開をAIに読み解かせる ↗</button>
+      <button class="sub-btn gold" id="ask-celtic-btn" onclick="askCeltic()" style="display:none">縺薙・螻暮幕繧但I縺ｫ隱ｭ縺ｿ隗｣縺九○繧・竊・/button>
     </div>
   </div>
 
-  <!-- ═══ 履歴 パネル ═══ -->
+  <!-- 笊絶武笊・螻･豁ｴ 繝代ロ繝ｫ 笊絶武笊・-->
   <div class="panel" id="panel-hist">
     <div class="sec-card">
-      <p class="sec-lbl">直近の占断</p>
+      <p class="sec-lbl">逶ｴ霑代・蜊譁ｭ</p>
       <div class="hist-list" id="hl"></div>
-      <button class="sub-btn" onclick="clearHist()">履歴を消去</button>
+      <button class="sub-btn" onclick="clearHist()">螻･豁ｴ繧呈ｶ亥悉</button>
     </div>
   </div>
 
@@ -304,38 +304,38 @@ svg#radar{width:160px;height:160px;overflow:visible}
 </main>
 
 <nav class="nav">
-  <a class="on" href="#" onclick="switchTab('iching',this)"><span class="nav-ic">☰</span>易・占術</a>
-  <a href="#" onclick="switchTab('tarot',this)"><span class="nav-ic">🃏</span>タロット</a>
-  <a href="#" onclick="clearAll()"><span class="nav-ic">✨</span>リセット</a>
+  <a class="on" href="#" onclick="switchTab('iching',this)"><span class="nav-ic">笘ｰ</span>譏薙・蜊陦・/a>
+  <a href="#" onclick="switchTab('tarot',this)"><span class="nav-ic">ワ</span>繧ｿ繝ｭ繝・ヨ</a>
+  <a href="#" onclick="clearAll()"><span class="nav-ic">笨ｨ</span>繝ｪ繧ｻ繝・ヨ</a>
 </nav>
 
-<script>
+<script src="tarot-cards.js"></script><script>
 const API='https://fortune-project-api.onrender.com';
-const TM={iching:{name:'梅花心易',sym:'☰',lt:'卦を立てています…'},tarot:{name:'タロット',sym:'🃏',lt:'カードを引いています…'},lopan:{name:'風水・羅盤',sym:'🧭',lt:'方位を測っています…'},shichu:{name:'四柱推命',sym:'⏳',lt:'命盤を生成しています…'}};
-const WX=[{id:'wood',k:'木',c:'#4a9e6b'},{id:'fire',k:'火',c:'#c0392b'},{id:'earth',k:'土',c:'#c8922a'},{id:'metal',k:'金',c:'#a8b8c8'},{id:'water',k:'水',c:'#2980b9'}];
+const TM={iching:{name:'譴・干蠢・・',sym:'笘ｰ',lt:'蜊ｦ繧堤ｫ九※縺ｦ縺・∪縺吮ｦ'},tarot:{name:'繧ｿ繝ｭ繝・ヨ',sym:'ワ',lt:'繧ｫ繝ｼ繝峨ｒ蠑輔＞縺ｦ縺・∪縺吮ｦ'},lopan:{name:'鬚ｨ豌ｴ繝ｻ鄒・乢',sym:'ｧｭ',lt:'譁ｹ菴阪ｒ貂ｬ縺｣縺ｦ縺・∪縺吮ｦ'},shichu:{name:'蝗帶浤謗ｨ蜻ｽ',sym:'竢ｳ',lt:'蜻ｽ逶､繧堤函謌舌＠縺ｦ縺・∪縺吮ｦ'}};
+const WX=[{id:'wood',k:'譛ｨ',c:'#4a9e6b'},{id:'fire',k:'轣ｫ',c:'#c0392b'},{id:'earth',k:'蝨・,c:'#c8922a'},{id:'metal',k:'驥・,c:'#a8b8c8'},{id:'water',k:'豌ｴ',c:'#2980b9'}];
 const ANCHORS=[[80,16],[134,48],[134,112],[26,112],[26,48]];
 const WXK=['wood','fire','earth','metal','water'];
 const TAROT_CARDS=[
-  {n:0,sym:'🌟',name:'愚者',wx:'water'},{n:1,sym:'⚡',name:'魔術師',wx:'fire'},{n:2,sym:'🌙',name:'女教皇',wx:'water'},
-  {n:3,sym:'🌸',name:'女帝',wx:'earth'},{n:4,sym:'👑',name:'皇帝',wx:'metal'},{n:5,sym:'🏛',name:'法王',wx:'earth'},
-  {n:6,sym:'💞',name:'恋人',wx:'fire'},{n:7,sym:'🏆',name:'戦車',wx:'water'},{n:8,sym:'🦁',name:'力',wx:'fire'},
-  {n:9,sym:'🕯',name:'隠者',wx:'earth'},{n:10,sym:'☯',name:'運命の輪',wx:'earth'},{n:11,sym:'⚖',name:'正義',wx:'metal'},
-  {n:12,sym:'🔄',name:'吊られた男',wx:'water'},{n:13,sym:'🥀',name:'死神',wx:'water'},{n:14,sym:'🌈',name:'節制',wx:'fire'},
-  {n:15,sym:'⛓',name:'悪魔',wx:'earth'},{n:16,sym:'🌩',name:'塔',wx:'fire'},{n:17,sym:'✨',name:'星',wx:'water'},
-  {n:18,sym:'🌕',name:'月',wx:'water'},{n:19,sym:'☀',name:'太陽',wx:'fire'},{n:20,sym:'🎺',name:'審判',wx:'fire'},
-  {n:21,sym:'🌍',name:'世界',wx:'earth'},
+  {n:0,sym:'検',name:'諢夊・,wx:'water'},{n:1,sym:'笞｡',name:'鬲碑｡灘ｸｫ',wx:'fire'},{n:2,sym:'嫌',name:'螂ｳ謨咏嚊',wx:'water'},
+  {n:3,sym:'減',name:'螂ｳ蟶・,wx:'earth'},{n:4,sym:'荘',name:'逧・ｸ・,wx:'metal'},{n:5,sym:'鋤',name:'豕慕視',wx:'earth'},
+  {n:6,sym:'寵',name:'諱倶ｺｺ',wx:'fire'},{n:7,sym:'醇',name:'謌ｦ霆・,wx:'water'},{n:8,sym:'ｦ・,name:'蜉・,wx:'fire'},
+  {n:9,sym:'扮',name:'髫閠・,wx:'earth'},{n:10,sym:'笘ｯ',name:'驕句多縺ｮ霈ｪ',wx:'earth'},{n:11,sym:'笞・,name:'豁｣鄒ｩ',wx:'metal'},
+  {n:12,sym:'売',name:'蜷翫ｉ繧後◆逕ｷ',wx:'water'},{n:13,sym:'･',name:'豁ｻ逾・,wx:'water'},{n:14,sym:'決',name:'遽蛻ｶ',wx:'fire'},
+  {n:15,sym:'笵・,name:'謔ｪ鬲・,wx:'earth'},{n:16,sym:'見',name:'蝪・,wx:'fire'},{n:17,sym:'笨ｨ',name:'譏・,wx:'water'},
+  {n:18,sym:'剣',name:'譛・,wx:'water'},{n:19,sym:'笘',name:'螟ｪ髯ｽ',wx:'fire'},{n:20,sym:'室',name:'蟇ｩ蛻､',wx:'fire'},
+  {n:21,sym:'訣',name:'荳也阜',wx:'earth'},
 ];
 const CPOS=[
-  {label:'現在の状況',short:'現在'},
-  {label:'障害・交差',short:'障害'},
-  {label:'根底・潜在意識',short:'根底'},
-  {label:'近い過去',short:'近過去'},
-  {label:'最善の結果',short:'最善'},
-  {label:'近い未来',short:'近未来'},
-  {label:'自己認識',short:'自己'},
-  {label:'外部の影響',short:'外部'},
-  {label:'希望と恐れ',short:'希望/恐'},
-  {label:'最終結果',short:'結果'},
+  {label:'迴ｾ蝨ｨ縺ｮ迥ｶ豕・,short:'迴ｾ蝨ｨ'},
+  {label:'髫懷ｮｳ繝ｻ莠､蟾ｮ',short:'髫懷ｮｳ'},
+  {label:'譬ｹ蠎輔・貎懷惠諢剰ｭ・,short:'譬ｹ蠎・},
+  {label:'霑代＞驕主悉',short:'霑鷹℃蜴ｻ'},
+  {label:'譛蝟・・邨先棡',short:'譛蝟・},
+  {label:'霑代＞譛ｪ譚･',short:'霑第悴譚･'},
+  {label:'閾ｪ蟾ｱ隱崎ｭ・,short:'閾ｪ蟾ｱ'},
+  {label:'螟夜Κ縺ｮ蠖ｱ髻ｿ',short:'螟夜Κ'},
+  {label:'蟶梧悍縺ｨ諱舌ｌ',short:'蟶梧悍/諱・},
+  {label:'譛邨らｵ先棡',short:'邨先棡'},
 ];
 
 let tool='iching',lastRaw=null,lastRes=null;
@@ -343,18 +343,18 @@ let hist=[];try{hist=JSON.parse(localStorage.getItem('fh_hist')||'[]')}catch(_){
 let threeDrawn=[],threeShuffled=false,threeDeck=[];
 let celticDrawn=[],celticShuffled=false,celticDeck=[];
 
-// ── 時刻 ────────────────────────────────────────
+// 笏笏 譎ょ綾 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 (()=>{
-  const TG=['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
-  const DZ=['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  const TG=['逕ｲ','荵・,'荳・,'荳・,'謌・,'蟾ｱ','蠎・,'霎・,'螢ｬ','逋ｸ'];
+  const DZ=['蟄・,'荳・,'蟇・,'蜊ｯ','霎ｰ','蟾ｳ','蜊・,'譛ｪ','逕ｳ','驟・,'謌・,'莠･'];
   const now=new Date();
   const d=Math.floor((now-new Date(2024,0,1))/86400000);
   document.getElementById('dk').textContent=TG[((d%10)+10)%10]+DZ[((d%12)+12)%12];
   document.getElementById('yj').textContent=DZ[((now.getMonth()+2)%12)];
-  document.getElementById('ky').textContent=(((11-(now.getFullYear()%9))%9)||9)+'星';
+  document.getElementById('ky').textContent=(((11-(now.getFullYear()%9))%9)||9)+'譏・;
 })();
 
-// ── タブ ─────────────────────────────────────────
+// 笏笏 繧ｿ繝・笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 function switchTab(id,el){
   document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tab-btn,.nav a').forEach(b=>b.classList.remove('on'));
@@ -369,17 +369,17 @@ function switchTarotTab(id,btn){
   btn.classList.add('on');
 }
 
-// ── 易ツール選択 ──────────────────────────────────
+// 笏笏 譏薙ヤ繝ｼ繝ｫ驕ｸ謚・笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 function pickTool(btn){
   document.querySelectorAll('.tool').forEach(b=>b.classList.remove('on'));
   btn.classList.add('on');
   tool=btn.dataset.tool;
 }
 
-// ── 易 実行 ──────────────────────────────────────
+// 笏笏 譏・螳溯｡・笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 async function runFortune(){
   const q=document.getElementById('q').value.trim();
-  if(!q){showErr('問いを入力してください。');return}
+  if(!q){showErr('蝠上＞繧貞・蜉帙＠縺ｦ縺上□縺輔＞縲・);return}
   setLoad(true);hideErr();hideResult();
   document.getElementById('lt').textContent=TM[tool].lt;
   try{
@@ -390,12 +390,12 @@ async function runFortune(){
     drawRadar(d.wuxing);
     drawRun(d);
     saveHist({tool,question:q,summary:d.summary,ts:Date.now()});
-    document.getElementById('lt').textContent='AI が読み解いています…';
+    document.getElementById('lt').textContent='AI 縺瑚ｪｭ縺ｿ隗｣縺・※縺・∪縺吮ｦ';
     try{
       const qr=await fetch(`${API}/fortune/query`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({tool,question:q,raw_result:d.raw_result})});
       if(qr.ok)drawAI(await qr.json());
     }catch(_){}
-  }catch(e){showErr(`エラー: ${e.message}`)}
+  }catch(e){showErr(`繧ｨ繝ｩ繝ｼ: ${e.message}`)}
   finally{setLoad(false)}
 }
 
@@ -413,7 +413,7 @@ function drawRun(d){
   document.getElementById('hn').textContent=raw.hexName||raw.note||'';
   if(d.tool==='tarot'&&raw.spread){
     document.getElementById('cm').textContent='';
-    document.getElementById('spread-wrap').innerHTML=`<div class="spread">${raw.spread.map(s=>`<div class="spread-row"><div class="spread-pos">${s.position}</div><div><span class="spread-card">${s.card}</span>${s.reversed?'<span class="spread-rev">逆位置</span>':''}</div><div style="font-size:.66rem;color:var(--sub)">${s.keywords}</div></div>`).join('')}</div>`;
+    document.getElementById('spread-wrap').innerHTML=`<div class="spread">${raw.spread.map(s=>`<div class="spread-row"><div class="spread-pos">${s.position}</div><div><span class="spread-card">${s.card}</span>${s.reversed?'<span class="spread-rev">騾・ｽ咲ｽｮ</span>':''}</div><div style="font-size:.66rem;color:var(--sub)">${s.keywords}</div></div>`).join('')}</div>`;
   }else{document.getElementById('cm').textContent=d.summary||'';document.getElementById('spread-wrap').innerHTML=''}
   document.getElementById('rc').classList.add('on');
 }
@@ -422,7 +422,7 @@ function drawAI(d){
   document.getElementById('ac').textContent=d.core||'';
   document.getElementById('ad').textContent=d.detail||'';
   document.getElementById('aa').textContent=d.action||'';
-  if(d.resonance?.suggestedTool){lastRes=d.resonance;const m=TM[d.resonance.suggestedTool];const rb=document.getElementById('rb');rb.textContent=`${m?.sym||''} ${d.resonance.reason} → ${m?.name}で深掘り`;rb.classList.add('on')}
+  if(d.resonance?.suggestedTool){lastRes=d.resonance;const m=TM[d.resonance.suggestedTool];const rb=document.getElementById('rb');rb.textContent=`${m?.sym||''} ${d.resonance.reason} 竊・${m?.name}縺ｧ豺ｱ謗倥ｊ`;rb.classList.add('on')}
   document.getElementById('ai-sec').style.display='block';
 }
 
@@ -433,7 +433,7 @@ function hideErr(){document.getElementById('err').classList.remove('on')}
 function hideResult(){document.getElementById('rc').classList.remove('on');document.getElementById('rs').classList.remove('on');document.getElementById('ai-sec').style.display='none';document.getElementById('rb').classList.remove('on')}
 function clearAll(){document.getElementById('q').value='';hideResult();hideErr();lastRaw=null;lastRes=null}
 
-// ── 3枚引き ──────────────────────────────────────
+// 笏笏 3譫壼ｼ輔″ 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 function buildDeck3(){
   const a=document.getElementById('deck3');a.innerHTML='';
   for(let i=0;i<7;i++){
@@ -460,21 +460,21 @@ function drawThree(){
   const cards=document.querySelectorAll('#deck3 .t-card');
   cards.forEach((c,i)=>{if(i<3){setTimeout(()=>{const card=threeDrawn[i];c.classList.add('flipped');c.querySelector('.t-card-inner').innerHTML=`<div class="t-back"><div class="t-back-pat">${'<span></span>'.repeat(16)}</div></div><div class="t-front" style="${card.reversed?'transform:rotateY(180deg) rotate(180deg)':'transform:rotateY(180deg)'}"><span class="t-num">${String(card.n).padStart(2,'0')}</span><span class="t-sym">${card.sym}</span><span class="t-nm">${card.name}</span></div>`;},i*200)}});
   setTimeout(()=>{
-    const pos=['過去','現在','未来'];
+    const pos=['驕主悉','迴ｾ蝨ｨ','譛ｪ譚･'];
     const res=document.getElementById('three-result');
-    res.innerHTML=threeDrawn.map((c,i)=>`<div class="three-card"><div class="three-pos">${pos[i]}</div><div class="three-face${c.reversed?' rev':''}" style="animation-delay:${i*.15}s"><span class="t-n">${String(c.n).padStart(2,'0')}</span><span class="t-s">${c.sym}</span><span class="t-l">${c.name}</span></div><div class="three-revlbl">${c.reversed?'逆位置':''}</div></div>`).join('');
+    res.innerHTML=threeDrawn.map((c,i)=>`<div class="three-card"><div class="three-pos">${pos[i]}</div><div class="three-face${c.reversed?' rev':''}" style="animation-delay:${i*.15}s"><span class="t-n">${String(c.n).padStart(2,'0')}</span><span class="t-s">${c.sym}</span><span class="t-l">${c.name}</span></div><div class="three-revlbl">${c.reversed?'騾・ｽ咲ｽｮ':''}</div></div>`).join('');
     res.classList.add('on');
     document.getElementById('ask3-btn').style.display='block';
   },800);
 }
 function askThree(){
-  const pos=['過去','現在','未来'];
-  const desc=threeDrawn.map((c,i)=>`${pos[i]}:${c.name}${c.reversed?'(逆)':''}`).join('、');
-  sendChatPrompt(`タロット3枚引き：${desc}。読み解いてください。`);
+  const pos=['驕主悉','迴ｾ蝨ｨ','譛ｪ譚･'];
+  const desc=threeDrawn.map((c,i)=>`${pos[i]}:${c.name}${c.reversed?'(騾・':''}`).join('縲・);
+  sendChatPrompt(`繧ｿ繝ｭ繝・ヨ3譫壼ｼ輔″・・{desc}縲りｪｭ縺ｿ隗｣縺・※縺上□縺輔＞縲Ａ);
 }
 buildDeck3();
 
-// ── ケルト十字 ────────────────────────────────────
+// 笏笏 繧ｱ繝ｫ繝亥香蟄・笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 const CGRID=[
   {col:2,row:2,pi:2},{col:4,row:1,pi:9},{col:null,row:null,pi:null},
   {col:1,row:3,pi:4},{col:null,row:null,pi:null},{col:3,row:3,pi:5},
@@ -484,7 +484,7 @@ const CGRID=[
 function celticReset(){
   celticShuffled=false;celticDrawn=[];celticDeck=[...TAROT_CARDS];
   document.getElementById('celtic-rev-btn').disabled=true;
-  document.getElementById('celtic-msg').textContent='シャッフルして展開してください';
+  document.getElementById('celtic-msg').textContent='繧ｷ繝｣繝・ヵ繝ｫ縺励※螻暮幕縺励※縺上□縺輔＞';
   document.getElementById('celtic-detail').classList.remove('on');
   document.getElementById('celtic-list').style.display='none';
   document.getElementById('ask-celtic-btn').style.display='none';
@@ -517,7 +517,7 @@ function celticShuffle(){
   celticDeck=[...TAROT_CARDS].sort(()=>Math.random()-.5);
   celticShuffled=true;celticDrawn=[];
   document.getElementById('celtic-rev-btn').disabled=false;
-  document.getElementById('celtic-msg').textContent='シャッフル完了。展開してください。';
+  document.getElementById('celtic-msg').textContent='繧ｷ繝｣繝・ヵ繝ｫ螳御ｺ・ょｱ暮幕縺励※縺上□縺輔＞縲・;
   document.getElementById('celtic-detail').classList.remove('on');
   document.getElementById('celtic-list').style.display='none';
   document.getElementById('ask-celtic-btn').style.display='none';
@@ -527,7 +527,7 @@ function celticReveal(){
   if(!celticShuffled)return;
   celticDrawn=celticDeck.slice(0,10).map(c=>({...c,reversed:Math.random()<.3}));
   document.getElementById('celtic-rev-btn').disabled=true;
-  document.getElementById('celtic-msg').textContent='カードをタップして詳細確認';
+  document.getElementById('celtic-msg').textContent='繧ｫ繝ｼ繝峨ｒ繧ｿ繝・・縺励※隧ｳ邏ｰ遒ｺ隱・;
   const order=[1,2,3,4,5,6,7,8,9,10];
   order.forEach((pi,i)=>{
     setTimeout(()=>{
@@ -548,32 +548,33 @@ function celticReveal(){
 function showCelticDetail(i){
   const card=celticDrawn[i];const pos=CPOS[i];
   const det=document.getElementById('celtic-detail');
-  det.innerHTML=`<div class="db-head"><span class="db-sym">${card.sym}</span><div><div class="db-name">${card.name}</div><div class="db-meta">${i+1}枚目 — ${pos.label} / ${card.reversed?'逆位置':'正位置'}</div></div></div><div class="db-desc">${pos.label}のポジションはあなたの${pos.short}を示します。</div>`;
+  det.innerHTML=`<div class="db-head"><span class="db-sym">${card.sym}</span><div><div class="db-name">${card.name}</div><div class="db-meta">${i+1}譫夂岼 窶・${pos.label} / ${card.reversed?'騾・ｽ咲ｽｮ':'豁｣菴咲ｽｮ'}</div></div></div><div class="db-desc">${pos.label}縺ｮ繝昴ず繧ｷ繝ｧ繝ｳ縺ｯ縺ゅ↑縺溘・${pos.short}繧堤､ｺ縺励∪縺吶・/div>`;
   det.classList.add('on');
 }
 function renderCelticList(){
-  document.getElementById('celtic-list').innerHTML=celticDrawn.map((c,i)=>`<div class="cl-item" onclick="showCelticDetail(${i})"><span class="cl-sym">${c.sym}</span><div><div class="cl-nm">${c.name} <span class="cl-rv">${c.reversed?'逆':''}</span></div><div class="cl-pos">${i+1}. ${CPOS[i].label}</div></div></div>`).join('');
+  document.getElementById('celtic-list').innerHTML=celticDrawn.map((c,i)=>`<div class="cl-item" onclick="showCelticDetail(${i})"><span class="cl-sym">${c.sym}</span><div><div class="cl-nm">${c.name} <span class="cl-rv">${c.reversed?'騾・:''}</span></div><div class="cl-pos">${i+1}. ${CPOS[i].label}</div></div></div>`).join('');
 }
 function askCeltic(){
-  const desc=celticDrawn.map((c,i)=>`${i+1}.${CPOS[i].short}:${c.name}${c.reversed?'(逆)':''}`).join('、');
-  sendChatPrompt(`タロット ケルト十字：${desc}。10枚を総合的に読み解いてください。`);
+  const desc=celticDrawn.map((c,i)=>`${i+1}.${CPOS[i].short}:${c.name}${c.reversed?'(騾・':''}`).join('縲・);
+  sendChatPrompt(`繧ｿ繝ｭ繝・ヨ 繧ｱ繝ｫ繝亥香蟄暦ｼ・{desc}縲・0譫壹ｒ邱丞粋逧・↓隱ｭ縺ｿ隗｣縺・※縺上□縺輔＞縲Ａ);
 }
 celticReset();
 
-// ── 履歴 ─────────────────────────────────────────
+// 笏笏 螻･豁ｴ 笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏笏
 function saveHist(item){hist.unshift(item);hist=hist.slice(0,20);try{localStorage.setItem('fh_hist',JSON.stringify(hist))}catch(_){}}
 function renderHist(){
   const el=document.getElementById('hl');
-  if(!hist.length){el.innerHTML='<p style="font-size:.78rem;color:var(--sub);text-align:center">まだ占断がありません</p>';return}
-  el.innerHTML=hist.slice(0,10).map((h,i)=>{const m=TM[h.tool]||{};const t=new Date(h.ts).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});return`<div class="hist-item" onclick="replayHist(${i})"><span class="h-t">${m.sym||'🔮'}</span><span class="h-q">${h.question}</span><span class="h-time">${t}</span></div>`}).join('');
+  if(!hist.length){el.innerHTML='<p style="font-size:.78rem;color:var(--sub);text-align:center">縺ｾ縺蜊譁ｭ縺後≠繧翫∪縺帙ｓ</p>';return}
+  el.innerHTML=hist.slice(0,10).map((h,i)=>{const m=TM[h.tool]||{};const t=new Date(h.ts).toLocaleTimeString('ja-JP',{hour:'2-digit',minute:'2-digit'});return`<div class="hist-item" onclick="replayHist(${i})"><span class="h-t">${m.sym||'醗'}</span><span class="h-q">${h.question}</span><span class="h-time">${t}</span></div>`}).join('');
 }
 function replayHist(i){const h=hist[i];document.getElementById('q').value=h.question;const b=document.querySelector(`[data-tool="${h.tool}"]`);if(b)pickTool(b);switchTab('iching');runFortune()}
 function clearHist(){hist=[];try{localStorage.removeItem('fh_hist')}catch(_){}renderHist()}
 
-// チャット送信
-function sendChatPrompt(text){if(typeof sendPrompt==='function'){sendPrompt(text)}else{alert('AI読み解き: '+text)}}
+// 繝√Ε繝・ヨ騾∽ｿ｡
+function sendChatPrompt(text){if(typeof sendPrompt==='function'){sendPrompt(text)}else{alert('AI隱ｭ縺ｿ隗｣縺・ '+text)}}
 
 document.getElementById('q').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();runFortune()}});
 </script>
 </body>
 </html>
+
