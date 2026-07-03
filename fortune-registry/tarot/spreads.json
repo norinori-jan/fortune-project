@@ -1,0 +1,37 @@
+{
+  "one_card": {
+    "id": "one_card",
+    "name_ja": "ワンオラクル",
+    "description": "シンプルな1枚引きで、今のあなたへのメッセージを受け取ります",
+    "positions": [
+      { "id": "p1", "label": "今のあなたへ", "description": "現在のあなたの状況に対するメッセージ" }
+    ]
+  },
+  "three_card": {
+    "id": "three_card",
+    "name_ja": "過去・現在・未来",
+    "description": "3枚のカードで時系列の流れを読み解きます",
+    "positions": [
+      { "id": "p1", "label": "過去", "description": "背景にある影響" },
+      { "id": "p2", "label": "現在", "description": "今の状況" },
+      { "id": "p3", "label": "未来", "description": "向かうべき方向性" }
+    ]
+  },
+  "celtic_cross": {
+    "id": "celtic_cross",
+    "name_ja": "ケルト十字",
+    "description": "10枚のカードで複雑な状況を深く読み解く、最も一般的な展開法",
+    "positions": [
+      { "id": "p1", "label": "現状", "description": "質問の中心にある状況" },
+      { "id": "p2", "label": "障害", "description": "現状に影響を与えている要因" },
+      { "id": "p3", "label": "潜在意識", "description": "無意識のレベルでの影響" },
+      { "id": "p4", "label": "過去", "description": "状況の背景にある出来事" },
+      { "id": "p5", "label": "可能性", "description": "これからの選択肢" },
+      { "id": "p6", "label": "近い未来", "description": "すぐに起こる変化" },
+      { "id": "p7", "label": "あなた自身", "description": "あなた自身の立場や態度" },
+      { "id": "p8", "label": "周囲の影響", "description": "周囲の環境や人間関係" },
+      { "id": "p9", "label": "希望と恐れ", "description": "深層の願いと懸念" },
+      { "id": "p10", "label": "結末", "description": "流れの最終的な結果" }
+    ]
+  }
+}

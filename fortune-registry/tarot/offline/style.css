@@ -1,0 +1,480 @@
+/* ======================================
+   タロットWebアプリ - スタイルシート
+   ====================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "YuGothic", "Yu Gothic", "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #e0e0e0;
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background: rgba(22, 33, 62, 0.95);
+  border: 2px solid #d4af37;
+  border-radius: 12px;
+  padding: 30px;
+  max-width: 1000px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  text-align: center;
+  color: #d4af37;
+  margin-bottom: 10px;
+  font-size: 2.5em;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+  text-align: center;
+  color: #b8860b;
+  margin-bottom: 30px;
+  font-size: 0.95em;
+}
+
+/* ======================================
+   メインレイアウト
+   ====================================== */
+
+.main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ======================================
+   カード表示セクション
+   ====================================== */
+
+.card-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.card-display {
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid #d4af37;
+  border-radius: 8px;
+  padding: 30px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.card-display.active {
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+}
+
+.card-name {
+  font-size: 1.8em;
+  color: #d4af37;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.card-position {
+  font-size: 0.95em;
+  color: #ffd700;
+  margin-bottom: 10px;
+  padding: 5px 10px;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.card-position.upright {
+  color: #7fff00;
+}
+
+.card-position.reversed {
+  color: #ff6b6b;
+}
+
+.card-meaning {
+  font-size: 0.95em;
+  line-height: 1.6;
+  color: #b8860b;
+  font-style: italic;
+}
+
+.button-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
+
+button {
+  padding: 12px 25px;
+  background: #d4af37;
+  color: #1a1a2e;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+button:hover:not(:disabled) {
+  background: #ffd700;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+button.danger {
+  background: #ff6b6b;
+}
+
+button.danger:hover:not(:disabled) {
+  background: #ff5252;
+}
+
+button.success {
+  background: #51cf66;
+}
+
+button.success:hover:not(:disabled) {
+  background: #40c057;
+}
+
+/* ======================================
+   音声認識・文字起こしセクション
+   ====================================== */
+
+.transcription-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.section-title {
+  font-size: 1.2em;
+  color: #d4af37;
+  font-weight: bold;
+  border-bottom: 2px solid #d4af37;
+  padding-bottom: 10px;
+}
+
+.transcription-controls {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.mic-status {
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #b8860b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mic-status.listening {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.mic-status::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #b8860b;
+}
+
+.mic-status.listening::before {
+  animation: pulse 1s infinite;
+  background: #ff6b6b;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid #d4af37;
+  border-radius: 6px;
+  color: #e0e0e0;
+  font-family: "Courier New", monospace;
+  font-size: 0.95em;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+textarea::placeholder {
+  color: #666;
+}
+
+/* ======================================
+   スプレッド表示
+   ====================================== */
+
+.spread-cards-container {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.position-card {
+  flex: 1;
+  min-width: 150px;
+  max-width: 200px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid #d4af37;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.position-card:hover {
+  border-color: #ffd700;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+
+.position-card.active {
+  border-color: #7fff00;
+  box-shadow: 0 0 20px rgba(127, 255, 0, 0.3);
+}
+
+.position-label {
+  font-size: 0.85em;
+  color: #b8860b;
+  margin-bottom: 8px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.position-card-name {
+  font-size: 1.3em;
+  color: #d4af37;
+  margin: 10px 0;
+  font-weight: bold;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.position-card-position {
+  font-size: 0.8em;
+  color: #ffd700;
+  padding: 4px 8px;
+  background: rgba(212, 175, 55, 0.1);
+  border-radius: 3px;
+  display: inline-block;
+  margin: 5px 0;
+}
+
+.position-card-position.upright {
+  color: #7fff00;
+  background: rgba(127, 255, 0, 0.1);
+}
+
+.position-card-position.reversed {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.position-card-meaning {
+  font-size: 0.8em;
+  color: #b8860b;
+  line-height: 1.4;
+  margin-top: 8px;
+  font-style: italic;
+  min-height: 50px;
+}
+
+.position-transcription {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #d4af37;
+}
+
+.position-transcription-label {
+  font-size: 0.8em;
+  color: #d4af37;
+  font-weight: bold;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.position-transcription-area {
+  width: 100%;
+  min-height: 100px;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #b8860b;
+  border-radius: 4px;
+  color: #e0e0e0;
+  font-family: "Courier New", monospace;
+  font-size: 0.8em;
+  resize: vertical;
+}
+
+.position-transcription-area:focus {
+  outline: none;
+  border-color: #ffd700;
+  box-shadow: 0 0 8px rgba(212, 175, 55, 0.2);
+}
+
+.position-button-group {
+  display: flex;
+  gap: 5px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.position-button-group button {
+  padding: 6px 10px;
+  font-size: 0.75em;
+}
+
+/* ======================================
+   出力セクション
+   ====================================== */
+
+.output-section {
+  grid-column: 1 / -1;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #d4af37;
+}
+
+.output-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.format-radio {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.format-radio input[type="radio"] {
+  cursor: pointer;
+}
+
+.format-radio label {
+  cursor: pointer;
+  color: #b8860b;
+}
+
+/* ======================================
+   アラート・メッセージ
+   ====================================== */
+
+.alert {
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 15px;
+  font-size: 0.95em;
+}
+
+.alert-info {
+  background: rgba(33, 150, 243, 0.1);
+  color: #64b5f6;
+  border-left: 4px solid #2196f3;
+}
+
+.alert-warning {
+  background: rgba(255, 152, 0, 0.1);
+  color: #ffb74d;
+  border-left: 4px solid #ff9800;
+}
+
+.alert-success {
+  background: rgba(76, 175, 80, 0.1);
+  color: #81c784;
+  border-left: 4px solid #4caf50;
+}
+
+/* ======================================
+   レスポンシブ調整
+   ====================================== */
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2em;
+  }
+
+  .container {
+    padding: 20px;
+  }
+
+  button {
+    padding: 10px 15px;
+    font-size: 0.9em;
+  }
+
+  textarea {
+    min-height: 150px;
+  }
+}

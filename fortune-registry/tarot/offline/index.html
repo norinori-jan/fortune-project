@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>タロット鑑定</title>
+
+  <!-- Google Fonts: Noto Serif JP（本文）+ Cinzel（見出し装飾） -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ══════════════════════════════════════════════
+       CSS カスタムプロパティ（テーマ変数）
+    ══════════════════════════════════════════════ */
+    :root {
+      /* カラーパレット：深夜の神秘（深紺 × 金 × くすんだ琥珀） */
+      --c-bg:           #0d0f1a;       /* ページ背景 */
+      --c-surface:      #151828;       /* カード面背景 */
+      --c-surface-2:    #1c2035;       /* 入れ子要素背景 */
+      --c-border:       #2a2f4a;       /* 境界線 */
+      --c-border-glow:  #4a3f7a;       /* 光る境界線 */
+      --c-gold:         #c9a84c;       /* ゴールドアクセント */
+      --c-gold-light:   #e8cc7a;       /* 明るいゴールド */
+      --c-amber:        #d4874a;       /* 琥珀色 */
+      --c-text:         #e0d9c8;       /* メインテキスト */
+      --c-text-muted:   #8a8299;       /* サブテキスト */
+      --c-text-dim:     #4a4560;       /* 薄いテキスト */
+      --c-recording:    #e05252;       /* 録音中赤 */
+      --c-success:      #52a882;       /* 成功緑 */
+      --c-error:        #e05252;       /* エラー赤 */
+
+      /* フォント */
+      --f-display: 'Cinzel', 'Noto Serif JP', serif;
+      --f-body:    'Noto Serif JP', 'YuMincho', '游明朝', serif;
+
+      /* スペーシング */
+      --sp-xs:  4px;
+      --sp-sm:  8px;
+      --sp-md:  16px;
+      --sp-lg:  24px;
+      --sp-xl:  40px;
+      --sp-2xl: 64px;
+
+      /* ボーダー半径 */
+      --r-sm: 4px;
+      --r-md: 8px;
+      --r-lg: 14px;
+
+      /* 影 */
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.5), 0 1px 0 rgba(201,168,76,0.08);
+      --shadow-glow: 0 0 24px rgba(201,168,76,0.18);
+
+      /* 色参照（app.js の CSS変数参照に対応） */
+      --color-recording: var(--c-recording);
+      --color-success:   var(--c-success);
+      --color-error:     var(--c-error);
+    }
+
+    /* ══════════════════════════════════════════════
+       リセット & ベーススタイル
+    ══════════════════════════════════════════════ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--c-bg);
+      color: var(--c-text);
+      font-family: var(--f-body);
+      font-weight: 300;
+      line-height: 1.75;
+      min-height: 100vh;
+
+      /* 微細なノイズテクスチャをSVGで描画（外部リソース不要） */
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -10%, rgba(74,63,122,0.22) 0%, transparent 70%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    }
+
+    /* ══════════════════════════════════════════════
+       レイアウト
+    ══════════════════════════════════════════════ */
+    .page-wrapper {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: var(--sp-xl) var(--sp-lg) var(--sp-2xl);
+    }
+
+    /* ══════════════════════════════════════════════
+       ヘッダー
+    ══════════════════════════════════════════════ */
+    .site-header {
+      text-align: center;
+      padding-bottom: var(--sp-xl);
+      border-bottom: 1px solid var(--c-border);
+      margin-bottom: var(--sp-xl);
+      position: relative;
+    }
+
+    /* 上下の飾り線（ゴールドの細線） */
+    .site-header::before,
+    .site-header::after {
+      content: '';
+      display: block;
+      width: 120px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--c-gold), transparent);
+      margin: 0 auto;
+    }
+    .site-header::before { margin-bottom: var(--sp-lg); }
+    .site-header::after  { margin-top: var(--sp-lg); }
+
+    .site-title {
+      font-family: var(--f-display);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--c-gold-light);
+      text-shadow: 0 0 32px rgba(201,168,76,0.35);
+    }
+
+    .site-subtitle {
+      font-size: 0.78rem;
+      letter-spacing: 0.3em;
+      color: var(--c-text-muted);
+      text-transform: uppercase;
+      margin-top: var(--sp-sm);
+    }
+
+    /* ══════════════════════════════════════════════
+       セクション共通
+    ══════════════════════════════════════════════ */
+    .section {
+      margin-bottom: var(--sp-xl);
+    }
+
+    .section-label {
+      font-family: var(--f-display);
+      font-size: 0.65rem;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin-bottom: var(--sp-sm);
+    }
+
+    /* ══════════════════════════════════════════════
+       スプレッド選択エリア
+    ══════════════════════════════════════════════ */
+    .spread-select-row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-md);
+      flex-wrap: wrap;
+    }
+
+    /* セレクトボックス */
+    #spread-selector {
+      flex: 1 1 220px;
+      appearance: none;
+      -webkit-appearance: none;
+      background-color: var(--c-surface-2);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-md);
+      color: var(--c-text);
+      font-family: var(--f-body);
+      font-size: 0.95rem;
+      padding: 10px 40px 10px 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, box-shadow 0.2s;
+
+      /* 矢印アイコンをSVGでインライン描画 */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+
+    #spread-selector:focus {
+      outline: none;
+      border-color: var(--c-gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,0.15);
+    }
+
+    #spread-selector option {
+      background: var(--c-surface-2);
+      color: var(--c-text);
+    }
+
+    /* ══════════════════════════════════════════════
+       カードを引くボタン（#draw-btn）
+    ══════════════════════════════════════════════ */
+    .draw-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-sm);
+      padding: 11px 28px;
+      background: linear-gradient(135deg, #3a2d6a 0%, #5a3f8a 100%);
+      border: 1px solid var(--c-border-glow);
+      border-radius: var(--r-md);
+      color: var(--c-gold-light);
+      font-family: var(--f-body);
+      font-size: 0.95rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      white-space: nowrap;
+      box-shadow: 0 2px 12px rgba(90,63,138,0.35);
+    }
+
+    .draw-btn:hover {
+      background: linear-gradient(135deg, #4a3d7a 0%, #6a4f9a 100%);
+      border-color: var(--c-gold);
+      box-shadow: 0 4px 20px rgba(201,168,76,0.22), var(--shadow-glow);
+      transform: translateY(-1px);
+    }
+
+    .draw-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 6px rgba(90,63,138,0.3);
+    }
+
+    /* ══════════════════════════════════════════════
+       スプレッドコンテナ（#spread-container）
+       ─ app.js が .position-card を動的生成して流し込む受け皿
+    ══════════════════════════════════════════════ */
+    .spread-cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--sp-lg);
+      margin-top: var(--sp-lg);
+    }
+
+    /* ── 動的生成される .position-card のスタイル ── */
+    .position-card {
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      padding: var(--sp-lg);
+      box-shadow: var(--shadow-card);
+      transition: border-color 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* カードを引いたときのフラッシュアニメーション */
+    .position-card.card-drawn {
+      animation: card-flash 0.45s ease-out forwards;
+    }
+
+    @keyframes card-flash {
+      0%   { box-shadow: var(--shadow-card), 0 0 0 rgba(201,168,76,0); }
+      30%  { box-shadow: var(--shadow-card), 0 0 32px rgba(201,168,76,0.55); }
+      100% { box-shadow: var(--shadow-card), 0 0 0 rgba(201,168,76,0); }
+    }
+
+    /* 録音中のポジションカード */
+    .position-card.recording-active {
+      border-color: var(--c-recording);
+      box-shadow: var(--shadow-card), 0 0 16px rgba(224,82,82,0.28);
+      animation: pulse-red 1.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-red {
+      0%, 100% { box-shadow: var(--shadow-card), 0 0 10px rgba(224,82,82,0.22); }
+      50%       { box-shadow: var(--shadow-card), 0 0 22px rgba(224,82,82,0.42); }
+    }
+
+    /* ポジションヘッダー（ラベル） */
+    .position-header {
+      font-family: var(--f-display);
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--c-gold);
+      margin-bottom: var(--sp-md);
+      padding-bottom: var(--sp-sm);
+      border-bottom: 1px solid var(--c-border);
+    }
+
+    /* カード情報エリア */
+    .card-info {
+      min-height: 72px;
+      margin-bottom: var(--sp-md);
+      color: var(--c-text-muted);
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+
+    /* カード名 */
+    .card-name {
+      font-family: var(--f-display);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--c-gold-light);
+      margin-bottom: var(--sp-xs);
+      letter-spacing: 0.04em;
+    }
+
+    .card-name-en {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--c-text-muted);
+      letter-spacing: 0.06em;
+    }
+
+    /* キーワード */
+    .card-keywords {
+      font-size: 0.82rem;
+      color: var(--c-amber);
+      margin-bottom: var(--sp-xs);
+      letter-spacing: 0.02em;
+    }
+
+    /* 意味テキスト */
+    .card-meaning {
+      font-size: 0.85rem;
+      color: var(--c-text);
+      line-height: 1.7;
+    }
+
+    /* 鑑定メモ ラベル */
+    .note-label {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      color: var(--c-text-dim);
+      text-transform: uppercase;
+      margin-bottom: var(--sp-xs);
+    }
+
+    /* テキストエリア（鑑定メモ） */
+    .note-textarea {
+      width: 100%;
+      background: var(--c-surface-2);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-sm);
+      color: var(--c-text);
+      font-family: var(--f-body);
+      font-size: 0.88rem;
+      line-height: 1.65;
+      padding: var(--sp-sm) var(--sp-md);
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+
+    .note-textarea:focus {
+      outline: none;
+      border-color: var(--c-border-glow);
+    }
+
+    .note-textarea::placeholder {
+      color: var(--c-text-dim);
+      font-size: 0.82rem;
+    }
+
+    /* 音声ボタンエリア */
+    .voice-area {
+      display: flex;
+      gap: var(--sp-sm);
+      margin-top: var(--sp-sm);
+      flex-wrap: wrap;
+    }
+
+    /* 音声ボタン共通 */
+    .voice-btn {
+      flex: 1 1 auto;
+      padding: 7px 12px;
+      border-radius: var(--r-sm);
+      font-family: var(--f-body);
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      border: 1px solid transparent;
+    }
+
+    /* 録音開始ボタン */
+    .voice-start-btn {
+      background: rgba(74,63,122,0.4);
+      border-color: var(--c-border-glow);
+      color: var(--c-text);
+    }
+
+    .voice-start-btn:hover:not(:disabled) {
+      background: rgba(74,63,122,0.65);
+      border-color: var(--c-gold);
+      color: var(--c-gold-light);
+    }
+
+    .voice-start-btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* 停止ボタン */
+    .voice-stop-btn {
+      background: rgba(224,82,82,0.12);
+      border-color: rgba(224,82,82,0.35);
+      color: var(--c-recording);
+    }
+
+    .voice-stop-btn:hover:not(:disabled) {
+      background: rgba(224,82,82,0.25);
+      border-color: var(--c-recording);
+    }
+
+    .voice-stop-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    /* 録音ステータス表示 */
+    .recording-status {
+      display: block;
+      font-size: 0.78rem;
+      margin-top: var(--sp-xs);
+      min-height: 1.2em;
+      color: var(--c-text-muted);
+      letter-spacing: 0.03em;
+    }
+
+    /* ══════════════════════════════════════════════
+       仕切り線
+    ══════════════════════════════════════════════ */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--c-border);
+      margin: var(--sp-xl) 0;
+      position: relative;
+    }
+
+    /* 中央の装飾ダイヤ */
+    .divider::after {
+      content: '✦';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: var(--c-bg);
+      color: var(--c-gold);
+      padding: 0 var(--sp-sm);
+      font-size: 0.65rem;
+    }
+
+    /* ══════════════════════════════════════════════
+       鑑定結果セクション
+    ══════════════════════════════════════════════ */
+    .output-section-title {
+      font-family: var(--f-display);
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      font-weight: 600;
+      color: var(--c-gold-light);
+      letter-spacing: 0.1em;
+      margin-bottom: var(--sp-md);
+    }
+
+    /* フォーマット切り替えラジオボタン行 */
+    .format-row {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-lg);
+      margin-bottom: var(--sp-md);
+      flex-wrap: wrap;
+    }
+
+    .format-row-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--c-text-muted);
+      text-transform: uppercase;
+    }
+
+    /* ラジオボタン（カスタム） */
+    .format-option {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-xs);
+      cursor: pointer;
+      font-size: 0.88rem;
+      color: var(--c-text-muted);
+      transition: color 0.18s;
+    }
+
+    .format-option:hover {
+      color: var(--c-text);
+    }
+
+    .format-option input[type="radio"] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 15px;
+      height: 15px;
+      border: 1px solid var(--c-border-glow);
+      border-radius: 50%;
+      background: var(--c-surface-2);
+      cursor: pointer;
+      position: relative;
+      flex-shrink: 0;
+      transition: border-color 0.18s;
+    }
+
+    .format-option input[type="radio"]:checked {
+      border-color: var(--c-gold);
+      background: var(--c-surface-2);
+    }
+
+    .format-option input[type="radio"]:checked::after {
+      content: '';
+      display: block;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--c-gold);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* 鑑定結果を生成ボタン（#generate-btn） */
+    .generate-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-sm);
+      padding: 12px 32px;
+      background: linear-gradient(135deg, #6a4a1a 0%, #9a7030 50%, #6a4a1a 100%);
+      background-size: 200% auto;
+      border: 1px solid var(--c-gold);
+      border-radius: var(--r-md);
+      color: var(--c-gold-light);
+      font-family: var(--f-body);
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 14px rgba(201,168,76,0.2);
+      margin-bottom: var(--sp-md);
+    }
+
+    .generate-btn:hover {
+      background-position: right center;
+      box-shadow: 0 4px 24px rgba(201,168,76,0.38), var(--shadow-glow);
+      transform: translateY(-1px);
+    }
+
+    .generate-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 1px 8px rgba(201,168,76,0.2);
+    }
+
+    /* 出力テキストエリア（#output-textarea） */
+    #output-textarea {
+      width: 100%;
+      min-height: 320px;
+      background: var(--c-surface);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-lg);
+      color: var(--c-text);
+      font-family: 'Courier New', 'Courier', monospace;
+      font-size: 0.84rem;
+      line-height: 1.8;
+      padding: var(--sp-lg);
+      resize: vertical;
+      transition: border-color 0.2s;
+    }
+
+    #output-textarea:focus {
+      outline: none;
+      border-color: var(--c-border-glow);
+    }
+
+    /* ══════════════════════════════════════════════
+       フッター
+    ══════════════════════════════════════════════ */
+    .site-footer {
+      text-align: center;
+      padding-top: var(--sp-xl);
+      border-top: 1px solid var(--c-border);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      color: var(--c-text-dim);
+    }
+
+    /* ══════════════════════════════════════════════
+       ページロードアニメーション
+    ══════════════════════════════════════════════ */
+    .page-wrapper {
+      animation: fade-in 0.7s ease-out both;
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ══════════════════════════════════════════════
+       レスポンシブ
+    ══════════════════════════════════════════════ */
+    @media (max-width: 600px) {
+      .page-wrapper {
+        padding: var(--sp-lg) var(--sp-md) var(--sp-xl);
+      }
+
+      .spread-select-row {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      #spread-selector {
+        flex: unset;
+      }
+
+      .draw-btn {
+        justify-content: center;
+      }
+
+      .spread-cards-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrapper">
+
+    <!-- ═══════════════════════════════════
+         ヘッダー
+    ═══════════════════════════════════ -->
+    <header class="site-header">
+      <h1 class="site-title">Tarot Reading</h1>
+      <p class="site-subtitle">タロット鑑定ツール</p>
+    </header>
+
+    <!-- ═══════════════════════════════════
+         ① スプレッド選択セクション
+         　 #spread-selector ← app.js が動的に option を生成
+    ═══════════════════════════════════ -->
+    <section class="section" aria-label="スプレッド選択">
+      <p class="section-label">スプレッドを選ぶ</p>
+
+      <div class="spread-select-row">
+        <!--
+          app.js: initSpreadSelector() が参照
+          ここに option は書かない（JS が動的生成するため）
+        -->
+        <select id="spread-selector" aria-label="スプレッドの種類を選択"></select>
+
+        <!--
+          app.js: initDrawButton() が参照
+          スプレッド選択の直後・コンテナの直前に配置
+        -->
+        <button id="draw-btn" class="draw-btn">🔮 カードを引く</button>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════
+         ② スプレッドコンテナ（受け皿）
+         　 app.js: renderSpreadContainer() が
+         　 .position-card を動的生成して挿入する
+    ═══════════════════════════════════ -->
+    <div
+      id="spread-container"
+      class="spread-cards-container"
+      aria-label="展開されたカードのポジション"
+      aria-live="polite"
+    ></div>
+
+    <!-- 仕切り -->
+    <hr class="divider" />
+
+    <!-- ═══════════════════════════════════
+         ③ 鑑定結果セクション
+    ═══════════════════════════════════ -->
+    <section class="section" aria-label="鑑定結果の生成">
+      <h2 class="output-section-title">鑑定結果を出力</h2>
+
+      <!-- 出力フォーマット切り替え
+           app.js: input[name="output-format"] を querySelectorAll で参照
+           value="markdown" が初期 checked（app.js のデフォルト='markdown' に合わせる）
+      -->
+      <div class="format-row" role="radiogroup" aria-label="出力フォーマット">
+        <span class="format-row-label">フォーマット</span>
+
+        <label class="format-option">
+          <input
+            type="radio"
+            name="output-format"
+            value="markdown"
+            checked
+          />
+          Markdown
+        </label>
+
+        <label class="format-option">
+          <input
+            type="radio"
+            name="output-format"
+            value="json"
+          />
+          JSON
+        </label>
+      </div>
+
+      <!--
+        app.js: initGenerateButton() が参照
+      -->
+      <button id="generate-btn" class="generate-btn">
+        ✨ 鑑定結果を生成
+      </button>
+
+      <!--
+        app.js: onGenerateResult() が value に出力を書き込む
+      -->
+      <textarea
+        id="output-textarea"
+        readonly
+        placeholder="「鑑定結果を生成」ボタンを押すと、ここに結果が出力されます。"
+        aria-label="鑑定結果の出力エリア"
+      ></textarea>
+    </section>
+
+    <!-- フッター -->
+    <footer class="site-footer">
+      <p>Tarot Reading Tool &nbsp;✦&nbsp; file:// ローカル動作対応版</p>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+  <!-- ═══════════════════════════════════
+       スクリプト読み込み順序（重要）
+       1. cards_data.js  → TAROT_DATA をグローバルに定義
+       2. app.js         → TAROT_DATA を参照しつつ動作
+  ═══════════════════════════════════ -->
+  <script src="js/cards_data.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
