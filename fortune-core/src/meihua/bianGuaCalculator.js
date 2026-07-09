@@ -60,7 +60,8 @@ function linesToTrigramName(lines) {
  * @param {string} upperName    本卦の上卦（八卦名。例: "乾"）
  * @param {string} lowerName    本卦の下卦（八卦名。例: "坤"）
  * @param {number} changingLine 変爻の位置（1〜6。爻1が一番下、爻6が一番上）
- * @returns {{ upperName: string, lowerName: string }} 変卦の上卦・下卦
+ * @returns {{ upperName: string, lowerName: string, changedTrigram: 'upper'|'lower' }}
+ *          変卦の上卦・下卦、およびどちら側の卦が変化したか
  *
  * @example
  * // 乾為天（上卦乾・下卦乾）の初爻（爻1）が変爻の場合
@@ -96,6 +97,7 @@ export function computeBianGua(upperName, lowerName, changingLine) {
   return {
     upperName: linesToTrigramName(newUpperLines),
     lowerName: linesToTrigramName(newLowerLines),
+    changedTrigram: changingLine <= 3 ? "lower" : "upper",
   };
 }
 
