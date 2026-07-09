@@ -5,11 +5,12 @@
  * 断辞テキストとスコアを生成する。
  */
 
-import hexagramData from "./data/hexagram_wuxing.json" assert { type: "json" };
-import relationsData from "./data/relations.json" assert { type: "json" };
-import huGuaData from "./data/hu_gua.json" assert { type: "json" };
-import bianGuaData from "./data/bian_gua.json" assert { type: "json" };
-import timeSupportData from "./data/time_support.json" assert { type: "json" };
+import hexagramData from "./data/hexagram_wuxing.json" with { type: "json" };
+import relationsData from "./data/relations.json" with { type: "json" };
+import huGuaData from "./data/hu_gua.json" with { type: "json" };
+import bianGuaData from "./data/bian_gua.json" with { type: "json" };
+import timeSupportData from "./data/time_support.json" with { type: "json" };
+import { computeBianGua, computeHuGua } from "./bianGuaCalculator.js";
 
 // ===== 旺相休囚死テーブル =====
 const WANG = 2.0;
@@ -264,21 +265,59 @@ export function buildDanzi(ctx) {
     return { error: "卦が見つかりません" };
   }
 
-  const taiWuxing = upper.wuxing;
-  const youWuxing = lower.wuxing;
+  const changingLine = ctx.changingLine;
+  const hasValidChangingLine =
+    Number.isInteger(changingLine) && changingLine >= 1 && changingLine <= 6;
+
+  // ===== 体用の決定（梅花易数の基本ルール） =====
+  // 体（タイ）＝ 変爻を含まない方の卦（動かない・変わらない側）
+  // 用（ヨウ）＝ 変爻を含む方の卦（動く・変化する側）
+  // 爻1〜3＝下卦、爻4〜6＝上卦 なので、
+  //   changingLineが1〜3 → 下卦が動く → 体＝上卦・用＝下卦
+  //   changingLineが4〜6 → 上卦が動く → 体＝下卦・用＝上卦
+  // changingLine が未指定の場合は、後方互換のため「体＝上卦・用＝下卦」とする。
+  const lineIsInUpper = hasValidChangingLine && changingLine >= 4;
+  const taiIsUpper = hasValidChangingLine ? !lineIsInUpper : true;
+
+  const taiWuxing = taiIsUpper ? upper.wuxing : lower.wuxing;
+  const youWuxing = taiIsUpper ? lower.wuxing : upper.wuxing;
 
   // ===== 各関係を判定 =====
   const relationKey = getRelationKey(taiWuxing, youWuxing);
-  
-  // 変卦を計算（簡略版：同じ卦にする）
-  const bianWuxing = upper.wuxing;
   const benPolarity = relationKey.includes("SEI") ? "GOOD" : "BAD";
-  const bianGuaKey = getBianGuaKey(taiWuxing, bianWuxing, benPolarity);
 
-  // 互卦（内部の潜在卦）
-  const huWuxing = (upper.number + lower.number) % 8 === 0 ? 8 : (upper.number + lower.number) % 8;
-  const huGuaName = Object.entries(hexagramData).find(([_, v]) => v.number === huWuxing)?.[0] || "艮";
-  const huGuaWuxing = hexagramData[huGuaName]?.wuxing || "土";
+  // 変卦（へんか）: 変爻を反転させて求める、本物の易学的計算。
+  // 体は定義上「変わらない側」なので、比較すべきは
+  // 「変化した後の“用”側の五行」対「体の五行（不変）」である。
+  let bianGuaKey = "BIAN_SAME_AS_BEN";
+  if (hasValidChangingLine) {
+    const { upperName: bianUpperName, lowerName: bianLowerName } = computeBianGua(
+      ctx.upperName,
+      ctx.lowerName,
+      changingLine
+    );
+    // 用側（変化した方）の新しい卦名を取得
+    const newYouName = taiIsUpper ? bianLowerName : bianUpperName;
+    const bianWuxing = hexagramData[newYouName]?.wuxing;
+    if (bianWuxing) {
+      bianGuaKey = getBianGuaKey(taiWuxing, bianWuxing, benPolarity);
+    }
+  } else {
+    console.warn(
+      "[meihuaEngine] ctx.changingLine が未指定/不正のため変卦の計算をスキップしました（BIAN_SAME_AS_BENとして扱います）:",
+      ctx.changingLine
+    );
+  }
+
+  // 互卦（ごか）: 2・3・4爻目→新下卦、3・4・5爻目→新上卦 という
+  // 本来の定義で計算する（内部に隠れた構造を見る、という古典的な考え方）。
+  // 体の位置（上卦/下卦）に対応する側を代表値として、体と比較する。
+  const { upperName: huUpperName, lowerName: huLowerName } = computeHuGua(
+    ctx.upperName,
+    ctx.lowerName
+  );
+  const huRepName = taiIsUpper ? huUpperName : huLowerName;
+  const huGuaWuxing = hexagramData[huRepName]?.wuxing || "土";
   const huGuaKey = getHuGuaKey(huGuaWuxing, taiWuxing);
 
   // 月支からの支援
@@ -347,6 +386,9 @@ export function buildDanzi(ctx) {
       upper: ctx.upperName,
       lower: ctx.lowerName,
       changing: ctx.changingLine,
+      tai: taiIsUpper ? ctx.upperName : ctx.lowerName,
+      you: taiIsUpper ? ctx.lowerName : ctx.upperName,
+      taiPosition: taiIsUpper ? "upper" : "lower",
       relationKey,
       bianGuaKey,
       huGuaKey,
