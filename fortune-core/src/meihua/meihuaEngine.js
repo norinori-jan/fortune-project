@@ -348,7 +348,21 @@ export function buildDanzi(ctx) {
   const scoreResult = calcPolarity(scoreCtx);
 
   // ===== 断辞テキスト生成 =====
-  const timeScopeText = `${ctx.monthBranch || "今月"}から${ctx.changingLine || "6"}日`;
+  // 時間の見立て（{{timeScopeText}}）:
+  // 旧ロジックは changingLine（1〜6の爻の位置）をそのまま「◯日」として
+  // 使っており、易学的な意味を持たない数字だった（例:「子から6日」）。
+  //
+  // ここでは古典的によく使われる簡易ルールに差し替える:
+  //   ・用卦（動く方の卦）の先天八卦数（1〜8）を基準の「数」とする
+  //   ・月支からの支援が強いほど動きが早いとみなし「日」単位、
+  //     弱ければゆっくりとみなし「月」単位とする
+  // ※ 応期（時期の見立て）は流派によって解釈が分かれる領域であり、
+  //   これはあくまで簡易的な目安。より精緻にしたい場合は要調整。
+  const youName = taiIsUpper ? ctx.lowerName : ctx.upperName;
+  const timeNumber = hexagramData[youName]?.number || 6;
+  const timeUnit = monthStrength >= 1.0 ? "日" : "月";
+  const branchText = ctx.monthBranch ? `${ctx.monthBranch}の月` : "今の巡り";
+  const timeScopeText = `${branchText}から${timeNumber}${timeUnit}ほど`;
   const vars = { timeScopeText };
 
   const relationLayer = getLayerText(
