@@ -1,4 +1,7 @@
-from core.registry_a import load_registry
-REGISTRY = load_registry()
+from dataclasses import dataclass, field
 
-BRANCHES = REGISTRY["shichu"]["branches"]
+@dataclass
+class Branch:
+    name: str
+    index: int
+    hidden_stems: list = field(default_factory=list)

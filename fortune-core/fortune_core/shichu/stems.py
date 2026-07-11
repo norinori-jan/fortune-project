@@ -1,4 +1,8 @@
-from core.registry_a import load_registry
-REGISTRY = load_registry()
+from dataclasses import dataclass
 
-STEMS = REGISTRY["shichu"]["stems"]
+@dataclass(frozen=True)
+class Stem:
+    name: str
+    element: str
+    yin_yang: str
+    index: int

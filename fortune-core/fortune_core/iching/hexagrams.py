@@ -7,7 +7,8 @@ from .registry_loader import load_registry
 @lru_cache(maxsize=1)
 def _load_hexagrams() -> list[dict]:
     """
-    SSOT�E�Eore/registry_a.json�E�から�E十四卦チE�Eタを読み込む
+    SSOT（Single Source of Truth）として registry_loader が読み込む
+    registry_a.json から六十四卦データを取得する
     """
     registry = load_registry()
     return registry["hexagrams"]
