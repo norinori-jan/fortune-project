@@ -1,0 +1,113 @@
+﻿{
+  "甲": {
+    "name": "甲",
+    "reading": "きのえ",
+    "five_elements": "木",
+    "yin_yang": "陽",
+    "index": 0,
+    "combine": "己",
+    "produce": "火",
+    "control": "土",
+    "season_power": "春"
+  },
+  "乙": {
+    "name": "乙",
+    "reading": "きのと",
+    "five_elements": "木",
+    "yin_yang": "陰",
+    "index": 1,
+    "combine": "庚",
+    "produce": "火",
+    "control": "土",
+    "season_power": "春"
+  },
+  "丙": {
+    "name": "丙",
+    "reading": "ひのえ",
+    "five_elements": "火",
+    "yin_yang": "陽",
+    "index": 2,
+    "combine": "辛",
+    "produce": "土",
+    "control": "金",
+    "season_power": "夏"
+  },
+  "丁": {
+    "name": "丁",
+    "reading": "ひのと",
+    "five_elements": "火",
+    "yin_yang": "陰",
+    "index": 3,
+    "combine": "壬",
+    "produce": "土",
+    "control": "金",
+    "season_power": "夏"
+  },
+  "戊": {
+    "name": "戊",
+    "reading": "つちのえ",
+    "five_elements": "土",
+    "yin_yang": "陽",
+    "index": 4,
+    "combine": "癸",
+    "produce": "金",
+    "control": "水",
+    "season_power": "四季"
+  },
+  "己": {
+    "name": "己",
+    "reading": "つちのと",
+    "five_elements": "土",
+    "yin_yang": "陰",
+    "index": 5,
+    "combine": "甲",
+    "produce": "金",
+    "control": "水",
+    "season_power": "四季"
+  },
+  "庚": {
+    "name": "庚",
+    "reading": "かのえ",
+    "five_elements": "金",
+    "yin_yang": "陽",
+    "index": 6,
+    "combine": "乙",
+    "produce": "水",
+    "control": "木",
+    "season_power": "秋"
+  },
+  "辛": {
+    "name": "辛",
+    "reading": "かのと",
+    "five_elements": "金",
+    "yin_yang": "陰",
+    "index": 7,
+    "combine": "丙",
+    "produce": "水",
+    "control": "木",
+    "season_power": "秋"
+  },
+  "壬": {
+    "name": "壬",
+    "reading": "みずのえ",
+    "five_elements": "水",
+    "yin_yang": "陽",
+    "index": 8,
+    "combine": "丁",
+    "produce": "木",
+    "control": "火",
+    "season_power": "冬"
+  },
+  "癸": {
+    "name": "癸",
+    "reading": "みずのと",
+    "five_elements": "水",
+    "yin_yang": "陰",
+    "index": 9,
+    "combine": "戊",
+    "produce": "木",
+    "control": "火",
+    "season_power": "冬"
+  }
+}
+

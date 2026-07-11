@@ -1,0 +1,63 @@
+﻿{
+  "子": {
+    "main": "癸",
+    "middle": null,
+    "extra": null
+  },
+  "丑": {
+    "main": "己",
+    "middle": "癸",
+    "extra": "辛"
+  },
+  "寅": {
+    "main": "甲",
+    "middle": "丙",
+    "extra": "戊"
+  },
+  "卯": {
+    "main": "乙",
+    "middle": null,
+    "extra": null
+  },
+  "辰": {
+    "main": "戊",
+    "middle": "乙",
+    "extra": "癸"
+  },
+  "巳": {
+    "main": "丙",
+    "middle": "戊",
+    "extra": "庚"
+  },
+  "午": {
+    "main": "丁",
+    "middle": "己",
+    "extra": null
+  },
+  "未": {
+    "main": "己",
+    "middle": "丁",
+    "extra": "乙"
+  },
+  "申": {
+    "main": "庚",
+    "middle": "壬",
+    "extra": "戊"
+  },
+  "酉": {
+    "main": "辛",
+    "middle": null,
+    "extra": null
+  },
+  "戌": {
+    "main": "戊",
+    "middle": "辛",
+    "extra": "丁"
+  },
+  "亥": {
+    "main": "壬",
+    "middle": "甲",
+    "extra": null
+  }
+}
+

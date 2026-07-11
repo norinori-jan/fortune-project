@@ -1,0 +1,207 @@
+﻿{
+  "子": {
+    "name": "子",
+    "reading": "ね",
+    "five_elements": "水",
+    "yin_yang": "陽",
+    "index": 0,
+    "season": "冬",
+    "direction": "北",
+    "earthly_relation": {
+      "sanhe": ["申", "子", "辰"],
+      "liuhe": "丑",
+      "chong": "午",
+      "hai": "未",
+      "xing": ["卯"]
+    },
+    "hidden_stems": ["癸"]
+  },
+  "丑": {
+    "name": "丑",
+    "reading": "うし",
+    "five_elements": "土",
+    "yin_yang": "陰",
+    "index": 1,
+    "season": "冬",
+    "direction": "北北東",
+    "earthly_relation": {
+      "sanhe": ["巳", "酉", "丑"],
+      "liuhe": "子",
+      "chong": "未",
+      "hai": "午",
+      "xing": ["戌"]
+    },
+    "hidden_stems": ["己", "癸", "辛"]
+  },
+  "寅": {
+    "name": "寅",
+    "reading": "とら",
+    "five_elements": "木",
+    "yin_yang": "陽",
+    "index": 2,
+    "season": "春",
+    "direction": "東北東",
+    "earthly_relation": {
+      "sanhe": ["寅", "午", "戌"],
+      "liuhe": "亥",
+      "chong": "申",
+      "hai": "巳",
+      "xing": ["巳"]
+    },
+    "hidden_stems": ["甲", "丙", "戊"]
+  },
+  "卯": {
+    "name": "卯",
+    "reading": "う",
+    "five_elements": "木",
+    "yin_yang": "陰",
+    "index": 3,
+    "season": "春",
+    "direction": "東",
+    "earthly_relation": {
+      "sanhe": ["亥", "卯", "未"],
+      "liuhe": "戌",
+      "chong": "酉",
+      "hai": "辰",
+      "xing": ["子"]
+    },
+    "hidden_stems": ["乙"]
+  },
+  "辰": {
+    "name": "辰",
+    "reading": "たつ",
+    "five_elements": "土",
+    "yin_yang": "陽",
+    "index": 4,
+    "season": "春",
+    "direction": "東南東",
+    "earthly_relation": {
+      "sanhe": ["申", "子", "辰"],
+      "liuhe": "酉",
+      "chong": "戌",
+      "hai": "卯",
+      "xing": ["丑"]
+    },
+    "hidden_stems": ["戊", "乙", "癸"]
+  },
+  "巳": {
+    "name": "巳",
+    "reading": "み",
+    "five_elements": "火",
+    "yin_yang": "陰",
+    "index": 5,
+    "season": "夏",
+    "direction": "南南東",
+    "earthly_relation": {
+      "sanhe": ["巳", "酉", "丑"],
+      "liuhe": "申",
+      "chong": "亥",
+      "hai": "寅",
+      "xing": ["寅"]
+    },
+    "hidden_stems": ["丙", "戊", "庚"]
+  },
+  "午": {
+    "name": "午",
+    "reading": "うま",
+    "five_elements": "火",
+    "yin_yang": "陽",
+    "index": 6,
+    "season": "夏",
+    "direction": "南",
+    "earthly_relation": {
+      "sanhe": ["寅", "午", "戌"],
+      "liuhe": "未",
+      "chong": "子",
+      "hai": "丑",
+      "xing": ["酉"]
+    },
+    "hidden_stems": ["丁", "己"]
+  },
+  "未": {
+    "name": "未",
+    "reading": "ひつじ",
+    "five_elements": "土",
+    "yin_yang": "陰",
+    "index": 7,
+    "season": "夏",
+    "direction": "南南西",
+    "earthly_relation": {
+      "sanhe": ["亥", "卯", "未"],
+      "liuhe": "午",
+      "chong": "丑",
+      "hai": "子",
+      "xing": ["子"]
+    },
+    "hidden_stems": ["己", "丁", "乙"]
+  },
+  "申": {
+    "name": "申",
+    "reading": "さる",
+    "five_elements": "金",
+    "yin_yang": "陽",
+    "index": 8,
+    "season": "秋",
+    "direction": "西南西",
+    "earthly_relation": {
+      "sanhe": ["申", "子", "辰"],
+      "liuhe": "巳",
+      "chong": "寅",
+      "hai": "卯",
+      "xing": ["寅"]
+    },
+    "hidden_stems": ["庚", "壬", "戊"]
+  },
+  "酉": {
+    "name": "酉",
+    "reading": "とり",
+    "five_elements": "金",
+    "yin_yang": "陰",
+    "index": 9,
+    "season": "秋",
+    "direction": "西",
+    "earthly_relation": {
+      "sanhe": ["巳", "酉", "丑"],
+      "liuhe": "辰",
+      "chong": "卯",
+      "hai": "午",
+      "xing": ["午"]
+    },
+    "hidden_stems": ["辛"]
+  },
+  "戌": {
+    "name": "戌",
+    "reading": "いぬ",
+    "five_elements": "土",
+    "yin_yang": "陽",
+    "index": 10,
+    "season": "秋",
+    "direction": "西北西",
+    "earthly_relation": {
+      "sanhe": ["寅", "午", "戌"],
+      "liuhe": "卯",
+      "chong": "辰",
+      "hai": "丑",
+      "xing": ["丑"]
+    },
+    "hidden_stems": ["戊", "辛", "丁"]
+  },
+  "亥": {
+    "name": "亥",
+    "reading": "い",
+    "five_elements": "水",
+    "yin_yang": "陰",
+    "index": 11,
+    "season": "冬",
+    "direction": "北北西",
+    "earthly_relation": {
+      "sanhe": ["亥", "卯", "未"],
+      "liuhe": "寅",
+      "chong": "巳",
+      "hai": "申",
+      "xing": ["巳"]
+    },
+    "hidden_stems": ["壬", "甲"]
+  }
+}
+

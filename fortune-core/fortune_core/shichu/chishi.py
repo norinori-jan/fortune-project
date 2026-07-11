@@ -19,8 +19,11 @@ Step6以降で
 
 を追加する。
 """
+from ..registry_loader import load_registry
 
-BRANCHES = [
+REGISTRY = load_registry()
+
+BRANCHES = REGISTRY["branches"]
 
     "子",
 
