@@ -2,13 +2,13 @@
 divination_entry.py
 ====================
 
-占いの入り口：ユーザーの相談内容をヒアリングして、
-最適な占術（タロット・風水・複合占法）を自動判定・提案するモジュール。
+占ぁE�E入り口�E�ユーザーの相諁E�E容をヒアリングして、E
+最適な占術（タロチE��・風水・褁E��占法）を自動判定�E提案するモジュール、E
 
-主要機能:
-- 相談内容の分類（恋愛、仕事、金運、人間関係、健康など）
-- キーワード分析から最適な占術を推薦
-- ユーザーに対する提案文の生成
+主要機�E:
+- 相諁E�E容の刁E��（恋愛、仕事、E��運、人間関係、健康など�E�E
+- キーワード�E析から最適な占術を推薦
+- ユーザーに対する提案文の生�E
 """
 
 import json
@@ -24,64 +24,64 @@ from datetime import datetime
 DivationType = Literal["tarot_celtic_cross", "feng_shui", "four_pillars", "combined"]
 ConcernType = Literal["love", "work", "money", "relationship", "health", "future", "general"]
 
-# 相談カテゴリのキーワードマッピング
+# 相諁E��チE��リのキーワード�EチE��ング
 CONCERN_KEYWORDS: dict[ConcernType, list[str]] = {
     "love": [
-        "恋愛", "彼氏", "彼女", "パートナー", "結婚", "婚活", "片思い",
-        "恋", "デート", "告白", "好き", "愛", "愛情", "交際", "関係",
+        "恋�E", "彼氁E, "彼女", "パ�Eトナー", "結婁E, "婚活", "牁E��い",
+        "恁E, "チE�EチE, "告白", "好ぁE, "愁E, "愛情", "交隁E, "関俁E,
         "love", "romantic", "boyfriend", "girlfriend", "marriage",
     ],
     "work": [
-        "仕事", "転職", "職場", "上司", "同僚", "プロジェクト", "キャリア",
-        "昇進", "退職", "失業", "起業", "独立", "キャリアパス",
+        "仕亁E, "転職", "職場", "上司", "同�E", "プロジェクチE, "キャリア",
+        "昁E��", "退職", "失業", "起業", "独竁E, "キャリアパス",
         "work", "job", "career", "employment", "boss", "promotion",
     ],
     "money": [
-        "金運", "お金", "給料", "年収", "投資", "株", "ビジネス", "商売",
-        "貯金", "借金", "返済", "経営", "利益", "収入", "支出",
+        "金運", "お��", "給斁E, "年叁E, "投賁E, "株", "ビジネス", "啁E��",
+        "貯釁E, "借��", "返渁E, "経営", "利盁E, "収�E", "支出",
         "money", "financial", "investment", "income", "business",
     ],
     "relationship": [
-        "人間関係", "友人", "家族", "親", "兄弟", "姉妹", "友達", "知人",
-        "人付き合い", "対人", "信頼", "葛藤", "和解", "別れ",
+        "人間関俁E, "友人", "家旁E, "親", "允E��E, "姉妹", "友達", "知人",
+        "人付き合い", "対人", "信頼", "葛藤", "和解", "別めE,
         "relationship", "friend", "family", "parent",
     ],
     "health": [
-        "健康", "病気", "体調", "治療", "症状", "医師", "診断", "回復",
-        "ストレス", "睡眠", "運動", "食事", "メンタル", "心身",
+        "健康", "痁E��E, "体調", "治癁E, "痁E��", "医師", "診断", "回復",
+        "ストレス", "睡眠", "運動", "食亁E, "メンタル", "忁E��",
         "health", "medical", "illness", "treatment", "wellness",
     ],
     "future": [
-        "未来", "前兆", "予測", "予感", "チャンス", "運命", "天命",
-        "タイミング", "可能性", "展開", "将来", "次", "後々",
+        "未来", "前�E", "予測", "予感", "チャンス", "運命", "天命",
+        "タイミング", "可能性", "展開", "封E��", "次", "後、E,
         "future", "destiny", "fortune", "prediction", "outcome",
     ],
 }
 
-# タロットが推奨される悩みの特徴
+# タロチE��が推奨される悩みの特徴
 TAROT_OPTIMIZED_KEYWORDS: list[str] = [
-    "今", "近未来", "3ヶ月", "半年", "今後", "進め方", "決断",
-    "どうすべき", "どうなる", "今後の方向", "状況", "対応",
-    "展開", "流れ", "進むべき", "今の状況", "この先",
+    "仁E, "近未来", "3ヶ朁E, "半年", "今征E, "進め方", "決断",
+    "どぁE��べぁE, "どぁE��めE, "今後�E方吁E, "状況E, "対忁E,
+    "展開", "流れ", "進むべぁE, "今�E状況E, "こ�E允E,
     "soon", "near future", "how should", "what should",
 ]
 
 # 東洋占術が推奨される悩みの特徴
 FENG_SHUI_OPTIMIZED_KEYWORDS: list[str] = [
-    "根本", "本質", "適職", "天職", "才能", "資質", "引っ越し", "方位",
-    "環境", "運気", "気の流れ", "エネルギー", "バイオリズム", "周期",
-    "宿命", "宿星", "本来の", "真の", "長期", "長年", "根強い",
+    "根本", "本質", "適職", "天職", "才�E", "賁E��", "引っ越し", "方佁E,
+    "環墁E, "運氁E, "気�E流れ", "エネルギー", "バイオリズム", "周朁E,
+    "宿命", "宿昁E, "本来の", "真�E", "長朁E, "長年", "根強ぁE,
     "essence", "talent", "relocation", "long-term", "fundamental",
 ]
 
-# 複合占法が推奨される悩みの特徴
+# 褁E��占法が推奨される悩みの特徴
 COMBINED_OPTIMIZED_KEYWORDS: list[str] = [
-    "複雑", "複数", "総合", "全体的", "人生", "人生設計", "多角的",
-    "包括的", "統合", "全方位", "シナリオ", "選択肢", "比較",
+    "褁E��", "褁E��", "総合", "全体的", "人甁E, "人生設訁E, "多角的",
+    "匁E��皁E, "統吁E, "全方佁E, "シナリオ", "選択肢", "比輁E,
 ]
 
 # ---------------------------------------------------------------------------
-# データクラス
+# チE�Eタクラス
 # ---------------------------------------------------------------------------
 
 
@@ -109,7 +109,7 @@ class DivineRecommendation:
 
 @dataclass
 class DivineEntry:
-    """占いセッション開始データ"""
+    """占ぁE��チE��ョン開始データ"""
     query_text: str
     query_text_ja: str
     concern_type: ConcernType
@@ -136,20 +136,20 @@ class DivineEntry:
 
 class DivineEntryEngine:
     """
-    ユーザーの相談内容をヒアリングして、最適な占術を推奨するエンジン。
+    ユーザーの相諁E�E容をヒアリングして、最適な占術を推奨するエンジン、E
     """
 
     def __init__(self):
-        """初期化"""
+        """初期匁E""
         pass
 
     def _extract_concern_type(self, query: str) -> tuple[ConcernType, float]:
         """
-        相談内容からカテゴリを推定（スコア付き）。
-        複数該当する場合は最も確度が高いものを返す。
+        相諁E�E容からカチE��リを推定（スコア付き�E�、E
+        褁E��該当する場合�E最も確度が高いも�Eを返す、E
 
         Returns:
-            (concern_type, confidence) - タイプと確度（0.0～1.0）
+            (concern_type, confidence) - タイプと確度�E�E.0�E�E.0�E�E
         """
         query_lower = query.lower()
         concern_scores: dict[ConcernType, float] = {t: 0.0 for t in [
@@ -166,7 +166,7 @@ class DivineEntryEngine:
         if max_score > 0:
             concern_scores = {k: v / max_score for k, v in concern_scores.items()}
 
-        # スコアが最も高いカテゴリを選択
+        # スコアが最も高いカチE��リを選抁E
         best_concern = max(concern_scores, key=concern_scores.get)
         confidence = concern_scores[best_concern]
 
@@ -174,16 +174,16 @@ class DivineEntryEngine:
 
     def _recommend_divination_type(self, query: str, concern: ConcernType) -> DivineRecommendation:
         """
-        相談内容から最適な占術を推奨する。
+        相諁E�E容から最適な占術を推奨する、E
         """
         query_lower = query.lower()
 
-        # 各占術の符号度をスコアリング
+        # 吁E��術�E符号度をスコアリング
         tarot_score = 0.0
         feng_shui_score = 0.0
         combined_score = 0.0
 
-        # タロットが推奨される特徴をスコアリング
+        # タロチE��が推奨される特徴をスコアリング
         for keyword in TAROT_OPTIMIZED_KEYWORDS:
             if keyword.lower() in query_lower:
                 tarot_score += 1.5
@@ -193,12 +193,12 @@ class DivineEntryEngine:
             if keyword.lower() in query_lower:
                 feng_shui_score += 1.5
 
-        # 複合占法が推奨される特徴をスコアリング
+        # 褁E��占法が推奨される特徴をスコアリング
         for keyword in COMBINED_OPTIMIZED_KEYWORDS:
             if keyword.lower() in query_lower:
                 combined_score += 1.5
 
-        # 相談カテゴリによるボーナス
+        # 相諁E��チE��リによるボ�Eナス
         if concern in ["love", "future"]:
             tarot_score += 2.0
         elif concern in ["work", "money"]:
@@ -221,7 +221,7 @@ class DivineEntryEngine:
         feng_shui_confidence = feng_shui_score / total_score
         combined_confidence = combined_score / total_score
 
-        # 推奨タイプ決定
+        # 推奨タイプ決宁E
         scores = {
             "tarot_celtic_cross": tarot_confidence,
             "feng_shui": feng_shui_confidence,
@@ -229,42 +229,42 @@ class DivineEntryEngine:
         }
         recommended_type: DivationType = max(scores, key=scores.get)  # type: ignore
 
-        # 推奨文を生成
+        # 推奨斁E��生�E
         guidance_map: dict[DivationType, str] = {
             "tarot_celtic_cross": (
-                "あなたのそのお悩みには、状況の深層心理と未来の展開を10本の柱で解き明かす"
-                "【タロット・ケルト十字スプレッド】が最も適しています。\n"
-                "今この瞬間の心理状態から、3～6ヶ月先の展開まで、詳細に読み解きます。\n"
-                "それでは、シャッフルへ進みましょう……"
+                "あなた�Eそ�Eお悩みには、状況�E深層忁E��と未来の展開めE0本の柱で解き�Eかす"
+                "【タロチE��・ケルト十字スプレチE��】が最も適してぁE��す、En"
+                "今この瞬間�E忁E��状態から、E�E�Eヶ月�Eの展開まで、詳細に読み解きます、En"
+                "それでは、シャチE��ルへ進みましょぁE��…"
             ),
             "feng_shui": (
-                "あなたのそのお悩みには、あなたの根本的な資質と運気の周期を読み解く"
-                "【東洋占術・風水＆四柱推命複合診断】が最も適しています。\n"
-                "長期的なバイオリズムと環境エネルギーから、人生の本質的な流れを明かします。\n"
-                "それでは、あなたの生年月日と現在地をお聞かせください……"
+                "あなた�Eそ�Eお悩みには、あなた�E根本皁E��賁E��と運気�E周期を読み解ぁE
+                "【東洋占術�E風水�E�E��柱推命褁E��診断】が最も適してぁE��す、En"
+                "長期的なバイオリズムと環墁E��ネルギーから、人生�E本質皁E��流れを�Eかします、En"
+                "それでは、あなた�E生年月日と現在地をお聞かせください……"
             ),
             "combined": (
-                "あなたのそのお悩みには、短期の心理的展開と長期の宿命的バイオリズムを"
-                "【複合占法】で総合的に読み解くことが最も適しています。\n"
-                "タロットと東洋占術の両面からアプローチし、360度からの視点を提供します。\n"
-                "それでは、シャッフルと四柱推命の準備を進めていきましょう……"
+                "あなた�Eそ�Eお悩みには、短期�E忁E��皁E��開と長期�E宿命皁E��イオリズムめE
+                "【褁E��占法】で総合皁E��読み解くことが最も適してぁE��す、En"
+                "タロチE��と東洋占術�E両面からアプローチし、E60度からの視点を提供します、En"
+                "それでは、シャチE��ルと四柱推命の準備を進めてぁE��ましょぁE��…"
             ),
         }
 
         reasoning_map: dict[DivationType, str] = {
             "tarot_celtic_cross": (
-                f"相談内容に「{', '.join(TAROT_OPTIMIZED_KEYWORDS[:3])}」などの"
-                "近期的・具体的なキーワードが含まれており、"
-                "タロットの即座の心理読解が最適です。"
+                f"相諁E�E容に「{', '.join(TAROT_OPTIMIZED_KEYWORDS[:3])}」などの"
+                "近期皁E�E具体的なキーワードが含まれており、E
+                "タロチE��の即座の忁E��読解が最適です、E
             ),
             "feng_shui": (
-                f"相談内容に「{', '.join(FENG_SHUI_OPTIMIZED_KEYWORDS[:3])}」などの"
-                "根本的・長期的なキーワードが含まれており、"
-                "東洋占術の本質的・運命的読解が最適です。"
+                f"相諁E�E容に「{', '.join(FENG_SHUI_OPTIMIZED_KEYWORDS[:3])}」などの"
+                "根本皁E�E長期的なキーワードが含まれており、E
+                "東洋占術�E本質皁E�E運命皁E��解が最適です、E
             ),
             "combined": (
-                "複数の異なる側面からの総合的な判断が必要な相談内容です。"
-                "短期と長期、心理と運命の両面から包括的に診断します。"
+                "褁E��の異なる�E面からの総合皁E��判断が忁E��な相諁E�E容です、E
+                "短期と長期、忁E��と運命の両面から匁E��皁E��診断します、E
             ),
         }
 
@@ -282,27 +282,27 @@ class DivineEntryEngine:
 
     def create_entry(self, query_text: str, query_text_ja: str = "") -> DivineEntry:
         """
-        新規占いセッションを開始し、推奨占術を返す。
+        新規占ぁE��チE��ョンを開始し、推奨占術を返す、E
 
         Parameters
         ----------
         query_text : str
-            ユーザーの相談内容（日本語 or 英語）
+            ユーザーの相諁E�E容�E�日本誁Eor 英語！E
         query_text_ja : str
-            相談内容の日本語（query_text が英語の場合に指定）
+            相諁E�E容の日本語！Euery_text が英語�E場合に持E��！E
 
         Returns
         -------
         DivineEntry
-            占いセッション開始データ
+            占ぁE��チE��ョン開始データ
         """
-        # 相談カテゴリを推定
+        # 相諁E��チE��リを推宁E
         concern_type, _ = self._extract_concern_type(query_text)
 
         # 最適な占術を推奨
         recommendation = self._recommend_divination_type(query_text, concern_type)
 
-        # セッションID生成（タイムスタンプ ベース）
+        # セチE��ョンID生�E�E�タイムスタンチEベ�Eス�E�E
         now = datetime.now()
         session_id = f"divine_{int(now.timestamp() * 1000)}"
 
@@ -319,25 +319,25 @@ class DivineEntryEngine:
 
     def suggest_follow_up_questions(self, entry: DivineEntry) -> list[str]:
         """
-        推奨占術に基づいて、ユーザーへのフォローアップ質問を生成。
+        推奨占術に基づぁE��、ユーザーへのフォローアチE�E質問を生�E、E
         """
         questions_by_type: dict[DivationType, list[str]] = {
             "tarot_celtic_cross": [
-                "この相談についてもう少し詳しく教えていただけますか？"
-                "（例：期限、関係者、現在のアクション）",
-                "この相談に対して、あなたが一番知りたいことは何ですか？",
-                "シャッフルを始める前に、この相談事を心に思い浮かべながら"
-                "ストップボタンを押してください。あなたの直感がカードを選びます。",
+                "こ�E相諁E��つぁE��もう少し詳しく教えてぁE��だけますか�E�E
+                "�E�例：期限、E��係老E��現在のアクション�E�E,
+                "こ�E相諁E��対して、あなたが一番知りたぁE��とは何ですか�E�E,
+                "シャチE��ルを始める前に、この相諁E��を忁E��思い浮かべながら"
+                "ストップ�Eタンを押してください。あなた�E直感がカードを選びます、E,
             ],
             "feng_shui": [
-                "あなたの生年月日をお聞かせください。",
-                "現在お住まいの地域（できれば方位も）をお教えください。",
-                "この問題でどのくらいの期間お悩みですか？",
+                "あなた�E生年月日をお聞かせください、E,
+                "現在お住まぁE�E地域（できれば方位も�E�をお教えください、E,
+                "こ�E問題でどのくらぁE�E期間お悩みですか�E�E,
             ],
             "combined": [
-                "生年月日をお聞かせください。",
-                "この相談の期間軸は短期か長期か、あるいは両方ですか？",
-                "シャッフルと四柱推命の両データを揃えて、総合診断を開始します。",
+                "生年月日をお聞かせください、E,
+                "こ�E相諁E�E期間軸は短期か長期か、あるいは両方ですか�E�E,
+                "シャチE��ルと四柱推命の両チE�Eタを揃えて、総合診断を開始します、E,
             ],
         }
 

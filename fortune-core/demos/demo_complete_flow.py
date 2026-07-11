@@ -2,12 +2,12 @@
 demo_complete_flow.py
 =====================
 
-fortune-core の完全フロー デモンストレーション：
-1. 占いの入り口（相談内容入力→占術自動マッチング）
-2. ケルト十字スプレッド実行
-3. 鑑定結果のレポート生成・保存
+fortune-core の完�Eフロー チE��ンストレーション�E�E
+1. 占ぁE�E入り口�E�相諁E�E容入力�E占術�E動�EチE��ング�E�E
+2. ケルト十字スプレチE��実衁E
+3. 鑑定結果のレポ�Eト生成�E保孁E
 
-実行方法:
+実行方況E
     python src/fortune_core/demo_complete_flow.py
 """
 
@@ -28,7 +28,7 @@ from fortune_core.report_generator import ReportGenerator, ReadingReport
 
 
 # ==============================================================================
-# デモ用ユーティリティ
+# チE��用ユーチE��リチE��
 # ==============================================================================
 
 def print_header(title: str):
@@ -41,16 +41,16 @@ def print_header(title: str):
 
 def print_section(title: str):
     """セクション表示"""
-    print(f"\n【 {title} 】\n")
+    print(f"\n、E{title} 】\n")
 
 
 def print_divider():
-    """区切り線"""
+    """区刁E��緁E""
     print("-" * 80)
 
 
 def safe_input(prompt: str, default: str = "") -> str:
-    """安全な入力取得"""
+    """安�Eな入力取征E""
     try:
         result = input(prompt)
         return result if result.strip() else default
@@ -59,42 +59,42 @@ def safe_input(prompt: str, default: str = "") -> str:
 
 
 # ==============================================================================
-# デモ実行
+# チE��実衁E
 # ==============================================================================
 
 def demo_complete_flow():
-    """完全フロー デモ"""
+    """完�Eフロー チE��"""
     
-    print_header("🔮 fortune-core 完全フロー デモンストレーション 🔮")
+    print_header("🔮 fortune-core 完�Eフロー チE��ンストレーション 🔮")
 
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    # STEP 1: 占いの入り口
+    # STEP 1: 占ぁE�E入り口
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     
-    print_section("STEP 1️⃣ : 占いの入り口 - 相談内容のヒアリング")
+    print_section("STEP 1�E�⃣ : 占ぁE�E入り口 - 相諁E�E容のヒアリング")
     print("""
-今、どのようなことで悩んでいますか？
+今、どのようなことで悩んでぁE��すか�E�E
 
-【相談内容の例】
-  • 「今のプロジェクトをどう進めるべきか？」
-  • 「3ヶ月後の転職の行方は？」
-  • 「彼との関係は今後どうなる？」
-  • 「自分の適職は何か？」
-  • 「引っ越しに最適な方位は？」
+【相諁E�E容の例、E
+  • 「今�EプロジェクトをどぁE��めるべきか�E�、E
+  • 、Eヶ月後�E転職の行方は�E�、E
+  • 「彼との関係�E今後どぁE��る？、E
+  • 「�E刁E�E適職は何か�E�、E
+  • 「引っ越しに最適な方位�E�E�、E
 """)
     
-    # サンプル相談内容（インタラクティブか固定か）
+    # サンプル相諁E�E容�E�インタラクチE��ブか固定か�E�E
     sample_queries = [
-        "今のプロジェクトをどう進めるべきか？状況が複雑で、チーム内の意見も割れています。",
-        "彼との関係は今後どうなりますか？結婚を考えていますが、彼の気持ちが不安です。",
-        "転職を考えていますが、本当に今の会社を辞めるべきでしょうか？",
+        "今�EプロジェクトをどぁE��めるべきか�E�状況が褁E��で、チーム冁E�E意見も割れてぁE��す、E,
+        "彼との関係�E今後どぁE��りますか�E�結婚を老E��てぁE��すが、彼の気持ちが不安です、E,
+        "転職を老E��てぁE��すが、本当に今�E会社を辞めるべきでしょぁE���E�E,
     ]
     
-    print("\n【サンプル相談内容（デモ用）】")
+    print("\n【サンプル相諁E�E容�E�デモ用�E�、E)
     for i, query in enumerate(sample_queries, 1):
         print(f"  [{i}] {query}")
     
-    choice = safe_input("\nいずれか選択してください [1-3] (デフォルト: 1): ", "1")
+    choice = safe_input("\nぁE��れか選択してください [1-3] (チE��ォルチE 1): ", "1")
     
     try:
         query_idx = int(choice) - 1
@@ -105,23 +105,23 @@ def demo_complete_flow():
     except ValueError:
         query_text = sample_queries[0]
     
-    print(f"\n✓ 相談内容: 「{query_text}」\n")
+    print(f"\n✁E相諁E�E容: 「{query_text}」\n")
     
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    # STEP 2: 占術自動マッチング
+    # STEP 2: 占術�E動�EチE��ング
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     
-    print_section("STEP 2️⃣ : 占術自動マッチング")
-    print("AIがあなたの相談内容を分析し、最適な占術を判定しています...")
+    print_section("STEP 2�E�⃣ : 占術�E動�EチE��ング")
+    print("AIがあなた�E相諁E�E容を�E析し、最適な占術を判定してぁE��ぁE..")
     time.sleep(0.5)
     
     entry_engine = DivineEntryEngine()
     entry = entry_engine.create_entry(query_text)
     recommendation = entry.recommendation
     
-    print(f"\n✓ 分析完了！")
-    print(f"  カテゴリ: {entry.concern_type}")
-    print(f"  推奨占術: {recommendation.divination_type}")
+    print(f"\n✁E刁E��完亁E��E)
+    print(f"  カチE��リ: {entry.concern_type}")
+    print(f"  推奨占衁E {recommendation.divination_type}")
     print(f"  確度: {recommendation.confidence:.0%}\n")
     
     print(recommendation.reasoning + "\n")
@@ -130,51 +130,51 @@ def demo_complete_flow():
     print("\n" + recommendation.user_guidance + "\n")
     print_divider()
     
-    # フォローアップ質問
+    # フォローアチE�E質啁E
     follow_ups = entry_engine.suggest_follow_up_questions(entry)
     if follow_ups:
-        print("\n【次のステップ】")
+        print("\n【次のスチE��プ、E)
         for i, q in enumerate(follow_ups[:2], 1):
             print(f"  {i}. {q}")
     
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    # STEP 3: ケルト十字スプレッド実行
+    # STEP 3: ケルト十字スプレチE��実衁E
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     
-    print_section("STEP 3️⃣ : ケルト十字スプレッド実行")
-    print("TarotEngine を初期化しています...")
+    print_section("STEP 3�E�⃣ : ケルト十字スプレチE��実衁E)
+    print("TarotEngine を�E期化してぁE��ぁE..")
     
     try:
         tarot_engine = TarotEngine()
-        print("✓ エンジン初期化完了！\n")
+        print("✁Eエンジン初期化完亁E��\n")
     except Exception as e:
-        print(f"✗ エラー: {e}")
+        print(f"✁Eエラー: {e}")
         return
     
-    # シンクロニシティシード（現在のミリ秒タイムスタンプ）
+    # シンクロニシチE��シード（現在のミリ秒タイムスタンプ！E
     user_seed = int(time.time() * 1000)
     
-    print(f"相談内容を心に思い浮かべながら、シャッフルします...")
-    print(f"（シンクロシード: {user_seed}）\n")
+    print(f"相諁E�E容を忁E��思い浮かべながら、シャチE��ルしまぁE..")
+    print(f"�E�シンクロシーチE {user_seed}�E�\n")
     
-    # スプレッド実行
+    # スプレチE��実衁E
     reading_result = tarot_engine.draw_celtic_cross(user_seed, query_text)
     
-    print("✓ 10枚のカードが展開されました！\n")
+    print("✁E10枚�Eカードが展開されました�E�\n")
     
     # 結果表示
-    print("【ケルト十字スプレッド結果】\n")
+    print("【ケルト十字スプレチE��結果】\n")
     positions = reading_result.get("positions", {})
     
     position_labels = {
-        "CURRENT_SITUATION": "① 現在の状況",
-        "CROSSING_CHALLENGE": "② 課題・交差するもの",
-        "DISTANT_PAST": "③ 遠い過去・根底",
+        "CURRENT_SITUATION": "① 現在の状況E,
+        "CROSSING_CHALLENGE": "② 課題�E交差するも�E",
+        "DISTANT_PAST": "③ 遠ぁE��去・根庁E,
         "RECENT_PAST": "④ 近い過去の影響",
-        "BEST_OUTCOME": "⑤ 意識・最善の結果",
+        "BEST_OUTCOME": "⑤ 意識�E最喁E�E結果",
         "IMMEDIATE_FUTURE": "⑥ 近未来の方向性",
-        "SELF_PERCEPTION": "⑦ 自己認識・内面",
-        "EXTERNAL_INFLUENCES": "⑧ 外部環境・他者の影響",
+        "SELF_PERCEPTION": "⑦ 自己認識�E冁E��",
+        "EXTERNAL_INFLUENCES": "⑧ 外部環墁E�E他老E�E影響",
         "HOPES_AND_FEARS": "⑨ 希望と恐れ",
         "FINAL_OUTCOME": "⑩ 最終的な結末",
     }
@@ -188,18 +188,18 @@ def demo_complete_flow():
         meaning = card.get(meaning_key, "")
         
         label = position_labels.get(pos_key, f"? {pos_key}")
-        orientation = "🔄 逆位置" if is_reversed else "✓ 正位置"
+        orientation = "🔄 送E��置" if is_reversed else "✁E正位置"
         
         print(f"{label}")
-        print(f"  カード: {card_name} [{element}]")
+        print(f"  カーチE {card_name} [{element}]")
         print(f"  向き: {orientation}")
-        print(f"  解釈: {meaning[:60]}...\n" if len(meaning) > 60 else f"  解釈: {meaning}\n")
+        print(f"  解釁E {meaning[:60]}...\n" if len(meaning) > 60 else f"  解釁E {meaning}\n")
     
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    # STEP 4: 要素バランス分析
+    # STEP 4: 要素バランス刁E��
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     
-    print_section("STEP 4️⃣ : 要素バランス分析")
+    print_section("STEP 4�E�⃣ : 要素バランス刁E��")
     
     element_dist = {}
     for pos_data in positions.values():
@@ -208,29 +208,29 @@ def demo_complete_flow():
         element_dist[element] = element_dist.get(element, 0) + 1
     
     element_emojis = {
-        "fire": "🔥 火（ワンド）",
-        "water": "💧 水（カップ）",
-        "air": "🌬 風（ソード）",
-        "earth": "🌿 地（ペンタクル）",
-        "spirit": "✨ 霊（大アルカナ）",
+        "fire": "🔥 火�E�ワンド！E,
+        "water": "💧 水�E�カチE�E�E�E,
+        "air": "🌬 風�E�ソード！E,
+        "earth": "🌿 地�E��Eンタクル�E�E,
+        "spirit": "✨ 霊（大アルカナ！E,
     }
     
-    print("このスプレッドの要素分布:\n")
+    print("こ�EスプレチE��の要素刁E��E\n")
     for element, count in element_dist.items():
         label = element_emojis.get(element, f"? {element}")
         bar = "■" * count + "□" * (10 - count)
         print(f"  {label:<20} {bar} ({count})")
     
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    # STEP 5: レポート生成・保存
+    # STEP 5: レポ�Eト生成�E保孁E
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     
-    print_section("STEP 5️⃣ : 鑑定結果レポート生成")
+    print_section("STEP 5�E�⃣ : 鑑定結果レポ�Eト生戁E)
     
-    # Reading ID 生成
+    # Reading ID 生�E
     reading_id = f"reading_{user_seed}"
     
-    # ReportData 構築
+    # ReportData 構篁E
     report = ReadingReport(
         reading_id=reading_id,
         query_text=query_text,
@@ -241,21 +241,21 @@ def demo_complete_flow():
         user_seed=user_seed,
     )
     
-    # レポート生成
+    # レポ�Eト生戁E
     report_generator = ReportGenerator()
     
-    print("レポートを生成しています...\n")
+    print("レポ�Eトを生�EしてぁE��ぁE..\n")
     
     try:
         export_paths = report_generator.export_formats(report, formats=("json", "html"))
         
-        print("✓ レポート生成完了！\n")
-        print("【保存ファイル】")
+        print("✁Eレポ�Eト生成完亁E��\n")
+        print("【保存ファイル、E)
         for fmt, path in export_paths.items():
             print(f"  {fmt.upper()}: {path}")
         
         # JSON プレビュー
-        print("\n【JSON データ プレビュー】\n")
+        print("\n【JSON チE�Eタ プレビュー】\n")
         json_str = report_generator.generate_json_report(report)
         json_obj = json.loads(json_str)
         print(json.dumps(
@@ -266,44 +266,44 @@ def demo_complete_flow():
                 "divination_type": json_obj["divination_type"],
                 "user_seed": json_obj["user_seed"],
                 "element_distribution": json_obj["element_distribution"],
-                "positions": "（全10ポジション分のカード情報）",
+                "positions": "�E��E10ポジション刁E�Eカード情報�E�E,
             },
             ensure_ascii=False,
             indent=2
         ))
         
     except Exception as e:
-        print(f"✗ レポート生成エラー: {e}")
+        print(f"✁Eレポ�Eト生成エラー: {e}")
         return
     
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    # STEP 6: 保存方法ガイド
+    # STEP 6: 保存方法ガイチE
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     
-    print_section("STEP 6️⃣ : 保存方法ガイド")
+    print_section("STEP 6�E�⃣ : 保存方法ガイチE)
     
     save_guide = report_generator.get_save_instructions()
     print(save_guide)
     
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    # 完了
+    # 完亁E
     # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
     
-    print_header("✨ デモンストレーション完了！ ✨")
+    print_header("✨ チE��ンストレーション完亁E��E✨")
     print(f"""
-【このデモで実演したもの】
-  1️⃣  占いの入り口 - 相談内容の分析と占術自動マッチング
-  2️⃣  ケルト十字スプレッド - 10枚のカード展開
-  3️⃣  要素バランス分析 - 東洋占術連携の基盤
-  4️⃣  レポート生成 - JSON・HTML形式での多形式出力
-  5️⃣  ファイル保存 - ユーザーが自分の資産として持ち帰れる機能
+【このチE��で実演したもの、E
+  1�E�⃣  占ぁE�E入り口 - 相諁E�E容の刁E��と占術�E動�EチE��ング
+  2�E�⃣  ケルト十字スプレチE�� - 10枚�Eカード展開
+  3�E�⃣  要素バランス刁E�� - 東洋占術連携の基盤
+  4�E�⃣  レポ�Eト生戁E- JSON・HTML形式での多形式�E劁E
+  5�E�⃣  ファイル保孁E- ユーザーが�E刁E�E賁E��として持ち帰れる機�E
 
-【次のステップ】
-  • フロントエンド（Web/Mobile）で UI/UX を構築
-  • 音声テキスト注入機能で meanings を動的に育成
-  • 複数占術の連携・クロスオーバー分析の実装
+【次のスチE��プ、E
+  • フロントエンド！Eeb/Mobile�E�で UI/UX を構篁E
+  • 音声チE��スト注入機�Eで meanings を動皁E��育戁E
+  • 褁E��占術�E連携・クロスオーバ�E刁E��の実裁E
 
-                🔮 fortune-core へようこそ！ 🔮
+                🔮 fortune-core へようこそ�E�E🔮
 """)
 
 
@@ -311,7 +311,7 @@ if __name__ == "__main__":
     try:
         demo_complete_flow()
     except KeyboardInterrupt:
-        print("\n\n中断しました。")
+        print("\n\n中断しました、E)
     except Exception as e:
         print(f"\nエラーが発生しました: {e}")
         import traceback

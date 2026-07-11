@@ -6,7 +6,7 @@ from fortune_core.hexagrams import get_hexagram, get_trigram
 class TestHexagrams(unittest.TestCase):
     def test_get_hexagram_64_returns_misei(self) -> None:
         hexagram = get_hexagram(64)
-        self.assertEqual(hexagram["name_jp"], "未済")
+        self.assertEqual(hexagram["name_jp"], "未渁E)
 
     def test_get_trigram_alias_still_works(self) -> None:
         trigram = get_trigram(1)

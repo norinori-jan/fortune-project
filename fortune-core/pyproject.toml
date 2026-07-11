@@ -5,10 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "fortune-core"
 version = "0.1.0"
+description = "Multi-school divination engine (I Ching, Shichu, Rokko, Sanmei, Touha, Shokuhou)"
+authors = [
+    { name = "nori" }
+]
+readme = "README.md"
+requires-python = ">=3.10"
 dependencies = []
 
 [tool.setuptools.packages.find]
-where = ["src"]
-
-[tool.setuptools.package-data]
-fortune_core = ["data/*.json"]
+where = ["fortune_core"]

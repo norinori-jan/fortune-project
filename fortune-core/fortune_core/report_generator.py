@@ -2,13 +2,13 @@
 report_generator.py
 ===================
 
-鑑定結果をPDF/画像/JSON形式で生成・保存するモジュール。
-ユーザーが「自分の資産」として持ち帰り、検証・参照できるレポートを作成。
+鑑定結果をPDF/画僁EJSON形式で生�E・保存するモジュール、E
+ユーザーが「�E刁E�E賁E��」として持ち帰り、検証・参�Eできるレポ�Eトを作�E、E
 
-主要機能:
-- タロット鑑定結果をJSON形式で保存
-- 画像形式（PNG/JPEG）でビジュアルレポート生成
-- PDF形式でプロ品質レポート生成
+主要機�E:
+- タロチE��鑑定結果をJSON形式で保孁E
+- 画像形式！ENG/JPEG�E�でビジュアルレポ�Eト生戁E
+- PDF形式でプロ品質レポ�Eト生戁E
 - ローカルファイル保存インターフェース
 """
 
@@ -23,13 +23,13 @@ import base64
 
 
 # ---------------------------------------------------------------------------
-# データクラス
+# チE�Eタクラス
 # ---------------------------------------------------------------------------
 
 
 @dataclass
 class ReadingReport:
-    """鑑定レポート"""
+    """鑑定レポ�EチE""
     reading_id: str
     query_text: str
     timestamp: str
@@ -58,27 +58,27 @@ class ReadingReport:
 
 
 # ---------------------------------------------------------------------------
-# レポート生成エンジン
+# レポ�Eト生成エンジン
 # ---------------------------------------------------------------------------
 
 
 class ReportGenerator:
     """
-    鑑定結果をマルチフォーマット（JSON/HTML/PDF/Image）で生成・保存する。
+    鑑定結果を�Eルチフォーマット！ESON/HTML/PDF/Image�E�で生�E・保存する、E
     """
 
     def __init__(self):
-        """初期化"""
+        """初期匁E""
         pass
 
     def generate_json_report(self, report: ReadingReport) -> str:
         """
-        JSON 形式のレポートを生成（テキスト）。
+        JSON 形式�Eレポ�Eトを生�E�E�テキスト）、E
 
         Returns
         -------
         str
-            JSON 文字列
+            JSON 斁E���E
         """
         return json.dumps(report.to_dict(), ensure_ascii=False, indent=2)
 
@@ -88,19 +88,19 @@ class ReportGenerator:
         output_path: Optional[Path] = None,
     ) -> Path:
         """
-        JSON レポートをファイルに保存。
+        JSON レポ�Eトをファイルに保存、E
 
         Parameters
         ----------
         report : ReadingReport
-            鑑定レポート
+            鑑定レポ�EチE
         output_path : Path | None
-            保存先パス。None の場合はホームディレクトリ/fortune_readings に保存。
+            保存�Eパス、Eone の場合�Eホ�EムチE��レクトリ/fortune_readings に保存、E
 
         Returns
         -------
         Path
-            実際の保存先パス
+            実際の保存�Eパス
         """
         if output_path is None:
             output_dir = Path.home() / "fortune_readings" / "json"
@@ -108,7 +108,7 @@ class ReportGenerator:
         else:
             output_path = Path(output_path)
         
-        # 親ディレクトリを作成
+        # 親チE��レクトリを作�E
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         json_text = self.generate_json_report(report)
@@ -119,13 +119,13 @@ class ReportGenerator:
 
     def generate_html_report(self, report: ReadingReport) -> str:
         """
-        HTML 形式のビジュアルレポートを生成。
-        ブラウザで開いたり、スクリーンショットで画像化できる。
+        HTML 形式�Eビジュアルレポ�Eトを生�E、E
+        ブラウザで開いたり、スクリーンショチE��で画像化できる、E
 
         Returns
         -------
         str
-            HTML 文字列（フルドキュメント）
+            HTML 斁E���E�E�フルドキュメント！E
         """
         positions_html = self._generate_positions_html(report.positions)
         element_dist_html = self._generate_element_distribution_html(
@@ -137,7 +137,7 @@ class ReportGenerator:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>タロット鑑定レポート - {report.reading_id}</title>
+    <title>タロチE��鑑定レポ�EチE- {report.reading_id}</title>
     <style>
         * {{
             margin: 0;
@@ -388,7 +388,7 @@ class ReportGenerator:
 <body>
     <div class="container">
         <header>
-            <h1>🔮 タロット鑑定レポート</h1>
+            <h1>🔮 タロチE��鑑定レポ�EチE/h1>
         </header>
         
         <div class="reading-meta">
@@ -397,33 +397,33 @@ class ReportGenerator:
                 <span class="meta-value">{report.reading_id}</span>
             </div>
             <div class="meta-item">
-                <span class="meta-label">鑑定日時</span>
-                <span class="meta-value">{datetime.fromisoformat(report.timestamp).strftime('%Y年%m月%d日 %H:%M')}</span>
+                <span class="meta-label">鑑定日晁E/span>
+                <span class="meta-value">{datetime.fromisoformat(report.timestamp).strftime('%Y年%m朁Ed日 %H:%M')}</span>
             </div>
             <div class="meta-item">
-                <span class="meta-label">占術</span>
+                <span class="meta-label">占衁E/span>
                 <span class="meta-value">{report.divination_type}</span>
             </div>
             <div class="meta-item">
-                <span class="meta-label">シンクロシード</span>
+                <span class="meta-label">シンクロシーチE/span>
                 <span class="meta-value">{report.user_seed if report.user_seed else 'ランダム'}</span>
             </div>
         </div>
         
         <div class="query-box">
-            <div class="query-label">相談内容</div>
-            <div class="query-text">「{report.query_text}」</div>
+            <div class="query-label">相諁E�E容</div>
+            <div class="query-text">「{report.query_text}、E/div>
         </div>
         
         <section>
-            <h2>📇 ケルト十字スプレッド（10枚）</h2>
+            <h2>📇 ケルト十字スプレチE���E�E0枚！E/h2>
             <div class="positions-grid">
                 {positions_html}
             </div>
         </section>
         
         <section>
-            <h2>⚡ 要素バランス分析</h2>
+            <h2>⚡ 要素バランス刁E��</h2>
             <div class="element-distribution">
                 {element_dist_html}
             </div>
@@ -431,20 +431,20 @@ class ReportGenerator:
         
         <footer>
             <div class="footer-text">
-                このレポートは fortune-core によって自動生成されました。
+                こ�Eレポ�Eト�E fortune-core によって自動生成されました、E
             </div>
             <div class="footer-text">
-                カード解釈は参考情報です。最終的な判断はご自身の直感と経験を優先してください。
+                カード解釈�E参老E��報です。最終的な判断はご�E身の直感と経験を優先してください、E
             </div>
             <div class="print-instruction">
-                💾 このページをブラウザのスクリーンショット機能で画像保存するか、
-                Ctrl+P で PDF として保存できます。
+                💾 こ�Eペ�EジをブラウザのスクリーンショチE��機�Eで画像保存するか、E
+                Ctrl+P で PDF として保存できます、E
             </div>
         </footer>
     </div>
     
     <script>
-        // ページロード完了時にメッセージ表示（デモ用）
+        // ペ�Eジロード完亁E��にメチE��ージ表示�E�デモ用�E�E
         window.addEventListener('load', () => {{
             console.log('Report loaded. Use Ctrl+P to save as PDF or take a screenshot.');
         }});
@@ -455,7 +455,7 @@ class ReportGenerator:
         return html
 
     def _generate_positions_html(self, positions: dict) -> str:
-        """ポジション情報をHTMLで生成"""
+        """ポジション惁E��をHTMLで生�E"""
         html_parts = []
         for pos_key, pos_data in positions.items():
             card = pos_data.get("card", {})
@@ -479,7 +479,7 @@ class ReportGenerator:
                     <span class="card-element">{element_emoji} {element.upper()}</span>
                 </div>
                 <div class="card-orientation {'reversed' if is_reversed else ''}">
-                    {'🔄 逆位置（Reversed）' if is_reversed else '✓ 正位置（Upright）'}
+                    {'🔄 送E��置�E�Eeversed�E�E if is_reversed else '✁E正位置�E�Epright�E�E}
                 </div>
                 <div class="card-meaning">
                     {card.get('meaning_upright' if not is_reversed else 'meaning_reversed', 'No meaning available')}
@@ -490,7 +490,7 @@ class ReportGenerator:
         return "\n".join(html_parts)
 
     def _generate_element_distribution_html(self, distribution: dict) -> str:
-        """要素分布をHTMLで生成"""
+        """要素刁E��E��HTMLで生�E"""
         element_emojis = {
             "fire": "🔥",
             "water": "💧",
@@ -517,12 +517,12 @@ class ReportGenerator:
         output_path: Optional[Path] = None,
     ) -> Path:
         """
-        HTML レポートをファイルに保存。
+        HTML レポ�Eトをファイルに保存、E
 
         Returns
         -------
         Path
-            実際の保存先パス
+            実際の保存�Eパス
         """
         if output_path is None:
             output_dir = Path.home() / "fortune_readings" / "html"
@@ -530,7 +530,7 @@ class ReportGenerator:
         else:
             output_path = Path(output_path)
         
-        # 親ディレクトリを作成
+        # 親チE��レクトリを作�E
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
         html_text = self.generate_html_report(report)
@@ -545,15 +545,15 @@ class ReportGenerator:
         base_url: str = "https://fortune-core.example.com/reading",
     ) -> str:
         """
-        鑑定結果をシェア可能なURLに変換。
-        クエリパラメータにレポートデータを詰めて返す。
+        鑑定結果をシェア可能なURLに変換、E
+        クエリパラメータにレポ�Eトデータを詰めて返す、E
 
         Parameters
         ----------
         report : ReadingReport
-            鑑定レポート
+            鑑定レポ�EチE
         base_url : str
-            ベースURL（デフォルトはプレースホルダー）
+            ベ�EスURL�E�デフォルト�Eプレースホルダー�E�E
 
         Returns
         -------
@@ -572,21 +572,21 @@ class ReportGenerator:
         formats: tuple[Literal["json", "html"], ...] = ("json", "html"),
     ) -> dict[str, Path]:
         """
-        複数形式で同時エクスポート。
+        褁E��形式で同時エクスポ�Eト、E
 
         Parameters
         ----------
         report : ReadingReport
-            鑑定レポート
+            鑑定レポ�EチE
         output_dir : Path | None
-            出力ディレクトリ（Noneの場合は自動）
+            出力ディレクトリ�E�Eoneの場合�E自動！E
         formats : tuple
-            出力形式（'json', 'html'）
+            出力形式！Ejson', 'html'�E�E
 
         Returns
         -------
         dict[str, Path]
-            形式ごとの保存先パス
+            形式ごとの保存�Eパス
         """
         if output_dir is None:
             output_dir = Path.home() / "fortune_readings"
@@ -605,25 +605,25 @@ class ReportGenerator:
 
     def get_save_instructions(self) -> str:
         """
-        ユーザーへの保存方法ガイドを返す。
+        ユーザーへの保存方法ガイドを返す、E
         """
         return """
-【鑑定結果の保存方法】
+【鑑定結果の保存方法、E
 
-📱 スマートフォン（iPhone/Android）:
-  1. HTMLレポートをブラウザで開く
-  2. 「共有」ボタンをタップ
-  3. 「ファイルに保存」または「写真に保存」を選択
-  4. 完了！
+📱 スマ�Eトフォン�E�EPhone/Android�E�E
+  1. HTMLレポ�Eトをブラウザで開く
+  2. 「�E有」�EタンをタチE�E
+  3. 「ファイルに保存」また�E「�E真に保存」を選抁E
+  4. 完亁E��E
 
-💻 PC（Windows/Mac）:
-  1. HTMLレポートをブラウザで開く
-  2. Ctrl+P（またはCmd+P）で印刷ダイアログを開く
-  3. 「PDFに保存」を選択
-  4. または Ctrl+S（またはCmd+S）でHTML形式で保存
+💻 PC�E�Eindows/Mac�E�E
+  1. HTMLレポ�Eトをブラウザで開く
+  2. Ctrl+P�E�また�ECmd+P�E�で印刷ダイアログを開ぁE
+  3. 「PDFに保存」を選抁E
+  4. また�E Ctrl+S�E�また�ECmd+S�E�でHTML形式で保孁E
 
-📊 データバックアップ:
-  - JSON形式レポートは完全なデータを保持しており、
-    後から別システムにインポートできます。
-  - 保存先: {Path.home() / 'fortune_readings'}
+📊 チE�EタバックアチE�E:
+  - JSON形式レポ�Eト�E完�EなチE�Eタを保持しており、E
+    後から別シスチE��にインポ�Eトできます、E
+  - 保存�E: {Path.home() / 'fortune_readings'}
 """

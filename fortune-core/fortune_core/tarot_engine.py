@@ -6,31 +6,31 @@ from functools import lru_cache
 from .registry_loader import load_registry
 
 # ---------------------------------------------------------------------------
-# ポジション定義（挿入順序が展開順）
+# ポジション定義�E�挿入頁E��が展開頁E��E
 # ---------------------------------------------------------------------------
 CELTIC_CROSS_POSITIONS: list[tuple[str, str]] = [
-    ("CURRENT_SITUATION",   "現在の状況"),
-    ("CROSSING_CHALLENGE",  "課題・交差するもの"),
-    ("DISTANT_PAST",        "遠い過去・根底にあるもの"),
+    ("CURRENT_SITUATION",   "現在の状況E),
+    ("CROSSING_CHALLENGE",  "課題�E交差するも�E"),
+    ("DISTANT_PAST",        "遠ぁE��去・根底にあるも�E"),
     ("RECENT_PAST",         "近い過去の影響"),
-    ("BEST_OUTCOME",        "意識・最善の結果"),
+    ("BEST_OUTCOME",        "意識�E最喁E�E結果"),
     ("IMMEDIATE_FUTURE",    "近未来の方向性"),
-    ("SELF_PERCEPTION",     "自己認識・内面"),
-    ("EXTERNAL_INFLUENCES", "外部環境・他者の影響"),
+    ("SELF_PERCEPTION",     "自己認識�E冁E��"),
+    ("EXTERNAL_INFLUENCES", "外部環墁E�E他老E�E影響"),
     ("HOPES_AND_FEARS",     "希望と恐れ"),
     ("FINAL_OUTCOME",       "最終的な結末"),
 ]
 
 # ---------------------------------------------------------------------------
-# TarotEngine（SSOT版）
+# TarotEngine�E�ESOT版！E
 # ---------------------------------------------------------------------------
 
 class TarotEngine:
     """
-    タロットエンジン（SSOT: core/registry_a.json を参照）
+    タロチE��エンジン�E�ESOT: core/registry_a.json を参照�E�E
 
-    78 枚のフルデッキを registry_a.json["tarot"] から読み込み、
-    ケルト十字スプレッド（10枚）を展開する。
+    78 枚�EフルチE��キめEregistry_a.json["tarot"] から読み込み、E
+    ケルト十字スプレチE���E�E0枚）を展開する、E
     """
 
     @lru_cache(maxsize=1)
@@ -38,7 +38,7 @@ class TarotEngine:
         registry = load_registry()
         cards = registry["tarot"]
         if len(cards) != 78:
-            raise ValueError(f"registry_a.json の tarot が {len(cards)} 枚です。78 枚である必要があります。")
+            raise ValueError(f"registry_a.json の tarot ぁE{len(cards)} 枚です、E8 枚である忁E��があります、E)
         return cards
 
     def __init__(self) -> None:
@@ -55,12 +55,12 @@ class TarotEngine:
     ) -> dict:
         rng = random.Random(user_seed)
 
-        # 78 枚をシャッフルして先頭 10 枚を使う
+        # 78 枚をシャチE��ルして先頭 10 枚を使ぁE
         deck_indices = list(range(len(self._cards)))
         rng.shuffle(deck_indices)
         drawn_indices = deck_indices[:10]
 
-        # 正逆はシードに基づいて独立して決定
+        # 正送E�Eシードに基づぁE��独立して決宁E
         reversed_flags = [rng.random() < 0.35 for _ in range(10)]
 
         positions: dict[str, dict] = {}

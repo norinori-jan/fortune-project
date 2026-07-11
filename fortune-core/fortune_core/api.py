@@ -1,13 +1,13 @@
 # api.py
 # ======
-# fortune-core FastAPI サーバー
+# fortune-core FastAPI サーバ�E
 #
-# 起動コマンド:
+# 起動コマンチE
 #     uvicorn src.fortune_core.api:app --reload --host 0.0.0.0 --port 8000
 #
-# エンドポイント:
-#     GET  /                      - ステータス確認
-#     GET  /api/divine            - 相談内容を入力 → 占術判定 + タロット展開
+# エンド�EインチE
+#     GET  /                      - スチE�Eタス確誁E
+#     GET  /api/divine            - 相諁E�E容を�E劁EↁE占術判宁E+ タロチE��展開
 #     GET  /api/docs              - Swagger UI
 
 import time
@@ -18,24 +18,24 @@ from fastapi import FastAPI, Query, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-# 既存のコアコンポーネントをインポート
+# 既存�Eコアコンポ�Eネントをインポ�EチE
 from fortune_core.divination_entry import DivineEntryEngine
 from fortune_core.tarot_engine import TarotEngine
 from fortune_core.report_generator import ReportGenerator, ReadingReport
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# FastApp 初期化
+# FastApp 初期匁E
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 app = FastAPI(
     title="🔮 Fortune Core API",
-    description="相談内容の解析からタロット展開までを一元管理する占いバックエンドAPI",
+    description="相諁E�E容の解析からタロチE��展開までを一允E��琁E��る占ぁE��チE��エンドAPI",
     version="1.0.0",
     docs_url="/api/docs",
     redoc_url="/api/redoc",
 )
 
-# CORS 設定（フロントエンド・モバイルアプリから直接アクセス可能）
+# CORS 設定（フロントエンド�Eモバイルアプリから直接アクセス可能�E�E
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -45,7 +45,7 @@ app.add_middleware(
 )
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# エンジンの初期化（シングルトン）
+# エンジンの初期化（シングルトン�E�E
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 entry_engine = DivineEntryEngine()
@@ -53,11 +53,11 @@ tarot_engine = TarotEngine()
 report_generator = ReportGenerator()
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# Pydantic モデル
+# Pydantic モチE��
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 class AnalysisResponse(BaseModel):
-    """相談内容の分析結果"""
+    """相諁E�E容の刁E��結果"""
     query: str
     concern_type: str
     recommended_spread: str
@@ -67,7 +67,7 @@ class AnalysisResponse(BaseModel):
 
 
 class CardPosition(BaseModel):
-    """カード位置データ"""
+    """カード位置チE�Eタ"""
     position_label: str
     position_index: int
     card_name: str
@@ -77,7 +77,7 @@ class CardPosition(BaseModel):
 
 
 class DivinationResponse(BaseModel):
-    """完全な鑑定結果"""
+    """完�Eな鑑定結果"""
     success: bool
     reading_id: str
     timestamp: str
@@ -88,12 +88,12 @@ class DivinationResponse(BaseModel):
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# ヘルスチェック
+# ヘルスチェチE��
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 @app.get("/")
 def read_root():
-    """ステータス確認"""
+    """スチE�Eタス確誁E""
     return {
         "status": "online",
         "message": "Welcome to Fortune Core API. Let's divine your destiny.",
@@ -104,7 +104,7 @@ def read_root():
 
 @app.get("/api/health")
 def health_check():
-    """ヘルスチェック"""
+    """ヘルスチェチE��"""
     return {
         "status": "healthy",
         "timestamp": datetime.now().isoformat(),
@@ -117,55 +117,55 @@ def health_check():
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# メイン API エンドポイント
+# メイン API エンド�EインチE
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 @app.get("/api/divine", response_model=DivinationResponse)
 def divine(
     query: str = Query(
         ...,
-        description="ユーザーの相談内容を入力してください",
+        description="ユーザーの相諁E�E容を�E力してください",
         min_length=1,
         max_length=500
     ),
     user_seed: Optional[int] = Query(
         None,
-        description="シンクロニシティシード（ミリ秒タイムスタンプ）。省略時はサーバー側で生成。"
+        description="シンクロニシチE��シード（ミリ秒タイムスタンプ）。省略時�Eサーバ�E側で生�E、E
     ),
     save_report: bool = Query(
         False,
-        description="JSON/HTMLレポートを保存するか（True = 保存）"
+        description="JSON/HTMLレポ�Eトを保存するか�E�Erue = 保存！E
     )
 ):
     """
-    【メイン占いAPI】
+    【メイン占いAPI、E
     
-    相談内容（自然言語）を受け取り、以下を一撃で実行:
-    1. 占いの入り口：相談内容を自動解析
-    2. 占術判定：最適な占術を推奨（信度スコア付き）
-    3. タロット展開：ケルト十字スプレッド実行
-    4. レポート生成：JSON/HTML（オプション保存）
+    相諁E�E容�E��E然言語）を受け取り、以下を一撁E��実衁E
+    1. 占ぁE�E入り口�E�相諁E�E容を�E動解极E
+    2. 占術判定：最適な占術を推奨�E�信度スコア付き�E�E
+    3. タロチE��展開�E�ケルト十字スプレチE��実衁E
+    4. レポ�Eト生成：JSON/HTML�E�オプション保存！E
     
     Returns:
-        DivinationResponse: 完全な鑑定結果（分析＋占い結果＋要素分析）
+        DivinationResponse: 完�Eな鑑定結果�E��E析＋占ぁE��果�E�要素刁E���E�E
     """
     try:
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        # STEP 1: 相談内容の分析 → 占術推奨
+        # STEP 1: 相諁E�E容の刁E�� ↁE占術推奨
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         entry = entry_engine.create_entry(query)
         recommendation = entry.recommendation
 
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        # STEP 2: シンクロニシティシード決定
+        # STEP 2: シンクロニシチE��シード決宁E
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         if user_seed is None:
             user_seed = int(time.time() * 1000)
 
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        # STEP 3: タロット展開
+        # STEP 3: タロチE��展開
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        # （現在はタロット・ケルト十字をデフォルト）
+        # �E�現在はタロチE��・ケルト十字をチE��ォルト！E
         if recommendation and getattr(recommendation, "divination_type", ""):
             div_type = recommendation.divination_type
         else:
@@ -177,21 +177,21 @@ def divine(
                 query=query
             )
         else:
-            # フォールバック（他の占術はまだ未実装）
+            # フォールバック�E�他�E占術�Eまだ未実裁E��E
             reading_result = tarot_engine.draw_celtic_cross(
                 user_seed=user_seed,
                 query=query
             )
 
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        # STEP 4: ポジション情報をAPI形式に変換（堅牢化）
+        # STEP 4: ポジション惁E��をAPI形式に変換�E�堁E��化！E
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         positions_api: List[CardPosition] = []
         element_dist: Dict[str, int] = {}
 
         raw_positions = reading_result.get("positions", {}) if isinstance(reading_result, dict) else {}
 
-        # 安定した順序で返すため position_index でソート（存在しない場合はキー順）
+        # 安定した頁E��で返すため position_index でソート（存在しなぁE��合�Eキー頁E��E
         try:
             sorted_items = sorted(
                 raw_positions.items(),
@@ -208,14 +208,14 @@ def divine(
             element = card.get("element", "unknown") or "unknown"
             is_reversed = bool(pos_data.get("is_reversed", False))
 
-            # 要素分布カウント
+            # 要素刁E��E��ウンチE
             element_dist[element] = element_dist.get(element, 0) + 1
 
-            # 解釈文を選択
+            # 解釈文を選抁E
             meaning_key = "meaning_reversed" if is_reversed else "meaning_upright"
             meaning = card.get(meaning_key, "") or ""
 
-            # position_index を明示的に int にする（None 対策）
+            # position_index を�E示皁E�� int にする�E�Eone 対策！E
             try:
                 position_index = int(pos_data.get("position_index", 0))
             except (TypeError, ValueError):
@@ -233,7 +233,7 @@ def divine(
             )
 
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        # STEP 5: レポート生成（オプション保存）
+        # STEP 5: レポ�Eト生成（オプション保存！E
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
         reading_id = f"reading_{user_seed}"
 
@@ -250,16 +250,16 @@ def divine(
             try:
                 report_generator.export_formats(report, formats=("json", "html"))
             except Exception as e:
-                # レポート保存に失敗してもAPI応答は継続
+                # レポ�Eト保存に失敗してめEPI応答�E継綁E
                 print(f"Warning: Report save failed - {e}")
 
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-        # STEP 6: API応答を構築
+        # STEP 6: API応答を構篁E
         # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
         guidance_text = getattr(recommendation, "user_guidance", "") if recommendation else ""
         guidance_summary = (
-            f"最適な占術は【{div_type}】です。\n"
+            f"最適な占術�E【{div_type}】です、En"
             f"{(guidance_text or '')[:200]}..."
         )
 
@@ -290,17 +290,17 @@ def divine(
 def analyze_only(
     query: str = Query(
         ...,
-        description="相談内容を入力",
+        description="相諁E�E容を�E劁E,
         min_length=1,
         max_length=500
     )
 ):
     """
-    相談内容の分析のみ実行（タロット展開なし）
+    相諁E�E容の刁E��のみ実行（タロチE��展開なし！E
 
-    ユースケース：
-    - UI で推奨占術を先に表示して、ユーザーに確認してからタロット展開
-    - レイテンシ改善（分析だけなら高速）
+    ユースケース�E�E
+    - UI で推奨占術を先に表示して、ユーザーに確認してからタロチE��展開
+    - レイチE��シ改喁E���E析だけなら高速！E
     """
     try:
         entry = entry_engine.create_entry(query)
@@ -321,12 +321,12 @@ def analyze_only(
 
 
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-# メタ情報
+# メタ惁E��
 # ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 @app.get("/api/info")
 def api_info():
-    """API 情報とエンドポイント一覧"""
+    """API 惁E��とエンド�Eイント一覧"""
     return {
         "api_name": "Fortune Core API",
         "version": "1.0.0",
@@ -335,29 +335,29 @@ def api_info():
             "health": {
                 "method": "GET",
                 "path": "/api/health",
-                "description": "ヘルスチェック"
+                "description": "ヘルスチェチE��"
             },
             "main_divine": {
                 "method": "GET",
                 "path": "/api/divine",
                 "params": ["query", "user_seed (optional)", "save_report (optional)"],
-                "description": "相談内容 → 占術判定 + タロット展開（メインAPI）"
+                "description": "相諁E�E容 ↁE占術判宁E+ タロチE��展開�E�メインAPI�E�E
             },
             "analyze_only": {
                 "method": "GET",
                 "path": "/api/analysis",
                 "params": ["query"],
-                "description": "相談内容の分析のみ（軽量）"
+                "description": "相諁E�E容の刁E��のみ�E�軽量！E
             },
             "docs": {
                 "method": "GET",
                 "path": "/api/docs",
-                "description": "Swagger UI（インタラクティブドキュメント）"
+                "description": "Swagger UI�E�インタラクチE��ブドキュメント！E
             }
         },
         "examples": {
-            "divine": "/api/divine?query=今のプロジェクトをどう進めるべきか？&save_report=true",
-            "analysis": "/api/analysis?query=彼との関係は今後どうなりますか？"
+            "divine": "/api/divine?query=今�EプロジェクトをどぁE��めるべきか�E�Esave_report=true",
+            "analysis": "/api/analysis?query=彼との関係�E今後どぁE��りますか�E�E
         }
     }
 

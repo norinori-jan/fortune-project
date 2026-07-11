@@ -1,22 +1,22 @@
 # ==============================================================================
 # demo_tarot.py
 # ==============================================================================
-# 【TarotEngine 単体動作検証デモ】
+# 【TarotEngine 単体動作検証チE��、E
 # src/fortune_core/tarot_engine.py と data/tarot_cards.json が正しく
-# 動作するかをターミナル上で確認するためのデモ実行スクリプト。
+# 動作するかをターミナル上で確認するため�EチE��実行スクリプト、E
 #
-# 実行方法:
-#     # リポジトリルートから
+# 実行方況E
+#     # リポジトリルートかめE
 #     python src/fortune_core/demo_tarot.py
 #
-#     # または fortune_core パッケージとしてインポート済みの場合
+#     # また�E fortune_core パッケージとしてインポ�Eト済みの場吁E
 #     python -m fortune_core.demo_tarot
 #
-# 動作確認項目:
-#     1. TarotEngine の初期化
-#     2. タイムスタンプ（ミリ秒）をシードとして draw_celtic_cross を実行
-#     3. ケルト十字（10 枚）の結果を整形表示（カードデザイン選択可）
-#     4. スプレッド全体の元素分布バランスを分析・出力
+# 動作確認頁E��:
+#     1. TarotEngine の初期匁E
+#     2. タイムスタンプ（ミリ秒）をシードとして draw_celtic_cross を実衁E
+#     3. ケルト十字！E0 枚）�E結果を整形表示�E�カードデザイン選択可�E�E
+#     4. スプレチE��全体�E允E��刁E��E��ランスを�E析�E出劁E
 # ==============================================================================
 
 import sys
@@ -25,7 +25,7 @@ import time
 from pathlib import Path
 
 # ---------------------------------------------------------------------------
-# パス解決: 直接実行 / パッケージ実行 どちらでも動くように
+# パス解決: 直接実衁E/ パッケージ実衁Eどちらでも動くよぁE��
 # ---------------------------------------------------------------------------
 _THIS_FILE = Path(__file__).resolve()
 _SRC_DIR   = _THIS_FILE.parent.parent   # src/
@@ -39,48 +39,48 @@ from fortune_core.tarot_engine import TarotEngine  # noqa: E402
 # ---------------------------------------------------------------------------
 WIDTH      = 72
 DIVIDER    = "─" * WIDTH
-THICK_LINE = "═" * WIDTH
-STAR_LINE  = "★" * WIDTH
+THICK_LINE = "╁E * WIDTH
+STAR_LINE  = "☁E * WIDTH
 
-# ケルト十字 各ポジションの意味（英名 → 日本語）
+# ケルト十孁E吁E�Eジションの意味�E�英吁EↁE日本語！E
 POSITION_MEANING: dict[str, str] = {
-    "present":       "現在の状況",
-    "challenge":     "課題・交差するもの",
+    "present":       "現在の状況E,
+    "challenge":     "課題�E交差するも�E",
     "past":          "過去の影響",
     "future":        "近未来の方向性",
-    "above":         "意識・目標",
-    "below":         "潜在意識・基盤",
+    "above":         "意識�E目樁E,
+    "below":         "潜在意識�E基盤",
     "advice":        "アドバイス",
-    "external":      "外部環境・他者の影響",
+    "external":      "外部環墁E�E他老E�E影響",
     "hopes_fears":   "希望と恐れ",
     "outcome":       "最終的な結末",
-    # engine が別のキー名を使う場合に備えた追加マッピング
-    "significator":  "本人・中心テーマ",
-    "crossing":      "課題・交差するもの",
-    "foundation":    "潜在意識・基盤",
+    # engine が別のキー名を使ぁE��合に備えた追加マッピング
+    "significator":  "本人・中忁E��ーチE,
+    "crossing":      "課題�E交差するも�E",
+    "foundation":    "潜在意識�E基盤",
     "recent_past":   "過去の影響",
-    "crowning":      "意識・目標",
+    "crowning":      "意識�E目樁E,
     "near_future":   "近未来の方向性",
     "self":          "アドバイス",
-    "environment":   "外部環境・他者の影響",
+    "environment":   "外部環墁E�E他老E�E影響",
     "inner_hopes":   "希望と恐れ",
     "final_outcome": "最終的な結末",
 }
 
-# 元素の日本語ラベル
+# 允E��の日本語ラベル
 ELEMENT_LABEL: dict[str, str] = {
-    "fire":   "🔥 火（ワンド）",
-    "water":  "💧 水（カップ）",
-    "air":    "🌬 風（ソード）",
-    "earth":  "🌿 地（ペンタクル）",
-    "spirit": "✨ 霊（大アルカナ）",
-    "major":  "✨ 大アルカナ",
-    # 日本語キーにも対応
-    "火":     "🔥 火（ワンド）",
-    "水":     "💧 水（カップ）",
-    "風":     "🌬 風（ソード）",
-    "地":     "🌿 地（ペンタクル）",
-    "霊":     "✨ 霊（大アルカナ）",
+    "fire":   "🔥 火�E�ワンド！E,
+    "water":  "💧 水�E�カチE�E�E�E,
+    "air":    "🌬 風�E�ソード！E,
+    "earth":  "🌿 地�E��Eンタクル�E�E,
+    "spirit": "✨ 霊（大アルカナ！E,
+    "major":  "✨ 大アルカチE,
+    # 日本語キーにも対忁E
+    "火":     "🔥 火�E�ワンド！E,
+    "水":     "💧 水�E�カチE�E�E�E,
+    "風":     "🌬 風�E�ソード！E,
+    "地":     "🌿 地�E��Eンタクル�E�E,
+    "霁E:     "✨ 霊（大アルカナ！E,
 }
 
 BAR_MAX_WIDTH = 30
@@ -90,63 +90,63 @@ BAR_MAX_WIDTH = 30
 # ---------------------------------------------------------------------------
 CARD_DESIGNS: dict[str, dict] = {
     "1": {
-        "label":      "✦ クラシック（Standard）",
+        "label":      "✦ クラシチE���E�Etandard�E�E,
         "border":     "─",
-        "vborder":    "│",
-        "corner_tl":  "┌",
-        "corner_tr":  "┐",
-        "corner_bl":  "└",
-        "corner_br":  "┘",
-        "deco_top":   "  ～ ✧ ～  ",
-        "deco_bot":   "  ～ ✧ ～  ",
+        "vborder":    "━E,
+        "corner_tl":  "━E,
+        "corner_tr":  "━E,
+        "corner_bl":  "━E,
+        "corner_br":  "━E,
+        "deco_top":   "  �E�E✧ �E�E ",
+        "deco_bot":   "  �E�E✧ �E�E ",
         "header_icon": "🃏",
-        "orient_up":  "[ 正位置 ↑ ]",
-        "orient_rev": "[ 逆位置 ↓ ]",
+        "orient_up":  "[ 正位置 ↁE]",
+        "orient_rev": "[ 送E��置 ↁE]",
     },
     "2": {
-        "label":      "🌙 ミスティック（Mystic Moon）",
-        "border":     "═",
-        "vborder":    "║",
-        "corner_tl":  "╔",
-        "corner_tr":  "╗",
-        "corner_bl":  "╚",
-        "corner_br":  "╝",
+        "label":      "🌙 ミスチE��チE���E�Eystic Moon�E�E,
+        "border":     "╁E,
+        "vborder":    "╁E,
+        "corner_tl":  "╁E,
+        "corner_tr":  "╁E,
+        "corner_bl":  "╁E,
+        "corner_br":  "╁E,
         "deco_top":   "  ☽ ✦ ☾  ",
         "deco_bot":   "  ☾ ✦ ☽  ",
         "header_icon": "🌙",
         "orient_up":  "≪ 正位置 ✦ ≫",
-        "orient_rev": "≪ 逆位置 ☽ ≫",
+        "orient_rev": "≪ 送E��置 ☽ ≫",
     },
     "3": {
-        "label":      "🔮 サイバー（Cyber Neon）",
-        "border":     "━",
-        "vborder":    "┃",
-        "corner_tl":  "┏",
-        "corner_tr":  "┓",
-        "corner_bl":  "┗",
-        "corner_br":  "┛",
-        "deco_top":   "  ◈ ▸▸ ◈  ",
-        "deco_bot":   "  ◈ ◂◂ ◈  ",
+        "label":      "🔮 サイバ�E�E�Eyber Neon�E�E,
+        "border":     "━E,
+        "vborder":    "━E,
+        "corner_tl":  "━E,
+        "corner_tr":  "━E,
+        "corner_bl":  "━E,
+        "corner_br":  "━E,
+        "deco_top":   "  ◁E▸▸ ◁E ",
+        "deco_bot":   "  ◁E◂◂ ◁E ",
         "header_icon": "⬡",
         "orient_up":  "▲ UPRIGHT ▲",
         "orient_rev": "▼ REVERSED ▼",
     },
     "4": {
-        "label":      "🌸 和風（Japanese Style）",
-        "border":     "＝",
-        "vborder":    "｜",
-        "corner_tl":  "【",
-        "corner_tr":  "】",
-        "corner_bl":  "【",
-        "corner_br":  "】",
-        "deco_top":   "  ❁ ✿ ❁  ",
+        "label":      "🌸 和風�E�Eapanese Style�E�E,
+        "border":     "�E�E,
+        "vborder":    "�E�E,
+        "corner_tl":  "、E,
+        "corner_tr":  "、E,
+        "corner_bl":  "、E,
+        "corner_br":  "、E,
+        "deco_top":   "  ❁E✿ ❁E ",
         "deco_bot":   "  ❀ ✿ ❀  ",
         "header_icon": "🌸",
-        "orient_up":  "〔 正位置 〕",
-        "orient_rev": "〔 逆位置 〕",
+        "orient_up":  "、E正位置 、E,
+        "orient_rev": "、E送E��置 、E,
     },
     "5": {
-        "label":      "⚡ シンプル（Plain ASCII）",
+        "label":      "⚡ シンプル�E�Elain ASCII�E�E,
         "border":     "-",
         "vborder":    "|",
         "corner_tl":  "+",
@@ -162,31 +162,31 @@ CARD_DESIGNS: dict[str, dict] = {
 }
 
 # ---------------------------------------------------------------------------
-# ユーティリティ
+# ユーチE��リチE��
 # ---------------------------------------------------------------------------
 
 def display_width(text: str) -> int:
-    """全角文字を幅 2、半角を幅 1 として表示幅を返す"""
+    """全角文字を幁E2、半角を幁E1 として表示幁E��返す"""
     return sum(2 if ord(c) > 0x7F else 1 for c in text)
 
 
 def center_text(text: str, width: int = WIDTH) -> str:
-    """表示幅を考慮してセンタリングした文字列を返す"""
+    """表示幁E��老E�Eしてセンタリングした斁E���Eを返す"""
     dw  = display_width(text)
     pad = max(0, width - dw)
     return " " * (pad // 2) + text + " " * (pad - pad // 2)
 
 
 def ljust_display(text: str, width: int) -> str:
-    """表示幅を考慮した左揃えパディングを返す"""
+    """表示幁E��老E�Eした左揁E��パディングを返す"""
     pad = max(0, width - display_width(text))
     return text + " " * pad
 
 
 def wrap_text(text: str, max_display_width: int = 52) -> list[str]:
     """
-    全角/半角混在テキストを表示幅で折り返してリストで返す。
-    バグ修正: words / current_len の未使用・未初期化を解消。
+    全见E半角混在チE��ストを表示幁E��折り返してリストで返す、E
+    バグ修正: words / current_len の未使用・未初期化を解消、E
     """
     lines:         list[str] = []
     current_line:  str       = ""
@@ -210,15 +210,15 @@ def wrap_text(text: str, max_display_width: int = 52) -> list[str]:
 
 def make_bar(ratio: float, max_width: int = BAR_MAX_WIDTH) -> str:
     filled = round(ratio * max_width)
-    return "█" * filled + "░" * (max_width - filled)
+    return "▁E * filled + "▁E * (max_width - filled)
 
 
 # ---------------------------------------------------------------------------
-# カードデータ正規化（dict / object 両対応）
+# カードデータ正規化�E�Eict / object 両対応！E
 # ---------------------------------------------------------------------------
 
 def _getval(card, *keys):
-    """card が dict でもオブジェクトでも最初に非 None な値を返す"""
+    """card ぁEdict でもオブジェクトでも最初に靁ENone な値を返す"""
     for k in keys:
         v = card.get(k) if isinstance(card, dict) else getattr(card, k, None)
         if v is not None and v != "":
@@ -227,11 +227,11 @@ def _getval(card, *keys):
 
 
 def extract_card_fields(card, index: int) -> dict:
-    """card（dict / オブジェクト）から表示に必要なフィールドをまとめて返す"""
+    """card�E�Eict / オブジェクト）から表示に忁E��なフィールドをまとめて返す"""
     pos_key   = str(_getval(card, "position_key", "position") or "").lower()
     pos_name  = str(_getval(card, "position_name", "position") or f"Position {index}")
-    card_name = str(_getval(card, "name", "card_name")         or "（不明）")
-    element   = str(_getval(card, "element", "suit")           or "—")
+    card_name = str(_getval(card, "name", "card_name")         or "�E�不�E�E�E)
+    element   = str(_getval(card, "element", "suit")           or " E)
     meaning_u = str(_getval(card, "meaning_upright", "meaning") or "")
     meaning_r = str(_getval(card, "meaning_reversed")          or "")
     keywords  = _getval(card, "keywords", "key_themes")        or ""
@@ -262,7 +262,7 @@ def extract_card_fields(card, index: int) -> dict:
 
 
 def resolve_position_ja(pos_key: str) -> str:
-    """ポジションキーから日本語説明を引く（部分一致フォールバック付き）"""
+    """ポジションキーから日本語説明を引く�E�部刁E��致フォールバック付き�E�E""
     ja = POSITION_MEANING.get(pos_key, "")
     if not ja:
         for k, v in POSITION_MEANING.items():
@@ -277,8 +277,8 @@ def resolve_position_ja(pos_key: str) -> str:
 
 def normalize_result(result) -> list:
     """
-    draw_celtic_cross の戻り値を list[card] に正規化する。
-    バグ修正: dict の全 values() をそのまま返す危険なフォールバックを除去。
+    draw_celtic_cross の戻り値めElist[card] に正規化する、E
+    バグ修正: dict の全 values() をそのまま返す危険なフォールバックを除去、E
     """
     if isinstance(result, list):
         return result
@@ -313,7 +313,7 @@ def draw_card(
     meaning:     str,
     design:      dict,
 ) -> None:
-    """指定デザインでカード 1 枚分をターミナルに描画する"""
+    """持E��デザインでカーチE1 枚�Eをターミナルに描画する"""
     b   = design["border"]
     vb  = design["vborder"]
     tl  = design["corner_tl"]
@@ -323,10 +323,10 @@ def draw_card(
     ico = design["header_icon"]
     ori = design["orient_rev"] if is_reversed else design["orient_up"]
 
-    # 枠の横幅（両端のコーナー文字を除いたぶん）
+    # 枠の横幁E��両端のコーナ�E斁E��を除ぁE��ぶん！E
     corner_w = display_width(tl) + display_width(tr)
     fill_len = WIDTH - corner_w
-    # inner 行：コーナー幅 + vborder × 2 + 両端スペース × 2 = 内部幅
+    # inner 行：コーナ�E幁E+ vborder ÁE2 + 両端スペ�Eス ÁE2 = 冁E��幁E
     inner_w = WIDTH - display_width(tl) - display_width(tr) - display_width(vb) * 2 - 2
 
     def hline(left_corner: str, right_corner: str) -> str:
@@ -361,7 +361,7 @@ def draw_card(
 
     if meaning:
         print(inner_line())
-        print(inner_line("  📖 解釈:"))
+        print(inner_line("  📖 解釁E"))
         for line in wrap_text(meaning, max_display_width=inner_w - 6):
             print(inner_line(f"     {line}"))
 
@@ -374,7 +374,7 @@ def draw_card(
 # ---------------------------------------------------------------------------
 
 def choose_design() -> dict:
-    """ターミナルでデザイン番号を入力させ、選択した design dict を返す"""
+    """ターミナルでチE��イン番号を�E力させ、E��択しぁEdesign dict を返す"""
     print()
     print(THICK_LINE)
     print(center_text("🎨  カードデザインを選んでください  🎨"))
@@ -385,7 +385,7 @@ def choose_design() -> dict:
 
     while True:
         try:
-            choice = input("  番号を入力してください（デフォルト: 1）> ").strip()
+            choice = input("  番号を�E力してください�E�デフォルチE 1�E�E ").strip()
         except (EOFError, KeyboardInterrupt):
             choice = ""
 
@@ -394,48 +394,48 @@ def choose_design() -> dict:
 
         if choice in CARD_DESIGNS:
             selected = CARD_DESIGNS[choice]
-            print(f"  ✅ 選択されたデザイン: {selected['label']}")
+            print(f"  ✁E選択されたチE��イン: {selected['label']}")
             return selected
 
-        print(f"  ⚠️  '{choice}' は無効です。1〜{len(CARD_DESIGNS)} の番号を入力してください。")
+        print(f"  ⚠�E�E '{choice}' は無効です、E〜{len(CARD_DESIGNS)} の番号を�E力してください、E)
 
 
 # ---------------------------------------------------------------------------
-# 元素分布バランス表示
+# 允E��刁E��E��ランス表示
 # ---------------------------------------------------------------------------
 
 def show_element_analysis(cards: list) -> None:
-    """スプレッド全体の元素分布を集計・表示する"""
+    """スプレチE��全体�E允E��刁E��E��雁E���E表示する"""
     print()
     print(STAR_LINE)
-    print(center_text("📊  元素分布バランス分析"))
+    print(center_text("📊  允E��刁E��E��ランス刁E��"))
     print(STAR_LINE)
 
     element_counter: dict[str, int] = {}
     for card in cards:
         if isinstance(card, dict):
-            elem = card.get("element") or card.get("suit") or "不明"
+            elem = card.get("element") or card.get("suit") or "不�E"
         else:
-            elem = getattr(card, "element", None) or getattr(card, "suit", None) or "不明"
+            elem = getattr(card, "element", None) or getattr(card, "suit", None) or "不�E"
         elem = str(elem).strip()
         element_counter[elem] = element_counter.get(elem, 0) + 1
 
     total = sum(element_counter.values())
 
     if total == 0:
-        print("  元素データを取得できませんでした。")
+        print("  允E��チE�Eタを取得できませんでした、E)
         return
 
     print()
-    print(f"  スプレッド合計: {total} 枚")
+    print(f"  スプレチE��合訁E {total} 极E)
     print()
 
-    # ヘッダー（全角考慮で手動パディング）
+    # ヘッダー�E��E角老E�Eで手動パディング�E�E
     print(
-        f"  {ljust_display('元素', 18)}"
+        f"  {ljust_display('允E��', 18)}"
         f"  {ljust_display('枚数', 6)}"
-        f"  {ljust_display('割合', 7)}"
-        f"  グラフ"
+        f"  {ljust_display('割吁E, 7)}"
+        f"  グラチE
     )
     print(f"  {'─' * 18}  {'─' * 6}  {'─' * 7}  {'─' * BAR_MAX_WIDTH}")
 
@@ -446,41 +446,41 @@ def show_element_analysis(cards: list) -> None:
         bar   = make_bar(ratio)
         print(
             f"  {ljust_display(label, 18)}"
-            f"  {ljust_display(str(count) + '枚', 6)}"
+            f"  {ljust_display(str(count) + '极E, 6)}"
             f"  {ljust_display(f'{pct:5.1f}%', 7)}"
             f"  {bar}"
         )
 
-    # バランスコメント
+    # バランスコメンチE
     print()
     print(f"  {'─' * (WIDTH - 4)}")
     max_elem  = max(element_counter, key=element_counter.get)  # type: ignore[arg-type]
     max_ratio = element_counter[max_elem] / total * 100
     max_label = ELEMENT_LABEL.get(max_elem, max_elem)
 
-    print(f"  最も多い元素: {max_label}  ({max_ratio:.1f}%)")
+    print(f"  最も多い允E��: {max_label}  ({max_ratio:.1f}%)")
     if max_ratio >= 50:
-        print("  → 特定元素への偏りが強く、そのテーマが今回の中心課題です。")
+        print("  ↁE特定�E素への偏りが強く、そのチE�Eマが今回の中忁E��題です、E)
     elif max_ratio >= 30:
-        print("  → 1つの元素が主導的ですが、全体的に多様なテーマが混在しています。")
+        print("  ↁE1つの允E��が主導的ですが、�E体的に多様なチE�Eマが混在してぁE��す、E)
     else:
-        print("  → 各元素がバランスよく分布しており、多面的な状況を示しています。")
+        print("  ↁE吁E�E素がバランスよく刁E��E��ており、多面皁E��状況を示してぁE��す、E)
 
-    # 大アルカナ比率チェック
-    major_keys  = {"major", "spirit", "霊", "大アルカナ", "Major Arcana"}
+    # 大アルカナ比率チェチE��
+    major_keys  = {"major", "spirit", "霁E, "大アルカチE, "Major Arcana"}
     major_count = sum(v for k, v in element_counter.items() if k in major_keys)
     if major_count > 0:
         major_pct = major_count / total * 100
         print()
-        print(f"  大アルカナ比率: {major_count}枚 / {major_pct:.1f}%")
+        print(f"  大アルカナ比率: {major_count}极E/ {major_pct:.1f}%")
         if major_pct >= 40:
-            print("  → 宿命的・大局的な力が強く働いており、重要な転換期を示唆します。")
+            print("  ↁE宿命皁E�E大局皁E��力が強く働ぁE��おり、E��要な転換期を示唁E��ます、E)
         else:
-            print("  → 自由意志と宿命が程よく混在するスプレッドです。")
+            print("  ↁE自由意志と宿命が程よく混在するスプレチE��です、E)
 
 
 # ---------------------------------------------------------------------------
-# メイン処理
+# メイン処琁E
 # ---------------------------------------------------------------------------
 
 def main() -> None:
@@ -488,47 +488,47 @@ def main() -> None:
     # ── ヘッダー ────────────────────────────────────────────────────────────
     print()
     print(THICK_LINE)
-    print(center_text("🔮  fortune-core  /  TarotEngine  単体動作検証デモ  🔮"))
-    print(center_text("Celtic Cross Spread  ―  ケルト十字スプレッド"))
+    print(center_text("🔮  fortune-core  /  TarotEngine  単体動作検証チE��  🔮"))
+    print(center_text("Celtic Cross Spread   E ケルト十字スプレチE��"))
     print(THICK_LINE)
 
-    # ── カードデザイン選択 ─────────────────────────────────────────────────
+    # ── カードデザイン選抁E─────────────────────────────────────────────────
     design = choose_design()
 
-    # ── Step 1: TarotEngine 初期化 ─────────────────────────────────────────
+    # ── Step 1: TarotEngine 初期匁E─────────────────────────────────────────
     print()
     print(f"{'▶ Step 1 ':─<{WIDTH}}")
-    print("  TarotEngine を初期化しています...")
+    print("  TarotEngine を�E期化してぁE��ぁE..")
     try:
         engine = TarotEngine()
-        print("  ✅ TarotEngine の初期化に成功しました。")
+        print("  ✁ETarotEngine の初期化に成功しました、E)
     except Exception as exc:
-        print(f"  ❌ TarotEngine の初期化に失敗しました: {exc}")
-        print("\n  【確認事項】")
-        print("  - src/fortune_core/tarot_engine.py が存在しますか？")
-        print("  - src/fortune_core/data/tarot_cards.json が存在しますか？")
-        print("  - pip install -e . でパッケージをインストールしましたか？")
+        print(f"  ❁ETarotEngine の初期化に失敗しました: {exc}")
+        print("\n  【確認事頁E��E)
+        print("  - src/fortune_core/tarot_engine.py が存在しますか�E�E)
+        print("  - src/fortune_core/data/tarot_cards.json が存在しますか�E�E)
+        print("  - pip install -e . でパッケージをインスト�Eルしましたか！E)
         sys.exit(1)
 
-    # ── Step 2: シード取得 ─────────────────────────────────────────────────
+    # ── Step 2: シード取征E─────────────────────────────────────────────────
     print()
     print(f"{'▶ Step 2 ':─<{WIDTH}}")
     user_seed = int(time.time() * 1000)
-    print("  占い師がシャッフルを止めた瞬間のタイムスタンプ（ms）:")
+    print("  占ぁE��がシャチE��ルを止めた瞬間�Eタイムスタンプ！Es�E�E")
     print(f"  user_seed = {user_seed}")
 
-    # ── Step 3: クエリ設定 ─────────────────────────────────────────────────
+    # ── Step 3: クエリ設宁E─────────────────────────────────────────────────
     print()
     print(f"{'▶ Step 3 ':─<{WIDTH}}")
-    query = "この占いアプリケーション開発プロジェクトの今後の進展について"
-    print(f"  相談内容: 「{query}」")
+    query = "こ�E占ぁE��プリケーション開発プロジェクト�E今後�E進展につぁE��"
+    print(f"  相諁E�E容: 「{query}、E)
 
-    # ── Step 4: draw_celtic_cross 実行 ─────────────────────────────────────
+    # ── Step 4: draw_celtic_cross 実衁E─────────────────────────────────────
     print()
     print(f"{'▶ Step 4 ':─<{WIDTH}}")
-    print("  ケルト十字スプレッドを展開しています...")
+    print("  ケルト十字スプレチE��を展開してぁE��ぁE..")
 
-    # 引数バリエーションを順に試す（engine のシグネチャ違いに対応）
+    # 引数バリエーションを頁E��試す！Engine のシグネチャ違いに対応！E
     result      = None
     arg_variants = [
         {"user_seed": user_seed, "query": query},
@@ -539,34 +539,34 @@ def main() -> None:
     for kwargs in arg_variants:
         try:
             result = engine.draw_celtic_cross(**kwargs)
-            print(f"  ✅ draw_celtic_cross({', '.join(f'{k}=...' for k in kwargs)}) 成功")
+            print(f"  ✁Edraw_celtic_cross({', '.join(f'{k}=...' for k in kwargs)}) 成功")
             break
         except TypeError:
             continue
         except Exception as exc:
-            print(f"  ❌ draw_celtic_cross の実行中にエラーが発生しました: {exc}")
+            print(f"  ❁Edraw_celtic_cross の実行中にエラーが発生しました: {exc}")
             sys.exit(1)
 
     if result is None:
-        print("  ❌ draw_celtic_cross を呼び出せる引数の組み合わせが見つかりませんでした。")
-        print("     tarot_engine.py の draw_celtic_cross シグネチャを確認してください。")
+        print("  ❁Edraw_celtic_cross を呼び出せる引数の絁E��合わせが見つかりませんでした、E)
+        print("     tarot_engine.py の draw_celtic_cross シグネチャを確認してください、E)
         sys.exit(1)
 
     cards = normalize_result(result)
 
     if not cards:
-        print("  ❌ 結果からカードリストを取得できませんでした。")
-        print(f"     result の型   : {type(result)}")
-        print(f"     result の内容 : {result!r}")
+        print("  ❁E結果からカードリストを取得できませんでした、E)
+        print(f"     result の垁E  : {type(result)}")
+        print(f"     result の冁E�� : {result!r}")
         sys.exit(1)
 
-    print(f"  📌 取得カード枚数: {len(cards)} 枚")
+    print(f"  📌 取得カード枚数: {len(cards)} 极E)
 
-    # ── Step 5: スプレッド表示 ─────────────────────────────────────────────
+    # ── Step 5: スプレチE��表示 ─────────────────────────────────────────────
     print()
     print(STAR_LINE)
-    print(center_text("🃏  ケルト十字スプレッド  結果  🃏"))
-    print(center_text(f"相談: 「{query}」"))
+    print(center_text("🃏  ケルト十字スプレチE��  結果  🃏"))
+    print(center_text(f"相諁E 「{query}、E))
     print(STAR_LINE)
 
     for i, card in enumerate(cards, start=1):
@@ -585,15 +585,15 @@ def main() -> None:
         )
 
     print()
-    print(center_text(f"以上、{len(cards)} 枚のカードが展開されました。"))
+    print(center_text(f"以上、{len(cards)} 枚�Eカードが展開されました、E))
 
-    # ── Step 6: 元素分布バランス分析 ──────────────────────────────────────
+    # ── Step 6: 允E��刁E��E��ランス刁E�� ──────────────────────────────────────
     show_element_analysis(cards)
 
     # ── フッター ─────────────────────────────────────────────────────────────
     print()
     print(THICK_LINE)
-    print(center_text("✅  デモ実行完了  ―  TarotEngine は正常に動作しています"))
+    print(center_text("✁E チE��実行完亁E  E TarotEngine は正常に動作してぁE��ぁE))
     print(THICK_LINE)
     print()
 
