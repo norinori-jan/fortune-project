@@ -2,7 +2,13 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="タロット鑑定" />
+  <!-- file://で直接開いても無害。ホストした場合のみホーム画面インストールに使われる -->
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="apple-touch-icon" href="../icon-192.png" />
   <title>タロット鑑定</title>
 
   <!-- Google Fonts: Noto Serif JP（本文）+ Cinzel（見出し装飾） -->
@@ -722,12 +728,24 @@
       </button>
 
       <!--
+        app.js: initAiInterpretation() が参照
+        FIX: app.js側は元々このボタンを探していたが、HTML側に存在せず
+             AI鑑定機能が全く使えない状態だった。オプトイン機能なので
+             APIキー未設定でも他の機能には影響しない。
+      -->
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;">
+        <button id="ai-interpret-btn" class="generate-btn">🔮 AIに鑑定してもらう</button>
+        <button id="ai-settings-btn" class="generate-btn">⚙️ AI設定</button>
+      </div>
+
+      <!--
         app.js: onGenerateResult() が value に出力を書き込む
+        AI鑑定の結果もここに出力される(ai-interpret-outputが無い場合のフォールバック先)
       -->
       <textarea
         id="output-textarea"
         readonly
-        placeholder="「鑑定結果を生成」ボタンを押すと、ここに結果が出力されます。"
+        placeholder="「鑑定結果を生成」または「AIに鑑定してもらう」ボタンを押すと、ここに結果が出力されます。"
         aria-label="鑑定結果の出力エリア"
       ></textarea>
     </section>
@@ -743,9 +761,11 @@
        スクリプト読み込み順序（重要）
        1. cards_data.js  → TAROT_DATA をグローバルに定義
        2. app.js         → TAROT_DATA を参照しつつ動作
+       FIX: js/ という実在しないサブフォルダを参照していたため
+            スクリプトが1つも読み込めていなかった。同一階層に修正。
   ═══════════════════════════════════ -->
-  <script src="js/cards_data.js"></script>
-  <script src="js/app.js"></script>
+  <script src="cards_data.js"></script>
+  <script src="app.js"></script>
 
 </body>
 </html>

@@ -2,14 +2,25 @@
  * app.js — タロット鑑定アプリ メインロジック（完全版・省略なし）
  *
  * 依存:
- *   - js/cards_data.js  → グローバル変数 TAROT_DATA (Array, 22枚)
- *   - registry/spreads.json → SPREADS_DATA (fetch で読み込み、またはグローバル注入)
+ * - js/cards_data.js → グローバル変数 TAROT_CARDS_DATA ({ meta, cards: Array(22) })
+ * - registry/spreads.json → SPREADS_DATA (fetch で読み込み、またはグローバル注入)
  *
- * TAROT_DATA の各要素フォーマット想定:
+ * ⚠️ 修正メモ(重要):
+ * 以前はこのファイルが `TAROT_DATA` という変数名・フラットな構造
+ * ({name, keywords_upright, meaning_upright, ...}) を直接参照していたが、
+ * cards_data.js が実際に定義しているのは `TAROT_CARDS_DATA`
+ * ({meta, cards:[{name_ja, upright:{keywords, action_advice}, reversed:{...}}]})
+ * という別名・別構造のオブジェクトだったため、カードが1枚も引けないバグが発生していた。
+ * → normalizeTarotData() で TAROT_CARDS_DATA を TAROT_DATA 形式に変換して解消。
+ * ついでに、cards_data.js にしかない wuxing（五行）/element_note も表示するようにした。
+ *
+ * TAROT_DATA(正規化後)の各要素フォーマット:
  * {
  *   id: 0,
  *   name: "愚者",
  *   name_en: "The Fool",
+ *   wuxing: "木",
+ *   element_note: "始まり・出発・春の芽吹き。制御されていない木気。",
  *   keywords_upright: ["自由", "冒険", "無限の可能性"],
  *   keywords_reversed: ["無謀", "無計画", "軽率"],
  *   meaning_upright: "新しい始まり、純粋な冒険心...",
@@ -22,17 +33,16 @@
  *   name: "ケルティッククロス",
  *   positions: [
  *     { id: "p1", label: "現在の状況" },
- *     { id: "p2", label: "障害・課題" },
  *     ...
  *   ]
  * }
  */
-
 'use strict';
 
 // ─────────────────────────────────────────────
 // 0. グローバル状態
 // ─────────────────────────────────────────────
+
 /** @type {Array<{positionId: string, card: Object, isReversed: boolean, note: string}>} */
 let currentDrawResult = [];
 
@@ -51,17 +61,54 @@ let spreadsData = [];
 // ─────────────────────────────────────────────
 // 1. 初期化
 // ─────────────────────────────────────────────
+
 document.addEventListener('DOMContentLoaded', async () => {
+  normalizeTarotData();
   await loadSpreadsData();
   initSpreadSelector();
   initDrawButton();
   initGenerateButton();
   initFormatRadio();
+  initAiInterpretation();
 });
+
+/**
+ * cards_data.js が定義する TAROT_CARDS_DATA を、このファイル全体が使う
+ * TAROT_DATA(フラットな配列、keywords_upright/meaning_upright形式)に変換する。
+ * 変数名・構造の不一致でカードが1枚も引けなくなっていたバグの修正。
+ */
+function normalizeTarotData() {
+  if (typeof TAROT_DATA !== 'undefined' && Array.isArray(TAROT_DATA) && TAROT_DATA.length > 0) {
+    return; // 既にTAROT_DATAが別の方法で用意されている場合はそれを優先
+  }
+  if (typeof TAROT_CARDS_DATA === 'undefined' || !Array.isArray(TAROT_CARDS_DATA.cards)) {
+    console.error('TAROT_CARDS_DATA が見つかりません。js/cards_data.js の読み込みを確認してください。');
+    window.TAROT_DATA = [];
+    return;
+  }
+  window.TAROT_DATA = TAROT_CARDS_DATA.cards.map((c) => ({
+    id: c.number,
+    name: c.name_ja,
+    name_en: c.name_en,
+    wuxing: c.wuxing || '',
+    element_note: c.element_note || '',
+    keywords_upright: c.upright?.keywords || [],
+    keywords_reversed: c.reversed?.keywords || [],
+    meaning_upright: c.upright?.action_advice || '',
+    meaning_reversed: c.reversed?.action_advice || ''
+  }));
+  console.log(`✓ TAROT_CARDS_DATA(${TAROT_CARDS_DATA.cards.length}枚)を TAROT_DATA に正規化しました`);
+}
 
 /**
  * spreads.json を fetch して spreadsData に格納する。
  * グローバル変数 SPREADS_DATA が既に存在する場合はそちらを優先する。
+ *
+ * ⚠️ 修正メモ:
+ * - パスが誤っていた('registry/spreads.json' → 実際は '../spreads.json'。
+ *   index.html が offline/ 配下にあるのに対し、spreads.json は tarot/ 直下にあるため)
+ * - spreads.json は配列ではなく {spreadId: {...}} 形式のオブジェクトだったため、
+ *   Object.entries() で配列に変換する処理を追加
  */
 async function loadSpreadsData() {
   // cards_data.js 側で SPREADS_DATA がグローバル注入済みの場合
@@ -71,11 +118,19 @@ async function loadSpreadsData() {
   }
 
   try {
-    const response = await fetch('registry/spreads.json');
+    const response = await fetch('../spreads.json');
     if (!response.ok) {
       throw new Error(`spreads.json の取得に失敗: ${response.status}`);
     }
-    spreadsData = await response.json();
+    const raw = await response.json();
+
+    // {spreadId: {id, name_ja, description, positions}} 形式 → 配列に変換
+    spreadsData = Object.entries(raw).map(([key, spread]) => ({
+      id: spread.id || key,
+      name: spread.name_ja || spread.name || key,
+      description: spread.description || '',
+      positions: spread.positions || []
+    }));
   } catch (err) {
     console.error('スプレッドデータの読み込みエラー:', err);
     // フォールバック: 最低限のスプレッドをハードコード
@@ -89,7 +144,7 @@ async function loadSpreadsData() {
       },
       {
         id: 'three_card',
-        name: '3枚引き（過去・現在・未来）',
+        name: '3枚引き(過去・現在・未来)',
         positions: [
           { id: 'p1', label: '過去' },
           { id: 'p2', label: '現在' },
@@ -98,18 +153,18 @@ async function loadSpreadsData() {
       },
       {
         id: 'celtic_cross',
-        name: 'ケルティッククロス（10枚）',
+        name: 'ケルティッククロス(10枚)',
         positions: [
-          { id: 'p1',  label: '現在の状況' },
-          { id: 'p2',  label: '障害・課題' },
-          { id: 'p3',  label: '遠い過去' },
-          { id: 'p4',  label: '近い過去' },
-          { id: 'p5',  label: '可能性・目標' },
-          { id: 'p6',  label: '近い未来' },
-          { id: 'p7',  label: '自分自身' },
-          { id: 'p8',  label: '周囲の影響' },
-          { id: 'p9',  label: '希望と恐れ' },
-          { id: 'p10', label: '最終結果' }
+          { id: 'p1', label: '現状' },
+          { id: 'p2', label: '障害' },
+          { id: 'p3', label: '潜在意識' },
+          { id: 'p4', label: '過去' },
+          { id: 'p5', label: '可能性' },
+          { id: 'p6', label: '近い未来' },
+          { id: 'p7', label: 'あなた自身' },
+          { id: 'p8', label: '周囲の影響' },
+          { id: 'p9', label: '希望と恐れ' },
+          { id: 'p10', label: '結末' }
         ]
       }
     ];
@@ -119,6 +174,7 @@ async function loadSpreadsData() {
 // ─────────────────────────────────────────────
 // 2. スプレッド選択セレクトボックス
 // ─────────────────────────────────────────────
+
 function initSpreadSelector() {
   const selector = document.getElementById('spread-selector');
   if (!selector) {
@@ -147,6 +203,25 @@ function initSpreadSelector() {
 }
 
 /**
+ * ケルト十字の空間配置。
+ * grid-column / grid-row は 1始まり。5列グリッド(3列+隙間+スタッフ1列)×4行。
+ *   列: 1=左 2=中央 3=右 4=隙間 5=スタッフ
+ *   行: 1=上段 2=中段(十字の横棒) 3=下段 4=スタッフ最下段
+ */
+const CELTIC_CROSS_LAYOUT = {
+  p5: { col: 2, row: 1 },                 // 可能性・目標（クラウン／上）
+  p4: { col: 3, row: 2 },                 // 過去（右）
+  p1: { col: 2, row: 2 },                 // 現状（中心）
+  p2: { col: 2, row: 2, crossing: true }, // 障害（現状に十字で重なる／90度回転）
+  p6: { col: 1, row: 2 },                 // 近い未来（左）
+  p3: { col: 2, row: 3 },                 // 潜在意識（フット／下）
+  p10: { col: 5, row: 1 },                // 結末（スタッフ最上段）
+  p9: { col: 5, row: 2 },                 // 希望と恐れ
+  p8: { col: 5, row: 3 },                 // 周囲の影響
+  p7: { col: 5, row: 4 },                 // あなた自身（スタッフ最下段）
+};
+
+/**
  * 指定スプレッドIDに対応するカード枠を #spread-container に描画する。
  * @param {string} spreadId
  */
@@ -158,17 +233,35 @@ function renderSpreadContainer(spreadId) {
   }
 
   currentPositions = spread.positions;
-
   const container = document.getElementById('spread-container');
   if (!container) {
     console.error('#spread-container が見つかりません');
     return;
   }
 
-  container.innerHTML = '';
+  // ケルト十字(p1〜p10の10ポジション)の場合は、本来の空間配置で描画する。
+  // それ以外のスプレッドは今まで通りのシンプルな並びのまま。
+  const isCelticCross =
+    spreadId === 'celtic_cross' &&
+    spread.positions.every((p) => CELTIC_CROSS_LAYOUT[p.id]);
+  container.classList.toggle('celtic-cross-grid', isCelticCross);
 
+  container.innerHTML = '';
   spread.positions.forEach((pos) => {
     const posEl = createPositionElement(pos);
+
+    if (isCelticCross) {
+      const layout = CELTIC_CROSS_LAYOUT[pos.id];
+      if (layout.crossing) {
+        // 交差カード：現状カードと同じマスに重ねて90度回転させる
+        posEl.classList.add('cc-crossing');
+      } else {
+        posEl.classList.add(layout.col === 5 ? 'cc-staff-cell' : 'cc-cross-cell');
+      }
+      posEl.style.gridColumn = String(layout.col);
+      posEl.style.gridRow = String(layout.row);
+    }
+
     container.appendChild(posEl);
   });
 }
@@ -249,6 +342,7 @@ function createPositionElement(pos) {
 // ─────────────────────────────────────────────
 // 3. カードを引く（ドローボタン）
 // ─────────────────────────────────────────────
+
 function initDrawButton() {
   const btn = document.getElementById('draw-btn');
   if (!btn) {
@@ -287,7 +381,6 @@ function onDrawCards() {
 
   // 結果を currentDrawResult に格納し、UI に反映
   currentDrawResult = [];
-
   currentPositions.forEach((pos, index) => {
     const card = drawn[index];
     const isReversed = Math.random() < 0.5; // 50% で逆位置
@@ -356,6 +449,14 @@ function renderCardInfo(positionId, positionLabel, card, isReversed) {
   }
   infoEl.appendChild(nameEl);
 
+  // 五行(wuxing) — cards_data.js由来の追加情報
+  if (card.wuxing) {
+    const wuxingEl = document.createElement('div');
+    wuxingEl.className = 'card-wuxing';
+    wuxingEl.textContent = `☯ 五行: ${card.wuxing}${card.element_note ? ' — ' + card.element_note : ''}`;
+    infoEl.appendChild(wuxingEl);
+  }
+
   // キーワード
   if (keywords) {
     const kwEl = document.createElement('div');
@@ -394,6 +495,7 @@ function onVoiceStart(positionId) {
   // ブラウザサポート確認
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
+
   if (!SpeechRecognition) {
     alert(
       'このブラウザは Web Speech API に対応していません。\n' +
@@ -423,9 +525,9 @@ function onVoiceStart(positionId) {
 function startRecognitionForPosition(positionId, SpeechRecognitionClass) {
   const recognition = new SpeechRecognitionClass();
   recognition.lang = 'ja-JP';
-  recognition.interimResults = true;  // 途中結果も取得
+  recognition.interimResults = true; // 途中結果も取得
   recognition.maxAlternatives = 1;
-  recognition.continuous = true;      // 自動で止まらないよう連続モード
+  recognition.continuous = true; // 自動で止まらないよう連続モード
 
   activeRecognition = recognition;
   recordingPositionId = positionId;
@@ -468,7 +570,6 @@ function startRecognitionForPosition(positionId, SpeechRecognitionClass) {
 
   recognition.onerror = (event) => {
     console.error(`音声認識エラー (${positionId}):`, event.error);
-
     let errorMsg = '音声認識エラーが発生しました。';
     switch (event.error) {
       case 'no-speech':
@@ -584,8 +685,8 @@ function cleanupRecognitionState(positionId) {
  */
 function setRecordingUI(positionId, isRecording) {
   const startBtn = document.getElementById(`voice-start-${positionId}`);
-  const stopBtn  = document.getElementById(`voice-stop-${positionId}`);
-  const posEl    = document.getElementById(`pos-${positionId}`);
+  const stopBtn = document.getElementById(`voice-stop-${positionId}`);
+  const posEl = document.getElementById(`pos-${positionId}`);
 
   if (startBtn) {
     startBtn.disabled = isRecording;
@@ -618,6 +719,7 @@ function syncNoteToDrawResult(positionId, noteValue) {
 // ─────────────────────────────────────────────
 // 5. 出力フォーマット（Markdown / JSON）ラジオボタン
 // ─────────────────────────────────────────────
+
 function initFormatRadio() {
   const radios = document.querySelectorAll('input[name="output-format"]');
   radios.forEach((radio) => {
@@ -644,6 +746,7 @@ function getSelectedFormat() {
 // ─────────────────────────────────────────────
 // 6. 鑑定結果を生成
 // ─────────────────────────────────────────────
+
 function initGenerateButton() {
   const btn = document.getElementById('generate-btn');
   if (!btn) {
@@ -702,7 +805,7 @@ function generateMarkdownOutput() {
   const lines = [];
   const now = new Date();
   const dateStr = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日 ` +
-                  `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
 
   // スプレッド名を取得
   const selector = document.getElementById('spread-selector');
@@ -719,20 +822,25 @@ function generateMarkdownOutput() {
   // 各ポジションをループ
   currentDrawResult.forEach((entry, index) => {
     const orientation = entry.isReversed ? '逆位置' : '正位置';
-    const cardName    = entry.card.name ?? '（不明）';
-    const cardNameEn  = entry.card.name_en ? ` / ${entry.card.name_en}` : '';
-    const keywords    = entry.isReversed
+    const cardName = entry.card.name ?? '（不明）';
+    const cardNameEn = entry.card.name_en ? ` / ${entry.card.name_en}` : '';
+    const keywords = entry.isReversed
       ? (entry.card.keywords_reversed ?? []).join('・')
-      : (entry.card.keywords_upright  ?? []).join('・');
-    const meaning     = entry.isReversed
+      : (entry.card.keywords_upright ?? []).join('・');
+    const meaning = entry.isReversed
       ? (entry.card.meaning_reversed ?? entry.card.meaning_upright ?? '')
-      : (entry.card.meaning_upright  ?? '');
-    const note        = entry.note ? entry.note.trim() : '';
+      : (entry.card.meaning_upright ?? '');
+    const note = entry.note ? entry.note.trim() : '';
 
     lines.push(`## ${index + 1}. 【${entry.positionLabel}】`);
     lines.push('');
     lines.push(`### ${cardName}${cardNameEn}（${orientation}）`);
     lines.push('');
+
+    if (entry.card.wuxing) {
+      lines.push(`**五行:** ${entry.card.wuxing}${entry.card.element_note ? ' — ' + entry.card.element_note : ''}`);
+      lines.push('');
+    }
 
     if (keywords) {
       lines.push(`**キーワード:** ${keywords}`);
@@ -769,7 +877,7 @@ function generateMarkdownOutput() {
 function generateJsonOutput() {
   const now = new Date();
   const selector = document.getElementById('spread-selector');
-  const spreadId   = selector ? selector.value : '';
+  const spreadId = selector ? selector.value : '';
   const spreadName = selector ? (selector.options[selector.selectedIndex]?.text ?? '') : '';
 
   const resultObj = {
@@ -778,23 +886,25 @@ function generateJsonOutput() {
     spread_name: spreadName,
     positions: currentDrawResult.map((entry) => {
       const orientation = entry.isReversed ? 'reversed' : 'upright';
-      const keywords    = entry.isReversed
+      const keywords = entry.isReversed
         ? (entry.card.keywords_reversed ?? [])
-        : (entry.card.keywords_upright  ?? []);
-      const meaning     = entry.isReversed
+        : (entry.card.keywords_upright ?? []);
+      const meaning = entry.isReversed
         ? (entry.card.meaning_reversed ?? entry.card.meaning_upright ?? '')
-        : (entry.card.meaning_upright  ?? '');
+        : (entry.card.meaning_upright ?? '');
 
       return {
-        position_id:    entry.positionId,
+        position_id: entry.positionId,
         position_label: entry.positionLabel,
         card: {
-          id:          entry.card.id,
-          name:        entry.card.name,
-          name_en:     entry.card.name_en ?? '',
+          id: entry.card.id,
+          name: entry.card.name,
+          name_en: entry.card.name_en ?? '',
+          wuxing: entry.card.wuxing ?? '',
+          element_note: entry.card.element_note ?? '',
           orientation: orientation,
-          keywords:    keywords,
-          meaning:     meaning
+          keywords: keywords,
+          meaning: meaning
         },
         user_note: entry.note ? entry.note.trim() : ''
       };
@@ -807,17 +917,203 @@ function generateJsonOutput() {
 // ─────────────────────────────────────────────
 // 7. ユーティリティ: ページ離脱時に録音を安全停止
 // ─────────────────────────────────────────────
+
 window.addEventListener('beforeunload', () => {
   stopActiveRecognition();
 });
 
 // ─────────────────────────────────────────────
 // 8. テキストエリア変更時に drawResult に同期
-//    （手動入力にも対応するため、input イベントで追跡）
+// （手動入力にも対応するため、input イベントで追跡）
 // ─────────────────────────────────────────────
+
 document.addEventListener('input', (e) => {
   const el = e.target;
   if (el.classList.contains('note-textarea') && el.dataset.positionId) {
     syncNoteToDrawResult(el.dataset.positionId, el.value);
   }
 });
+
+// ─────────────────────────────────────────────
+// 9. AI鑑定(オプション機能。APIキー未設定でも他は全部動く)
+// ─────────────────────────────────────────────
+//
+// エコシステム共通のキー(ml_claude / ml_gemini / ml_openai)を再利用。
+// このアプリは「完全オフライン」が基本なので、AI鑑定は完全にオプトインの追加機能とする。
+
+const AI_KEYS = { claude: 'ml_claude', gemini: 'ml_gemini', openai: 'ml_openai' };
+const AI_MODEL_KEY = 'tarot_ai_model';
+
+function initAiInterpretation() {
+  const btn = document.getElementById('ai-interpret-btn');
+  if (!btn) {
+    console.warn('#ai-interpret-btn が見つかりません(index.htmlにボタンを追加してください)');
+    return;
+  }
+  btn.addEventListener('click', onGenerateAiInterpretation);
+
+  const settingsBtn = document.getElementById('ai-settings-btn');
+  if (settingsBtn) settingsBtn.addEventListener('click', openAiSettingsPrompt);
+}
+
+/**
+ * 簡易設定: APIキー・モデルをprompt()で入力(このアプリは単機能なので専用モーダルは作らない)
+ */
+function openAiSettingsPrompt() {
+  const currentModel = localStorage.getItem(AI_MODEL_KEY) || 'claude';
+  const model = prompt('使用するAI (claude / gemini / openai)', currentModel);
+  if (!model) return;
+  localStorage.setItem(AI_MODEL_KEY, model.trim());
+
+  const keyMap = { claude: 'Claude', gemini: 'Gemini', openai: 'OpenAI' };
+  const label = keyMap[model.trim()] || 'Claude';
+  const currentKey = localStorage.getItem(AI_KEYS[model.trim()]) || '';
+  const key = prompt(`${label} APIキーを入力してください(空のまま送信で変更なし)`, currentKey);
+  if (key) localStorage.setItem(AI_KEYS[model.trim()], key.trim());
+
+  alert(`AI鑑定の設定を保存しました(使用AI: ${label})`);
+}
+
+async function onGenerateAiInterpretation() {
+  if (currentDrawResult.length === 0) {
+    alert('先にカードを引いてください。');
+    return;
+  }
+
+  const provider = localStorage.getItem(AI_MODEL_KEY) || 'claude';
+  const apiKey = localStorage.getItem(AI_KEYS[provider]);
+  if (!apiKey) {
+    const wantsToSetup = confirm(
+      'AI鑑定にはAPIキーが必要です(このアプリはオフライン優先のため未設定です)。\n' +
+      '今すぐ設定しますか?\n\n' +
+      'キャンセルした場合、今まで通り手動でのMarkdown/JSON出力は使えます。'
+    );
+    if (wantsToSetup) openAiSettingsPrompt();
+    return;
+  }
+
+  // 最新のメモをcurrentDrawResultに同期
+  currentDrawResult.forEach((entry) => {
+    const textarea = document.getElementById(`note-${entry.positionId}`);
+    if (textarea) entry.note = textarea.value;
+  });
+
+  const btn = document.getElementById('ai-interpret-btn');
+  const outputEl = document.getElementById('ai-interpret-output') || document.getElementById('output-textarea');
+  btn.disabled = true;
+  const originalLabel = btn.textContent;
+  btn.textContent = '🔮 鑑定中…';
+
+  try {
+    const prompt = buildAiInterpretationPrompt();
+    const reply = await callAI(provider, prompt);
+    if (outputEl) {
+      outputEl.value = reply;
+      outputEl.scrollTop = 0;
+    }
+  } catch (err) {
+    alert('AI鑑定に失敗しました: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = originalLabel;
+  }
+}
+
+function buildAiInterpretationPrompt() {
+  const selector = document.getElementById('spread-selector');
+  const spreadName = selector ? (selector.options[selector.selectedIndex]?.text ?? '') : '';
+
+  const cardLines = currentDrawResult.map((entry, i) => {
+    const orientation = entry.isReversed ? '逆位置' : '正位置';
+    const keywords = entry.isReversed
+      ? (entry.card.keywords_reversed ?? []).join('・')
+      : (entry.card.keywords_upright ?? []).join('・');
+    const meaning = entry.isReversed
+      ? (entry.card.meaning_reversed ?? entry.card.meaning_upright ?? '')
+      : (entry.card.meaning_upright ?? '');
+    const wuxing = entry.card.wuxing ? `五行:${entry.card.wuxing}` : '';
+    const note = entry.note?.trim() ? `本人メモ: ${entry.note.trim()}` : '本人メモ: (なし)';
+    return `${i + 1}. 【${entry.positionLabel}】${entry.card.name}(${orientation}) ${wuxing}
+キーワード: ${keywords}
+基本の意味: ${meaning}
+${note}`;
+  }).join('\n\n');
+
+  return [
+    'あなたは長年の経験を持つタロット占い師です。',
+    '個々のカードの意味を単に並べるのではなく、',
+    'スプレッド全体を1つの物語として統合し、相談者に語りかけるように鑑定してください。',
+    '',
+    '心がけること:',
+    '- カード同士の関係性(対比・つながり・流れ)に注目する',
+    '- 本人が入力したメモがあれば、それを鑑定の中心に据えて解釈を深める',
+    '- 断定的な予言ではなく、気づきや選択肢を示す形で伝える',
+    '- 五行(木火土金水)の情報がある場合は、東洋思想的な視点も一部取り入れてよい',
+    '',
+    `スプレッド: ${spreadName}`,
+    '',
+    cardLines
+  ].join('\n');
+}
+
+async function callAI(provider, promptText) {
+  const model = provider === 'gemini' ? 'gemini-2.0-flash'
+    : provider === 'openai' ? 'gpt-4o-mini'
+    : 'claude-sonnet-5';
+  const key = localStorage.getItem(AI_KEYS[provider]);
+
+  if (provider === 'gemini') {
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`;
+    const res = await fetch(url, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ contents: [{ parts: [{ text: promptText }] }] })
+    });
+    if (!res.ok) throw new Error(`Gemini HTTP ${res.status}`);
+    const d = await res.json();
+    return d.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  }
+
+  if (provider === 'openai') {
+    const res = await fetch('https://api.openai.com/v1/chat/completions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+      body: JSON.stringify({ model, max_tokens: 1500, messages: [{ role: 'user', content: promptText }] })
+    });
+    if (!res.ok) throw new Error(`OpenAI HTTP ${res.status}`);
+    const d = await res.json();
+    return d.choices?.[0]?.message?.content || '';
+  }
+
+  // Claude(既定)
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': key,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
+    body: JSON.stringify({ model, max_tokens: 1500, messages: [{ role: 'user', content: promptText }] })
+  });
+  if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.error?.message || `HTTP ${res.status}`); }
+  const data = await res.json();
+  return (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('\n');
+}
+
+// ─────────────────────────────────────────────
+// 10. Service Worker登録(ホストされている場合のみ)
+// ─────────────────────────────────────────────
+//
+// file:// で直接開いた場合はService Worker自体が動作しない仕様のため、
+// location.protocol をチェックして、ホストされている(http/https)場合のみ登録する。
+// これにより file:// 直開き・ホスティングの両方に対応できる。
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js').catch((err) => {
+      console.warn('Service Workerの登録に失敗しました(オフラインキャッシュは無効):', err);
+    });
+  });
+} else {
+  console.log('file://で開かれているため、Service Workerはスキップします(通常の動作には影響ありません)。');
+}
+
