@@ -25,3 +25,4 @@ def get_hexagram(hexagram_id: int) -> dict:
 def get_trigram(trigram_id: int) -> dict:
     # Deprecated: Use get_hexagram instead.
     return get_hexagram(trigram_id)
+

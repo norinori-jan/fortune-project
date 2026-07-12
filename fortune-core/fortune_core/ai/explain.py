@@ -62,3 +62,4 @@ class AIExplain:
             self.explain_element_balance(chart),
         ]
         return "\n\n".join(parts)
+

@@ -1,171 +1,140 @@
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react'
+import L from 'leaflet'
+import 'leaflet/dist/leaflet.css'
+import type { LatLng } from '../types'
 
+/**
+ * MapView.tsx
+ * ─────────────────────────────────────────────
+ * Google Maps JavaScript API から、国土地理院(GSI)タイルのみで動く
+ * Leaflet地図に置き換えたもの。APIキー不要・課金なし。
+ *
+ * 設計方針:
+ *   Props/Handle のインターフェースを特定の地図ライブラリに依存しない形
+ *  （LatLng, panTo など）に保っている。将来 Google Maps を使いたく
+ *   なった場合も、この同じ Props/Handle を満たす別実装
+ *  （例: GoogleMapView.tsx）を作って App.tsx 側の import を
+ *   差し替えるだけで済むようにしてある。
+ *
+ * ベースには「景色」として見やすいGSIの空中写真(seamlessphoto)を使い、
+ * 道路・地名が分かるよう標準地図を薄く重ねている。
+ */
+
+const GSI_PHOTO_URL = 'https://cyberjapandata.gsi.go.jp/xyz/seamlessphoto/{z}/{x}/{y}.jpg'
+const GSI_STD_URL = 'https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png'
 const GSI_HILL_URL = 'https://cyberjapandata.gsi.go.jp/xyz/hillshademap/{z}/{x}/{y}.png'
 const GSI_CONTOUR_URL = 'https://cyberjapandata.gsi.go.jp/xyz/contour/{z}/{x}/{y}.png'
-
-const MAP_OPTIONS: google.maps.MapOptions = {
-  disableDefaultUI: true,
-  gestureHandling: 'greedy',
-  clickableIcons: false,
-}
+const GSI_ATTRIBUTION =
+  '<a href="https://maps.gsi.go.jp/development/ichiran.html" target="_blank" rel="noreferrer">地理院タイル</a>'
 
 type Props = {
-  initialCenter: google.maps.LatLngLiteral
+  initialCenter: LatLng
   gsiVisible: boolean
   gsiOpacity: number
-  onCenterChange: (center: google.maps.LatLngLiteral) => void
+  onCenterChange: (center: LatLng) => void
 }
 
 export type MapViewHandle = {
-  panTo: (latLng: google.maps.LatLngLiteral) => void
+  panTo: (latLng: LatLng) => void
 }
 
 const MapView = forwardRef<MapViewHandle, Props>(function MapView(
   { initialCenter, gsiVisible, gsiOpacity, onCenterChange },
   ref,
 ) {
-  const googleMapRef = useRef<google.maps.Map | null>(null)
-  const hillLayerRef = useRef<google.maps.ImageMapType | null>(null)
-  const contourLayerRef = useRef<google.maps.ImageMapType | null>(null)
-
-  function createGsiLayer(opacity: number): google.maps.ImageMapType {
-    return new window.google.maps.ImageMapType({
-      getTileUrl: (coord, zoom) =>
-        GSI_HILL_URL.replace('{z}', String(zoom))
-          .replace('{x}', String(coord.x))
-          .replace('{y}', String(coord.y)),
-      tileSize: new window.google.maps.Size(256, 256),
-      maxZoom: 18,
-      minZoom: 5,
-      opacity,
-      name: 'GSI陰影起伏図',
-    })
-  }
-
-  function createContourLayer(opacity: number): google.maps.ImageMapType {
-    return new window.google.maps.ImageMapType({
-      getTileUrl: (coord, zoom) =>
-        GSI_CONTOUR_URL.replace('{z}', String(zoom))
-          .replace('{x}', String(coord.x))
-          .replace('{y}', String(coord.y)),
-      tileSize: new window.google.maps.Size(256, 256),
-      maxZoom: 18,
-      minZoom: 5,
-      opacity,
-      name: 'GSI等高線',
-    })
-  }
-
-  function removeOverlayByLayer(
-    overlays: google.maps.MVCArray<google.maps.MapType | null>,
-    layer: google.maps.ImageMapType | null,
-  ) {
-    if (!layer) return
-    const idx = overlays.getArray().indexOf(layer)
-    if (idx !== -1) overlays.removeAt(idx)
-  }
-
-  const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY ?? '',
-  })
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const mapRef = useRef<L.Map | null>(null)
+  const hillLayerRef = useRef<L.TileLayer | null>(null)
+  const contourLayerRef = useRef<L.TileLayer | null>(null)
 
   useImperativeHandle(
     ref,
     () => ({
       panTo(latLng) {
-        googleMapRef.current?.panTo(latLng)
+        mapRef.current?.panTo([latLng.lat, latLng.lng])
       },
     }),
     [],
   )
 
+  // 初期化（マウント時に1回だけ）
   useEffect(() => {
-    const map = googleMapRef.current
+    if (!containerRef.current || mapRef.current) return
+
+    const map = L.map(containerRef.current, {
+      center: [initialCenter.lat, initialCenter.lng],
+      zoom: 17,
+      zoomControl: false,
+      attributionControl: true,
+    })
+
+    // ベースレイヤー: 空中写真（「景色」として見やすくするため標準地図より優先）
+    L.tileLayer(GSI_PHOTO_URL, {
+      maxZoom: 18,
+      attribution: GSI_ATTRIBUTION,
+    }).addTo(map)
+
+    // 道路・地名を薄く重ねて位置が分かりやすいようにする
+    L.tileLayer(GSI_STD_URL, {
+      maxZoom: 18,
+      opacity: 0.35,
+    }).addTo(map)
+
+    const hill = L.tileLayer(GSI_HILL_URL, { maxZoom: 18, opacity: gsiOpacity })
+    const contour = L.tileLayer(GSI_CONTOUR_URL, {
+      maxZoom: 18,
+      opacity: Math.min(1, gsiOpacity + 0.2),
+    })
+    hillLayerRef.current = hill
+    contourLayerRef.current = contour
+    if (gsiVisible) {
+      hill.addTo(map)
+      contour.addTo(map)
+    }
+
+    map.on('moveend', () => {
+      const c = map.getCenter()
+      onCenterChange({ lat: c.lat, lng: c.lng })
+    })
+
+    mapRef.current = map
+
+    return () => {
+      map.remove()
+      mapRef.current = null
+    }
+    // 初期化は最初の1回だけでよいので依存配列は空でよい
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // 陰影起伏図・等高線レイヤーの表示切り替え
+  useEffect(() => {
+    const map = mapRef.current
     const hill = hillLayerRef.current
     const contour = contourLayerRef.current
     if (!map || !hill || !contour) return
 
-    const overlays = map.overlayMapTypes
-    const hillIdx = overlays.getArray().indexOf(hill)
-    const contourIdx = overlays.getArray().indexOf(contour)
-
     if (gsiVisible) {
-      if (hillIdx === -1) overlays.push(hill)
-      if (contourIdx === -1) overlays.push(contour)
+      if (!map.hasLayer(hill)) hill.addTo(map)
+      if (!map.hasLayer(contour)) contour.addTo(map)
     } else {
-      if (hillIdx !== -1) overlays.removeAt(hillIdx)
-      const nextContourIdx = overlays.getArray().indexOf(contour)
-      if (nextContourIdx !== -1) overlays.removeAt(nextContourIdx)
+      if (map.hasLayer(hill)) map.removeLayer(hill)
+      if (map.hasLayer(contour)) map.removeLayer(contour)
     }
   }, [gsiVisible])
 
+  // 不透明度の変更
   useEffect(() => {
-    const map = googleMapRef.current
-    const currentHill = hillLayerRef.current
-    const currentContour = contourLayerRef.current
-    if (!map || !currentHill || !currentContour) return
-
-    const overlays = map.overlayMapTypes
-    const nextHill = createGsiLayer(gsiOpacity)
-    const nextContour = createContourLayer(Math.min(1, gsiOpacity + 0.2))
-
-    const hillIdx = overlays.getArray().indexOf(currentHill)
-    const contourIdx = overlays.getArray().indexOf(currentContour)
-
-    hillLayerRef.current = nextHill
-    contourLayerRef.current = nextContour
-
-    if (hillIdx !== -1) overlays.setAt(hillIdx, nextHill)
-    if (contourIdx !== -1) overlays.setAt(contourIdx, nextContour)
-
-    if (gsiVisible) {
-      removeOverlayByLayer(overlays, currentHill)
-      removeOverlayByLayer(overlays, currentContour)
-      overlays.push(nextHill)
-      overlays.push(nextContour)
-    }
+    hillLayerRef.current?.setOpacity(gsiOpacity)
+    contourLayerRef.current?.setOpacity(Math.min(1, gsiOpacity + 0.2))
   }, [gsiOpacity])
 
-  function handleMapLoad(map: google.maps.Map): void {
-    googleMapRef.current = map
-    hillLayerRef.current = createGsiLayer(gsiOpacity)
-    contourLayerRef.current = createContourLayer(Math.min(1, gsiOpacity + 0.2))
-  }
-
-  function handleIdle(): void {
-    const c = googleMapRef.current?.getCenter()
-    if (c) onCenterChange({ lat: c.lat(), lng: c.lng() })
-  }
-
-  if (loadError) {
-    return (
-      <div className="w-full h-full bg-red-50 flex items-center justify-center text-red-600 text-base p-8 text-center">
-        地図の読み込みに失敗しました。
-        <br />
-        VITE_GOOGLE_MAPS_API_KEY を確認してください。
-      </div>
-    )
-  }
-
-  if (!isLoaded) {
-    return (
-      <div className="w-full h-full bg-gray-100 flex items-center justify-center text-gray-500 text-base">
-        地図を読み込み中...
-      </div>
-    )
-  }
-
-  return (
-    <GoogleMap
-      mapContainerStyle={{ width: '100%', height: '100%' }}
-      center={initialCenter}
-      zoom={17}
-      options={MAP_OPTIONS}
-      onLoad={handleMapLoad}
-      onIdle={handleIdle}
-    />
-  )
+  // FIX: Leafletは初期化時に内部コントロール(.leaflet-top/.leaflet-bottom等)へ
+  // 高いz-indexを自前で設定するため、何も指定しないとUIオーバーレイ
+  // (コンパス・位置情報パネル・鑑定ボタン等、z-10〜z-50)より地図が
+  // 上に乗ってしまうことがある。relative + z-0 を明示して、地図の
+  // スタッキングコンテキストをUIより確実に下に固定する。
+  return <div ref={containerRef} className="relative z-0 w-full h-full" />
 })
 
 export default MapView

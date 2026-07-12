@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import type { AnalyzeResponse, LocationAccuracyMode } from './types'
+import type { AnalyzeResponse, LatLng, LocationAccuracyMode } from './types'
 import type { MapViewHandle } from './components/MapView'
 import GsiToggle from './components/GsiToggle'
 import LocationControl from './components/LocationControl'
@@ -7,10 +7,13 @@ import AttributionBadge from './components/atoms/AttributionBadge'
 import FabButton from './components/atoms/FabButton'
 import PrimaryActionButton from './components/atoms/PrimaryActionButton'
 import MapView from './components/MapView'
+import CompassHeading from './components/CompassHeading'
 import LoadingToast from './components/molecules/LoadingToast'
 import ResultDrawer from './components/ResultDrawer'
+import { fetchGsiTerrainProfile } from './lib/terrain'
+import { evaluateLantouHeuristics, buildRuleBasedAdvice } from './lib/heuristics'
 
-const DEFAULT_CENTER: google.maps.LatLngLiteral = { lat: 35.6812, lng: 139.7671 }
+const DEFAULT_CENTER: LatLng = { lat: 35.6812, lng: 139.7671 }
 const FENSHUI_APP_URL = import.meta.env.VITE_FENSHUI_APP_URL ?? 'https://fenshui-app.web.app'
 
 type TrackingProfile = {
@@ -41,7 +44,7 @@ const TRACKING_PROFILE: Record<LocationAccuracyMode, TrackingProfile> = {
   },
 }
 
-function distanceMeters(a: google.maps.LatLngLiteral, b: google.maps.LatLngLiteral): number {
+function distanceMeters(a: LatLng, b: LatLng): number {
   const toRad = (deg: number) => (deg * Math.PI) / 180
   const earthRadiusM = 6371000
   const dLat = toRad(b.lat - a.lat)
@@ -64,14 +67,14 @@ function parseSafeNumber(v: string | null): number | null {
 function toValidLatLng(
   lat: number | null,
   lng: number | null,
-): google.maps.LatLngLiteral | null {
+): LatLng | null {
   if (lat === null || lng === null) return null
   if (lat < -90 || lat > 90) return null
   if (lng < -180 || lng > 180) return null
   return { lat, lng }
 }
 
-function resolveInitialCenterFromUrl(): google.maps.LatLngLiteral {
+function resolveInitialCenterFromUrl(): LatLng {
   if (typeof window === 'undefined') return DEFAULT_CENTER
 
   const params = new URLSearchParams(window.location.search)
@@ -93,10 +96,10 @@ function resolveInitialCenterFromUrl(): google.maps.LatLngLiteral {
 }
 
 export default function App() {
-  const initialCenterRef = useRef<google.maps.LatLngLiteral>(resolveInitialCenterFromUrl())
+  const initialCenterRef = useRef<LatLng>(resolveInitialCenterFromUrl())
   const mapControlRef = useRef<MapViewHandle | null>(null)
-  const currentCenterRef = useRef<google.maps.LatLngLiteral>(initialCenterRef.current)
-  const lastFollowPanRef = useRef<google.maps.LatLngLiteral | null>(null)
+  const currentCenterRef = useRef<LatLng>(initialCenterRef.current)
+  const lastFollowPanRef = useRef<LatLng | null>(null)
   const lastFollowPanAtRef = useRef<number>(0)
   const watchIdRef = useRef<number | null>(null)
 
@@ -188,14 +191,15 @@ export default function App() {
     setDrawerOpen(false)
 
     try {
-      const res = await fetch('/analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ lat, lng }),
-      })
-      if (!res.ok) throw new Error(`サーバーエラー (HTTP ${res.status})`)
-      const payload = (await res.json()) as AnalyzeResponse
-      setResult(payload)
+      // FIX: サーバー(/analyze, FastAPI/Cloud Run)を廃止し、
+      // 国土地理院APIをブラウザから直接叩く構成に変更。
+      // これによりCloud Run/Firebaseのバックエンドが無くても、
+      // GitHub Pagesのような静的ホスティングだけで動作する。
+      // AI鑑定(Gemini)はまだ組み込んでおらず、地形データのみの簡易判定。
+      const terrain_profile = await fetchGsiTerrainProfile(lat, lng)
+      const heuristics = evaluateLantouHeuristics(terrain_profile)
+      const grounded_advice = buildRuleBasedAdvice(heuristics, terrain_profile)
+      setResult({ grounded_advice, heuristics, terrain_profile })
       setDrawerOpen(true)
     } catch (err) {
       const message = err instanceof Error ? err.message : '不明なエラー'
@@ -225,6 +229,8 @@ export default function App() {
           <circle cx="16" cy="16" r="4.5" fill="none" stroke="#ef4444" strokeWidth="2" />
         </svg>
       </div>
+
+      <CompassHeading />
 
       <GsiToggle
         active={gsiVisible}

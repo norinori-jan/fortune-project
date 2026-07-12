@@ -55,3 +55,4 @@ class TenGodsEngine:
             day=TenGod(name="比肩", code="hikata"),  # 日主自身は比肩
             hour=self.get_ten_god(day_stem, chart.hour.stem)
         )
+

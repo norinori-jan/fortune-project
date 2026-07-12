@@ -19,7 +19,7 @@ from fortune_core.common.branch import Branch
 
 from .calendar import ShichuCalendar, adjust_longitude
 from .tenkan import ShichuEngine as TenkanEngine
-from .zangkan import ZangkanEngine
+from .zangkan import ZangKanEngine
 from .ten_gods import TenGodsEngine
 from .twelve_growth import TwelveGrowthEngine
 from .gods import GodsEngine
@@ -771,3 +771,4 @@ class AIQA:
             return self.answer_field(field, chart, year)
 
         return "命式と運勢に基づく一般的な回答が可能です。もう少し具体的に質問してください。"
+

@@ -54,12 +54,12 @@ class SpecialCombinations:
 # ------------------------------------------------------------
 @dataclass(frozen=True)
 class KakukyokuYojin:
-    ho_go: Optional[str] = None
-    kai_kyoku: Optional[str] = None
     kakukyoku: str
     yojin: str
     kishin: str
     ijin: str
+    ho_go: Optional[str] = None
+    kai_kyoku: Optional[str] = None
     choko: Optional[str] = None
 
 
@@ -130,3 +130,4 @@ class Chart:
 
     # 5. 最下段：大運タイムライン（右→左）
     taiun_timeline: List[TaiunRow] = field(default_factory=list)
+

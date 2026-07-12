@@ -57,3 +57,4 @@ class AIReading:
             + taiun_text + "\n"
             + nen_text + "\n"
         )
+

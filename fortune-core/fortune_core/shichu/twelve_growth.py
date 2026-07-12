@@ -48,3 +48,4 @@ class TwelveGrowthEngine:
             "hour": self.get_growth(day_stem, chart.hour.branch)
         }
 
+

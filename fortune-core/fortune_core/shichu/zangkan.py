@@ -33,3 +33,4 @@ class ZangKanEngine:
             middle=self.stems.get(data["middle"]) if data["middle"] else None,
             extra=self.stems.get(data["extra"]) if data["extra"] else None
         )
+

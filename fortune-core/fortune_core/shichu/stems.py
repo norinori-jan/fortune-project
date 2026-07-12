@@ -6,3 +6,4 @@ class Stem:
     element: str
     yin_yang: str
     index: int
+
