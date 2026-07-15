@@ -1,19 +1,20 @@
-from datetime import datetime, timedelta
-import json
+from datetime import datetime, timedelta, timezone
+
+from scipy.optimize import brentq
+from skyfield.api import load
 
 
 class ShichuCalendar:
     """
-    四柱推命の暦計算を担当するクラス。
-    - 経度補正（任意）
-    - 節入り（立春・啓蟄・清明…）による年柱・月柱の切り替え
-    - 日柱（六十干支）の計算
-    - 時柱（十二支）の計算
+    四柱推命暦計算
+
+    ・天文計算による二十四節気
+    ・年柱
+    ・月柱
+    ・日柱
+    ・時柱
     """
 
-    # ------------------------------------------------------------
-    # 経度補正テーブル（日本主要都市）
-    # ------------------------------------------------------------
     LONGITUDE = {
         "tokyo": 18,
         "osaka": 2,
@@ -22,123 +23,184 @@ class ShichuCalendar:
         "sapporo": 25,
         "hiroshima": -6,
         "fukuoka": -18,
-        "naha": -29
+        "naha": -29,
     }
 
-    def __init__(self, solar_terms_json_path: str):
-        """
-        solar_terms.json を読み込む。
-        {
-            "2026": {
-                "2": "2026-02-04 05:00:00",
-                "3": "2026-03-05 23:00:00",
-                ...
-            }
-        }
-        """
-        with open(solar_terms_json_path, "r", encoding="utf-8-sig") as f:
-            self.solar_terms = json.load(f)
+    TERM_NAMES = [
+        "春分",
+        "清明",
+        "穀雨",
+        "立夏",
+        "小満",
+        "芒種",
+        "夏至",
+        "小暑",
+        "大暑",
+        "立秋",
+        "処暑",
+        "白露",
+        "秋分",
+        "寒露",
+        "霜降",
+        "立冬",
+        "小雪",
+        "大雪",
+        "冬至",
+        "小寒",
+        "大寒",
+        "立春",
+        "雨水",
+        "啓蟄",
+    ]
 
-    # ------------------------------------------------------------
-    # 経度補正（任意）
-    # ------------------------------------------------------------
-    def adjust_longitude(self, dt: datetime, city: str | None) -> datetime:
-        """
-        city が None の場合は補正しない。
-        city が LONGITUDE に存在しない場合も補正しない。
-        """
+    def __init__(self, solar_terms_json_path=None):
+
+        self.ts = load.timescale()
+        self.eph = load("de440s.bsp")
+
+    # ------------------------------------------------
+    # 経度補正
+    # ------------------------------------------------
+    def adjust_longitude(self, dt, city=None):
+
         if city is None:
             return dt
 
         minute = self.LONGITUDE.get(city.lower(), 0)
+
         return dt + timedelta(minutes=minute)
 
-    # ------------------------------------------------------------
-    # 日柱（六十干支）計算
-    # ------------------------------------------------------------
-    def _get_base_days(self, dt: datetime) -> int:
-        """
-        日柱の六十干支インデックス（0〜59）を求める。
-        基準日：1900/01/01 = 甲戌日（六十干支インデックス 10）
-        """
-        base_date = datetime(1900, 1, 1)
-        delta_days = (dt.date() - base_date.date()).days
-        base_offset = 10
-        return (delta_days + base_offset) % 60
+    # ------------------------------------------------
+    # 太陽黄経
+    # ------------------------------------------------
+    def solar_longitude(self, dt):
 
-    # ------------------------------------------------------------
-    # メイン処理：日時から四柱用インデックスを抽出
-    # ------------------------------------------------------------
-    def evaluate_datetime(self, dt: datetime, city: str | None = None) -> dict:
-        """
-        指定された日時から四柱推命の各インデックスを抽出する。
-        city を指定すると経度補正を行う。
-        """
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+
+        t = self.ts.from_datetime(dt)
+
+        earth = self.eph["earth"]
+        sun = self.eph["sun"]
+
+        astrometric = earth.at(t).observe(sun)
+        apparent = astrometric.apparent()
+
+        lon, lat, distance = apparent.ecliptic_latlon()
+
+        return lon.degrees % 360
+
+    # ------------------------------------------------
+    # 黄経との差
+    # ------------------------------------------------
+    def _longitude_diff(self, dt, target):
+
+        lon = self.solar_longitude(dt)
+
+        return (lon - target + 180) % 360 - 180
+
+    # ------------------------------------------------
+    # 指定黄経の通過時刻
+    # ------------------------------------------------
+    def find_term(self, start, target):
+
+        end = start + timedelta(days=3)
+
+        def f(sec):
+
+            dt = start + timedelta(seconds=sec)
+
+            return self._longitude_diff(dt, target)
+
+        sec = brentq(
+            f,
+            0,
+            (end - start).total_seconds(),
+        )
+
+        return start + timedelta(seconds=float(sec))
+
+    # ------------------------------------------------
+    # 二十四節気
+    # ------------------------------------------------
+    def get_24_terms(self, year):
+
+        result = {}
+
+        start = datetime(year, 1, 1)
+
+        for i in range(24):
+
+            angle = i * 15
+
+            dt = self.find_term(start, angle)
+
+            result[self.TERM_NAMES[i]] = dt
+
+            start = dt + timedelta(days=10)
+
+        return result
+
+    # ------------------------------------------------
+    # 日柱
+    # ------------------------------------------------
+    def _get_base_days(self, dt):
+
+        base = datetime(1900, 1, 1)
+
+        return ((dt.date() - base.date()).days + 10) % 60
+
+    # ------------------------------------------------
+    # メイン
+    # ------------------------------------------------
+    def evaluate_datetime(self, dt, city=None):
+
         dt = self.adjust_longitude(dt, city)
 
         year = dt.year
-        month = dt.month
 
-        # 1. 節入り日時の取得
-        year_str = str(year)
-        month_str = str(month)
+        terms = self.get_24_terms(year)
 
-        if year_str not in self.solar_terms:
-            raise ValueError(f"節入りデータに年 {year_str} がありません")
+        calc_year = year
+        calc_month = dt.month
 
-        if month_str not in self.solar_terms[year_str]:
-            raise ValueError(f"節入りデータに {year_str}年 {month_str}月 がありません")
+        for term_time in sorted(terms.values()):
 
-        term_time = datetime.strptime(
-            self.solar_terms[year_str][month_str],
-            "%Y-%m-%d %H:%M:%S"
-        )
+            if dt < term_time:
 
-        # 2. 節入り前後で暦上の年・月を決定
-        if dt < term_time:
-            calc_month = month - 1
-            calc_year = year
-            if calc_month == 0:
-                calc_month = 12
-                calc_year = year - 1
-        else:
-            calc_month = month
-            calc_year = year
+                calc_month -= 1
 
-        # 3. 年柱の六十干支インデックス
-        year_offset = (calc_year - 1984) % 60
-        year_kanchi_idx = year_offset if year_offset >= 0 else year_offset + 60
+                if calc_month == 0:
+                    calc_month = 12
+                    calc_year -= 1
 
-        # 4. 月支インデックス（正統派）
+                break
+
+        year_idx = (calc_year - 1984) % 60
+
         month_branch_idx = (calc_month + 10) % 12
 
-        # 5. 日柱（六十干支インデックス）
-        day_kanchi_idx = self._get_base_days(dt)
+        day_idx = self._get_base_days(dt)
 
-        # 6. 時支インデックス（透派）
-        hour = dt.hour
-        if hour == 23:
+        if dt.hour == 23:
             hour_branch_idx = 0
         else:
-            hour_branch_idx = (hour + 1) // 2
+            hour_branch_idx = (dt.hour + 1) // 2
 
         return {
-            "year_kanchi_idx": year_kanchi_idx,
+            "year_kanchi_idx": year_idx,
             "month_branch_idx": month_branch_idx,
-            "day_kanchi_idx": day_kanchi_idx,
-            "hour_branch_idx": hour_branch_idx
+            "day_kanchi_idx": day_idx,
+            "hour_branch_idx": hour_branch_idx,
         }
 
 
-# ------------------------------------------------------------
-# engine.py が要求する「adjust_longitude(dt, longitude)」互換関数
-# ------------------------------------------------------------
-def adjust_longitude(dt: datetime, longitude: float) -> datetime:
-    """
-    東経・西経による時差補正
-    東経1度 = +4分
-    西経1度 = -4分
-    """
+# ------------------------------------------------
+# engine互換
+# ------------------------------------------------
+def adjust_longitude(dt, longitude):
+
     if longitude is None:
         return dt
+
     return dt + timedelta(minutes=longitude * 4)

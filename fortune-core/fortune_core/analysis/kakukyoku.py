@@ -2,8 +2,9 @@
 
 from dataclasses import dataclass
 
-from fortune_core.shichu.dataclasses import Chart
-from .element_strength import ElementStrength
+from fortune_core.analysis.element_strength import (
+    ElementStrengthResult,
+)
 
 
 @dataclass(frozen=True)
@@ -11,108 +12,73 @@ class KakukyokuResult:
     """
     格局判定結果
     """
-    kakukyoku: str | None
+
+    kakukyoku: str
+    body_strength: str
     jugaku: str | None
 
 
 class KakukyokuAnalyzer:
     """
-    格局・従格判定
+    格局判定エンジン
     """
 
     def analyze(
         self,
-        chart: Chart,
-        strength: ElementStrength,
+        chart,
+        strength: ElementStrengthResult,
     ) -> KakukyokuResult:
 
         values = strength.values
+
         day_element = chart.day.stem.element
 
-        jugaku = self._detect_jugaku(day_element, values)
-        kakukyoku = self._detect_kakukyoku(chart)
+        body_strength = self._body_strength(
+            day_element,
+            values,
+        )
+
+        kakukyoku = self._normal_kakukyoku(chart)
+
+        jugaku = self._detect_jugaku(
+            day_element,
+            values,
+        )
+
+        if jugaku is not None:
+            kakukyoku = jugaku
 
         return KakukyokuResult(
             kakukyoku=kakukyoku,
+            body_strength=body_strength,
             jugaku=jugaku,
         )
 
-    # ------------------------------------------------------------
-    # 従格判定
-    # ------------------------------------------------------------
-    def _detect_jugaku(
+    # ----------------------------------------------------
+    # 身旺・身弱
+    # ----------------------------------------------------
+
+    def _body_strength(
         self,
-        day_element: str,
-        values: dict[str, float],
-    ) -> str | None:
+        day_element,
+        values,
+    ):
 
-        if values.get(day_element, 0) > 0.5:
-            return None
+        mine = values[day_element]
 
-        if day_element == "木":
+        if mine >= 3.5:
+            return "身旺"
 
-            if values["火"] >= 2.5:
-                return "従児格"
+        if mine >= 2.0:
+            return "中和"
 
-            if values["土"] >= 2.5:
-                return "従財格"
+        return "身弱"
 
-            if values["金"] >= 2.5:
-                return "従殺格"
+    # ----------------------------------------------------
+    # 通常格局
+    # ----------------------------------------------------
 
-        elif day_element == "火":
-
-            if values["土"] >= 2.5:
-                return "従児格"
-
-            if values["金"] >= 2.5:
-                return "従財格"
-
-            if values["水"] >= 2.5:
-                return "従殺格"
-
-        elif day_element == "土":
-
-            if values["金"] >= 2.5:
-                return "従児格"
-
-            if values["水"] >= 2.5:
-                return "従財格"
-
-            if values["木"] >= 2.5:
-                return "従殺格"
-
-        elif day_element == "金":
-
-            if values["水"] >= 2.5:
-                return "従児格"
-
-            if values["木"] >= 2.5:
-                return "従財格"
-
-            if values["火"] >= 2.5:
-                return "従殺格"
-
-        elif day_element == "水":
-
-            if values["木"] >= 2.5:
-                return "従児格"
-
-            if values["火"] >= 2.5:
-                return "従財格"
-
-            if values["土"] >= 2.5:
-                return "従殺格"
-
-        return None
-
-    # ------------------------------------------------------------
-    # 一般格局（仮実装）
-    # ------------------------------------------------------------
-    def _detect_kakukyoku(
-        self,
-        chart: Chart,
-    ) -> str | None:
+    def _normal_kakukyoku(self, chart):
 
         month_branch = chart.month.branch.name
 
@@ -127,4 +93,40 @@ class KakukyokuAnalyzer:
             "子": "印綬格",
         }
 
-        return mapping.get(month_branch)
+        return mapping.get(
+            month_branch,
+            "普通格"
+        )
+
+    # ----------------------------------------------------
+    # 従格
+    # ----------------------------------------------------
+
+    def _detect_jugaku(
+        self,
+        day_element,
+        values,
+    ):
+
+        mine = values[day_element]
+
+        if mine > 0.5:
+            return None
+
+        if day_element == "木":
+
+            if values["火"] >= 2.5:
+                return "従財格"
+
+            if values["金"] >= 2.5:
+                return "従殺格"
+
+        if day_element == "水":
+
+            if values["木"] >= 2.5:
+                return "従児格"
+
+        if mine == 0:
+            return "従旺格"
+
+        return None

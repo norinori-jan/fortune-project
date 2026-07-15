@@ -1,4 +1,5 @@
 # fortune_core/shichu/engine.py
+from .zangkan import ZangkanEngine
 from datetime import datetime
 from typing import List, Optional
 
@@ -19,7 +20,7 @@ from fortune_core.common.branch import Branch
 
 from .calendar import ShichuCalendar, adjust_longitude
 from .tenkan import ShichuEngine as TenkanEngine
-from .zangkan import ZangKanEngine
+from .zangkan import ZangkanEngine
 from .ten_gods import TenGodsEngine
 from .twelve_growth import TwelveGrowthEngine
 from .gods import GodsEngine
@@ -27,7 +28,7 @@ from .gods import GodsEngine
 
 class Engine:
 
-    def __init__(self, registry_loader, solar_terms_json_path: str):
+    def __init__(self, registry_loader: str):
         self.calendar = ShichuCalendar(solar_terms_json_path)
         self.tenkan_engine = TenkanEngine(registry_loader)
         self.zangkan_engine = ZangkanEngine(registry_loader)

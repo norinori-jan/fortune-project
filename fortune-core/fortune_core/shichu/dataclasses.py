@@ -2,8 +2,8 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Optional, List, Dict
 
-from fortune_core.common.stem import Stem
-from fortune_core.common.branch import Branch
+from .stems import Stem
+from .branches import Branch
 from fortune_core.shichu.ten_gods import TenGod
 from fortune_core.shichu.twelve_growth import TwelveGrowth
 
@@ -61,6 +61,7 @@ class KakukyokuYojin:
     ho_go: Optional[str] = None
     kai_kyoku: Optional[str] = None
     choko: Optional[str] = None
+
 
 
 # ------------------------------------------------------------

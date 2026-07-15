@@ -1,22 +1,25 @@
 # fortune_core/analysis/house_gods.py
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
 class HouseGod:
     """
-    各宮位（年・月・日・時）に付与される神や情報
+    宮位情報
     """
 
-    house: str
-    gods: list[str] = field(default_factory=list)
+    name: str
+    pillar: str
+    stem: str
+    branch: str
+    description: str
 
 
 @dataclass(frozen=True)
-class HouseGodResult:
+class HouseGodsResult:
     """
-    鑑定書で使用する十二宮情報
+    十二宮（四柱版）
     """
 
     year: HouseGod
@@ -25,33 +28,77 @@ class HouseGodResult:
     hour: HouseGod
 
 
-class HouseGodAnalyzer:
+class HouseGodsAnalyzer:
     """
-    宮位ごとの神をまとめるクラス
+    宮位解析
 
-    現段階では GodsEngine の結果を
-    鑑定書で扱いやすい形式へ変換するだけ。
+    年柱＝祖先・家系・幼少期
+    月柱＝父母・兄弟・青年期
+    日柱＝本人・配偶者・壮年期
+    時柱＝子女・晩年
     """
 
-    def analyze(self, chart) -> HouseGodResult:
+    def analyze(self, chart) -> HouseGodsResult:
 
-        gods = chart.house_gods
+        return HouseGodsResult(
+            year=self._build_year(chart),
+            month=self._build_month(chart),
+            day=self._build_day(chart),
+            hour=self._build_hour(chart),
+        )
 
-        return HouseGodResult(
-            year=HouseGod(
-                house="年柱",
-                gods=[g.name for g in gods.get("year", [])],
-            ),
-            month=HouseGod(
-                house="月柱",
-                gods=[g.name for g in gods.get("month", [])],
-            ),
-            day=HouseGod(
-                house="日柱",
-                gods=[g.name for g in gods.get("day", [])],
-            ),
-            hour=HouseGod(
-                house="時柱",
-                gods=[g.name for g in gods.get("hour", [])],
-            ),
+    # ------------------------------------------------------------
+    # 年柱
+    # ------------------------------------------------------------
+
+    def _build_year(self, chart):
+
+        return HouseGod(
+            name="年柱宮",
+            pillar="year",
+            stem=chart.year.stem.name,
+            branch=chart.year.branch.name,
+            description="祖先・家系・幼少期・社会背景",
+        )
+
+    # ------------------------------------------------------------
+    # 月柱
+    # ------------------------------------------------------------
+
+    def _build_month(self, chart):
+
+        return HouseGod(
+            name="月柱宮",
+            pillar="month",
+            stem=chart.month.stem.name,
+            branch=chart.month.branch.name,
+            description="父母・兄弟姉妹・仕事・青年期",
+        )
+
+    # ------------------------------------------------------------
+    # 日柱
+    # ------------------------------------------------------------
+
+    def _build_day(self, chart):
+
+        return HouseGod(
+            name="日柱宮",
+            pillar="day",
+            stem=chart.day.stem.name,
+            branch=chart.day.branch.name,
+            description="本人・配偶者・結婚運・壮年期",
+        )
+
+    # ------------------------------------------------------------
+    # 時柱
+    # ------------------------------------------------------------
+
+    def _build_hour(self, chart):
+
+        return HouseGod(
+            name="時柱宮",
+            pillar="hour",
+            stem=chart.hour.stem.name,
+            branch=chart.hour.branch.name,
+            description="子女・部下・晩年運・未来",
         )

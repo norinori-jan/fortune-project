@@ -1,7 +1,6 @@
-# fortune_core/shichu/zangkan.py
 from dataclasses import dataclass
-from fortune_core.common.stem import Stem
-from fortune_core.common.branch import Branch
+from .stems import Stem
+from .branches import Branch
 
 
 @dataclass(frozen=True)
@@ -19,18 +18,14 @@ class ZangKanEngine:
     """
 
     def __init__(self, registry_loader):
-        self.stems = registry_loader.get_stems()            # Stem オブジェクト
-        self.hidden = registry_loader.get_hidden_stems()    # hidden_stems.json
+        self.stems = registry_loader.get_stems()
+        self.hidden = registry_loader.get_hidden_stems()
 
     def get_zangkan(self, branch: Branch) -> ZangKan:
-        """
-        十二支 → 蔵干（本気・中気・余気）を返す
-        """
         data = self.hidden.get(branch.name)
 
         return ZangKan(
             main=self.stems.get(data["main"]) if data["main"] else None,
             middle=self.stems.get(data["middle"]) if data["middle"] else None,
-            extra=self.stems.get(data["extra"]) if data["extra"] else None
+            extra=self.stems.get(data["extra"]) if data["extra"] else None,
         )
-

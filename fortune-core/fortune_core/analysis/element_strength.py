@@ -1,33 +1,68 @@
+# fortune_core/analysis/element_strength.py
+
 from dataclasses import dataclass
 
-from fortune_core.shichu.dataclasses import Chart, ElementStrength
+from fortune_core.shichu.relation import RelationEngine
 
+
+# ------------------------------------------------------------
+# 判定結果
+# ------------------------------------------------------------
+
+@dataclass(frozen=True)
+class ElementStrengthResult:
+    """
+    五行量計算結果
+    """
+
+    values: dict[str, float]
+    hogo: str | None
+    kaikyoku: str | None
+
+    @property
+    def total(self) -> float:
+        return sum(self.values.values())
+
+    @property
+    def strongest(self) -> str:
+        return max(self.values, key=self.values.get)
+
+    @property
+    def weakest(self) -> str:
+        return min(self.values, key=self.values.get)
+
+
+# ------------------------------------------------------------
+# 五行量解析
+# ------------------------------------------------------------
 
 class ElementStrengthAnalyzer:
+
     """
-    五行量解析
+    五行量を集計する
 
-    ・天干 1.0
-    ・地支 1.0
-    ・蔵干 0.5
+    対象
 
-    将来的に
-    ・月令補正
-    ・旺相休囚死
-    ・通根
-    ・透干
-    ・会局
-    ・方合
-    を追加する。
+        ・天干
+        ・地支
+        ・蔵干
+        ・方合
+        ・会局（三合）
     """
 
-    def __init__(self, registry_loader):
-        self.registry_loader = registry_loader
+    STEM_WEIGHT = 1.0
+    BRANCH_WEIGHT = 1.0
+    ZANGKAN_WEIGHT = 0.5
+
+    def __init__(self):
+
+        self.relation = RelationEngine()
 
     # ------------------------------------------------------------
-    # 五行量
+    # メイン
     # ------------------------------------------------------------
-    def analyze(self, chart: Chart) -> ElementStrength:
+
+    def analyze(self, chart):
 
         values = {
             "木": 0.0,
@@ -37,50 +72,92 @@ class ElementStrengthAnalyzer:
             "水": 0.0,
         }
 
-        pillars = [
+        ##########################################################
+        # 方合・会局判定
+        ##########################################################
+
+        branches = [
+            chart.year.branch,
+            chart.month.branch,
+            chart.day.branch,
+            chart.hour.branch,
+        ]
+
+        hogo = self.relation.find_hogo(branches)
+        kaikyoku = self.relation.find_kaikyoku(branches)
+
+        change_element = None
+        converted = set()
+
+        if hogo is not None:
+            change_element = hogo.element
+            converted = {b.name for b in hogo.branches}
+
+        elif kaikyoku is not None:
+            change_element = kaikyoku.element
+            converted = {b.name for b in kaikyoku.branches}
+
+        ##########################################################
+        # 天干
+        ##########################################################
+
+        for pillar in (
             chart.year,
             chart.month,
             chart.day,
             chart.hour,
-        ]
+        ):
+            values[pillar.stem.element] += self.STEM_WEIGHT
 
-        stems = self.registry_loader.get_stems()
+        ##########################################################
+        # 地支＋蔵干
+        ##########################################################
 
-        for pillar in pillars:
+        for pillar in (
+            chart.year,
+            chart.month,
+            chart.day,
+            chart.hour,
+        ):
 
-            # -------------------------
-            # 天干
-            # -------------------------
-            values[pillar.stem.element] += 1.0
+            branch = pillar.branch
 
-            # -------------------------
-            # 地支
-            # -------------------------
-            values[pillar.branch.element] += 1.0
+            ##########################################
+            # 方合・会局
+            ##########################################
 
-            # -------------------------
+            if (
+                change_element is not None
+                and branch.name in converted
+            ):
+
+                values[change_element] += self.BRANCH_WEIGHT
+                values[change_element] += self.ZANGKAN_WEIGHT
+
+                continue
+
+            ##########################################
+            # 通常地支
+            ##########################################
+
+            values[branch.element] += self.BRANCH_WEIGHT
+
+            ##########################################
             # 蔵干
-            # -------------------------
-            zang = getattr(pillar, "zangkan", None)
+            ##########################################
 
-            if zang:
+            if pillar.zangkan is not None:
 
-                if isinstance(zang, str):
+                values[
+                    pillar.zangkan.element
+                ] += self.ZANGKAN_WEIGHT
 
-                    stem = stems.get(zang)
+        ##########################################################
+        # 結果
+        ##########################################################
 
-                    if stem:
-                        values[stem.element] += 0.5
-
-                else:
-
-                    for s in (
-                        getattr(zang, "main", None),
-                        getattr(zang, "middle", None),
-                        getattr(zang, "extra", None),
-                    ):
-
-                        if s is not None:
-                            values[s.element] += 0.5
-
-        return ElementStrength(values=values)
+        return ElementStrengthResult(
+            values=values,
+            hogo=hogo.element if hogo else None,
+            kaikyoku=kaikyoku.element if kaikyoku else None,
+        )
