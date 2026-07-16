@@ -1,74 +1,77 @@
-from fortune_core.report.models import PaperReport
-
 from fortune_core.analysis.element_strength import ElementStrengthAnalyzer
-from fortune_core.analysis.combinations import CombinationAnalyzer
 from fortune_core.analysis.kakukyoku import KakukyokuAnalyzer
 from fortune_core.analysis.yojin import YojinAnalyzer
 from fortune_core.analysis.house_gods import HouseGodsAnalyzer
+from fortune_core.analysis.combinations import CombinationAnalyzer
+from fortune_core.analysis.taiun import TaiunAnalyzer
+from fortune_core.analysis.ryunen import RyunenAnalyzer
+from fortune_core.analysis.ryugetsu import RyugetsuAnalyzer
+from fortune_core.analysis.ryunichi import RyunichiAnalyzer
+from fortune_core.analysis.ai_reading import AIReadingAnalyzer
+
+from .models import PaperReport
 
 
 class PaperBuilder:
-    """
-    四柱推命鑑定書ビルダー
-
-    Engine.generate() が生成した Chart を受け取り、
-    各解析モジュールを実行して PaperReport を生成する。
-    """
 
     def __init__(self):
-        self.element_strength = ElementStrengthAnalyzer()
-        self.combinations = CombinationAnalyzer()
+
+        self.element = ElementStrengthAnalyzer()
         self.kakukyoku = KakukyokuAnalyzer()
         self.yojin = YojinAnalyzer()
-        self.house_gods = HouseGodsAnalyzer()
+        self.house = HouseGodsAnalyzer()
+        self.combo = CombinationAnalyzer()
+        self.taiun = TaiunAnalyzer()
+        self.ryunen = RyunenAnalyzer()
+        self.ryugetsu = RyugetsuAnalyzer()
+        self.ryunichi = RyunichiAnalyzer()
+        self.ai = AIReadingAnalyzer()
 
-    def build(self, chart) -> PaperReport:
-        """
-        Chart → PaperReport
-        """
+    def build(self, chart):
 
-        report = PaperReport(chart=chart)
+        element = self.element.analyze(chart)
 
-        # ----------------------------------------------------
-        # 五行量
-        # ----------------------------------------------------
-        report.element_strength = (
-            self.element_strength.analyze(chart)
+        kakukyoku = self.kakukyoku.analyze(
+            chart,
+            element
         )
 
-        # ----------------------------------------------------
-        # 合・冲・刑・害・三合・方合・会局
-        # ----------------------------------------------------
-        report.combinations = (
-            self.combinations.analyze(chart)
+        yojin = self.yojin.analyze(
+            chart,
+            element,
+            kakukyoku
         )
 
-        # ----------------------------------------------------
-        # 格局
-        # ----------------------------------------------------
-        report.kakukyoku = (
-            self.kakukyoku.analyze(
-                chart,
-                report.element_strength,
-            )
+        house = self.house.analyze(chart)
+
+        combo = self.combo.analyze(chart)
+
+        taiun = self.taiun.analyze(chart)
+
+        ryunen = self.ryunen.analyze(chart)
+
+        ryugetsu = self.ryugetsu.analyze(chart)
+
+        ryunichi = self.ryunichi.analyze(chart)
+
+        reading = self.ai.analyze(
+            chart,
+            element,
+            kakukyoku,
+            yojin,
+            combo
         )
 
-        # ----------------------------------------------------
-        # 用神・忌神
-        # ----------------------------------------------------
-        report.yojin = (
-            self.yojin.analyze(
-                chart,
-                report.element_strength,
-                report.kakukyoku,
-            )
+        return PaperReport(
+            chart=chart,
+            element_strength=element,
+            kakukyoku=kakukyoku,
+            yojin=yojin,
+            house_gods=house,
+            combinations=combo,
+            taiun=taiun,
+            ryunen=ryunen,
+            ryugetsu=ryugetsu,
+            ryunichi=ryunichi,
+            ai_reading=reading,
         )
-
-        # ----------------------------------------------------
-        # 十二宮・宮位神
-        # ----------------------------------------------------
-        report.house_gods = (
-            self.house_gods.analyze(chart)
-        )
-
-        return report

@@ -1,28 +1,80 @@
+# fortune_core/report/models.py
+
 from dataclasses import dataclass
-from typing import Optional
-
-from fortune_core.shichu.dataclasses import Chart
-from fortune_core.analysis.element_strength import ElementStrength
-from fortune_core.analysis.kakukyoku import KakukyokuResult
-from fortune_core.analysis.yojin import YojinResult
-from fortune_core.analysis.house_gods import HouseGodsResult
-from fortune_core.analysis.combinations import CombinationResult
+from typing import Any
 
 
-@dataclass
+@dataclass(frozen=True)
 class PaperReport:
     """
-    鑑定書全体
+    鑑定書データモデル
+
+    PaperBuilder が生成し、
+    HTMLBuilder / PDFBuilder / API が共通で利用する。
     """
 
-    chart: Chart
+    # ============================================================
+    # 基本命式
+    # ============================================================
 
-    element_strength: Optional[ElementStrength] = None
+    chart: Any
 
-    combinations: Optional[CombinationResult] = None
+    # ============================================================
+    # 五行分析
+    # ============================================================
 
-    kakukyoku: Optional[KakukyokuResult] = None
+    element_strength: Any
 
-    yojin: Optional[YojinResult] = None
+    # ============================================================
+    # 格局
+    # ============================================================
 
-    house_gods: Optional[HouseGodsResult] = None
+    kakukyoku: Any
+
+    # ============================================================
+    # 用神・忌神・喜神
+    # ============================================================
+
+    yojin: Any
+
+    # ============================================================
+    # 十二宮
+    # ============================================================
+
+    house_gods: Any
+
+    # ============================================================
+    # 合・冲・刑・害・三合・方合など
+    # ============================================================
+
+    combinations: Any
+
+    # ============================================================
+    # 大運
+    # ============================================================
+
+    taiun: Any
+
+    # ============================================================
+    # 流年
+    # ============================================================
+
+    ryunen: Any
+
+    # ============================================================
+    # 流月
+    # ============================================================
+
+    ryugetsu: Any
+
+    # ============================================================
+    # 流日
+    # ============================================================
+
+    ryunichi: Any
+
+    # ============================================================
+    # AI鑑定
+    # ============================================================
+
+    ai_reading: Any

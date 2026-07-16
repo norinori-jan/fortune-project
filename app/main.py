@@ -1,118 +1,76 @@
+import os
 import sys
-sys.path.append("C:/Users/norin/fortune-project")
-
-from fastapi import FastAPI
-from pydantic import BaseModel
 from datetime import datetime
 
-# -----------------------------
-# Loader（fortune-registry）
-# -----------------------------
-from fortune_registry.loader import RegistryLoader
+current_dir = os.path.dirname(os.path.abspath(__file__))
+project_root = os.path.dirname(current_dir)
 
-# -----------------------------
-# 命式エンジン
-# -----------------------------
+sys.path.append(os.path.join(project_root, "fortune-core"))
+sys.path.append(os.path.join(project_root, "fortune-registry"))
+
+from fortune_core.shichu.registry_loader import RegistryLoader
 from fortune_core.shichu.engine import Engine
+# ------------------------------------------------------------
+# 1. モジュール探索パスの設定
+# ------------------------------------------------------------
+current_dir = os.path.dirname(os.path.abspath(__file__))  # app/
+project_root = os.path.dirname(current_dir)               # fortune-project/
 
-# AI レイヤー
-from fortune_core.ai.explain import AIExplain
-from fortune_core.ai.reading import AIReading
-from fortune_core.ai.qa import AIQA
+# app/
+sys.path.append(current_dir)
+# fortune-core/
+sys.path.append(os.path.join(project_root, "fortune-core"))
+# fortune-registry/
+sys.path.append(os.path.join(project_root, "fortune-registry"))
 
-
-# -----------------------------
-# FastAPI アプリ
-# -----------------------------
-app = FastAPI()
-
-
-# -----------------------------
-# RegistryLoader の初期化
-# -----------------------------
-registry_loader = RegistryLoader(
-    base_path="C:/Users/norin/fortune-project/fortune-registry"
-)
-
-# -----------------------------
-# Engine の初期化
-# -----------------------------
-engine = Engine(
-    registry_loader=registry_loader,
-    solar_terms_json_path="C:/Users/norin/fortune-project/fortune-registry/shichu/solar_terms.json"
-)
+# ------------------------------------------------------------
+# 2. Engine の読み込み
+# ------------------------------------------------------------
+try:
+    from fortune_core.shichu.engine import Engine
+except Exception as e:
+    print("❌ Engine の import に失敗しました")
+    print("sys.path =", sys.path)
+    print(e)
+    raise
 
 
-# -----------------------------
-# AI レイヤー
-# -----------------------------
-ai_explain = AIExplain()
-ai_reading = AIReading()
-ai_qa = AIQA(engine)
 
 
-# -----------------------------
-# リクエストモデル
-# -----------------------------
-class GenerateRequest(BaseModel):
-    birth: str
-    gender: str
-    longitude: float | None = None
 
+# ------------------------------------------------------------
+# 5. メイン処理
+# ------------------------------------------------------------
+def main():
 
-class QARequest(BaseModel):
-    birth: str
-    gender: str
-    question: str
+    REGISTRY_ROOT = r"C:\Users\norin\fortune-project\fortune-registry"
 
+    
 
-# -----------------------------
-# /generate 命式生成
-# -----------------------------
-@app.post("/generate")
-def generate(req: GenerateRequest):
-    birth_dt = datetime.fromisoformat(req.birth)
-    chart = engine.generate(birth_dt, req.gender, req.longitude)
-    return chart.dict()
+    loader = RegistryLoader(REGISTRY_ROOT)
 
-
-# -----------------------------
-# /explain 命式解説
-# -----------------------------
-@app.post("/explain")
-def explain(req: GenerateRequest):
-    birth_dt = datetime.fromisoformat(req.birth)
-    chart = engine.generate(birth_dt, req.gender, req.longitude)
-    return {"explanation": ai_explain.explain_all(chart)}
-
-
-# -----------------------------
-# /reading 総合鑑定
-# -----------------------------
-@app.post("/reading")
-def reading(req: GenerateRequest):
-    birth_dt = datetime.fromisoformat(req.birth)
-    chart = engine.generate(birth_dt, req.gender, req.longitude)
-
-    today = datetime.now()
-    text = ai_reading.full_reading(
-        chart,
-        engine,
-        target_year=today.year,
-        target_month=today.month,
-        target_date=today
+    engine = Engine(
+        registry_loader=loader,
+        solar_terms_json_path=SOLAR_TERMS_JSON
     )
-    return {"reading": text}
+    
+    test_birth = datetime(1995, 2, 15, 12, 0)
+    gender = "男"
+
+    print("--- 鑑定書ロジック実行テスト ---")
+
+    chart = engine.generate(
+        birth=test_birth,
+        gender=gender
+    )
+
+    print(chart)
 
 
-# -----------------------------
-# /qa 質疑応答
-# -----------------------------
-@app.post("/qa")
-def qa(req: QARequest):
-    birth_dt = datetime.fromisoformat(req.birth)
-    chart = engine.generate(birth_dt, req.gender)
 
-    today = datetime.now()
-    answer = ai_qa.answer(chart, req.question, today)
-    return {"answer": answer}
+
+# ------------------------------------------------------------
+# 6. エントリーポイント
+# ------------------------------------------------------------
+if __name__ == "__main__":
+    main()
