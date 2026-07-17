@@ -1,28 +1,113 @@
-from __future__ import annotations
+# fortune_core/iching/hexagrams.py
 
-from functools import lru_cache
-from .registry_loader import load_registry
+from dataclasses import dataclass
+
+from .registry_loader import RegistryLoader
 
 
-@lru_cache(maxsize=1)
-def _load_hexagrams() -> list[dict]:
+@dataclass(frozen=True)
+class HexagramResult:
+
+    numbers: list[int]
+
+    upper_trigram: str
+
+    lower_trigram: str
+
+    hexagram_number: int
+
+    hexagram_name: str
+
+    judgement: str
+
+    image: str
+
+    changing_lines: list[int]
+
+
+class HexagramEngine:
     """
-    SSOT（Single Source of Truth）として registry_loader が読み込む
-    registry_a.json から六十四卦データを取得する
+    易経エンジン
     """
-    registry = load_registry()
-    return registry["hexagrams"]
 
+    def __init__(self):
 
-def get_hexagram(hexagram_id: int) -> dict:
-    hexagrams = _load_hexagrams()
-    for hexagram in hexagrams:
-        if hexagram.get("id") == hexagram_id:
-            return hexagram
-    raise ValueError(f"Unknown hexagram id: {hexagram_id}")
+        self.registry = RegistryLoader()
 
+        self.trigrams = self.registry.get_trigrams()
 
-def get_trigram(trigram_id: int) -> dict:
-    # Deprecated: Use get_hexagram instead.
-    return get_hexagram(trigram_id)
+    # ---------------------------------------------------------
+    # 陰陽配列から八卦を取得
+    # ---------------------------------------------------------
 
+    def _find_trigram(self, bits):
+
+        for name, data in self.trigrams.items():
+
+            if tuple(data["binary"]) == bits:
+
+                return name
+
+        return "不明"
+
+    # ---------------------------------------------------------
+    # 六爻→卦
+    # ---------------------------------------------------------
+
+    def generate(
+        self,
+        numbers: list[int],
+    ) -> HexagramResult:
+
+        if len(numbers) != 6:
+
+            raise ValueError("6本の爻が必要です。")
+
+        yin_yang = [
+
+            1 if n % 2 else 0
+
+            for n in numbers
+
+        ]
+
+        lower = tuple(
+            yin_yang[:3]
+        )
+
+        upper = tuple(
+            yin_yang[3:]
+        )
+
+        lower_name = self._find_trigram(lower)
+
+        upper_name = self._find_trigram(upper)
+
+        changing = [
+
+            i + 1
+
+            for i, value in enumerate(numbers)
+
+            if value in (6, 9)
+
+        ]
+
+        return HexagramResult(
+
+            numbers=numbers,
+
+            upper_trigram=upper_name,
+
+            lower_trigram=lower_name,
+
+            hexagram_number=0,
+
+            hexagram_name="未判定",
+
+            judgement="64卦実装後に表示",
+
+            image="",
+
+            changing_lines=changing,
+        )

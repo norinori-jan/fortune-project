@@ -2,32 +2,33 @@
 
 from html import escape
 
-from .paper import PaperReport
+from .models import PaperReport
 
 
 class HTMLReportBuilder:
     """
     PaperReport → HTML
 
-    HTMLテンプレート生成専用。
-    CSSは外部ファイルで管理してもよい。
+    HTMLテンプレート生成クラス。
+    将来的には Jinja2 テンプレートへ置き換え可能。
     """
 
     def build(self, report: PaperReport) -> str:
 
         chart = report.chart
 
-        def pillar(p):
+        def pillar(pillar):
 
             return f"""
             <td>
-                <div>{escape(p.stem.name)}</div>
-                <div>{escape(p.branch.name)}</div>
+                <div><strong>{escape(pillar.stem.name)}</strong></div>
+                <div>{escape(pillar.branch.name)}</div>
             </td>
             """
 
         html = f"""
 <!DOCTYPE html>
+
 <html lang="ja">
 
 <head>
@@ -39,23 +40,38 @@ class HTMLReportBuilder:
 <style>
 
 body {{
+
     font-family: sans-serif;
     margin:40px;
+    line-height:1.8;
+
+}}
+
+h1 {{
+
+    border-bottom:2px solid #333;
+
 }}
 
 table {{
-    border-collapse:collapse;
+
     width:100%;
+    border-collapse:collapse;
+
 }}
 
 th,td {{
+
     border:1px solid #999;
     padding:8px;
     text-align:center;
+
 }}
 
 .section {{
-    margin-top:30px;
+
+    margin-top:35px;
+
 }}
 
 </style>
@@ -101,8 +117,8 @@ th,td {{
 <ul>
 
 {''.join(
-f"<li>{k} : {v}</li>"
-for k,v in report.element_strength.values.items()
+f"<li>{escape(str(k))} ： {escape(str(v))}</li>"
+for k, v in report.element_strength.values.items()
 )}
 
 </ul>
@@ -147,9 +163,10 @@ else "未判定"
 
 <p>
 
+方合：
 {
-escape(report.combinations.kaikyoku)
-if report.combinations and report.combinations.kaikyoku
+escape(report.combinations.hogo)
+if report.combinations and report.combinations.hogo
 else "なし"
 }
 
@@ -157,9 +174,10 @@ else "なし"
 
 <p>
 
+会局：
 {
-escape(report.combinations.hogo)
-if report.combinations and report.combinations.hogo
+escape(report.combinations.kaikyoku)
+if report.combinations and report.combinations.kaikyoku
 else "なし"
 }
 
@@ -169,7 +187,7 @@ else "なし"
 
 <div class="section">
 
-<h2>神殺</h2>
+<h2>神殺・宮位</h2>
 
 <table>
 
@@ -185,8 +203,11 @@ else "なし"
 <tr>
 
 <td>{", ".join(report.house_gods.year.gods)}</td>
+
 <td>{", ".join(report.house_gods.month.gods)}</td>
+
 <td>{", ".join(report.house_gods.day.gods)}</td>
+
 <td>{", ".join(report.house_gods.hour.gods)}</td>
 
 </tr>
@@ -197,17 +218,39 @@ else "なし"
 
 <div class="section">
 
-<h2>AI鑑定</h2>
+<h2>AI総合鑑定</h2>
 
-<p>
+<h3>総評</h3>
 
-{
-escape(report.ai_reading.summary)
-if report.ai_reading
-else ""
-}
+<p>{escape(report.ai_reading.summary)}</p>
 
-</p>
+<h3>性格</h3>
+
+<p>{escape(report.ai_reading.personality)}</p>
+
+<h3>才能</h3>
+
+<p>{escape(report.ai_reading.talent)}</p>
+
+<h3>仕事運</h3>
+
+<p>{escape(report.ai_reading.work)}</p>
+
+<h3>恋愛・結婚運</h3>
+
+<p>{escape(report.ai_reading.love)}</p>
+
+<h3>健康運</h3>
+
+<p>{escape(report.ai_reading.health)}</p>
+
+<h3>運勢</h3>
+
+<p>{escape(report.ai_reading.fortune)}</p>
+
+<h3>アドバイス</h3>
+
+<p>{escape(report.ai_reading.advice)}</p>
 
 </div>
 

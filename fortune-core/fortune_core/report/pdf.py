@@ -1,22 +1,23 @@
 # fortune_core/report/pdf.py
 
+from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.cidfonts import UnicodeCIDFont
 from reportlab.platypus import (
-    SimpleDocTemplate,
     Paragraph,
+    SimpleDocTemplate,
     Spacer,
     Table,
     TableStyle,
 )
-from reportlab.lib import colors
 
-from .paper import PaperReport
+from .models import PaperReport
 
 
-# 日本語フォント
-pdfmetrics.registerFont(UnicodeCIDFont("HeiseiMin-W3"))
+pdfmetrics.registerFont(
+    UnicodeCIDFont("HeiseiMin-W3")
+)
 
 
 class PDFReportBuilder:
@@ -47,7 +48,9 @@ class PDFReportBuilder:
             Paragraph("四柱推命鑑定書", style)
         )
 
-        elements.append(Spacer(1, 20))
+        elements.append(
+            Spacer(1, 20)
+        )
 
         # -------------------------------------------------
         # 命式
@@ -93,7 +96,9 @@ class PDFReportBuilder:
 
         elements.append(table)
 
-        elements.append(Spacer(1, 20))
+        elements.append(
+            Spacer(1, 20)
+        )
 
         # -------------------------------------------------
         # 五行量
@@ -106,10 +111,15 @@ class PDFReportBuilder:
         for element, value in report.element_strength.values.items():
 
             elements.append(
-                Paragraph(f"{element}：{value}", style)
+                Paragraph(
+                    f"{element}：{value}",
+                    style,
+                )
             )
 
-        elements.append(Spacer(1, 20))
+        elements.append(
+            Spacer(1, 20)
+        )
 
         # -------------------------------------------------
         # 格局
@@ -119,19 +129,18 @@ class PDFReportBuilder:
             Paragraph("【格局】", style)
         )
 
-        if report.kakukyoku:
-
-            elements.append(
-                Paragraph(report.kakukyoku.name, style)
+        elements.append(
+            Paragraph(
+                report.kakukyoku.name
+                if report.kakukyoku
+                else "未判定",
+                style,
             )
+        )
 
-        else:
-
-            elements.append(
-                Paragraph("未判定", style)
-            )
-
-        elements.append(Spacer(1, 20))
+        elements.append(
+            Spacer(1, 20)
+        )
 
         # -------------------------------------------------
         # 用神
@@ -141,19 +150,18 @@ class PDFReportBuilder:
             Paragraph("【用神】", style)
         )
 
-        if report.yojin:
-
-            elements.append(
-                Paragraph(report.yojin.main, style)
+        elements.append(
+            Paragraph(
+                report.yojin.main
+                if report.yojin
+                else "未判定",
+                style,
             )
+        )
 
-        else:
-
-            elements.append(
-                Paragraph("未判定", style)
-            )
-
-        elements.append(Spacer(1, 20))
+        elements.append(
+            Spacer(1, 20)
+        )
 
         # -------------------------------------------------
         # 会局・方合
@@ -179,24 +187,26 @@ class PDFReportBuilder:
                 )
             )
 
-        elements.append(Spacer(1, 20))
+        elements.append(
+            Spacer(1, 20)
+        )
 
         # -------------------------------------------------
-        # 神殺
+        # 神殺・宮位
         # -------------------------------------------------
 
         if report.house_gods:
 
             elements.append(
-                Paragraph("【神殺】", style)
+                Paragraph("【神殺・宮位】", style)
             )
 
-            for house in [
+            for house in (
                 report.house_gods.year,
                 report.house_gods.month,
                 report.house_gods.day,
                 report.house_gods.hour,
-            ]:
+            ):
 
                 gods = "、".join(house.gods)
 
@@ -207,7 +217,9 @@ class PDFReportBuilder:
                     )
                 )
 
-        elements.append(Spacer(1, 20))
+        elements.append(
+            Spacer(1, 20)
+        )
 
         # -------------------------------------------------
         # AI鑑定
@@ -216,15 +228,41 @@ class PDFReportBuilder:
         if report.ai_reading:
 
             elements.append(
-                Paragraph("【AI鑑定】", style)
+                Paragraph("【AI総合鑑定】", style)
             )
 
-            elements.append(
-                Paragraph(
-                    report.ai_reading.summary,
-                    style,
+            sections = [
+
+                ("総評", report.ai_reading.summary),
+                ("性格", report.ai_reading.personality),
+                ("才能", report.ai_reading.talent),
+                ("仕事運", report.ai_reading.work),
+                ("恋愛・結婚運", report.ai_reading.love),
+                ("健康運", report.ai_reading.health),
+                ("運勢", report.ai_reading.fortune),
+                ("アドバイス", report.ai_reading.advice),
+
+            ]
+
+            for title, text in sections:
+
+                elements.append(
+                    Paragraph(
+                        f"【{title}】",
+                        style,
+                    )
                 )
-            )
+
+                elements.append(
+                    Paragraph(
+                        text,
+                        style,
+                    )
+                )
+
+                elements.append(
+                    Spacer(1, 8)
+                )
 
         # -------------------------------------------------
         # PDF生成

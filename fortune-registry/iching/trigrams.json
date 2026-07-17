@@ -1,0 +1,81 @@
+{
+  "乾": {
+    "binary": [1, 1, 1],
+    "reading": "けん",
+    "element": "金",
+    "direction": "西北",
+    "family": "父",
+    "nature": "天",
+    "meaning": "剛健・創造・指導・天"
+  },
+
+  "兌": {
+    "binary": [1, 1, 0],
+    "reading": "だ",
+    "element": "金",
+    "direction": "西",
+    "family": "少女",
+    "nature": "沢",
+    "meaning": "喜悦・社交・会話・楽しみ"
+  },
+
+  "離": {
+    "binary": [1, 0, 1],
+    "reading": "り",
+    "element": "火",
+    "direction": "南",
+    "family": "中女",
+    "nature": "火",
+    "meaning": "知性・文明・明るさ"
+  },
+
+  "震": {
+    "binary": [1, 0, 0],
+    "reading": "しん",
+    "element": "木",
+    "direction": "東",
+    "family": "長男",
+    "nature": "雷",
+    "meaning": "始動・行動・発展"
+  },
+
+  "巽": {
+    "binary": [0, 1, 1],
+    "reading": "そん",
+    "element": "木",
+    "direction": "東南",
+    "family": "長女",
+    "nature": "風",
+    "meaning": "浸透・柔軟・信用"
+  },
+
+  "坎": {
+    "binary": [0, 1, 0],
+    "reading": "かん",
+    "element": "水",
+    "direction": "北",
+    "family": "中男",
+    "nature": "水",
+    "meaning": "知恵・困難・試練"
+  },
+
+  "艮": {
+    "binary": [0, 0, 1],
+    "reading": "ごん",
+    "element": "土",
+    "direction": "東北",
+    "family": "少男",
+    "nature": "山",
+    "meaning": "停止・熟考・蓄積"
+  },
+
+  "坤": {
+    "binary": [0, 0, 0],
+    "reading": "こん",
+    "element": "土",
+    "direction": "西南",
+    "family": "母",
+    "nature": "地",
+    "meaning": "受容・育成・包容"
+  }
+}
