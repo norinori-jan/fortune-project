@@ -1,0 +1,58 @@
+[
+  {
+    "number": 1,
+    "name": "乾為天",
+    "upper": "乾",
+    "lower": "乾",
+    "unicode": "䷀"
+  },
+  {
+    "number": 2,
+    "name": "坤為地",
+    "upper": "坤",
+    "lower": "坤",
+    "unicode": "䷁"
+  },
+  {
+    "number": 51,
+    "name": "震為雷",
+    "upper": "震",
+    "lower": "震",
+    "unicode": "䷲"
+  },
+  {
+    "number": 57,
+    "name": "巽為風",
+    "upper": "巽",
+    "lower": "巽",
+    "unicode": "䷸"
+  },
+  {
+    "number": 29,
+    "name": "坎為水",
+    "upper": "坎",
+    "lower": "坎",
+    "unicode": "䷜"
+  },
+  {
+    "number": 30,
+    "name": "離為火",
+    "upper": "離",
+    "lower": "離",
+    "unicode": "䷝"
+  },
+  {
+    "number": 52,
+    "name": "艮為山",
+    "upper": "艮",
+    "lower": "艮",
+    "unicode": "䷳"
+  },
+  {
+    "number": 58,
+    "name": "兌為沢",
+    "upper": "兌",
+    "lower": "兌",
+    "unicode": "䷹"
+  }
+]

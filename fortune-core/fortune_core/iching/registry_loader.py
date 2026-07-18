@@ -1,53 +1,107 @@
 # fortune_core/iching/registry_loader.py
 
+from __future__ import annotations
+
 import json
 from pathlib import Path
+from typing import Any
 
 
 class RegistryLoader:
     """
-    易経レジストリ読込
+    易経レジストリ読み込みクラス
+
+    fortune-registry/
+        iching/
+            trigrams.json
+            hexagrams.json
+            judgement.json
+            image.json
+            yao.json
     """
 
-    def __init__(self):
+    def __init__(self, registry_root: Path | None = None):
 
-        root = (
-            Path(__file__)
-            .resolve()
-            .parents[3]
-            / "fortune-registry"
-            / "iching"
-        )
+        if registry_root is None:
 
-        self.root = root
+            registry_root = (
+                Path(__file__)
+                .resolve()
+                .parents[3]
+                / "fortune-registry"
+                / "iching"
+            )
 
-    def _load(self, filename):
+        self.registry_root = registry_root
 
-        path = self.root / filename
+    # ---------------------------------------------------------
+    # 共通JSON読込
+    # ---------------------------------------------------------
+
+    def _load_json(self, filename: str) -> Any:
+
+        path = self.registry_root / filename
+
+        if not path.exists():
+
+            raise FileNotFoundError(
+                f"Registry file not found: {path}"
+            )
 
         with open(
             path,
+            "r",
             encoding="utf-8",
         ) as f:
 
             return json.load(f)
 
-    def get_trigrams(self):
+    # ---------------------------------------------------------
+    # 八卦
+    # ---------------------------------------------------------
 
-        return self._load("trigrams.json")
+    def load_trigrams(self):
 
-    def get_hexagrams(self):
+        return self._load_json(
+            "trigrams.json"
+        )
 
-        return self._load("hexagrams.json")
+    # ---------------------------------------------------------
+    # 六十四卦
+    # ---------------------------------------------------------
 
-    def get_judgement(self):
+    def load_hexagrams(self):
 
-        return self._load("judgement.json")
+        return self._load_json(
+            "hexagrams.json"
+        )
 
-    def get_image(self):
+    # ---------------------------------------------------------
+    # 卦辞
+    # ---------------------------------------------------------
 
-        return self._load("image.json")
+    def load_judgements(self):
 
-    def get_yao(self):
+        return self._load_json(
+            "judgement.json"
+        )
 
-        return self._load("yao.json")
+    # ---------------------------------------------------------
+    # 象伝
+    # ---------------------------------------------------------
+
+    def load_images(self):
+
+        return self._load_json(
+            "image.json"
+        )
+
+    # ---------------------------------------------------------
+    # 爻辞
+    # ---------------------------------------------------------
+
+    def load_yao(self):
+
+        return self._load_json(
+            "yao.json"
+        )
