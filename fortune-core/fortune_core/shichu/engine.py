@@ -349,14 +349,14 @@ class Engine:
         z_hour = self.zangkan_engine.get_zangkan(raw_chart.hour.branch)
 
         # 四柱の Pillar を作成
-        def build_pillar(stem: Stem, branch: Branch, zang: str) -> PaperPillar:
+        def build_pillar(stem: Stems, branch: Branches, zang: str) -> PaperPillar:
             stem_tg = self.ten_gods_engine.get_ten_god(raw_chart.day.stem, stem)
             zang_tg = self.ten_gods_engine.get_ten_god(raw_chart.day.stem, branch)
             twelve = self.twelve_growth_engine.get_growth(raw_chart.day.stem, branch)
             return PaperPillar(
-                stem=stem,
-                branch=branch,
-                zangkan=zang,
+                stem=stems,
+                branch=branches,
+                zangkan=Zang,
                 stem_ten_god=stem_tg,
                 zangkan_ten_god=zang_tg,
                 twelve_growth=twelve,

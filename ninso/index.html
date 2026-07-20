@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="人相鑑定" />
+<title>人相鑑定 — 天童流</title>
+<style>
+  :root {
+    --bg: #0e0e11; --bg2: #18181d; --bg3: #22222a;
+    --border: rgba(255,255,255,0.08); --border-hi: rgba(255,255,255,0.18);
+    --text: #f0eef8; --text2: #9896a8; --text3: #5a5870;
+    --accent: #7f77dd; --accent-hi: #afa9ec; --accent-bg: rgba(127,119,221,0.12);
+    --amber: #ef9f27; --amber-bg: rgba(239,159,39,0.1);
+    --radius: 10px; --radius-lg: 16px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+    font-size: 14px; line-height: 1.6; min-height: 100vh;
+    padding: 20px;
+  }
+  .container { max-width: 640px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+
+  header { text-align: center; padding: 12px 0; }
+  header h1 { font-size: 18px; font-weight: 700; color: var(--accent-hi); }
+  header p { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+  .card {
+    background: var(--bg2); border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg); padding: 16px;
+  }
+  .card-title {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--text3); margin-bottom: 10px;
+  }
+
+  .upload-area {
+    border: 1.5px dashed var(--border-hi); border-radius: var(--radius-lg);
+    padding: 28px; text-align: center; color: var(--text3); font-size: 13px;
+    cursor: pointer; transition: all 0.15s;
+  }
+  .upload-area:hover, .upload-area.drag { border-color: var(--accent); color: var(--accent-hi); background: var(--accent-bg); }
+  .upload-area input { display: none; }
+
+  .canvas-wrap { position: relative; width: 100%; border-radius: var(--radius); overflow: hidden; background: #000; }
+  #outputCanvas { width: 100%; display: block; }
+
+  .status-line { font-size: 12px; color: var(--text3); text-align: center; padding: 4px 0; }
+  .status-line.err { color: #e2827a; }
+  .status-line.ok { color: #5dcaa5; }
+
+  .btn {
+    padding: 10px 16px; border: none; border-radius: var(--radius);
+    background: var(--accent); color: #fff; font-size: 13px; font-weight: 600;
+    cursor: pointer; transition: opacity 0.15s; width: 100%;
+  }
+  .btn:hover { opacity: 0.88; }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn.secondary { background: none; border: 0.5px solid var(--border-hi); color: var(--text2); }
+
+  .toggle-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .toggle-chip {
+    padding: 5px 12px; border-radius: 20px; border: 0.5px solid var(--border-hi);
+    background: none; color: var(--text2); font-size: 11px; cursor: pointer; transition: all 0.15s;
+  }
+  .toggle-chip.active { background: var(--accent-bg); border-color: var(--accent); color: var(--accent-hi); }
+
+  .zone-list { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+  .zone-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 10px; background: var(--bg3); border-radius: var(--radius); font-size: 12px;
+  }
+  .zone-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .zone-name { font-weight: 600; min-width: 56px; }
+  .zone-desc { color: var(--text2); flex: 1; }
+  .zone-est { font-size: 10px; color: var(--amber); background: var(--amber-bg); padding: 1px 6px; border-radius: 10px; }
+
+  .note-box { font-size: 11px; color: var(--text3); background: var(--bg3); border-radius: var(--radius); padding: 10px 12px; line-height: 1.7; }
+
+  footer { text-align: center; padding: 12px 0 20px; font-size: 10px; color: var(--text3); }
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>人相鑑定 — 天童流</h1>
+    <p>三停（上停・中停・下停）による顔立ちの観立て</p>
+  </header>
+
+  <div class="card">
+    <div class="card-title">① 写真を選ぶ</div>
+    <label class="upload-area" id="uploadArea">
+      <input type="file" id="fileInput" accept="image/*" />
+      <div id="uploadLabel">📷 正面から撮った顔写真を選んでください<br /><span style="font-size:11px">できるだけ明るい場所で、髪を上げて額が見える写真がおすすめです</span></div>
+    </label>
+  </div>
+
+  <div class="card" id="resultCard" style="display:none">
+    <div class="card-title">② 検出結果</div>
+    <div class="canvas-wrap">
+      <canvas id="outputCanvas"></canvas>
+    </div>
+    <div class="status-line" id="statusLine"></div>
+
+    <div class="toggle-row" id="toggleRow">
+      <button class="toggle-chip active" data-layer="santei">三停</button>
+      <button class="toggle-chip" data-layer="landmarks">検出点</button>
+    </div>
+
+    <div class="zone-list" id="zoneList"></div>
+
+    <div class="note-box">
+      ※「生え際」は髪型により検出が不安定なため、天童流の伝統的な考え方（上停・中停・下停はおおむね等しい長さになる）を用いて、中停・下停の実測値から逆算した<b>推定位置</b>です。実際の生え際とはズレる場合があります。
+    </div>
+  </div>
+
+  <button class="btn secondary" id="resetBtn" style="display:none">📷 別の写真で試す</button>
+
+  <footer>fortune-project / ninso — 天童流人相術虎の巻より</footer>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
