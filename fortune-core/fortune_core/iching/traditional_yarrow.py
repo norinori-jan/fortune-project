@@ -4,6 +4,8 @@ import random
 
 from dataclasses import dataclass
 
+from .yarrow_method import BaseYarrowMethod
+
 
 # ==========================================================
 # Data Classes
@@ -12,7 +14,7 @@ from dataclasses import dataclass
 @dataclass(slots=True)
 class TraditionalChange:
     """
-    一変（四営）の記録
+    四営一変
     """
 
     before: int
@@ -23,11 +25,13 @@ class TraditionalChange:
 
     right: int
 
-    removed: int
+    human: int
 
     left_remainder: int
 
     right_remainder: int
+
+    removed: int
 
 
 @dataclass(slots=True)
@@ -42,43 +46,56 @@ class TraditionalThrow:
 
     changes: list[TraditionalChange]
 
+    initial_stems: int = 49
+
+
 @dataclass(slots=True)
 class TraditionalHexagram:
     """
     六爻生成結果
     """
 
+    method: str
+
     numbers: list[int]
 
     throws: list[TraditionalThrow]
+
 
 # ==========================================================
 # Traditional Yarrow Method
 # ==========================================================
 
-class TraditionalYarrowMethod:
+class TraditionalYarrowMethod(BaseYarrowMethod):
     """
     本格筮竹法（四営十八変）
-
-    Part1
-
-        ・49本開始
-        ・掛一
-        ・分二
-        ・揲四
-        ・一変
-
-    Part2
-
-        ・三変
-
-    Part3
-
-        ・十八変
-
     """
 
     STEMS = 49
+
+    def __init__(
+        self,
+        seed: int | None = None,
+    ) -> None:
+        """
+        Parameters
+        ----------
+        seed:
+            乱数シード。
+            指定すると同じ結果を再現できる。
+        """
+
+        self.random = random.Random(seed)
+
+    # ------------------------------------------------------
+    # 占法名
+    # ------------------------------------------------------
+
+    def method_name(
+        self,
+    ) -> str:
+
+        return "traditional_yarrow"
 
     # ------------------------------------------------------
     # 初期化
@@ -121,7 +138,7 @@ class TraditionalYarrowMethod:
         左右へランダムに分ける。
         """
 
-        left = random.randint(
+        left = self.random.randint(
             1,
             stems - 1,
         )
@@ -150,7 +167,6 @@ class TraditionalYarrowMethod:
             return 4
 
         return remainder
-
     # ------------------------------------------------------
     # 一変（四営）
     # ------------------------------------------------------
@@ -160,40 +176,56 @@ class TraditionalYarrowMethod:
         stems: int,
     ) -> tuple[int, TraditionalChange]:
         """
-        四営の一変。
+        四営一変
         """
 
         before = stems
 
         # 掛一
-        stems = self.remove_one(stems)
+        stems -= 1
+
+        human = 1
 
         # 分二
         left, right = self.divide(stems)
 
-        # 右手から一本を掛ける
+        # 右から一本
         right -= 1
 
-        # 揲四
         left_rem = self.count_by_four(left)
+
         right_rem = self.count_by_four(right)
 
         removed = (
-            1
+
+            human
+
             + left_rem
+
             + right_rem
+
         )
 
         stems -= removed
 
         change = TraditionalChange(
+
             before=before,
+
             after=stems,
+
             left=left,
+
             right=right,
-            removed=removed,
+
+            human=human,
+
             left_remainder=left_rem,
+
             right_remainder=right_rem,
+
+            removed=removed,
+
         )
 
         return stems, change
@@ -206,26 +238,72 @@ class TraditionalYarrowMethod:
         self,
     ) -> tuple[int, list[TraditionalChange]]:
         """
-        三変を行い、
-        残った蓍草本数を返す。
+        三変（四営×3）
+
+        Returns
+        -------
+        (
+            最終残本数,
+            各変の詳細
+        )
         """
 
         stems = self.initialize()
 
         history: list[TraditionalChange] = []
 
-        for _ in range(3):
+        # 第一変
+        stems, change = self.one_change(stems)
+        history.append(change)
 
-            stems, change = self.one_change(
-                stems
-            )
+        # 第二変
+        stems, change = self.one_change(stems)
+        history.append(change)
 
-            history.append(change)
+        # 第三変
+        stems, change = self.one_change(stems)
+        history.append(change)
 
-        return stems, history    
+        return stems, history
 
     # ------------------------------------------------------
-    # 一爻
+    # 爻値計算
+    # ------------------------------------------------------
+
+    def calculate_line(
+        self,
+        remaining_stems: int,
+    ) -> int:
+        """
+        残り蓍草本数から
+        爻値（6・7・8・9）へ変換する。
+        """
+
+        value = remaining_stems // 4
+
+        mapping = {
+
+            6: 6,
+
+            7: 7,
+
+            8: 8,
+
+            9: 9,
+
+        }
+
+        if value not in mapping:
+
+            raise ValueError(
+
+                f"Unexpected value: {value}"
+
+            )
+
+        return mapping[value]
+    # ------------------------------------------------------
+    # 一爻生成
     # ------------------------------------------------------
 
     def cast_once(
@@ -238,54 +316,100 @@ class TraditionalYarrowMethod:
 
         stems, history = self.three_changes()
 
-        value = stems // 4
-
-        #
-        # 24・28・32・36
-        # ↓
-        # 6・7・8・9
-        #
-        mapping = {
-
-            6: 6,      # 老陰
-
-            7: 7,      # 少陽
-
-            8: 8,      # 少陰
-
-            9: 9,      # 老陽
-
-        }
-
-        if value not in mapping:
-
-            raise ValueError(
-
-                f"Unexpected value: {value}"
-
-            )
+        line = self.calculate_line(
+            stems
+        )
 
         return TraditionalThrow(
 
-            line=mapping[value],
+            line=line,
 
             remaining_stems=stems,
 
             changes=history,
 
         )
+
     # ------------------------------------------------------
-    # 六爻
+    # 六爻生成
     # ------------------------------------------------------
 
     def cast(
         self,
-    ):
+    ) -> TraditionalHexagram:
         """
-        Part3で実装
+        六本の爻を生成する。
+
+        Returns
+        -------
+        TraditionalHexagram
         """
 
-        raise NotImplementedError(
-            "Part3"
+        throws: list[TraditionalThrow] = []
+
+        numbers: list[int] = []
+
+        for _ in range(6):
+
+            throw = self.cast_once()
+
+            throws.append(throw)
+
+            numbers.append(throw.line)
+
+        return TraditionalHexagram(
+
+            method=self.method_name(),
+
+            numbers=numbers,
+
+            throws=throws,
+
         )
-    
+
+    # ------------------------------------------------------
+    # 複数回実行
+    # ------------------------------------------------------
+
+    def cast_many(
+        self,
+        count: int,
+    ) -> list[TraditionalHexagram]:
+        """
+        六爻生成を複数回行う。
+
+        Parameters
+        ----------
+        count:
+            実行回数
+
+        Returns
+        -------
+        list[TraditionalHexagram]
+        """
+
+        if count < 1:
+            raise ValueError(
+                "count は1以上を指定してください。"
+            )
+
+        return [
+
+            self.cast()
+
+            for _ in range(count)
+
+        ]
+
+
+__all__ = [
+
+    "TraditionalChange",
+
+    "TraditionalThrow",
+
+    "TraditionalHexagram",
+
+    "TraditionalYarrowMethod",
+
+]

@@ -12,197 +12,127 @@ from dataclasses import dataclass
 # Data Classes
 # =========================================================
 
-class TraditionalYarrowMethod(BaseYarrowMethod):
+@dataclass(frozen=True, slots=True)
+class YarrowThrow:
     """
-    本格筮竹法（四営十八変）
+    一爻生成結果
 
-    蓍草49本を用いて
-    三変を1回の爻生成とする。
-
-    Phase A
-        ・蓍草初期化
-        ・掛一
-        ・分二
-        ・揲四
+    line
+        6 = 老陰
+        7 = 少陽
+        8 = 少陰
+        9 = 老陽
     """
 
-    STEMS = 49
+    line: int
 
-    # ---------------------------------------------------------
-    # 蓍草初期化
-    # ---------------------------------------------------------
 
-    def initialize_stems(self) -> int:
-        """
-        蓍草49本を用意する。
-        """
-
-        return self.STEMS
-
-    # ---------------------------------------------------------
-    # 掛一
-    # ---------------------------------------------------------
-
-    def remove_one(self, stems: int) -> int:
-        """
-        掛一
-
-        1本を天地人の象徴として除く。
-        """
-
-        return stems - 1
-
-    # ---------------------------------------------------------
-    # 分二
-    # ---------------------------------------------------------
-
-    def divide_stems(
-        self,
-        stems: int,
-    ) -> tuple[int, int]:
-        """
-        分二
-
-        残りを左右にランダム分割する。
-        """
-
-        left = random.randint(
-            1,
-            stems - 1,
-        )
-
-        right = stems - left
-
-        return left, right
-
-    # ---------------------------------------------------------
-    # 揲四
-    # ---------------------------------------------------------
-
-    def remainder_by_four(
-        self,
-        value: int,
-    ) -> int:
-        """
-        4本ずつ数えた余り。
-
-        余り0は4とする。
-        """
-
-        r = value % 4
-
-        if r == 0:
-            return 4
-
-        return r
-
-# ---------------------------------------------------------
-# 一変（四営）
-# ---------------------------------------------------------
-
-def one_change(
-    self,
-    stems: int,
-) -> tuple[int, dict]:
+@dataclass(frozen=True, slots=True)
+class YarrowCast:
     """
-    四営の一変を行う。
-
-    Returns
-    -------
-    (remaining_stems, detail)
+    簡易筮竹法 六爻結果
     """
 
-    # 掛一（天地人）
-    stems -= 1
+    method: str
 
-    # 分二
-    left = random.randint(1, stems - 1)
-    right = stems - left
+    throws: list[YarrowThrow]
 
-    # 右から一本を掛ける
-    right -= 1
+    numbers: list[int]
 
-    # 揲四
-    left_rem = left % 4
-    right_rem = right % 4
-
-    if left_rem == 0:
-        left_rem = 4
-
-    if right_rem == 0:
-        right_rem = 4
-
-    removed = 1 + left_rem + right_rem
-
-    remaining = stems - removed
-
-    detail = {
-
-        "left": left,
-
-        "right": right,
-
-        "left_remainder": left_rem,
-
-        "right_remainder": right_rem,
-
-        "removed": removed,
-
-        "remaining": remaining,
-
-    }
-
-    return remaining, detail
-# ---------------------------------------------------------
-# 一爻
-# ---------------------------------------------------------
-
-def cast_once(
-    self,
-) -> YarrowThrow:
-    """
-    三変を行い1本の爻を生成する。
-    """
-
-    stems = self.initialize_stems()
-
-    # 第一変
-    stems, _ = self.one_change(stems)
-
-    # 第二変
-    stems, _ = self.one_change(stems)
-
-    # 第三変
-    stems, _ = self.one_change(stems)
-
-    # 残り本数から爻値へ変換
-    value = stems // 4
-
-    mapping = {
-        6: 6,   # 老陰
-        7: 7,   # 少陽
-        8: 8,   # 少陰
-        9: 9,   # 老陽
-    }
-
-    if value not in mapping:
-        raise ValueError(
-            f"Unexpected yarrow value: {value}"
-        )
-
-    return YarrowThrow(
-        line=mapping[value]
-    )
 
 # =========================================================
-# Simple
+# Base
+# =========================================================
+
+class BaseYarrowMethod(ABC):
+    """
+    筮竹法共通クラス
+
+    CoinMethod と同じAPIを提供する。
+
+        cast_once()
+
+        cast()
+
+        generate(engine)
+    """
+
+    @abstractmethod
+    def cast_once(
+        self,
+    ) -> YarrowThrow:
+        """
+        一爻生成
+        """
+        raise NotImplementedError
+
+    # ---------------------------------------------------------
+    # 六爻生成
+    # ---------------------------------------------------------
+
+    def cast(
+        self,
+    ) -> YarrowCast:
+
+        throws = [
+
+            self.cast_once()
+
+            for _ in range(6)
+
+        ]
+
+        return YarrowCast(
+
+            method=self.method_name(),
+
+            throws=throws,
+
+            numbers=[
+
+                throw.line
+
+                for throw in throws
+
+            ],
+        )
+
+    # ---------------------------------------------------------
+    # Engine連携
+    # ---------------------------------------------------------
+
+    def generate(
+        self,
+        engine,
+    ):
+
+        cast = self.cast()
+
+        return engine.generate(
+
+            cast.numbers
+
+        )
+
+    # ---------------------------------------------------------
+    # 名前
+    # ---------------------------------------------------------
+
+    @abstractmethod
+    def method_name(
+        self,
+    ) -> str:
+
+        raise NotImplementedError
+# =========================================================
+# Simple Yarrow Method
 # =========================================================
 
 class SimpleYarrowMethod(BaseYarrowMethod):
     """
     簡易筮竹法
 
-    確率だけ筮竹法に合わせる。
+    出現確率のみ本格筮竹法へ近づける。
 
         6 : 1
         7 : 5
@@ -222,6 +152,20 @@ class SimpleYarrowMethod(BaseYarrowMethod):
 
     ]
 
+    # ---------------------------------------------------------
+    # 占法名
+    # ---------------------------------------------------------
+
+    def method_name(
+        self,
+    ) -> str:
+
+        return "simple_yarrow"
+
+    # ---------------------------------------------------------
+    # 一爻生成
+    # ---------------------------------------------------------
+
     def cast_once(
         self,
     ) -> YarrowThrow:
@@ -234,34 +178,36 @@ class SimpleYarrowMethod(BaseYarrowMethod):
 
         )
 
+    # ---------------------------------------------------------
+    # 複数回実行
+    # ---------------------------------------------------------
 
-# =========================================================
-# Traditional
-# =========================================================
-
-class TraditionalYarrowMethod(BaseYarrowMethod):
-    """
-    本格筮竹法（四営十八変）
-
-    現在は未実装。
-
-    将来的に
-
-        ・蓍草49本
-        ・掛一
-        ・分二
-        ・掛一
-        ・揲四
-        ・三変
-        ・十八変
-
-    を実装する。
-    """
-
-    def cast_once(
+    def cast_many(
         self,
-    ) -> YarrowThrow:
+        count: int,
+    ) -> list[YarrowCast]:
+        """
+        六爻生成を複数回実行する。
 
-        raise NotImplementedError(
-            "TraditionalYarrowMethod は未実装です。"
-        )
+        Parameters
+        ----------
+        count
+            実行回数
+
+        Returns
+        -------
+        list[YarrowCast]
+        """
+
+        if count < 1:
+            raise ValueError(
+                "count は1以上を指定してください。"
+            )
+
+        return [
+
+            self.cast()
+
+            for _ in range(count)
+
+        ]    
