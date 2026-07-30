@@ -33,7 +33,7 @@ class HexagramResult:
     # image.json
     image: dict
 
-    # yao.json（1卦分）
+    # yao.json
     yao: dict
 
     # 変爻
@@ -53,30 +53,48 @@ class HexagramResult:
 
     changed_yao: dict
 
+
 class HexagramEngine:
     """
     易経エンジン
 
     RegistryLoader 経由で
+
         ・八卦
         ・六十四卦
         ・卦辞
         ・象伝
         ・爻辞
+
     を取得する。
 
-    Engine は JSON の場所や構造を意識しない。
+    JSON構造はRegistry側で管理する。
     """
 
     def __init__(self) -> None:
 
         self.registry = RegistryLoader()
 
-        self.trigrams = self.registry.load_trigrams()
-        self.hexagrams = self.registry.load_hexagrams()
-        self.judgements = self.registry.load_judgements()
-        self.images = self.registry.load_images()
-        self.yao = self.registry.load_yao()
+        self.trigrams = (
+            self.registry.load_trigrams()
+        )
+
+        self.hexagrams = (
+            self.registry.load_hexagrams()
+        )
+
+        self.judgements = (
+            self.registry.load_judgements()
+        )
+
+        self.images = (
+            self.registry.load_images()
+        )
+
+        self.yao = (
+            self.registry.load_yao()
+        )
+
 
     # ---------------------------------------------------------
     # 八卦検索
@@ -90,9 +108,13 @@ class HexagramEngine:
         for name, data in self.trigrams.items():
 
             if tuple(data["binary"]) == bits:
+
                 return name
 
-        raise ValueError(f"Unknown trigram: {bits}")
+        raise ValueError(
+            f"Unknown trigram: {bits}"
+        )
+
 
     # ---------------------------------------------------------
     # 六十四卦検索
@@ -103,16 +125,31 @@ class HexagramEngine:
         upper: str,
         lower: str,
     ) -> dict | None:
+        """
+        hexagrams.json
 
-        for item in self.hexagrams:
+        {
+          "1": {
+             "number":1,
+             "upper":"乾",
+             "lower":"乾"
+          }
+        }
+
+        の辞書形式に対応。
+        """
+
+        for item in self.hexagrams.values():
 
             if (
-                item["upper"] == upper
-                and item["lower"] == lower
+                item.get("upper") == upper
+                and item.get("lower") == lower
             ):
+
                 return item
 
         return None
+
 
     # ---------------------------------------------------------
     # 卦生成
@@ -124,126 +161,223 @@ class HexagramEngine:
     ) -> HexagramResult:
 
         if len(numbers) != 6:
-            raise ValueError("6本の爻が必要です。")
+
+            raise ValueError(
+                "6本の爻が必要です。"
+            )
+
 
         yin_yang = [
+
             1 if n % 2 else 0
+
             for n in numbers
+
         ]
 
-        lower_bits = tuple(yin_yang[:3])
-        upper_bits = tuple(yin_yang[3:])
 
-        lower_name = self._find_trigram(lower_bits)
-        upper_name = self._find_trigram(upper_bits)
+        lower_bits = tuple(
+            yin_yang[:3]
+        )
+
+        upper_bits = tuple(
+            yin_yang[3:]
+        )
+
+
+        lower_name = (
+            self._find_trigram(
+                lower_bits
+            )
+        )
+
+        upper_name = (
+            self._find_trigram(
+                upper_bits
+            )
+        )
+
 
         changing_lines = [
+
             i + 1
+
             for i, value in enumerate(numbers)
+
             if value in (6, 9)
+
         ]
 
-        hexagram = self._find_hexagram(
-            upper_name,
-            lower_name,
+
+        hexagram = (
+            self._find_hexagram(
+                upper_name,
+                lower_name,
+            )
         )
+
 
         if hexagram is None:
 
             return HexagramResult(
+
                 numbers=numbers,
+
                 yin_yang=yin_yang,
+
                 lower_trigram=lower_name,
+
                 upper_trigram=upper_name,
+
                 hexagram_number=0,
+
                 hexagram_name="未登録",
+
                 judgement={},
+
                 image={},
+
                 yao={},
+
                 changing_lines=changing_lines,
 
+
                 changed_hexagram_number=0,
+
                 changed_hexagram_name="",
+
                 changed_judgement={},
+
                 changed_image={},
+
                 changed_yao={},
             )
 
-        number = hexagram["number"]
 
-        # 本卦（仮）
+        number = int(
+            hexagram.get(
+                "number",
+                0,
+            )
+        )
+
+
         current = HexagramResult(
+
             numbers=numbers,
+
             yin_yang=yin_yang,
+
             lower_trigram=lower_name,
+
             upper_trigram=upper_name,
+
             hexagram_number=number,
-            hexagram_name=hexagram["name"],
+
+            hexagram_name=hexagram.get(
+                "name",
+                "",
+            ),
+
             judgement=self.judgements.get(
                 str(number),
                 {},
             ),
+
             image=self.images.get(
                 str(number),
                 {},
             ),
+
             yao=self.yao.get(
                 str(number),
                 {},
             ),
+
             changing_lines=changing_lines,
 
+
             changed_hexagram_number=0,
+
             changed_hexagram_name="",
+
             changed_judgement={},
+
             changed_image={},
+
             changed_yao={},
         )
 
-        changed = self.get_changed_hexagram(current)
 
+        changed = (
+            self.get_changed_hexagram(
+                current
+            )
+        )
+    
         return HexagramResult(
+
             numbers=numbers,
+
             yin_yang=yin_yang,
+
             lower_trigram=lower_name,
+
             upper_trigram=upper_name,
+
             hexagram_number=number,
-            hexagram_name=hexagram["name"],
+
+            hexagram_name=hexagram.get(
+                "name",
+                "",
+            ),
+
             judgement=self.judgements.get(
                 str(number),
                 {},
             ),
+
             image=self.images.get(
                 str(number),
                 {},
             ),
+
             yao=self.yao.get(
                 str(number),
                 {},
             ),
+
             changing_lines=changing_lines,
 
             changed_hexagram_number=changed.get(
                 "number",
                 0,
             ),
+
             changed_hexagram_name=changed.get(
                 "name",
                 "",
             ),
+
             changed_judgement=changed.get(
                 "judgement",
                 {},
             ),
+
             changed_image=changed.get(
                 "image",
                 {},
             ),
+
             changed_yao=changed.get(
                 "yao",
                 {},
             ),
         )
+
+    # ---------------------------------------------------------
+    # 指定爻取得
+    # ---------------------------------------------------------
 
     def get_line(
         self,
@@ -255,13 +389,28 @@ class HexagramEngine:
         """
 
         if line < 1 or line > 6:
-            raise ValueError("line は 1〜6 を指定してください。")
+
+            raise ValueError(
+                "line は 1〜6 を指定してください。"
+            )
+
 
         return (
+
             result.yao
-            .get("lines", {})
-            .get(str(line), {})
+
+            .get(
+                "lines",
+                {},
+            )
+
+            .get(
+                str(line),
+                {},
+            )
+
         )
+
 
     # ---------------------------------------------------------
     # 変爻取得
@@ -276,9 +425,16 @@ class HexagramEngine:
         """
 
         return [
-            self.get_line(result, line)
+
+            self.get_line(
+                result,
+                line,
+            )
+
             for line in result.changing_lines
+
         ]
+
 
     # ---------------------------------------------------------
     # 卦番号から爻取得
@@ -294,18 +450,38 @@ class HexagramEngine:
         """
 
         if line < 1 or line > 6:
-            raise ValueError("line は 1〜6 を指定してください。")
+
+            raise ValueError(
+                "line は 1〜6 を指定してください。"
+            )
+
 
         yao = self.yao.get(
+
             str(hexagram_number),
+
             {},
+
         )
 
+
         return (
+
             yao
-            .get("lines", {})
-            .get(str(line), {})
+
+            .get(
+                "lines",
+                {},
+            )
+
+            .get(
+                str(line),
+                {},
+            )
+
         )
+
+
     # ---------------------------------------------------------
     # 変卦生成
     # ---------------------------------------------------------
@@ -317,59 +493,117 @@ class HexagramEngine:
         """
         本卦から変卦（之卦）を生成する。
 
-        老陰（6）・老陽（9）のみ陰陽を反転する。
+        老陰（6）
+        老陽（9）
+
+        のみ陰陽反転する。
         """
 
-        # 陰陽をコピー
-        changed_yin_yang = result.yin_yang.copy()
+        changed_yin_yang = (
+            result.yin_yang.copy()
+        )
 
-        # 変爻だけ反転
+
         for line in result.changing_lines:
 
             index = line - 1
 
-            changed_yin_yang[index] = 1 - changed_yin_yang[index]
+            changed_yin_yang[index] = (
+                1 -
+                changed_yin_yang[index]
+            )
 
-        lower_bits = tuple(changed_yin_yang[:3])
-        upper_bits = tuple(changed_yin_yang[3:])
 
-        lower_name = self._find_trigram(lower_bits)
-        upper_name = self._find_trigram(upper_bits)
-
-        hexagram = self._find_hexagram(
-            upper_name,
-            lower_name,
+        lower_bits = tuple(
+            changed_yin_yang[:3]
         )
 
+        upper_bits = tuple(
+            changed_yin_yang[3:]
+        )
+
+
+        lower_name = (
+            self._find_trigram(
+                lower_bits
+            )
+        )
+
+        upper_name = (
+            self._find_trigram(
+                upper_bits
+            )
+        )
+
+
+        hexagram = (
+            self._find_hexagram(
+                upper_name,
+                lower_name,
+            )
+        )
+
+
         if hexagram is None:
+
             return {}
 
-        number = hexagram["number"]
+
+        number = int(
+
+            hexagram.get(
+                "number",
+                0,
+            )
+
+        )
+
 
         return {
 
             "number": number,
 
-            "name": hexagram["name"],
+
+            "name": hexagram.get(
+                "name",
+                "",
+            ),
+
 
             "lower_trigram": lower_name,
 
+
             "upper_trigram": upper_name,
+
 
             "yin_yang": changed_yin_yang,
 
+
             "judgement": self.judgements.get(
+
                 str(number),
+
                 {},
+
             ),
+
 
             "image": self.images.get(
+
                 str(number),
+
                 {},
+
             ),
 
+
             "yao": self.yao.get(
+
                 str(number),
+
                 {},
+
             ),
+
         }
+    
