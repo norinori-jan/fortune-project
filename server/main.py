@@ -20,7 +20,23 @@ app = FastAPI(
     title="Fortune Project API",
     version="2.0.0",
 )
+# ==========================================================
+# Health Check
+# ==========================================================
 
+@app.get("/health")
+def health() -> dict:
+    """
+    API health check
+    """
+
+    return {
+        "status": "ok",
+        "service": "fortune-api",
+        "modules": {
+            "iching": True,
+        },
+    }
 
 # ==========================================================
 # Root
