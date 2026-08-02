@@ -9,3 +9,6 @@ dist/
 server/.env
 .env
 *.env
+
+# Python package metadata
+*.egg-info/
