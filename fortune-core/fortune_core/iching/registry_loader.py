@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from copy import deepcopy
 from pathlib import Path
 from typing import Any
 
@@ -105,3 +106,46 @@ class RegistryLoader:
         return self._load_json(
             "yao.json"
         )
+
+    # ---------------------------------------------------------
+    # 統合レジストリ
+    # ---------------------------------------------------------
+
+    def load_registry(self) -> dict[str, dict[str, Any]]:
+        """
+        六十四卦・卦辞・象伝・爻辞を統合して返す。
+
+        戻り値例:
+
+        {
+            "1": {
+                "number": 1,
+                "name": "乾",
+                "upper": "...",
+                "lower": "...",
+                "judgement": {...},
+                "image": {...},
+                "yao": {...},
+            },
+            ...
+        }
+        """
+
+        hexagrams = deepcopy(self.load_hexagrams())
+        judgements = self.load_judgements()
+        images = self.load_images()
+        yao = self.load_yao()
+
+        registry: dict[str, dict[str, Any]] = {}
+
+        for key, value in hexagrams.items():
+
+            item = deepcopy(value)
+
+            item["judgement"] = judgements.get(key, {})
+            item["image"] = images.get(key, {})
+            item["yao"] = yao.get(key, {})
+
+            registry[key] = item
+
+        return registry

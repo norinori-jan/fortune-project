@@ -13,35 +13,25 @@ class HexagramResult:
     易経鑑定結果
     """
 
-    # 入力された6本の爻（6,7,8,9）
     numbers: list[int]
 
-    # 陰陽（0=陰、1=陽）
     yin_yang: list[int]
 
-    # 下卦・上卦
     lower_trigram: str
     upper_trigram: str
 
-    # 六十四卦
     hexagram_number: int
     hexagram_name: str
 
-    # judgement.json
     judgement: dict
 
-    # image.json
     image: dict
 
-    # yao.json
     yao: dict
 
-    # 変爻
     changing_lines: list[int]
 
-    # -------------------------------
     # 変卦（之卦）
-    # -------------------------------
 
     changed_hexagram_number: int
 
@@ -79,21 +69,27 @@ class HexagramEngine:
             self.registry.load_trigrams()
         )
 
-        self.hexagrams = (
-            self.registry.load_hexagrams()
+        # 統合済みregistry
+        #
+        # {
+        #   "1":{
+        #       "number":1,
+        #       "name":"乾",
+        #       "judgement":{},
+        #       "image":{},
+        #       "yao":{}
+        #   }
+        # }
+        self.registry_data = (
+            self.registry.load_registry()
         )
 
-        self.judgements = (
-            self.registry.load_judgements()
-        )
-
-        self.images = (
-            self.registry.load_images()
-        )
-
-        self.yao = (
-            self.registry.load_yao()
-        )
+        # 卦検索用
+        self.hexagrams = {
+            key: value
+            for key, value
+            in self.registry_data.items()
+        }
 
 
     # ---------------------------------------------------------
@@ -125,19 +121,6 @@ class HexagramEngine:
         upper: str,
         lower: str,
     ) -> dict | None:
-        """
-        hexagrams.json
-
-        {
-          "1": {
-             "number":1,
-             "upper":"乾",
-             "lower":"乾"
-          }
-        }
-
-        の辞書形式に対応。
-        """
 
         for item in self.hexagrams.values():
 
@@ -149,6 +132,21 @@ class HexagramEngine:
                 return item
 
         return None
+
+
+    # ---------------------------------------------------------
+    # Registry取得
+    # ---------------------------------------------------------
+
+    def _get_registry_item(
+        self,
+        number: int,
+    ) -> dict:
+
+        return self.registry_data.get(
+            str(number),
+            {},
+        )
 
 
     # ---------------------------------------------------------
@@ -185,16 +183,12 @@ class HexagramEngine:
         )
 
 
-        lower_name = (
-            self._find_trigram(
-                lower_bits
-            )
+        lower_name = self._find_trigram(
+            lower_bits
         )
 
-        upper_name = (
-            self._find_trigram(
-                upper_bits
-            )
+        upper_name = self._find_trigram(
+            upper_bits
         )
 
 
@@ -209,11 +203,9 @@ class HexagramEngine:
         ]
 
 
-        hexagram = (
-            self._find_hexagram(
-                upper_name,
-                lower_name,
-            )
+        hexagram = self._find_hexagram(
+            upper_name,
+            lower_name,
         )
 
 
@@ -241,7 +233,6 @@ class HexagramEngine:
 
                 changing_lines=changing_lines,
 
-
                 changed_hexagram_number=0,
 
                 changed_hexagram_name="",
@@ -262,6 +253,11 @@ class HexagramEngine:
         )
 
 
+        registry = self._get_registry_item(
+            number
+        )
+
+
         current = HexagramResult(
 
             numbers=numbers,
@@ -279,23 +275,22 @@ class HexagramEngine:
                 "",
             ),
 
-            judgement=self.judgements.get(
-                str(number),
+            judgement=registry.get(
+                "judgement",
                 {},
             ),
 
-            image=self.images.get(
-                str(number),
+            image=registry.get(
+                "image",
                 {},
             ),
 
-            yao=self.yao.get(
-                str(number),
+            yao=registry.get(
+                "yao",
                 {},
             ),
 
             changing_lines=changing_lines,
-
 
             changed_hexagram_number=0,
 
@@ -309,12 +304,9 @@ class HexagramEngine:
         )
 
 
-        changed = (
-            self.get_changed_hexagram(
-                current
-            )
+        changed = self.get_changed_hexagram(
+            current
         )
-    
         return HexagramResult(
 
             numbers=numbers,
@@ -332,18 +324,18 @@ class HexagramEngine:
                 "",
             ),
 
-            judgement=self.judgements.get(
-                str(number),
+            judgement=registry.get(
+                "judgement",
                 {},
             ),
 
-            image=self.images.get(
-                str(number),
+            image=registry.get(
+                "image",
                 {},
             ),
 
-            yao=self.yao.get(
-                str(number),
+            yao=registry.get(
+                "yao",
                 {},
             ),
 
@@ -374,6 +366,7 @@ class HexagramEngine:
                 {},
             ),
         )
+
 
     # ---------------------------------------------------------
     # 指定爻取得
@@ -456,12 +449,14 @@ class HexagramEngine:
             )
 
 
-        yao = self.yao.get(
+        registry = self._get_registry_item(
+            hexagram_number
+        )
 
-            str(hexagram_number),
 
+        yao = registry.get(
+            "yao",
             {},
-
         )
 
 
@@ -523,24 +518,18 @@ class HexagramEngine:
         )
 
 
-        lower_name = (
-            self._find_trigram(
-                lower_bits
-            )
+        lower_name = self._find_trigram(
+            lower_bits
         )
 
-        upper_name = (
-            self._find_trigram(
-                upper_bits
-            )
+        upper_name = self._find_trigram(
+            upper_bits
         )
 
 
-        hexagram = (
-            self._find_hexagram(
-                upper_name,
-                lower_name,
-            )
+        hexagram = self._find_hexagram(
+            upper_name,
+            lower_name,
         )
 
 
@@ -550,12 +539,15 @@ class HexagramEngine:
 
 
         number = int(
-
             hexagram.get(
                 "number",
                 0,
             )
+        )
 
+
+        registry = self._get_registry_item(
+            number
         )
 
 
@@ -579,31 +571,21 @@ class HexagramEngine:
             "yin_yang": changed_yin_yang,
 
 
-            "judgement": self.judgements.get(
-
-                str(number),
-
+            "judgement": registry.get(
+                "judgement",
                 {},
-
             ),
 
 
-            "image": self.images.get(
-
-                str(number),
-
+            "image": registry.get(
+                "image",
                 {},
-
             ),
 
 
-            "yao": self.yao.get(
-
-                str(number),
-
+            "yao": registry.get(
+                "yao",
                 {},
-
             ),
 
-        }
-    
+        }        

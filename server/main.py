@@ -18,12 +18,16 @@ from server.models import (
     PrimaryHexagramResponse,
     ChangedHexagramResponse,
     ChangingLineResponse,
+    ChangingLineInterpretationResponse,
 )
+
 
 app = FastAPI(
     title="Fortune Project API",
     version="2.0.0",
 )
+
+
 # ==========================================================
 # Health Check
 # ==========================================================
@@ -41,6 +45,7 @@ def health() -> dict:
             "iching": True,
         },
     }
+
 
 # ==========================================================
 # Root
@@ -108,21 +113,45 @@ def divine(
 
     return FortuneResponse(
         question=result.question,
+
         method=result.method,
+
         hexagram=HexagramResponse(
             number=result.hexagram.hexagram_number,
+
             name=result.hexagram.hexagram_name,
+
             changing_lines=result.hexagram.changing_lines,
+
             changed_number=result.hexagram.changed_hexagram_number,
+
             changed_name=result.hexagram.changed_hexagram_name,
         ),
+
         interpretation=InterpretationResponse(
+
             mode=result.interpretation.mode,
+
             title=result.interpretation.title,
+
             message=result.interpretation.message,
-            lines=result.interpretation.lines,
+
+            lines=[
+                ChangingLineInterpretationResponse(
+                    line=line.line,
+                    original=line.original,
+                    translation=line.translation,
+                    meaning=line.meaning,
+                    advice=line.advice,
+                    keywords=line.keywords,
+                )
+                for line in result.interpretation.lines
+            ],
         ),
     )
+
+
+
 # ==========================================================
 # I Ching v2
 # ==========================================================
@@ -147,48 +176,174 @@ def divine_v2(
         )
     )
 
+
     hexagram = result.hexagram
 
+
+
+    # ------------------------------------------------------
+    # 変爻情報
+    #
+    # HexagramResult.changing_lines
+    # 例:
+    # [2,5]
+    #
+    # yao.lines から本文取得
+    # ------------------------------------------------------
+
     changing_lines = [
+
         ChangingLineResponse(
-            position=line,
-            value=hexagram.numbers[line - 1],
-            text=(
+
+            line=line,
+
+
+            original=(
                 hexagram.yao
                 .get("lines", {})
                 .get(str(line), {})
-                .get("translation")
+                .get("original", "")
             ),
+
+
+            translation=(
+                hexagram.yao
+                .get("lines", {})
+                .get(str(line), {})
+                .get("translation", "")
+            ),
+
+
+            meaning=(
+                hexagram.yao
+                .get("lines", {})
+                .get(str(line), {})
+                .get("meaning", "")
+            ),
+
+
+            advice=(
+                hexagram.yao
+                .get("lines", {})
+                .get(str(line), {})
+                .get("advice", "")
+            ),
+
+
+            keywords=(
+                hexagram.yao
+                .get("lines", {})
+                .get(str(line), {})
+                .get("keywords", [])
+            ),
+
         )
+
         for line in hexagram.changing_lines
+
     ]
 
+
+
+    # ------------------------------------------------------
+    # 之卦
+    # ------------------------------------------------------
 
     changed = None
 
     if hexagram.changed_hexagram_number:
+
         changed = ChangedHexagramResponse(
-            number=hexagram.changed_hexagram_number,
-            name=hexagram.changed_hexagram_name or "",
+
+            number=(
+                hexagram.changed_hexagram_number
+            ),
+
+            name=(
+                hexagram.changed_hexagram_name
+            ),
+
         )
 
+
+
+    # ------------------------------------------------------
+    # Response
+    # ------------------------------------------------------
+
     return IChingResponse(
+
         question=result.question,
+
         method=result.method,
 
+
         primary=PrimaryHexagramResponse(
-            number=hexagram.hexagram_number,
-            name=hexagram.hexagram_name,
+
+            number=(
+                hexagram.hexagram_number
+            ),
+
+            name=(
+                hexagram.hexagram_name
+            ),
+
+            upper=(
+                hexagram.upper_trigram
+            ),
+
+            lower=(
+                hexagram.lower_trigram
+            ),
+
+            judgement=(
+                hexagram.judgement
+            ),
+
+            image=(
+                hexagram.image
+            ),
+
         ),
+
 
         changing_lines=changing_lines,
 
+
         changed=changed,
 
+
         interpretation=InterpretationResponse(
+
             mode=result.interpretation.mode,
+
             title=result.interpretation.title,
+
             message=result.interpretation.message,
-            lines=result.interpretation.lines,
+
+            lines=[
+
+                ChangingLineInterpretationResponse(
+
+                    line=line.line,
+
+                    original=line.original,
+
+                    translation=line.translation,
+
+                    meaning=line.meaning,
+
+                    advice=line.advice,
+
+                    keywords=line.keywords,
+
+                )
+
+                for line in result.interpretation.lines
+
+            ],
+
         ),
+
     )
+    

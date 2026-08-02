@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Any
+
 from pydantic import BaseModel
 from pydantic import Field
 
@@ -16,19 +18,24 @@ class DivineRequest(BaseModel):
     question: str = Field(
         ...,
         description="相談内容",
-        examples=["転職しても良いですか？"],
+        examples=[
+            "転職しても良いですか？"
+        ],
     )
 
     method: str = Field(
         default="coin",
         description="占法",
-        examples=["coin"],
+        examples=[
+            "coin"
+        ],
     )
 
 
 # ==========================================================
 # Common
 # ==========================================================
+
 
 class HexagramBaseResponse(BaseModel):
     """
@@ -40,16 +47,20 @@ class HexagramBaseResponse(BaseModel):
     name: str
 
 
+
 # ==========================================================
 # Hexagram
 # ==========================================================
 
-class HexagramResponse(HexagramBaseResponse):
+
+class HexagramResponse(
+    HexagramBaseResponse
+):
     """
     易経卦情報（互換用）
     """
 
-    changing_lines: list[int] = Field(
+    lines: list[Any] = Field(
         default_factory=list
     )
 
@@ -58,43 +69,78 @@ class HexagramResponse(HexagramBaseResponse):
     changed_name: str | None = None
 
 
-class PrimaryHexagramResponse(HexagramBaseResponse):
+
+class PrimaryHexagramResponse(
+    HexagramBaseResponse
+):
     """
     本卦情報
+
+    registry の judgement/image
+    は辞書構造で保持する。
     """
 
-    upper: str | None = None
+    upper: str = Field(
+        ...,
+        description="上卦",
+    )
 
-    lower: str | None = None
+    lower: str = Field(
+        ...,
+        description="下卦",
+    )
 
-    judgement: str | None = None
+    judgement: Any = Field(
+        default_factory=dict,
+        description="卦辞",
+    )
 
-    image: str | None = None
+    image: Any = Field(
+        default_factory=dict,
+        description="象伝",
+    )
 
 
-class ChangedHexagramResponse(HexagramBaseResponse):
+
+class ChangedHexagramResponse(
+    HexagramBaseResponse
+):
     """
     之卦情報
     """
 
     pass
 
+# ==========================================================
+# Changing Line Interpretation
+# ==========================================================
 
-class ChangingLineResponse(BaseModel):
+
+class ChangingLineInterpretationResponse(BaseModel):
     """
-    動爻情報
+    変爻解釈
     """
 
-    position: int
+    line: int
 
-    value: int
+    original: str
 
-    text: str | None = None
+    translation: str
+
+    meaning: str
+
+    advice: str
+
+    keywords: list[str] = Field(
+        default_factory=list
+    )
+
 
 
 # ==========================================================
 # Interpretation
 # ==========================================================
+
 
 class InterpretationResponse(BaseModel):
     """
@@ -107,14 +153,13 @@ class InterpretationResponse(BaseModel):
 
     message: str
 
-    lines: list[dict] = Field(
+    lines: list[ChangingLineInterpretationResponse] = Field(
         default_factory=list
     )
-
-
 # ==========================================================
 # Fortune
 # ==========================================================
+
 
 class FortuneResponse(BaseModel):
     """
@@ -130,6 +175,7 @@ class FortuneResponse(BaseModel):
     interpretation: InterpretationResponse
 
 
+
 class IChingResponse(BaseModel):
     """
     新しい易経APIレスポンス形式
@@ -143,15 +189,55 @@ class IChingResponse(BaseModel):
 
     primary: PrimaryHexagramResponse
 
+
     changing_lines: list[ChangingLineResponse] = Field(
         default_factory=list
     )
 
+
     changed: ChangedHexagramResponse | None = None
 
+
     interpretation: InterpretationResponse
+# ==========================================================
+# Changing Line
+# ==========================================================
 
 
+class ChangingLineResponse(BaseModel):
+    """
+    変爻レスポンス
+    """
+
+    line: int = Field(
+        ...,
+        description="変爻位置(1〜6)",
+    )
+
+    original: str = Field(
+        ...,
+        description="原文",
+    )
+
+    translation: str = Field(
+        ...,
+        description="現代語訳",
+    )
+
+    meaning: str = Field(
+        ...,
+        description="意味",
+    )
+
+    advice: str = Field(
+        ...,
+        description="助言",
+    )
+
+    keywords: list[str] = Field(
+        default_factory=list,
+        description="キーワード",
+    )
 # ==========================================================
 # Root
 # ==========================================================
@@ -168,12 +254,14 @@ class RootResponse(BaseModel):
     status: str
 
 
+
 class MethodsResponse(BaseModel):
     """
     利用可能な占法一覧
     """
 
     methods: list[str]
+
 
 
 # ==========================================================
@@ -188,6 +276,7 @@ class ErrorResponse(BaseModel):
     error: str
 
     detail: str | None = None
+
 
 
 # ==========================================================
@@ -206,6 +295,7 @@ class VersionResponse(BaseModel):
     api: str
 
 
+
 # ==========================================================
 # Health
 # ==========================================================
@@ -220,6 +310,7 @@ class HealthResponse(BaseModel):
     service: str
 
     modules: dict[str, bool]
+
 
 
 # ==========================================================
@@ -240,6 +331,7 @@ class SimulationRequest(BaseModel):
     )
 
 
+
 class SimulationItem(BaseModel):
     """
     卦ごとの集計
@@ -254,6 +346,7 @@ class SimulationItem(BaseModel):
     percentage: float
 
 
+
 class SimulationResponse(BaseModel):
     """
     シミュレーション結果
@@ -264,6 +357,7 @@ class SimulationResponse(BaseModel):
     count: int
 
     results: list[SimulationItem]
+
 
 
 # ==========================================================
@@ -286,26 +380,56 @@ class RegistryInfoResponse(BaseModel):
     yao: int
 
 
+
 # ==========================================================
 # __all__
 # ==========================================================
 
 __all__ = [
+
+    # Request
     "DivineRequest",
-    "RootResponse",
-    "MethodsResponse",
+
+
+    # Hexagram
+    "HexagramBaseResponse",
     "HexagramResponse",
     "PrimaryHexagramResponse",
-    "ChangedHexagramResponse",
     "ChangingLineResponse",
+
+    "ChangingLineInterpretationResponse",
+
+    
+    # Interpretation
     "InterpretationResponse",
+
+
+    # Fortune
     "FortuneResponse",
     "IChingResponse",
+
+
+    # Root / Methods
+    "RootResponse",
+    "MethodsResponse",
+
+
+    # Error
     "ErrorResponse",
+
+
+    # Version / Health
     "VersionResponse",
     "HealthResponse",
+
+
+    # Simulation
     "SimulationRequest",
     "SimulationItem",
     "SimulationResponse",
+
+
+    # Registry
     "RegistryInfoResponse",
+
 ]

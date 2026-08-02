@@ -6,6 +6,27 @@ from .hexagrams import HexagramEngine, HexagramResult
 
 
 @dataclass(frozen=True)
+class ChangingLineInterpretation:
+    """
+    変爻解釈
+    """
+
+    line: int
+
+    position: str
+
+    original: str
+
+    translation: str
+
+    meaning: str
+
+    advice: str
+
+    keywords: list[str]
+
+
+@dataclass(frozen=True)
 class Interpretation:
     """
     易経の解釈結果
@@ -17,7 +38,7 @@ class Interpretation:
 
     message: str
 
-    lines: list[dict]
+    lines: list[ChangingLineInterpretation]
 
 
 class InterpretationEngine:
@@ -33,6 +54,54 @@ class InterpretationEngine:
     def __init__(self) -> None:
 
         self.hexagram_engine = HexagramEngine()
+
+    # ---------------------------------------------------------
+    # 内部: 爻データ正規化
+    # ---------------------------------------------------------
+
+    def _normalize_line(
+        self,
+        line_no: int,
+        data: dict,
+    ) -> ChangingLineInterpretation:
+
+        return ChangingLineInterpretation(
+
+            line=line_no,
+
+            position=data.get(
+                "position",
+                "",
+            ),
+
+            original=data.get(
+                "text",
+                data.get(
+                    "original",
+                    "",
+                ),
+            ),
+
+            translation=data.get(
+                "translation",
+                "",
+            ),
+
+            meaning=data.get(
+                "meaning",
+                "",
+            ),
+
+            advice=data.get(
+                "advice",
+                "",
+            ),
+
+            keywords=data.get(
+                "keywords",
+                [],
+            ),
+        )
 
     # ---------------------------------------------------------
     # 解釈
@@ -68,19 +137,23 @@ class InterpretationEngine:
 
         if count == 1:
 
-            line = self.hexagram_engine.get_line(
+            target = result.changing_lines[0]
+
+            raw_line = self.hexagram_engine.get_line(
                 result,
-                result.changing_lines[0],
+                target,
+            )
+
+            line = self._normalize_line(
+                target,
+                raw_line,
             )
 
             return Interpretation(
 
                 mode="single_line",
 
-                title=line.get(
-                    "position",
-                    "",
-                ),
+                title=line.position,
 
                 message="変爻が1本です。この爻辞を中心に読みます。",
 
@@ -95,19 +168,21 @@ class InterpretationEngine:
 
             target = max(result.changing_lines)
 
-            line = self.hexagram_engine.get_line(
+            raw_line = self.hexagram_engine.get_line(
                 result,
                 target,
+            )
+
+            line = self._normalize_line(
+                target,
+                raw_line,
             )
 
             return Interpretation(
 
                 mode="double_line",
 
-                title=line.get(
-                    "position",
-                    "",
-                ),
+                title=line.position,
 
                 message="変爻が2本です。上位の変爻を読みます。",
 
@@ -160,7 +235,10 @@ class InterpretationEngine:
 
             lines = [
 
-                changed["yao"]["lines"][str(i)]
+                self._normalize_line(
+                    i,
+                    changed["yao"]["lines"][str(i)],
+                )
 
                 for i in unchanged
 
@@ -200,16 +278,18 @@ class InterpretationEngine:
 
             ][0]
 
-            line = changed["yao"]["lines"][str(unchanged)]
+            raw_line = changed["yao"]["lines"][str(unchanged)]
+
+            line = self._normalize_line(
+                unchanged,
+                raw_line,
+            )
 
             return Interpretation(
 
                 mode="five_lines",
 
-                title=line.get(
-                    "position",
-                    "",
-                ),
+                title=line.position,
 
                 message="変卦の変わらない一爻を読みます。",
 
