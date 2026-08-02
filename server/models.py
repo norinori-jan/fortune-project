@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from typing import Any
-
 from pydantic import BaseModel
 from pydantic import Field
 
@@ -29,47 +27,69 @@ class DivineRequest(BaseModel):
 
 
 # ==========================================================
-# Response Models
+# Common
 # ==========================================================
 
-class RootResponse(BaseModel):
+class HexagramBaseResponse(BaseModel):
     """
-    APIルート
-    """
-
-    service: str
-
-    engine: str
-
-    status: str
-
-
-class MethodsResponse(BaseModel):
-    """
-    利用可能な占法一覧
-    """
-
-    methods: list[str]
-
-
-# ==========================================================
-# Hexagram
-# ==========================================================
-
-class HexagramResponse(BaseModel):
-    """
-    卦情報
+    卦基本情報
     """
 
     number: int
 
     name: str
 
-    changing_lines: list[int]
 
-    changed_number: int
+# ==========================================================
+# Hexagram
+# ==========================================================
 
-    changed_name: str
+class HexagramResponse(HexagramBaseResponse):
+    """
+    易経卦情報（互換用）
+    """
+
+    changing_lines: list[int] = Field(
+        default_factory=list
+    )
+
+    changed_number: int | None = None
+
+    changed_name: str | None = None
+
+
+class PrimaryHexagramResponse(HexagramBaseResponse):
+    """
+    本卦情報
+    """
+
+    upper: str | None = None
+
+    lower: str | None = None
+
+    judgement: str | None = None
+
+    image: str | None = None
+
+
+class ChangedHexagramResponse(HexagramBaseResponse):
+    """
+    之卦情報
+    """
+
+    pass
+
+
+class ChangingLineResponse(BaseModel):
+    """
+    動爻情報
+    """
+
+    position: int
+
+    value: int
+
+    text: str | None = None
 
 
 # ==========================================================
@@ -87,7 +107,7 @@ class InterpretationResponse(BaseModel):
 
     message: str
 
-    lines: list[dict[str, Any]] = Field(
+    lines: list[dict] = Field(
         default_factory=list
     )
 
@@ -108,6 +128,52 @@ class FortuneResponse(BaseModel):
     hexagram: HexagramResponse
 
     interpretation: InterpretationResponse
+
+
+class IChingResponse(BaseModel):
+    """
+    新しい易経APIレスポンス形式
+
+    frontend向け
+    """
+
+    question: str
+
+    method: str
+
+    primary: PrimaryHexagramResponse
+
+    changing_lines: list[ChangingLineResponse] = Field(
+        default_factory=list
+    )
+
+    changed: ChangedHexagramResponse | None = None
+
+    interpretation: InterpretationResponse
+
+
+# ==========================================================
+# Root
+# ==========================================================
+
+class RootResponse(BaseModel):
+    """
+    APIルート
+    """
+
+    service: str
+
+    engine: str
+
+    status: str
+
+
+class MethodsResponse(BaseModel):
+    """
+    利用可能な占法一覧
+    """
+
+    methods: list[str]
 
 
 # ==========================================================
@@ -151,9 +217,9 @@ class HealthResponse(BaseModel):
 
     status: str
 
-    engine: str
+    service: str
 
-    registry: str
+    modules: dict[str, bool]
 
 
 # ==========================================================
@@ -229,8 +295,12 @@ __all__ = [
     "RootResponse",
     "MethodsResponse",
     "HexagramResponse",
+    "PrimaryHexagramResponse",
+    "ChangedHexagramResponse",
+    "ChangingLineResponse",
     "InterpretationResponse",
     "FortuneResponse",
+    "IChingResponse",
     "ErrorResponse",
     "VersionResponse",
     "HealthResponse",

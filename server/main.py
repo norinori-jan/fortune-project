@@ -14,6 +14,10 @@ from server.models import (
     RootResponse,
     HexagramResponse,
     InterpretationResponse,
+    IChingResponse,
+    PrimaryHexagramResponse,
+    ChangedHexagramResponse,
+    ChangingLineResponse,
 )
 
 app = FastAPI(
@@ -112,6 +116,69 @@ def divine(
             changed_number=result.hexagram.changed_hexagram_number,
             changed_name=result.hexagram.changed_hexagram_name,
         ),
+        interpretation=InterpretationResponse(
+            mode=result.interpretation.mode,
+            title=result.interpretation.title,
+            message=result.interpretation.message,
+            lines=result.interpretation.lines,
+        ),
+    )
+# ==========================================================
+# I Ching v2
+# ==========================================================
+
+@app.post(
+    "/iching/v2",
+    response_model=IChingResponse,
+)
+def divine_v2(
+    request: DivineRequest,
+) -> IChingResponse:
+    """
+    易経占い結果 v2
+
+    frontend向け新形式
+    """
+
+    result = api.divine(
+        IChingRequest(
+            question=request.question,
+            method=request.method,
+        )
+    )
+
+    hexagram = result.hexagram
+
+    changing_lines = [
+    ChangingLineResponse(
+        position=line,
+        value=hexagram.numbers[line - 1],
+        text=None,
+    )
+    for line in hexagram.changing_lines
+]
+
+    changed = None
+
+    if hexagram.changed_hexagram_number:
+        changed = ChangedHexagramResponse(
+            number=hexagram.changed_hexagram_number,
+            name=hexagram.changed_hexagram_name or "",
+        )
+
+    return IChingResponse(
+        question=result.question,
+        method=result.method,
+
+        primary=PrimaryHexagramResponse(
+            number=hexagram.hexagram_number,
+            name=hexagram.hexagram_name,
+        ),
+
+        changing_lines=changing_lines,
+
+        changed=changed,
+
         interpretation=InterpretationResponse(
             mode=result.interpretation.mode,
             title=result.interpretation.title,
