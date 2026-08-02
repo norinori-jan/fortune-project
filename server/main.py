@@ -150,13 +150,19 @@ def divine_v2(
     hexagram = result.hexagram
 
     changing_lines = [
-    ChangingLineResponse(
-        position=line,
-        value=hexagram.numbers[line - 1],
-        text=None,
-    )
-    for line in hexagram.changing_lines
-]
+        ChangingLineResponse(
+            position=line,
+            value=hexagram.numbers[line - 1],
+            text=(
+                hexagram.yao
+                .get("lines", {})
+                .get(str(line), {})
+                .get("translation")
+            ),
+        )
+        for line in hexagram.changing_lines
+    ]
+
 
     changed = None
 
