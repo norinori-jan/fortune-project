@@ -1,14 +1,18 @@
 from __future__ import annotations
 
-from .interpretation_modules.models import (
-    ChangingLineInterpretation,
-    Interpretation,
-)
-
 from .hexagrams import (
     HexagramEngine,
     HexagramResult,
 )
+
+from .interpretation_modules.models import (
+    Interpretation,
+)
+
+from .interpretation_modules.changing_lines import (
+    normalize_line,
+)
+
 
 class InterpretationEngine:
     """
@@ -23,54 +27,6 @@ class InterpretationEngine:
     def __init__(self) -> None:
 
         self.hexagram_engine = HexagramEngine()
-
-    # ---------------------------------------------------------
-    # 内部: 爻データ正規化
-    # ---------------------------------------------------------
-
-    def _normalize_line(
-        self,
-        line_no: int,
-        data: dict,
-    ) -> ChangingLineInterpretation:
-
-        return ChangingLineInterpretation(
-
-            line=line_no,
-
-            position=data.get(
-                "position",
-                "",
-            ),
-
-            original=data.get(
-                "text",
-                data.get(
-                    "original",
-                    "",
-                ),
-            ),
-
-            translation=data.get(
-                "translation",
-                "",
-            ),
-
-            meaning=data.get(
-                "meaning",
-                "",
-            ),
-
-            advice=data.get(
-                "advice",
-                "",
-            ),
-
-            keywords=data.get(
-                "keywords",
-                [],
-            ),
-        )
 
     # ---------------------------------------------------------
     # 解釈
@@ -113,7 +69,7 @@ class InterpretationEngine:
                 target,
             )
 
-            line = self._normalize_line(
+            line = normalize_line(
                 target,
                 raw_line,
             )
@@ -142,7 +98,7 @@ class InterpretationEngine:
                 target,
             )
 
-            line = self._normalize_line(
+            line = normalize_line(
                 target,
                 raw_line,
             )
@@ -204,7 +160,7 @@ class InterpretationEngine:
 
             lines = [
 
-                self._normalize_line(
+                normalize_line(
                     i,
                     changed["yao"]["lines"][str(i)],
                 )
@@ -249,7 +205,7 @@ class InterpretationEngine:
 
             raw_line = changed["yao"]["lines"][str(unchanged)]
 
-            line = self._normalize_line(
+            line = normalize_line(
                 unchanged,
                 raw_line,
             )
