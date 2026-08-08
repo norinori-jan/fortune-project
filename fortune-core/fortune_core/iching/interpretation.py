@@ -9,8 +9,14 @@ from .interpretation_modules.models import (
     Interpretation,
 )
 
-from .interpretation_modules.changing_lines import (
-    normalize_line,
+from .interpretation_modules.rules import (
+    interpret_double_line,
+    interpret_five_lines,
+    interpret_four_lines,
+    interpret_no_change,
+    interpret_single_line,
+    interpret_six_lines,
+    interpret_three_lines,
 )
 
 
@@ -22,6 +28,10 @@ class InterpretationEngine:
     易占のルールに従って
     「どの卦・どの爻を読むべきか」
     を決定する。
+
+    実際の解釈ルールは
+    interpretation_modules/rules.py
+    に分離する。
     """
 
     def __init__(self) -> None:
@@ -36,8 +46,17 @@ class InterpretationEngine:
         self,
         result: HexagramResult,
     ) -> Interpretation:
+        """
+        HexagramResult を解釈する。
 
-        count = len(result.changing_lines)
+        変爻の本数に応じて、
+        interpretation_modules.rules
+        の対応するルールを呼び出す。
+        """
+
+        count = len(
+            result.changing_lines
+        )
 
         # ---------------------------------------------
         # 変爻なし
@@ -45,16 +64,7 @@ class InterpretationEngine:
 
         if count == 0:
 
-            return Interpretation(
-
-                mode="hexagram",
-
-                title="本卦",
-
-                message="変爻がありません。本卦の卦辞・象伝を読みます。",
-
-                lines=[],
-            )
+            return interpret_no_change()
 
         # ---------------------------------------------
         # 一変
@@ -62,27 +72,9 @@ class InterpretationEngine:
 
         if count == 1:
 
-            target = result.changing_lines[0]
-
-            raw_line = self.hexagram_engine.get_line(
+            return interpret_single_line(
+                self.hexagram_engine,
                 result,
-                target,
-            )
-
-            line = normalize_line(
-                target,
-                raw_line,
-            )
-
-            return Interpretation(
-
-                mode="single_line",
-
-                title=line.position,
-
-                message="変爻が1本です。この爻辞を中心に読みます。",
-
-                lines=[line],
             )
 
         # ---------------------------------------------
@@ -91,27 +83,9 @@ class InterpretationEngine:
 
         if count == 2:
 
-            target = max(result.changing_lines)
-
-            raw_line = self.hexagram_engine.get_line(
+            return interpret_double_line(
+                self.hexagram_engine,
                 result,
-                target,
-            )
-
-            line = normalize_line(
-                target,
-                raw_line,
-            )
-
-            return Interpretation(
-
-                mode="double_line",
-
-                title=line.position,
-
-                message="変爻が2本です。上位の変爻を読みます。",
-
-                lines=[line],
             )
 
         # ---------------------------------------------
@@ -120,22 +94,9 @@ class InterpretationEngine:
 
         if count == 3:
 
-            changed = self.hexagram_engine.get_changed_hexagram(
-                result
-            )
-
-            return Interpretation(
-
-                mode="three_lines",
-
-                title=changed.get(
-                    "name",
-                    "",
-                ),
-
-                message="変爻が3本です。本卦と変卦の両方を参考にします。",
-
-                lines=[],
+            return interpret_three_lines(
+                self.hexagram_engine,
+                result,
             )
 
         # ---------------------------------------------
@@ -144,43 +105,9 @@ class InterpretationEngine:
 
         if count == 4:
 
-            changed = self.hexagram_engine.get_changed_hexagram(
-                result
-            )
-
-            unchanged = [
-
-                i
-
-                for i in range(1, 7)
-
-                if i not in result.changing_lines
-
-            ]
-
-            lines = [
-
-                normalize_line(
-                    i,
-                    changed["yao"]["lines"][str(i)],
-                )
-
-                for i in unchanged
-
-            ]
-
-            return Interpretation(
-
-                mode="four_lines",
-
-                title=changed.get(
-                    "name",
-                    "",
-                ),
-
-                message="変卦の変わらない二爻を読みます。",
-
-                lines=lines,
+            return interpret_four_lines(
+                self.hexagram_engine,
+                result,
             )
 
         # ---------------------------------------------
@@ -189,56 +116,22 @@ class InterpretationEngine:
 
         if count == 5:
 
-            changed = self.hexagram_engine.get_changed_hexagram(
-                result
-            )
-
-            unchanged = [
-
-                i
-
-                for i in range(1, 7)
-
-                if i not in result.changing_lines
-
-            ][0]
-
-            raw_line = changed["yao"]["lines"][str(unchanged)]
-
-            line = normalize_line(
-                unchanged,
-                raw_line,
-            )
-
-            return Interpretation(
-
-                mode="five_lines",
-
-                title=line.position,
-
-                message="変卦の変わらない一爻を読みます。",
-
-                lines=[line],
+            return interpret_five_lines(
+                self.hexagram_engine,
+                result,
             )
 
         # ---------------------------------------------
         # 六変
         # ---------------------------------------------
 
-        changed = self.hexagram_engine.get_changed_hexagram(
-            result
+        return interpret_six_lines(
+            self.hexagram_engine,
+            result,
         )
 
-        return Interpretation(
 
-            mode="six_lines",
+__all__ = [
+    "InterpretationEngine",
+]
 
-            title=changed.get(
-                "name",
-                "",
-            ),
-
-            message="全ての爻が変化しました。変卦を中心に読みます。",
-
-            lines=[],
-        )
