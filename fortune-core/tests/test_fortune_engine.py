@@ -94,6 +94,79 @@ class TestFortuneEngine(unittest.TestCase):
             1,
         )
 
+    def test_interpretation_modes_for_all_changing_line_counts(
+        self,
+    ) -> None:
+        engine = FortuneEngine()
+
+        cases = [
+            (
+                [8, 8, 8, 8, 8, 8],
+                0,
+                "hexagram",
+                "本卦",
+            ),
+            (
+                [9, 8, 8, 8, 8, 8],
+                1,
+                "single_line",
+                "初九",
+            ),
+            (
+                [9, 9, 8, 8, 8, 8],
+                2,
+                "double_line",
+                "九二",
+            ),
+            (
+                [9, 9, 9, 8, 8, 8],
+                3,
+                "three_lines",
+                "坤為地",
+            ),
+            (
+                [9, 9, 9, 9, 8, 8],
+                4,
+                "four_lines",
+                "坤為地",
+            ),
+            (
+                [9, 9, 9, 9, 9, 8],
+                5,
+                "five_lines",
+                "上六",
+            ),
+            (
+                [9, 9, 9, 9, 9, 9],
+                6,
+                "six_lines",
+                "坤為地",
+            ),
+        ]
+
+        for numbers, changing_count, mode, title in cases:
+            with self.subTest(
+                changing_count=changing_count,
+            ):
+                result = engine.from_numbers(
+                    numbers
+                )
+
+                self.assertEqual(
+                    len(result.hexagram.changing_lines),
+                    changing_count,
+                )
+
+                self.assertEqual(
+                    result.interpretation.mode,
+                    mode,
+                )
+
+                self.assertEqual(
+                    result.interpretation.title,
+                    title,
+                )
+
     def test_divine_by_coin(self) -> None:
         engine = FortuneEngine()
 
@@ -136,3 +209,4 @@ class TestFortuneEngine(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
