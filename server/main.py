@@ -192,56 +192,16 @@ def divine_v2(
     # ------------------------------------------------------
 
     changing_lines = [
-
         ChangingLineResponse(
-
-            line=line,
-
-
-            original=(
-                hexagram.yao
-                .get("lines", {})
-                .get(str(line), {})
-                .get("original", "")
-            ),
-
-
-            translation=(
-                hexagram.yao
-                .get("lines", {})
-                .get(str(line), {})
-                .get("translation", "")
-            ),
-
-
-            meaning=(
-                hexagram.yao
-                .get("lines", {})
-                .get(str(line), {})
-                .get("meaning", "")
-            ),
-
-
-            advice=(
-                hexagram.yao
-                .get("lines", {})
-                .get(str(line), {})
-                .get("advice", "")
-            ),
-
-
-            keywords=(
-                hexagram.yao
-                .get("lines", {})
-                .get(str(line), {})
-                .get("keywords", [])
-            ),
-
+            line=line.line,
+            original=line.original,
+            translation=line.translation,
+            meaning=line.meaning,
+            advice=line.advice,
+            keywords=line.keywords,
         )
-
-        for line in hexagram.changing_lines
-
-    ]
+        for line in result.interpretation.lines
+    ]    
 
 
 
