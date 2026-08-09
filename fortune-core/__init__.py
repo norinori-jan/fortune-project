@@ -4,8 +4,8 @@ fortune_core
 Fortune Core Library
 """
 
-from .engine import FortuneEngine
-from .engine import FortuneResult
+from .iching import FortuneEngine
+from .iching import FortuneResult
 
 __all__ = [
     "FortuneEngine",
