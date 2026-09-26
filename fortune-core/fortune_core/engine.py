@@ -7,7 +7,7 @@ from .iching.hexagrams import (
     HexagramEngine,
     HexagramResult,
 )
-from .iching.interpretation import (
+from .iching.interpretation_modules import (
     InterpretationEngine,
     ReadingResult,
 )
