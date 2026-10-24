@@ -317,7 +317,7 @@ def build_layer_adapter(layer_id, database):
     if layer_id == 25:
         return Layer25Adapter(records)
 
-    return StandardAngleLayerLayerAdapter(layer_id, records)
+    return StandardAngleLayerAdapter(layer_id, records)
 
 
 # ==========================================================

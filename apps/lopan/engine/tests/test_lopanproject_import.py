@@ -25,3 +25,14 @@ def test_angle_in_range_wraps_360():
     assert m.angle_in_range(5, 350, 10)
     assert not m.angle_in_range(20, 350, 10)
     assert m.angle_in_range(350, 350, 10)      # start を含む
+
+
+def test_service_loads_raw_and_measures():
+    s = load('lopan_service.py')
+    db = s.database()
+    assert {10, 11, 12, 13, 14, 24, 26}.issubset(db)
+    r = s.measure(330.0)
+    assert r['angle'] == 330.0
+    assert r['layers'][10]['status'] == 'OK'
+    assert r['layers'][10]['matches'][0]['record']['raw_text'] == '辛亥'   # 326°〜332°
+    assert r['layers'][11]['matches'][0]['record']['raw_text'] == '正亥'
