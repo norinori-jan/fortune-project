@@ -1,0 +1,1009 @@
+
+# ==========================================================
+# Raw Layer 20
+# ==========================================================
+
+raw_layer20 = [
+
+{
+"id": 1,
+"degree_start": 331.875,
+"degree_end": 337.500,
+"raw_text": ["天輔"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 2,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天巨"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 3,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人破"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 4,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地武"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 5,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["父貪"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 6,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天輔"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 7,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人禄"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 8,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地文"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 9,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["母弼"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 10,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["父貪"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 11,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地武"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 12,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人破"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 13,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天巨"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 14,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人禄"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 15,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天輔"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 16,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["母弼"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 17,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地文"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 18,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地武"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 19,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["父貪"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 20,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天巨"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 21,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人破"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 22,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地文"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 23,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["母弼"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 24,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天輔"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 25,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人禄"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 26,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人破"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 27,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天巨"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 28,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["父貪"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 29,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地武"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 30,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["母弼"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 31,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地文"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 32,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人禄"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 33,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天輔"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 34,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天巨"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 35,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人破"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 36,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地武"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 37,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["父貪"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 38,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天輔"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 39,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人禄"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 40,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地文"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 41,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["母弼"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 42,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["父貪"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 43,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地武"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 44,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人破"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 45,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天巨"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 46,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人禄"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 47,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天輔"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 48,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["母弼"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 49,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地文"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 50,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地武"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 51,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["父貪"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 52,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天巨"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 53,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人破"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 54,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地文"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 55,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["母弼"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 56,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天輔"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 57,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人禄"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 58,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人破"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 59,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["天巨"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 60,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["父貪"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 61,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地武"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 62,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["母弼"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 63,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["地文"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 64,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["人禄"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": "ここで一周"
+}
+}
+]
+
+
+# ==========================================================
+# Layer 20 Information
+# ==========================================================
+
+raw_layer20_info = {
+"layer_id": 20,
+
+# Layer15〜23共通角度
+"degree_start": 331.875,
+"degree_end": 337.500,
+
+"direction": "right",
+
+"row_count": 64,
+
+"angle_source": "Layer15〜23共通角度としてユーザー指定",
+
+"source_note": (
+"Layer20のみを記録。"
+"Layer19・Layer21・Layer22・Layer23の"
+"データは混在させない。"
+),
+
+"verified": True
+}
+
+
+# ==========================================================
+# Validation
+# ==========================================================
+
+assert len(raw_layer20) == 64
+assert [x["id"] for x in raw_layer20] == list(range(1, 65))
+
+assert raw_layer20[0]["degree_start"] == 331.875
+assert raw_layer20[0]["degree_end"] == 337.500
+
+assert raw_layer20[-1]["raw_text"] == ["人禄"]
+assert raw_layer20[-1]["visual"]["notes"] == "ここで一周"
+

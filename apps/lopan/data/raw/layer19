@@ -1,0 +1,777 @@
+
+# ==========================================================
+# Raw Layer 19
+# ==========================================================
+
+raw_layer19 = [
+
+{
+"id": 1,
+"degree_start": 331.875,
+"degree_end": 337.500,
+
+"raw_text": ["丁亥"],
+
+"raw_numbers": [],
+
+"raw_symbols": [],
+
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 2,
+"degree_start": None,
+"degree_end": None,
+
+"raw_text": ["己亥"],
+
+"raw_numbers": [],
+
+"raw_symbols": [],
+
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 3,
+"degree_start": None,
+"degree_end": None,
+
+"raw_text": ["辛亥"],
+
+"raw_numbers": [],
+
+"raw_symbols": [],
+
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 4,
+"degree_start": None,
+"degree_end": None,
+
+"raw_text": ["癸亥"],
+
+"raw_numbers": [],
+
+"raw_symbols": [],
+
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 5,
+"degree_start": None,
+"degree_end": None,
+
+"raw_text": ["甲子"],
+
+"raw_numbers": [],
+
+"raw_symbols": [],
+
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 6,
+"degree_start": None,
+"degree_end": None,
+
+"raw_text": ["甲子"],
+
+"raw_numbers": [],
+
+"raw_symbols": [],
+
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 7,
+"degree_start": None,
+"degree_end": None,
+
+"raw_text": ["丙子"],
+
+"raw_numbers": [],
+
+"raw_symbols": [],
+
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 8,
+"degree_start": None,
+"degree_end": None,
+
+"raw_text": ["戊子"],
+
+"raw_numbers": [],
+
+"raw_symbols": [],
+
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 9,
+"degree_start": None,
+"degree_end": None,
+
+"raw_text": ["庚子"],
+
+"raw_numbers": [],
+
+"raw_symbols": [],
+
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 10,
+"degree_start": None,
+"degree_end": None,
+
+"raw_text": ["壬子"],
+
+"raw_numbers": [],
+
+"raw_symbols": [],
+
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 11,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["乙丑"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 12,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["丁丑"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 13,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["巳丑"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 14,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["辛丑"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 15,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["癸丑"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 16,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["甲寅"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 17,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["丙寅"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 18,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["戊寅"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 19,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["庚寅"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 20,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["庚寅"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 21,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["壬寅"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 22,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["乙卯"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 23,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["丁卯"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 24,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["巳卯"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 25,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["辛卯"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 26,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["癸卯"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 27,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["甲辰"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 28,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["丙辰"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 29,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["戊辰"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 30,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["庚辰"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 31,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["壬辰"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 32,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["乙巳"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 33,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["丁巳"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 34,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["己巳"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 35,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["辛巳"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 36,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["癸巳"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 37,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["甲午"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 38,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["甲午"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 39,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["丙午"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 40,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["戊午"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 41,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["庚午"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 42,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["壬午"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 43,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["乙未"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 44,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["丁未"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 45,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["己未"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 46,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["辛未"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 47,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["癸未"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 48,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["甲申"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 49,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["丙申"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 50,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["戊申"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 51,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["庚申"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 52,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["庚申"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 53,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["壬申"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 54,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["乙酉"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 55,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["丁酉"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 56,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["己酉"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 57,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["辛酉"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 58,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["癸酉"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 59,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["甲戌"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 60,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["丙戌"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 61,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["戊戌"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 62,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["庚戌"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 63,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["壬戌"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 64,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["乙亥"],
+"raw_numbers": [],
+"raw_symbols": [],
+"visual": {"color": [], "line": [], "mark": [], "notes": "ここで一周"}
+}
+]
+
+
+# ==========================================================
+# Layer 19 Information
+# ==========================================================
+
+raw_layer19_info = {
+"layer_id": 19,
+"degree_start": 331.875,
+"degree_end": 337.500,
+
+"direction": "right",
+
+"angle_source": "Layer15〜23共通角度としてユーザー指定",
+
+"row_count": 64,
+
+"source_note": (
+"19層のデータのみを記録。"
+"Layer23のデータは別Layerとして扱う。"
+"最後の乙亥で一周する。"
+),
+
+"verified": True
+}
+
+
+# ==========================================================
+# Validation
+# ==========================================================
+
+assert len(raw_layer19) == 64
+assert [x["id"] for x in raw_layer19] == list(range(1, 65))
+
+assert raw_layer19[0]["degree_start"] == 331.875
+assert raw_layer19[0]["degree_end"] == 337.500
+
+assert raw_layer19[-1]["raw_text"] == ["乙亥"]
+assert raw_layer19[-1]["visual"]["notes"] == "ここで一周"
+

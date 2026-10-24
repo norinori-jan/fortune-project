@@ -1,0 +1,262 @@
+
+LAYER_ID_24 = 24
+
+# ==========================================================
+# Raw Layer 24
+# ==========================================================
+#
+# 24層
+# ---------------
+# ・24区間
+# ・各区間15°
+# ・360°で一周
+# ・十二節季の順番
+# ・原盤の角度方向に従って記録
+#
+# 330~315 啓蟄
+# 315~300 春分
+# 300~285 清明
+# 285~270 穀雨
+# ...
+#
+# ==========================================================
+
+raw_layer24 = [
+
+{
+"id": 1,
+"angle_start": 330.0,
+"angle_end": 315.0,
+"raw_text": ["啓蟄"],
+"raw_angle_text": "330~315"
+},
+
+{
+"id": 2,
+"angle_start": 315.0,
+"angle_end": 300.0,
+"raw_text": ["春分"],
+"raw_angle_text": "315~300"
+},
+
+{
+"id": 3,
+"angle_start": 300.0,
+"angle_end": 285.0,
+"raw_text": ["清明"],
+"raw_angle_text": "300~285"
+},
+
+{
+"id": 4,
+"angle_start": 285.0,
+"angle_end": 270.0,
+"raw_text": ["穀雨"],
+"raw_angle_text": "285~270"
+},
+
+{
+"id": 5,
+"angle_start": 270.0,
+"angle_end": 255.0,
+"raw_text": ["立夏"],
+"raw_angle_text": "270~255"
+},
+
+{
+"id": 6,
+"angle_start": 255.0,
+"angle_end": 240.0,
+"raw_text": ["小満"],
+"raw_angle_text": "255~240"
+},
+
+{
+"id": 7,
+"angle_start": 240.0,
+"angle_end": 225.0,
+"raw_text": ["芒種"],
+"raw_angle_text": "240~225"
+},
+
+{
+"id": 8,
+"angle_start": 225.0,
+"angle_end": 210.0,
+"raw_text": ["夏至"],
+"raw_angle_text": "225~210"
+},
+
+{
+"id": 9,
+"angle_start": 210.0,
+"angle_end": 195.0,
+"raw_text": ["小暑"],
+"raw_angle_text": "210~195"
+},
+
+{
+"id": 10,
+"angle_start": 195.0,
+"angle_end": 180.0,
+"raw_text": ["大暑"],
+"raw_angle_text": "195~180"
+},
+
+{
+"id": 11,
+"angle_start": 180.0,
+"angle_end": 165.0,
+"raw_text": ["立秋"],
+"raw_angle_text": "180~165"
+},
+
+{
+"id": 12,
+"angle_start": 165.0,
+"angle_end": 150.0,
+"raw_text": ["処暑"],
+"raw_angle_text": "165~150"
+},
+
+{
+"id": 13,
+"angle_start": 150.0,
+"angle_end": 135.0,
+"raw_text": ["白露"],
+"raw_angle_text": "150~135"
+},
+
+{
+"id": 14,
+"angle_start": 135.0,
+"angle_end": 120.0,
+"raw_text": ["秋分"],
+"raw_angle_text": "135~120"
+},
+
+{
+"id": 15,
+"angle_start": 120.0,
+"angle_end": 105.0,
+"raw_text": ["寒露"],
+"raw_angle_text": "120~105"
+},
+
+{
+"id": 16,
+"angle_start": 105.0,
+"angle_end": 90.0,
+"raw_text": ["霜降"],
+"raw_angle_text": "105~90"
+},
+
+{
+"id": 17,
+"angle_start": 90.0,
+"angle_end": 75.0,
+"raw_text": ["立冬"],
+"raw_angle_text": "90~75"
+},
+
+{
+"id": 18,
+"angle_start": 75.0,
+"angle_end": 60.0,
+"raw_text": ["小雪"],
+"raw_angle_text": "75~60"
+},
+
+{
+"id": 19,
+"angle_start": 60.0,
+"angle_end": 45.0,
+"raw_text": ["大雪"],
+"raw_angle_text": "60~45"
+},
+
+{
+"id": 20,
+"angle_start": 45.0,
+"angle_end": 30.0,
+"raw_text": ["冬至"],
+"raw_angle_text": "45~30"
+},
+
+{
+"id": 21,
+"angle_start": 30.0,
+"angle_end": 15.0,
+"raw_text": ["小寒"],
+"raw_angle_text": "30~15"
+},
+
+{
+"id": 22,
+"angle_start": 15.0,
+"angle_end": 0.0,
+"raw_text": ["大寒"],
+"raw_angle_text": "15~0"
+},
+
+{
+"id": 23,
+"angle_start": 0.0,
+"angle_end": 345.0,
+"raw_text": ["立春"],
+"raw_angle_text": "0~345"
+},
+
+{
+"id": 24,
+"angle_start": 345.0,
+"angle_end": 330.0,
+"raw_text": ["雨水"],
+"raw_angle_text": "345~330"
+}
+]
+
+
+# ==========================================================
+# Layer 24 Angle Rule
+# ==========================================================
+
+layer24_angle_rule = {
+
+"division_type": "equal",
+
+"angle_width": 15.0,
+
+"unit": "degree",
+
+"total_cycle": 360.0,
+
+"number_of_segments": 24,
+
+"sequence": "十二節季の順番",
+
+"same_angle_for_each_segment": True,
+
+"source_confirmed": True
+}
+
+
+# ==========================================================
+# Layer 24 Validation
+# ==========================================================
+
+layer24_validation = {
+
+"segment_count": 24,
+
+"segment_width": 15.0,
+
+"total_angle": 360.0,
+
+"angle_structure_complete": True,
+
+"text_sequence_complete": True,
+
+"cyclic": True
+}
+

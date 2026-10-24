@@ -1,0 +1,1148 @@
+=========================================================
+Feng Shui AI
+Lopan Raw Database
+
+Raw Layer 13
+==========================================================
+
+Description
+-----------
+実物羅盤・ユーザー実測データから確認した
+Layer13 の事実のみを記録する。
+
+Structure
+---------
+Layer12 の各15°区間を5分割する。
+
+Layer12
+--------
+24区分
+1区分 = 15°
+
+Layer13
+--------
+24 × 5 = 120区分
+1区分 = 3°
+
+Rule
+----
+・層名称は付けない
+・盤名称は付けない
+・意味付けしない
+・一般知識で補完しない
+・Layer12の角度区間を親区間として保持する
+・Layer13はLayer12と同じ角度範囲を5分割する
+・「空」は実データとして記録する
+・文字列を勝手に訂正・解釈しない
+・右回り
+
+Version
+-------
+RawLopan-01
+
+==========================================================
+"""
+
+# ==========================================================
+# Layer Information
+# ==========================================================
+
+LAYER_ID = 13
+PARENT_LAYER_ID = 12
+
+VERSION = "RawLopan-01"
+SOURCE = "ユーザー入力"
+DIRECTION = "右回り"
+
+PARENT_INTERVAL = 15.0
+SUBDIVISION_COUNT = 5
+SUB_INTERVAL = 3.0
+
+ITEM_COUNT = 24 * 5
+
+
+# ==========================================================
+# Raw Layer 13
+# ==========================================================
+
+raw_layer13 = [
+
+# ------------------------------------------------------
+# Layer12 id=1 : 330°〜345°
+# ------------------------------------------------------
+
+{
+"id": 1,
+"parent_layer12_id": 1,
+"degree_start": 330.0,
+"degree_end": 333.0,
+"raw_text": "空",
+},
+{
+"id": 2,
+"parent_layer12_id": 1,
+"degree_start": 333.0,
+"degree_end": 336.0,
+"raw_text": "丁亥",
+},
+{
+"id": 3,
+"parent_layer12_id": 1,
+"degree_start": 336.0,
+"degree_end": 339.0,
+"raw_text": "空",
+},
+{
+"id": 4,
+"parent_layer12_id": 1,
+"degree_start": 339.0,
+"degree_end": 342.0,
+"raw_text": "辛亥",
+},
+{
+"id": 5,
+"parent_layer12_id": 1,
+"degree_start": 342.0,
+"degree_end": 345.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=2 : 345°〜0°
+# ------------------------------------------------------
+
+{
+"id": 6,
+"parent_layer12_id": 2,
+"degree_start": 345.0,
+"degree_end": 348.0,
+"raw_text": "空",
+},
+{
+"id": 7,
+"parent_layer12_id": 2,
+"degree_start": 348.0,
+"degree_end": 351.0,
+"raw_text": "丁亥",
+},
+{
+"id": 8,
+"parent_layer12_id": 2,
+"degree_start": 351.0,
+"degree_end": 354.0,
+"raw_text": "空",
+},
+{
+"id": 9,
+"parent_layer12_id": 2,
+"degree_start": 354.0,
+"degree_end": 357.0,
+"raw_text": "辛亥",
+},
+{
+"id": 10,
+"parent_layer12_id": 2,
+"degree_start": 357.0,
+"degree_end": 0.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=3 : 0°〜15°
+# ------------------------------------------------------
+
+{
+"id": 11,
+"parent_layer12_id": 3,
+"degree_start": 0.0,
+"degree_end": 3.0,
+"raw_text": "空",
+},
+{
+"id": 12,
+"parent_layer12_id": 3,
+"degree_start": 3.0,
+"degree_end": 6.0,
+"raw_text": "丙子",
+},
+{
+"id": 13,
+"parent_layer12_id": 3,
+"degree_start": 6.0,
+"degree_end": 9.0,
+"raw_text": "空",
+},
+{
+"id": 14,
+"parent_layer12_id": 3,
+"degree_start": 9.0,
+"degree_end": 12.0,
+"raw_text": "庚子",
+},
+{
+"id": 15,
+"parent_layer12_id": 3,
+"degree_start": 12.0,
+"degree_end": 15.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=4 : 15°〜30°
+# ------------------------------------------------------
+
+{
+"id": 16,
+"parent_layer12_id": 4,
+"degree_start": 15.0,
+"degree_end": 18.0,
+"raw_text": "空",
+},
+{
+"id": 17,
+"parent_layer12_id": 4,
+"degree_start": 18.0,
+"degree_end": 21.0,
+"raw_text": "丙子",
+},
+{
+"id": 18,
+"parent_layer12_id": 4,
+"degree_start": 21.0,
+"degree_end": 24.0,
+"raw_text": "空",
+},
+{
+"id": 19,
+"parent_layer12_id": 4,
+"degree_start": 24.0,
+"degree_end": 27.0,
+"raw_text": "庚子",
+},
+{
+"id": 20,
+"parent_layer12_id": 4,
+"degree_start": 27.0,
+"degree_end": 30.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=5 : 30°〜45°
+# ------------------------------------------------------
+
+{
+"id": 21,
+"parent_layer12_id": 5,
+"degree_start": 30.0,
+"degree_end": 33.0,
+"raw_text": "空",
+},
+{
+"id": 22,
+"parent_layer12_id": 5,
+"degree_start": 33.0,
+"degree_end": 36.0,
+"raw_text": "丁丑",
+},
+{
+"id": 23,
+"parent_layer12_id": 5,
+"degree_start": 36.0,
+"degree_end": 39.0,
+"raw_text": "空",
+},
+{
+"id": 24,
+"parent_layer12_id": 5,
+"degree_start": 39.0,
+"degree_end": 42.0,
+"raw_text": "辛丑",
+},
+{
+"id": 25,
+"parent_layer12_id": 5,
+"degree_start": 42.0,
+"degree_end": 45.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=6 : 45°〜60°
+# ------------------------------------------------------
+
+{
+"id": 26,
+"parent_layer12_id": 6,
+"degree_start": 45.0,
+"degree_end": 48.0,
+"raw_text": "空",
+},
+{
+"id": 27,
+"parent_layer12_id": 6,
+"degree_start": 48.0,
+"degree_end": 51.0,
+"raw_text": "丁丑",
+},
+{
+"id": 28,
+"parent_layer12_id": 6,
+"degree_start": 51.0,
+"degree_end": 54.0,
+"raw_text": "空",
+},
+{
+"id": 29,
+"parent_layer12_id": 6,
+"degree_start": 54.0,
+"degree_end": 57.0,
+"raw_text": "辛丑",
+},
+{
+"id": 30,
+"parent_layer12_id": 6,
+"degree_start": 57.0,
+"degree_end": 60.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=7 : 60°〜75°
+# ------------------------------------------------------
+
+{
+"id": 31,
+"parent_layer12_id": 7,
+"degree_start": 60.0,
+"degree_end": 63.0,
+"raw_text": "空",
+},
+{
+"id": 32,
+"parent_layer12_id": 7,
+"degree_start": 63.0,
+"degree_end": 66.0,
+"raw_text": "丙寅",
+},
+{
+"id": 33,
+"parent_layer12_id": 7,
+"degree_start": 66.0,
+"degree_end": 69.0,
+"raw_text": "空",
+},
+{
+"id": 34,
+"parent_layer12_id": 7,
+"degree_start": 69.0,
+"degree_end": 72.0,
+"raw_text": "庚寅",
+},
+{
+"id": 35,
+"parent_layer12_id": 7,
+"degree_start": 72.0,
+"degree_end": 75.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=8 : 75°〜90°
+# ------------------------------------------------------
+
+{
+"id": 36,
+"parent_layer12_id": 8,
+"degree_start": 75.0,
+"degree_end": 78.0,
+"raw_text": "空",
+},
+{
+"id": 37,
+"parent_layer12_id": 8,
+"degree_start": 78.0,
+"degree_end": 81.0,
+"raw_text": "丙寅",
+},
+{
+"id": 38,
+"parent_layer12_id": 8,
+"degree_start": 81.0,
+"degree_end": 84.0,
+"raw_text": "空",
+},
+{
+"id": 39,
+"parent_layer12_id": 8,
+"degree_start": 84.0,
+"degree_end": 87.0,
+"raw_text": "庚寅",
+},
+{
+"id": 40,
+"parent_layer12_id": 8,
+"degree_start": 87.0,
+"degree_end": 90.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=9 : 90°〜105°
+# ------------------------------------------------------
+
+{
+"id": 41,
+"parent_layer12_id": 9,
+"degree_start": 90.0,
+"degree_end": 93.0,
+"raw_text": "空",
+},
+{
+"id": 42,
+"parent_layer12_id": 9,
+"degree_start": 93.0,
+"degree_end": 96.0,
+"raw_text": "丁卯",
+},
+{
+"id": 43,
+"parent_layer12_id": 9,
+"degree_start": 96.0,
+"degree_end": 99.0,
+"raw_text": "空",
+},
+{
+"id": 44,
+"parent_layer12_id": 9,
+"degree_start": 99.0,
+"degree_end": 102.0,
+"raw_text": "辛卯",
+},
+{
+"id": 45,
+"parent_layer12_id": 9,
+"degree_start": 102.0,
+"degree_end": 105.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=10 : 105°〜120°
+# ------------------------------------------------------
+
+{
+"id": 46,
+"parent_layer12_id": 10,
+"degree_start": 105.0,
+"degree_end": 108.0,
+"raw_text": "空",
+},
+{
+"id": 47,
+"parent_layer12_id": 10,
+"degree_start": 108.0,
+"degree_end": 111.0,
+"raw_text": "丁卯",
+},
+{
+"id": 48,
+"parent_layer12_id": 10,
+"degree_start": 111.0,
+"degree_end": 114.0,
+"raw_text": "空",
+},
+{
+"id": 49,
+"parent_layer12_id": 10,
+"degree_start": 114.0,
+"degree_end": 117.0,
+"raw_text": "辛卯",
+},
+{
+"id": 50,
+"parent_layer12_id": 10,
+"degree_start": 117.0,
+"degree_end": 120.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=11 : 120°〜135°
+# ------------------------------------------------------
+
+{
+"id": 51,
+"parent_layer12_id": 11,
+"degree_start": 120.0,
+"degree_end": 123.0,
+"raw_text": "空",
+},
+{
+"id": 52,
+"parent_layer12_id": 11,
+"degree_start": 123.0,
+"degree_end": 126.0,
+"raw_text": "丙辰",
+},
+{
+"id": 53,
+"parent_layer12_id": 11,
+"degree_start": 126.0,
+"degree_end": 129.0,
+"raw_text": "空",
+},
+{
+"id": 54,
+"parent_layer12_id": 11,
+"degree_start": 129.0,
+"degree_end": 132.0,
+"raw_text": "庚辰",
+},
+{
+"id": 55,
+"parent_layer12_id": 11,
+"degree_start": 132.0,
+"degree_end": 135.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=12 : 135°〜150°
+# ------------------------------------------------------
+
+{
+"id": 56,
+"parent_layer12_id": 12,
+"degree_start": 135.0,
+"degree_end": 138.0,
+"raw_text": "空",
+},
+{
+"id": 57,
+"parent_layer12_id": 12,
+"degree_start": 138.0,
+"degree_end": 141.0,
+"raw_text": "丙辰",
+},
+{
+"id": 58,
+"parent_layer12_id": 12,
+"degree_start": 141.0,
+"degree_end": 144.0,
+"raw_text": "空",
+},
+{
+"id": 59,
+"parent_layer12_id": 12,
+"degree_start": 144.0,
+"degree_end": 147.0,
+"raw_text": "庚辰",
+},
+{
+"id": 60,
+"parent_layer12_id": 12,
+"degree_start": 147.0,
+"degree_end": 150.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=13 : 150°〜165°
+# ------------------------------------------------------
+
+{
+"id": 61,
+"parent_layer12_id": 13,
+"degree_start": 150.0,
+"degree_end": 153.0,
+"raw_text": "空",
+},
+{
+"id": 62,
+"parent_layer12_id": 13,
+"degree_start": 153.0,
+"degree_end": 156.0,
+"raw_text": "丁巳",
+},
+{
+"id": 63,
+"parent_layer12_id": 13,
+"degree_start": 156.0,
+"degree_end": 159.0,
+"raw_text": "空",
+},
+{
+"id": 64,
+"parent_layer12_id": 13,
+"degree_start": 159.0,
+"degree_end": 162.0,
+"raw_text": "辛巳",
+},
+{
+"id": 65,
+"parent_layer12_id": 13,
+"degree_start": 162.0,
+"degree_end": 165.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=14 : 165°〜180°
+# ------------------------------------------------------
+
+{
+"id": 66,
+"parent_layer12_id": 14,
+"degree_start": 165.0,
+"degree_end": 168.0,
+"raw_text": "空",
+},
+{
+"id": 67,
+"parent_layer12_id": 14,
+"degree_start": 168.0,
+"degree_end": 171.0,
+"raw_text": "丁巳",
+},
+{
+"id": 68,
+"parent_layer12_id": 14,
+"degree_start": 171.0,
+"degree_end": 174.0,
+"raw_text": "空",
+},
+{
+"id": 69,
+"parent_layer12_id": 14,
+"degree_start": 174.0,
+"degree_end": 177.0,
+"raw_text": "辛巳",
+},
+{
+"id": 70,
+"parent_layer12_id": 14,
+"degree_start": 177.0,
+"degree_end": 180.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=15 : 180°〜195°
+# ------------------------------------------------------
+
+{
+"id": 71,
+"parent_layer12_id": 15,
+"degree_start": 180.0,
+"degree_end": 183.0,
+"raw_text": "空",
+},
+{
+"id": 72,
+"parent_layer12_id": 15,
+"degree_start": 183.0,
+"degree_end": 186.0,
+"raw_text": "丙午",
+},
+{
+"id": 73,
+"parent_layer12_id": 15,
+"degree_start": 186.0,
+"degree_end": 189.0,
+"raw_text": "空",
+},
+{
+"id": 74,
+"parent_layer12_id": 15,
+"degree_start": 189.0,
+"degree_end": 192.0,
+"raw_text": "庚午",
+},
+{
+"id": 75,
+"parent_layer12_id": 15,
+"degree_start": 192.0,
+"degree_end": 195.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=16 : 195°〜210°
+# ------------------------------------------------------
+
+{
+"id": 76,
+"parent_layer12_id": 16,
+"degree_start": 195.0,
+"degree_end": 198.0,
+"raw_text": "空",
+},
+{
+"id": 77,
+"parent_layer12_id": 16,
+"degree_start": 198.0,
+"degree_end": 201.0,
+"raw_text": "丙午",
+},
+{
+"id": 78,
+"parent_layer12_id": 16,
+"degree_start": 201.0,
+"degree_end": 204.0,
+"raw_text": "空",
+},
+{
+"id": 79,
+"parent_layer12_id": 16,
+"degree_start": 204.0,
+"degree_end": 207.0,
+"raw_text": "庚午",
+},
+{
+"id": 80,
+"parent_layer12_id": 16,
+"degree_start": 207.0,
+"degree_end": 210.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=17 : 210°〜225°
+# ------------------------------------------------------
+
+{
+"id": 81,
+"parent_layer12_id": 17,
+"degree_start": 210.0,
+"degree_end": 213.0,
+"raw_text": "空",
+},
+{
+"id": 82,
+"parent_layer12_id": 17,
+"degree_start": 213.0,
+"degree_end": 216.0,
+"raw_text": "丁未",
+},
+{
+"id": 83,
+"parent_layer12_id": 17,
+"degree_start": 216.0,
+"degree_end": 219.0,
+"raw_text": "空",
+},
+{
+"id": 84,
+"parent_layer12_id": 17,
+"degree_start": 219.0,
+"degree_end": 222.0,
+"raw_text": "辛未",
+},
+{
+"id": 85,
+"parent_layer12_id": 17,
+"degree_start": 222.0,
+"degree_end": 225.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=18 : 225°〜240°
+# ------------------------------------------------------
+
+{
+"id": 86,
+"parent_layer12_id": 18,
+"degree_start": 225.0,
+"degree_end": 228.0,
+"raw_text": "空",
+},
+{
+"id": 87,
+"parent_layer12_id": 18,
+"degree_start": 228.0,
+"degree_end": 231.0,
+"raw_text": "丁未",
+},
+{
+"id": 88,
+"parent_layer12_id": 18,
+"degree_start": 231.0,
+"degree_end": 234.0,
+"raw_text": "空",
+},
+{
+"id": 89,
+"parent_layer12_id": 18,
+"degree_start": 234.0,
+"degree_end": 237.0,
+"raw_text": "辛未",
+},
+{
+"id": 90,
+"parent_layer12_id": 18,
+"degree_start": 237.0,
+"degree_end": 240.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=19 : 240°〜255°
+# ------------------------------------------------------
+
+{
+"id": 91,
+"parent_layer12_id": 19,
+"degree_start": 240.0,
+"degree_end": 243.0,
+"raw_text": "空",
+},
+{
+"id": 92,
+"parent_layer12_id": 19,
+"degree_start": 243.0,
+"degree_end": 246.0,
+"raw_text": "丙申",
+},
+{
+"id": 93,
+"parent_layer12_id": 19,
+"degree_start": 246.0,
+"degree_end": 249.0,
+"raw_text": "空",
+},
+{
+"id": 94,
+"parent_layer12_id": 19,
+"degree_start": 249.0,
+"degree_end": 252.0,
+"raw_text": "庚申",
+},
+{
+"id": 95,
+"parent_layer12_id": 19,
+"degree_start": 252.0,
+"degree_end": 255.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=20 : 255°〜270°
+# ------------------------------------------------------
+
+{
+"id": 96,
+"parent_layer12_id": 20,
+"degree_start": 255.0,
+"degree_end": 258.0,
+"raw_text": "空",
+},
+{
+"id": 97,
+"parent_layer12_id": 20,
+"degree_start": 258.0,
+"degree_end": 261.0,
+"raw_text": "丙申",
+},
+{
+"id": 98,
+"parent_layer12_id": 20,
+"degree_start": 261.0,
+"degree_end": 264.0,
+"raw_text": "空",
+},
+{
+"id": 99,
+"parent_layer12_id": 20,
+"degree_start": 264.0,
+"degree_end": 267.0,
+"raw_text": "庚申",
+},
+{
+"id": 100,
+"parent_layer12_id": 20,
+"degree_start": 267.0,
+"degree_end": 270.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=21 : 270°〜285°
+# ------------------------------------------------------
+
+{
+"id": 101,
+"parent_layer12_id": 21,
+"degree_start": 270.0,
+"degree_end": 273.0,
+"raw_text": "空",
+},
+{
+"id": 102,
+"parent_layer12_id": 21,
+"degree_start": 273.0,
+"degree_end": 276.0,
+"raw_text": "丁酉",
+},
+{
+"id": 103,
+"parent_layer12_id": 21,
+"degree_start": 276.0,
+"degree_end": 279.0,
+"raw_text": "空",
+},
+{
+"id": 104,
+"parent_layer12_id": 21,
+"degree_start": 279.0,
+"degree_end": 282.0,
+"raw_text": "辛酉",
+},
+{
+"id": 105,
+"parent_layer12_id": 21,
+"degree_start": 282.0,
+"degree_end": 285.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=22 : 285°〜300°
+# ------------------------------------------------------
+
+{
+"id": 106,
+"parent_layer12_id": 22,
+"degree_start": 285.0,
+"degree_end": 288.0,
+"raw_text": "空",
+},
+{
+"id": 107,
+"parent_layer12_id": 22,
+"degree_start": 288.0,
+"degree_end": 291.0,
+"raw_text": "丁酉",
+},
+{
+"id": 108,
+"parent_layer12_id": 22,
+"degree_start": 291.0,
+"degree_end": 294.0,
+"raw_text": "空",
+},
+{
+"id": 109,
+"parent_layer12_id": 22,
+"degree_start": 294.0,
+"degree_end": 297.0,
+"raw_text": "辛酉",
+},
+{
+"id": 110,
+"parent_layer12_id": 22,
+"degree_start": 297.0,
+"degree_end": 300.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=23 : 300°〜315°
+# ------------------------------------------------------
+
+{
+"id": 111,
+"parent_layer12_id": 23,
+"degree_start": 300.0,
+"degree_end": 303.0,
+"raw_text": "空",
+},
+{
+"id": 112,
+"parent_layer12_id": 23,
+"degree_start": 303.0,
+"degree_end": 306.0,
+"raw_text": "丙戌",
+},
+{
+"id": 113,
+"parent_layer12_id": 23,
+"degree_start": 306.0,
+"degree_end": 309.0,
+"raw_text": "空",
+},
+{
+"id": 114,
+"parent_layer12_id": 23,
+"degree_start": 309.0,
+"degree_end": 312.0,
+"raw_text": "庚戌",
+},
+{
+"id": 115,
+"parent_layer12_id": 23,
+"degree_start": 312.0,
+"degree_end": 315.0,
+"raw_text": "空",
+},
+
+
+# ------------------------------------------------------
+# Layer12 id=24 : 315°〜330°
+# ------------------------------------------------------
+
+{
+"id": 116,
+"parent_layer12_id": 24,
+"degree_start": 315.0,
+"degree_end": 318.0,
+"raw_text": "空",
+},
+{
+"id": 117,
+"parent_layer12_id": 24,
+"degree_start": 318.0,
+"degree_end": 321.0,
+"raw_text": "丙戌",
+},
+{
+"id": 118,
+"parent_layer12_id": 24,
+"degree_start": 321.0,
+"degree_end": 324.0,
+"raw_text": "空",
+},
+{
+"id": 119,
+"parent_layer12_id": 24,
+"degree_start": 324.0,
+"degree_end": 327.0,
+"raw_text": "庚戌",
+},
+{
+"id": 120,
+"parent_layer12_id": 24,
+"degree_start": 327.0,
+"degree_end": 330.0,
+"raw_text": "空",
+},
+]
+
+
+# ==========================================================
+# Layer12 ↔ Layer13 Relationship
+# ==========================================================
+
+LAYER_RELATIONSHIP = {
+"parent_layer": 12,
+"child_layer": 13,
+
+"parent_interval_degree": 15.0,
+"subdivision_count": 5,
+"child_interval_degree": 3.0,
+
+"parent_item_count": 24,
+"child_item_count": 120,
+
+"same_angle_range": True,
+"direction": "右回り",
+}
+
+
+# ==========================================================
+# Validation
+# ==========================================================
+
+def validate_layer13(data):
+"""
+Layer13の基本構造を検証する。
+"""
+
+errors = []
+
+if len(data) != ITEM_COUNT:
+errors.append(
+f"区分数が {ITEM_COUNT} ではありません: {len(data)}"
+)
+
+for item in data:
+
+start = item["degree_start"]
+end = item["degree_end"]
+
+if not (0 <= start < 360):
+errors.append(
+f"id={item['id']} start角度異常: {start}"
+)
+
+if not (0 <= end < 360):
+errors.append(
+f"id={item['id']} end角度異常: {end}"
+)
+
+if item["raw_text"] == "":
+errors.append(
+f"id={item['id']} raw_textが空です"
+)
+
+# 全体の3°連続性
+for previous, current in zip(data, data[1:]):
+
+if previous["degree_end"] != current["degree_start"]:
+errors.append(
+f"id={previous['id']} → "
+f"id={current['id']} "
+"角度が連続していません"
+)
+
+# 330°へ戻る
+if data and data[-1]["degree_end"] != 330.0:
+errors.append(
+"最終区分が330°へ戻っていません"
+)
+
+# 各Layer12区分が5分割されているか
+for parent_id in range(1, 25):
+
+children = [
+item
+for item in data
+if item["parent_layer12_id"] == parent_id
+]
+
+if len(children) != 5:
+errors.append(
+f"Layer12 id={parent_id} の"
+f"子区分数が5ではありません: {len(children)}"
+)
+
+return errors
+
+
+# ==========================================================
+# End
+# ==========================================================
+
