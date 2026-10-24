@@ -1,7 +1,7 @@
 {
  "app": "dict-pack",
  "version": 1,
- "builtAt": 1792884149825,
+ "builtAt": 1792884614789,
  "entries": [
   {
    "id": "cul:羅盤-層10",
@@ -45,7 +45,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層11",
@@ -89,7 +89,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層12",
@@ -133,7 +133,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層13",
@@ -177,7 +177,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層14",
@@ -221,7 +221,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層15",
@@ -261,7 +261,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層16",
@@ -301,7 +301,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層17",
@@ -341,7 +341,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層18",
@@ -381,7 +381,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層19",
@@ -425,7 +425,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層20",
@@ -469,7 +469,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層21",
@@ -513,7 +513,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層22",
@@ -549,7 +549,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層23",
@@ -593,7 +593,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層24",
@@ -637,7 +637,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層25",
@@ -681,7 +681,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-層26",
@@ -717,7 +717,47 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層27",
+   "term": "羅盤 層27（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層27。Raw に 368 区分が記録されている、角度は 329.5° から 337.5° まで。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "368"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "329.5°、最後の区分の終わりは 337.5°"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-構成",
@@ -772,7 +812,8 @@
     "cul:羅盤-層23",
     "cul:羅盤-層24",
     "cul:羅盤-層25",
-    "cul:羅盤-層26"
+    "cul:羅盤-層26",
+    "cul:羅盤-層27"
    ],
    "tags": [
     "羅盤",
@@ -787,7 +828,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   },
   {
    "id": "cul:羅盤-引き方",
@@ -803,7 +844,15 @@
     ],
     [
      "status NO_MATCH",
-     "一致なし（未対応の層を含む）"
+     "角度は入っているが、その角度に区分がない（隙間）"
+    ],
+    [
+     "status PARTIAL_DATA",
+     "Raw に角度が一部の区分にしか入っていない"
+    ],
+    [
+     "status NO_ANGLE_DATA",
+     "Raw に角度が1つも入っていない"
     ],
     [
      "status OVERLAP",
@@ -811,12 +860,12 @@
     ],
     [
      "status NOT_REGISTERED",
-     "その層はまだ読めていない"
+     "その層がない"
     ]
    ],
    "example": "from lopan_service import measure\nmeasure(330.0)   # 層10は 辛亥（326°〜332°）",
    "mistakes": [
-    "NO_MATCH は『その角度に記載がない』とは限らない。層15〜23は照合が未対応の可能性がある。"
+    "PARTIAL_DATA／NO_ANGLE_DATA は、エンジンの不具合ではなく、Raw にまだ角度が入っていないこと（層14・15〜22）。"
    ],
    "related": [
     "cul:羅盤-構成"
@@ -834,7 +883,7 @@
    ],
    "confidence": "high",
    "verified": false,
-   "updatedAt": 1792884149825
+   "updatedAt": 1792884614789
   }
  ]
 }

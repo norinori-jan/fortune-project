@@ -66,8 +66,8 @@ def main():
     es.append(entry("cul:羅盤-引き方", "羅盤 角度から各層の記載を引く（measure）", "api",
                     "角度（度）を渡すと、層10〜27の対応する記載を返す。読み取り専用で、意味付けはしない。",
                     form="measure(角度)", example="from lopan_service import measure\nmeasure(330.0)   # 層10は 辛亥（326°〜332°）",
-                    parts=[["status OK", "1件だけ一致"], ["status NO_MATCH", "一致なし（未対応の層を含む）"], ["status OVERLAP", "区間が重なって複数件"], ["status NOT_REGISTERED", "その層はまだ読めていない"]],
-                    mistakes=["NO_MATCH は『その角度に記載がない』とは限らない。層15〜23は照合が未対応の可能性がある。"], related=["cul:羅盤-構成"]))
+                    parts=[["status OK", "1件だけ一致"], ["status NO_MATCH", "角度は入っているが、その角度に区分がない（隙間）"], ["status PARTIAL_DATA", "Raw に角度が一部の区分にしか入っていない"], ["status NO_ANGLE_DATA", "Raw に角度が1つも入っていない"], ["status OVERLAP", "区間が重なって複数件"], ["status NOT_REGISTERED", "その層がない"]],
+                    mistakes=["PARTIAL_DATA／NO_ANGLE_DATA は、エンジンの不具合ではなく、Raw にまだ角度が入っていないこと（層14・15〜22）。"], related=["cul:羅盤-構成"]))
     pack = {"app": "dict-pack", "version": 1, "builtAt": NOW, "entries": es}
     OUT.write_text(json.dumps(pack, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"{len(es)} 件 → {OUT}")

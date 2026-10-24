@@ -36,3 +36,22 @@ def test_service_loads_raw_and_measures():
     assert r['layers'][10]['status'] == 'OK'
     assert r['layers'][10]['matches'][0]['record']['raw_text'] == '辛亥'   # 326°〜332°
     assert r['layers'][11]['matches'][0]['record']['raw_text'] == '正亥'
+
+
+def test_status_reflects_data_not_bugs():
+    s = load('lopan_service.py')
+    r = s.measure(330.0)['layers']
+    assert r[15]['status'] == 'NO_ANGLE_DATA'      # 角度が1つも無い層
+    assert r[19]['status'] == 'PARTIAL_DATA'       # 最初の区分にしか角度が無い層
+    assert r[25]['status'] == 'OK'                 # 逆向き入力の区分を外したので、重ならない
+    assert r[27]['status'] == 'OK' and r[27]['matches'][0]['record']['raw_symbol'] == 'T'
+    assert any(x['layer'] == 25 and x['id'] == 48 for x in s.REVIEW)
+
+
+def test_raw_is_not_modified():
+    import hashlib
+    raw = ENGINE.parent / 'data' / 'raw'
+    before = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in raw.glob('layer*')}
+    s = load('lopan_service.py'); s.measure(10.0)
+    after = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in raw.glob('layer*')}
+    assert before == after and len(before) >= 17

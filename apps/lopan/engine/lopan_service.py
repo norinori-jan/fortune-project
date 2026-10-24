@@ -92,7 +92,33 @@ def load_database(raw_dir=RAW_DIR):
                 continue
             if layer == n:
                 own.add(layer)
+        if n == 27:
+            recs = _layer27_records(text)
+            if recs:
+                db[27] = recs
     return db
+
+
+_SYM = re.compile(r"^raw_layer27_symbols\s*=\s*\[", re.M)
+
+
+def _layer27_records(text):
+    """層27：Raw は「記号の並び」だけを持ち、角度は規則（329.5°起点・1°刻み・右回り）で付ける。
+    元ファイルは関数の字下げが失われていて、そのままでは動かないので、同じ規則をここで再現する。
+    記号は原文のまま。角度は計算用の値で、Raw の記号は変えない。"""
+    m = _SYM.search(text)
+    if not m:
+        return None
+    j = text.index("[", m.start())
+    e = _match_bracket(text, j)
+    symbols = eval(text[j : e + 1], {}, _constants(text[: m.start()]))
+    cs = _constants(text[: m.start()])
+    start, step = float(cs.get("ANGLE_START", 329.5)), float(cs.get("ANGLE_STEP", 1.0))
+    out = []
+    for i, sym in enumerate(symbols, start=1):
+        a = start + (i - 1) * step
+        out.append({"id": i, "angle_start": a % 360.0, "angle_end": (a + step) % 360.0, "angle_width": step, "raw_symbol": sym, "source_order": i})
+    return out
 
 
 _DB = None
@@ -105,6 +131,9 @@ def database():
     return _DB
 
 
+REVIEW = []   # 照合から外した記録（人の確認が要る）：[{layer, id, reason}]
+
+
 def _with_angle_keys(db):
     """標準の層は degree_start / degree_end で書かれ、照合側は angle_start / angle_end を読む。
     Raw 自体は変えず、コピーに別名を足して渡す。"""
@@ -114,6 +143,19 @@ def _with_angle_keys(db):
             out[n] = [dict(r, angle_start=r.get("degree_start"), angle_end=r.get("degree_end")) for r in recs]
         else:
             out[n] = recs
+    # 角度が「逆向きに入力された」と記録されている区分は、勝手に直さず、照合から外して REVIEW に載せる。
+    # （そのまま使うと、360°をまたぐ巨大な区間と解釈され、ほかの区分と重なって見える）
+    REVIEW.clear()
+    for n, recs in list(out.items()):
+        if isinstance(recs, list):
+            keep = []
+            for r in recs:
+                if isinstance(r, dict) and "reverse_angle_as_entered" in (r.get("validation_flags") or []):
+                    REVIEW.append({"layer": n, "id": r.get("id"), "reason": "角度が逆向きに入力されている（要確認）",
+                                   "angle_start": r.get("angle_start"), "angle_end": r.get("angle_end")})
+                    r = dict(r, angle_start=None, angle_end=None)
+                keep.append(r)
+            out[n] = keep
     return out
 
 
@@ -127,9 +169,33 @@ def adapted_database():
     return _ADAPTED
 
 
+def coverage(n):
+    """層 n の記録のうち、角度が入っている区分の数 / 全体。"""
+    recs = adapted_database().get(n) or []
+    if not isinstance(recs, list):
+        return 0, 0
+    # 等分割で位置から引く層（24・26・27）は、角度の有無に関係なく引ける
+    if n in (24, 26, 27):
+        return len(recs), len(recs)
+    have = sum(1 for r in recs if isinstance(r, dict) and isinstance(r.get("angle_start"), (int, float)) and isinstance(r.get("angle_end"), (int, float)))
+    return have, len(recs)
+
+
 def measure(angle):
-    """角度（度）から、層10〜27の対応記載を返す。"""
-    return _ar.process_ar_measurement(float(angle), adapted_database())
+    """角度（度）から、層10〜27の対応記載を返す。
+    status：OK（1件）／OVERLAP（複数）／NO_MATCH（角度は入っているが、その角度に区分がない）／
+            PARTIAL_DATA（角度が入っている区分が一部だけ。引けないのは Raw にまだ角度がないため）／
+            NO_ANGLE_DATA（この層には角度が1つも入っていない）／NOT_REGISTERED（層がない）。"""
+    r = _ar.process_ar_measurement(float(angle), adapted_database())
+    for n, v in r["layers"].items():
+        have, total = coverage(n)
+        v["coverage"] = {"with_angle": have, "total": total}
+        if v["status"] == "NO_MATCH" and total:
+            if have == 0:
+                v["status"] = "NO_ANGLE_DATA"
+            elif have < total:
+                v["status"] = "PARTIAL_DATA"
+    return r
 
 
 def verify(angle):
