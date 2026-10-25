@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>占いの入り口</title>
+<style>
+:root{--bg:#0a0a0f;--card:#1a1a28;--surf:#12121a;--line:rgba(212,175,106,.18);--gold:#d4af6a;--text:#e8dcc8;--sub:#8a8070;--ok:#4a9e6b;--err:#c0392b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;min-height:100dvh;padding:0 16px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center}
+.wrap{width:100%;max-width:480px}
+header{text-align:center;padding:28px 0 12px}
+h1{font-size:1.5rem;font-weight:500;color:var(--gold);letter-spacing:.08em}
+.sub{font-size:.8rem;color:var(--sub);margin-top:6px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}
+label{display:block;font-size:.8rem;color:var(--sub);margin-bottom:8px}
+textarea,input{width:100%;background:var(--surf);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:1rem;font-family:inherit}
+textarea{resize:vertical;min-height:84px}
+button{font-family:inherit;cursor:pointer}
+.go{width:100%;margin-top:12px;padding:14px;border-radius:12px;border:0;background:var(--gold);color:#1a1405;font-size:1rem;font-weight:600}
+.go:disabled{opacity:.5}
+.tools{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.tool{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 12px;text-align:left;color:var(--text);position:relative;min-height:96px}
+.tool b{display:block;font-size:1rem;color:var(--gold);margin-bottom:4px}
+.tool span{font-size:.75rem;color:var(--sub);line-height:1.5}
+.tool.rec{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.tool .badge{position:absolute;top:8px;right:8px;background:var(--gold);color:#1a1405;border-radius:999px;font-size:.65rem;padding:2px 8px;font-weight:700}
+.tool.on{background:#222236}
+.rec-box{border-color:var(--gold)}
+.rec-box h2,.res h2{font-size:1rem;color:var(--gold);font-weight:500;margin-bottom:6px}
+.muted{font-size:.8rem;color:var(--sub);line-height:1.6}
+.msg{font-size:.85rem;line-height:1.7}
+.err{color:#e07a6e;font-size:.85rem;margin-top:10px;line-height:1.6}
+.row{display:flex;gap:10px}
+.row>*{flex:1}
+.cards{display:grid;gap:8px;margin-top:10px}
+.cd{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.cd .pos{font-size:.7rem;color:var(--sub)}
+.cd .nm{font-size:.95rem;color:var(--text);margin-top:2px}
+.cd .rv{color:#e0a46e;font-size:.7rem;margin-left:6px}
+.cd .mn{font-size:.78rem;color:var(--sub);margin-top:4px;line-height:1.6}
+.pil{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;text-align:center}
+.pil div{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:10px 4px}
+.pil small{display:block;font-size:.65rem;color:var(--sub)}
+.pil b{display:block;font-size:1.25rem;color:var(--gold);margin-top:2px;font-weight:500}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--text);padding:12px;border-radius:12px;font-size:.9rem}
+.hist .h{padding:10px 0;border-bottom:1px solid var(--line);font-size:.85rem;cursor:pointer}
+.hist .h:last-child{border:0}
+.hist .h small{color:var(--sub);display:block;margin-top:2px}
+details summary{cursor:pointer;font-size:.8rem;color:var(--sub);padding:6px 0}
+.hide{display:none}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:s 1s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes s{to{transform:rotate(360deg)}}
+a{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>占いの入り口</h1>
+    <p class="sub">気になることを一言。合う占いをおすすめします。</p>
+  </header>
+
+  <div class="box">
+    <label for="q">いま気になっていること</label>
+    <textarea id="q" placeholder="例：転職するタイミングはいつがいい？／彼の本音が知りたい／この家の方角は？"></textarea>
+    <button class="go" id="ask">おすすめを聞く</button>
+    <div class="err" id="askErr"></div>
+  </div>
+
+  <div class="box rec-box hide" id="rec">
+    <h2 id="recTitle"></h2>
+    <p class="msg" id="recWhy"></p>
+    <button class="go" id="recGo"></button>
+    <p class="muted" id="recAlt" style="margin-top:10px"></p>
+  </div>
+
+  <div class="tools" id="tools"></div>
+
+  <div class="box hide" id="birth">
+    <label>生年月日（四柱推命に使います。保存は、この端末の中だけです）</label>
+    <input type="date" id="bd" value="1990-01-01">
+    <div style="height:8px"></div>
+    <label>出生時刻（分からなければ空のまま）</label>
+    <input type="time" id="bt">
+    <button class="go" id="birthGo">四柱を出す</button>
+  </div>
+
+  <div class="box res hide" id="res"></div>
+
+  <div class="box hist hide" id="histBox"><h2 style="font-size:.9rem;color:var(--gold);font-weight:500;margin-bottom:4px">最近の占い</h2><div id="hist"></div></div>
+
+  <div class="box">
+    <details>
+      <summary>設定（つなぎ先）</summary>
+      <label for="api" style="margin-top:8px">占いサーバーの URL</label>
+      <input id="api" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <div class="row" style="margin-top:10px"><button class="ghost" id="apiSave">保存</button><button class="ghost" id="apiTest">つながるか確かめる</button></div>
+      <p class="muted" id="apiMsg" style="margin-top:8px"></p>
+      <p class="muted" style="margin-top:8px"><a href="index.html">くわしい画面（旧）</a> を開く</p>
+    </details>
+  </div>
+</div>
+
+<script>
+'use strict';
+const DEFAULT_API = 'https://fortune-project-api.onrender.com';
+const TOOLS = [
+  {id:'tarot',  name:'タロット',     desc:'気持ちや状況の背景を、10枚の絵柄で見る'},
+  {id:'iching', name:'易',          desc:'いまの流れと、決断・時期を見る'},
+  {id:'lopan',  name:'風水・羅盤',   desc:'場所と方角の吉凶、今年の吉方位'},
+  {id:'shichu', name:'四柱推命',     desc:'生まれ持った性質と、年・月・日・時の柱'}
+];
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ls = {
+  get(k, d){ try { const v = localStorage.getItem(k); return v == null ? d : v; } catch(e){ return d; } },
+  set(k, v){ try { localStorage.setItem(k, v); } catch(e){} }
+};
+let API = (new URLSearchParams(location.search).get('api') || ls.get('fh_api', DEFAULT_API)).replace(/\/+$/, '');
+let current = null;   // 表示中の結果 {tool, question, raw, text}
+let recTool = null;
+
+function toolName(id){ return (TOOLS.find(t => t.id === id) || {}).name || id; }
+
+async function call(path, body){
+  let r;
+  try {
+    r = await fetch(API + path, {method: body ? 'POST' : 'GET', headers: body ? {'Content-Type':'application/json'} : undefined, body: body ? JSON.stringify(body) : undefined});
+  } catch(e){ const x = new Error('サーバーにつながりません。設定のURLと、サーバーが動いているかを確かめてください。'); x.code = 'net'; throw x; }
+  let data = null; try { data = await r.json(); } catch(e){}
+  if (!r.ok){ const x = new Error((data && (data.detail && (typeof data.detail === 'string' ? data.detail : JSON.stringify(data.detail)))) || ('サーバーのエラー（' + r.status + '）')); x.code = r.status; throw x; }
+  return data;
+}
+
+function renderTools(){
+  $('tools').innerHTML = TOOLS.map(t =>
+    `<button class="tool${t.id === recTool ? ' rec' : ''}" data-tool="${t.id}">${t.id === recTool ? '<i class="badge">おすすめ</i>' : ''}<b>${t.name}</b><span>${t.desc}</span></button>`).join('');
+}
+
+function busy(on, text){
+  $('res').classList.remove('hide');
+  if (on) $('res').innerHTML = `<p class="muted"><span class="spin"></span>${esc(text || '占っています…')}</p>`;
+}
+
+function showRes(html){ $('res').classList.remove('hide'); $('res').innerHTML = html; $('res').scrollIntoView({behavior:'smooth', block:'start'}); }
+
+function aiButton(){ return `<button class="ghost" id="aiBtn" style="width:100%;margin-top:14px">AI に読み解いてもらう</button><div id="aiOut" class="msg" style="margin-top:10px"></div>`; }
+
+function renderResult(tool, question, raw, extra){
+  current = {tool, question, raw};
+  let h = `<h2>${esc(toolName(tool))}</h2>`;
+  if (tool === 'tarot' && raw.positions){
+    const ps = Object.values(raw.positions);
+    h += `<p class="muted">ケルト十字（10枚）。各カードは、その位置の意味で読みます。</p><div class="cards">` +
+      ps.map(p => { const c = p.card || {}; return `<div class="cd"><div class="pos">${p.position_index}. ${esc(p.position_label)}</div><div class="nm">${esc(c.name)}${p.is_reversed ? '<span class="rv">逆位置</span>' : ''}</div><div class="mn">${esc(p.is_reversed ? c.meaning_reversed : c.meaning_upright)}</div></div>`; }).join('') + `</div>`;
+  } else if (tool === 'shichu' && raw.year){
+    const ks = [['hour','時'],['day','日'],['month','月'],['year','年']].filter(([k]) => raw[k]);
+    h += `<div class="pil">` + ks.map(([k,l]) => `<div><small>${l}柱</small><b>${esc(raw[k].stem)}<br>${esc(raw[k].branch)}</b></div>`).join('') + `</div>` +
+         `<p class="muted" style="margin-top:10px">${esc(raw.note || '')}</p>`;
+  } else if (tool === 'iching'){
+    const r = raw.raw_result || raw;
+    h += `<div class="msg"><b style="color:var(--gold);font-size:1.1rem">${esc((extra && extra.symbols || []).join(' '))}</b></div><p class="msg" style="margin-top:8px">${esc(extra && extra.summary || r.hexCore || '')}</p>`;
+  } else if (tool === 'lopan'){
+    h += `<p class="msg">${esc(extra && extra.summary || (raw.raw_result && raw.raw_result.note) || '')}</p>`;
+  } else {
+    h += `<p class="msg">${esc(extra && extra.summary || '')}</p>`;
+  }
+  h += aiButton();
+  showRes(h);
+  save(tool, question, extra && extra.summary || summaryOf(tool, raw));
+}
+
+function summaryOf(tool, raw){
+  if (tool === 'tarot' && raw.positions){ const f = Object.values(raw.positions)[0]; return (f && f.card && f.card.name) ? '現在の状況：' + f.card.name : 'ケルト十字'; }
+  if (tool === 'shichu' && raw.year) return ['year','month','day','hour'].filter(k => raw[k]).map(k => raw[k].name).join(' ');
+  return '';
+}
+
+function save(tool, question, summary){
+  let h = []; try { h = JSON.parse(ls.get('fh_hist', '[]')); } catch(e){}
+  h.unshift({t: Date.now(), tool, question, summary});
+  ls.set('fh_hist', JSON.stringify(h.slice(0, 8)));
+  renderHist();
+}
+function renderHist(){
+  let h = []; try { h = JSON.parse(ls.get('fh_hist', '[]')); } catch(e){}
+  $('histBox').classList.toggle('hide', !h.length);
+  $('hist').innerHTML = h.map(x => `<div class="h"><b>${esc(toolName(x.tool))}</b>　${esc(x.question || '（質問なし）')}<small>${new Date(x.t).toLocaleString('ja-JP')}　${esc(x.summary)}</small></div>`).join('');
+}
+
+async function runTool(tool){
+  const q = $('q').value.trim();
+  document.querySelectorAll('.tool').forEach(b => b.classList.toggle('on', b.dataset.tool === tool));
+  $('birth').classList.toggle('hide', tool !== 'shichu');
+  if (tool === 'shichu'){ $('res').classList.add('hide'); $('birth').scrollIntoView({behavior:'smooth', block:'center'}); return; }
+  busy(true);
+  try {
+    if (tool === 'tarot'){
+      let raw;
+      try { raw = await call('/fortune/tarot/celtic', {question: q}); }
+      catch(e){ if (e.code !== 404) throw e; const r = await call('/fortune/run', {tool:'tarot', question: q || '今の状況'}); renderResult('tarot', q, r.raw_result, {summary: r.summary, symbols: r.symbols}); return; }
+      renderResult('tarot', q, raw);
+    } else {
+      const r = await call('/fortune/run', {tool, question: q || '今の状況'});
+      renderResult(tool, q, r, {summary: r.summary, symbols: r.symbols});
+    }
+  } catch(e){ showRes(`<div class="err">${esc(e.message)}</div>`); }
+}
+
+async function runShichu(){
+  const bd = $('bd').value, bt = $('bt').value;
+  if (!bd){ showRes('<div class="err">生年月日を入れてください。</div>'); return; }
+  busy(true);
+  try {
+    const raw = await call('/fortune/shichu/pillars', bt ? {birth_date: bd, birth_time: bt} : {birth_date: bd});
+    renderResult('shichu', $('q').value.trim(), raw);
+  } catch(e){
+    if (e.code === 404){
+      try { const r = await call('/fortune/run', {tool:'shichu', question: $('q').value.trim() || '性質', params:{birth_date: bd}}); showRes(`<h2>四柱推命</h2><p class="msg">年柱：${esc((r.raw_result||{}).yearKanshi)}</p><p class="muted">サーバーが古く、年柱だけの簡易表示です。</p>`); return; } catch(e2){ e = e2; }
+    }
+    showRes(`<div class="err">${esc(e.message)}</div>`);
+  }
+}
+
+async function ask(){
+  const q = $('q').value.trim();
+  $('askErr').textContent = '';
+  if (!q){ $('askErr').textContent = '気になっていることを、一言入れてください。'; return; }
+  $('ask').disabled = true; $('ask').textContent = '考えています…';
+  try {
+    const r = await call('/fortune/entry', {question: q});
+    const rec = r.recommended;
+    recTool = rec.tool; renderTools();
+    $('rec').classList.remove('hide');
+    $('recTitle').textContent = 'おすすめは「' + rec.label + '」';
+    $('recWhy').textContent = rec.reason;
+    $('recGo').textContent = rec.label + 'で占う';
+    $('recGo').onclick = () => runTool(rec.tool);
+    $('recAlt').textContent = (rec.alternatives && rec.alternatives.length) ? '他の候補：' + rec.alternatives.map(a => a.label).join('、') : '';
+    $('rec').scrollIntoView({behavior:'smooth', block:'center'});
+  } catch(e){
+    $('rec').classList.add('hide'); recTool = null; renderTools();
+    $('askErr').textContent = (e.code === 404 ? 'このサーバーには、おすすめ機能がまだ入っていません。下の4つから選んでください。' : e.message);
+  } finally { $('ask').disabled = false; $('ask').textContent = 'おすすめを聞く'; }
+}
+
+async function aiRead(){
+  if (!current) return;
+  const b = $('aiBtn'); b.disabled = true; b.textContent = '読み解いています…';
+  try {
+    let raw = current.raw;
+    if (current.tool === 'tarot' && raw.positions) raw = {spread: Object.values(raw.positions).map(p => ({position: p.position_label, card: (p.card||{}).name, reversed: p.is_reversed}))};
+    const r = await call('/fortune/query', {tool: current.tool === 'shichu' ? 'shichu' : current.tool, question: current.question || '今の状況', raw_result: raw});
+    $('aiOut').innerHTML = `<p style="color:var(--gold)">${esc(r.core)}</p><p style="margin-top:6px">${esc(r.detail)}</p><p class="muted" style="margin-top:6px">${esc(r.action)}</p>`;
+  } catch(e){ $('aiOut').innerHTML = `<div class="err">${esc(e.message)}（AI の読み解きは、サーバー側にキーが設定されているときだけ使えます）</div>`; }
+  b.disabled = false; b.textContent = 'AI に読み解いてもらう';
+}
+
+async function apiTest(){
+  $('apiMsg').textContent = '確かめています…';
+  try { const h = await call('/fortune/health'); $('apiMsg').textContent = 'つながりました（version ' + h.version + '）'; }
+  catch(e){ $('apiMsg').textContent = e.message; }
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-tool]'); if (t) return runTool(t.dataset.tool);
+  if (e.target.id === 'aiBtn') aiRead();
+});
+$('ask').onclick = ask;
+$('birthGo').onclick = runShichu;
+$('apiSave').onclick = () => { API = $('api').value.trim().replace(/\/+$/, '') || DEFAULT_API; ls.set('fh_api', API); $('apiMsg').textContent = '保存しました：' + API; };
+$('apiTest').onclick = apiTest;
+$('api').value = API;
+renderTools(); renderHist();
+</script>
+</body>
+</html>
