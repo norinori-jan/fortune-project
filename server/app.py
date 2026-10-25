@@ -337,3 +337,11 @@ async def fortune_query(req: FortuneQueryRequest):
         tool=req.tool, core=parsed.get("core",""),
         detail=parsed.get("detail",""), action=parsed.get("action",""),
         resonance=parsed.get("resonance"), ai_model_used=model_used)
+
+
+# ── 入口 API（相談内容 → おすすめの占術、タロットのケルト十字）。追加のみ。読み込めなくても既存の API は動く ──
+try:
+    from server.fortune_entry_api import router as _entry_router
+    app.include_router(_entry_router)
+except Exception as _e:  # noqa: BLE001
+    print(f"[fortune_entry_api] 読み込めませんでした: {_e}")
