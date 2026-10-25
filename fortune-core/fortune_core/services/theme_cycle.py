@@ -1,9 +1,9 @@
+from __future__ import annotations
 from .fortune_theme_cycle import FortuneThemeCycleService
 __all__ = ["FortuneThemeCycleService"]
 
-server/fortune_theme_cycle.py
+# [貼り付けメモ] server/fortune_theme_cycle.py
 
-from __future__ import annotations
 from datetime import date
 from fastapi import APIRouter
 from pydantic import BaseModel, Field

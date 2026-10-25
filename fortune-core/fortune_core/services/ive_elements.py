@@ -28,15 +28,14 @@ class FiveElementService:
         }
         return ElementBalance(values=values)
 
-⸻
+# [貼り付けメモ] ⸻
 
-13. 新規四柱推命の簡易プロフィール
+# [貼り付けメモ] 13. 新規四柱推命の簡易プロフィール
 
-既存の四柱推命エンジンには触れません。
+# [貼り付けメモ] 既存の四柱推命エンジンには触れません。
 
-fortune-core/fortune_core/services/shichu_profile.py
+# [貼り付けメモ] fortune-core/fortune_core/services/shichu_profile.py
 
-from __future__ import annotations
 from dataclasses import dataclass
 from datetime import date
 from hashlib import sha256

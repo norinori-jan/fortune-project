@@ -1,7 +1,7 @@
 from .compatibility import CompatibilityService
 __all__ = ["CompatibilityService"]
 
-server/fortune_compatibility.py
+# [貼り付けメモ] server/fortune_compatibility.py
 
 from fastapi import APIRouter
 from pydantic import BaseModel, Field

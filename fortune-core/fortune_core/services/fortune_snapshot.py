@@ -45,7 +45,7 @@ class FortuneSnapshotService:
             keywords=keywords,
         )
 
-fortune-core/fortune_core/services/snapshot.py
+# [貼り付けメモ] fortune-core/fortune_core/services/snapshot.py
 
 from .fortune_snapshot import FortuneSnapshotService
 __all__ = ["FortuneSnapshotService"]

@@ -1,9 +1,9 @@
+from __future__ import annotations
 from .fortune_message import FortuneMessageService
 __all__ = ["FortuneMessageService"]
 
-server/fortune_message.py
+# [貼り付けメモ] server/fortune_message.py
 
-from __future__ import annotations
 from datetime import date
 from fastapi import APIRouter
 from pydantic import BaseModel, Field

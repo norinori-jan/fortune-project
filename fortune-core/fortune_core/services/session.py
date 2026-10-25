@@ -1,9 +1,9 @@
+from __future__ import annotations
 from .fortune_session import FortuneSessionService
 __all__ = ["FortuneSessionService"]
 
-server/fortune_session.py
+# [貼り付けメモ] server/fortune_session.py
 
-from __future__ import annotations
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, Field
 from fortune_core.services.fortune_session import FortuneSessionService

@@ -51,7 +51,7 @@ class FortuneCalendarService:
             year_end=year_end,
         )
 
-fortune-core/fortune_core/services/calendar.py
+# [貼り付けメモ] fortune-core/fortune_core/services/calendar.py
 
 from .fortune_calendar import FortuneCalendar, FortuneCalendarService
 __all__ = [

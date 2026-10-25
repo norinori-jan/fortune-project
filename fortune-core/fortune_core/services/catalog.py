@@ -1,7 +1,7 @@
 from .fortune_catalog import FortuneCatalogService
 __all__ = ["FortuneCatalogService"]
 
-server/fortune_catalog.py
+# [貼り付けメモ] server/fortune_catalog.py
 
 from fastapi import APIRouter
 from pydantic import BaseModel

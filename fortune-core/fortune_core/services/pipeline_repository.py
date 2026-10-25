@@ -1,9 +1,9 @@
+from __future__ import annotations
 from .pipeline_store import FortunePipelineStore
 __all__ = ["FortunePipelineStore"]
 
-165. fortune-core/fortune_core/models/fortune_feed.py
+# [貼り付けメモ] 165. fortune-core/fortune_core/models/fortune_feed.py
 
-from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 @dataclass(frozen=True)

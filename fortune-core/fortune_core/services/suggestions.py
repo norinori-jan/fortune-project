@@ -1,7 +1,7 @@
 from .question_suggestions import QuestionSuggestionService
 __all__ = ["QuestionSuggestionService"]
 
-server/fortune_suggestions.py
+# [貼り付けメモ] server/fortune_suggestions.py
 
 from fastapi import APIRouter
 from pydantic import BaseModel
