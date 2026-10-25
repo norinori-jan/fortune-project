@@ -27,10 +27,9 @@ class FortuneDashboardService:
         period: str,
         target_date: date,
     ) -> DashboardCard:
-        result = self.period_service.fortune(
-            question=question,
-            period=period,
+        result = self.period_service.divine(
             target_date=target_date,
+            period=period,
         )
         return DashboardCard(
             key=period,
@@ -51,11 +50,7 @@ class FortuneDashboardService:
         yearly = self._period_card(question, "year", target_date)
         theme_cards: list[DashboardCard] = []
         for theme_key in ("love", "work", "money", "health", "general"):
-            result = self.theme_service.fortune(
-                question=question,
-                theme=theme_key,
-                target_date=target_date,
-            )
+            result = self.theme_service.get(theme_key)
             score = self._score(
                 f"{question}|{theme_key}|{target_date.isoformat()}"
             )
@@ -65,9 +60,9 @@ class FortuneDashboardService:
                     title=result.title,
                     score=score,
                     message=result.message,
-                    advice=result.advice,
+                    advice="／".join(result.advice),
                     keywords=(
-                        result.theme,
+                        result.key,
                         *result.keywords,
                     ),
                 )

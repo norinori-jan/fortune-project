@@ -33,7 +33,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://norinori-jan.github.io","http://localhost:8000",
                    "http://localhost:3000","http://127.0.0.1:8000","null"],
-    allow_origin_regex=r"https://.*\.github\.io",
+    allow_origin_regex=r"(https://.*\.github\.io|http://(localhost|127\.0\.0\.1)(:\d+)?)",
     allow_methods=["GET","POST","OPTIONS"],
     allow_headers=["*"],
 )
@@ -337,3 +337,16 @@ async def fortune_query(req: FortuneQueryRequest):
         tool=req.tool, core=parsed.get("core",""),
         detail=parsed.get("detail",""), action=parsed.get("action",""),
         resonance=parsed.get("resonance"), ai_model_used=model_used)
+
+
+# --- 占いハブ（画面用API）。無ければ黙って飛ばす ---
+import sys as _sys, pathlib as _pl
+_core = str(_pl.Path(__file__).resolve().parent.parent / "fortune-core")
+if _core not in _sys.path:
+    _sys.path.insert(0, _core)
+for _mod in ("fortune_hub_api", "fortune_mobile_shell", "fortune_entry_api"):
+    try:
+        _m = __import__("server." + _mod, fromlist=["router"])
+        app.include_router(_m.router)
+    except Exception as _e:  # noqa: BLE001
+        print("[fortune] router skipped:", _mod, _e)

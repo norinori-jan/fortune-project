@@ -50,3 +50,8 @@ class FortuneProfileService:
             favorite_theme=favorite_theme,
             keywords=keywords,
         )
+    def create(self, birth_date: "str | date | None" = None, nickname: str = "あなた") -> FortuneProfile:
+        """Hub から呼ばれる入口。生年月日は文字列（YYYY-MM-DD）でも日付でもよい。"""
+        if isinstance(birth_date, str) and birth_date:
+            birth_date = date.fromisoformat(birth_date)
+        return self.build(nickname=nickname, birth_date=birth_date or None)

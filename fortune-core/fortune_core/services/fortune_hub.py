@@ -35,30 +35,23 @@ class FortuneHubService:
         profile = self.profile_service.create(
             birth_date=birth_date,
         )
-        daily_message = self.message_service.generate(
+        daily_message = self.message_service.build(
             question=question,
-            theme=theme,
             target_date=target_date,
         )
         dashboard = self.dashboard_service.build(
             question=question,
-            theme=theme,
-            today=target_date,
+            target_date=target_date,
         )
-        guidance = self.guidance_service.generate(
+        guidance = self.guidance_service.build(
             question=question,
-            theme=theme,
             target_date=target_date,
         )
         suggestions = self.suggestion_service.suggest(
             theme=theme,
-            limit=6,
-        )
-        calendar = self.calendar_service.get(
-            target_date=target_date,
-            theme=theme,
-        )
-        catalog = self.catalog_service.catalog()
+        )[:6]
+        calendar = self._calendar(question, target_date)
+        catalog = self._catalog()
         sections = (
             HubSection(
                 key="daily",
@@ -69,7 +62,7 @@ class FortuneHubService:
             HubSection(
                 key="guidance",
                 title="今日のガイド",
-                summary=guidance.summary,
+                summary=(guidance.actions[0].description if guidance.actions else guidance.caution),
                 data=guidance.to_dict(),
             ),
             HubSection(
@@ -86,8 +79,8 @@ class FortuneHubService:
             HubSection(
                 key="calendar",
                 title="運勢カレンダー",
-                summary=calendar.summary,
-                data=calendar.to_dict(),
+                summary=calendar["summary"],
+                data=calendar,
             ),
         )
         return FortuneHubHome(
@@ -113,14 +106,12 @@ class FortuneHubService:
         today: date | None = None,
     ) -> dict[str, Any]:
         target_date = today or date.today()
-        message = self.message_service.generate(
+        message = self.message_service.build(
             question=question,
-            theme=theme,
             target_date=target_date,
         )
-        guidance = self.guidance_service.generate(
+        guidance = self.guidance_service.build(
             question=question,
-            theme=theme,
             target_date=target_date,
         )
         return {
@@ -130,6 +121,18 @@ class FortuneHubService:
             "message": self._to_dict(message),
             "guidance": self._to_dict(guidance),
         }
+    def _calendar(self, question: str, target_date: date) -> dict[str, Any]:
+        """今日から30日の運勢カレンダー（各サービスは、日ごとの一覧を返す）。"""
+        entries = self.calendar_service.build(question, start_date=target_date, days=30)
+        items = [self._to_dict(e) for e in entries]
+        return {"summary": "今日から30日間の運勢カレンダーです。", "days": len(items), "entries": items}
+
+    def _catalog(self) -> dict[str, Any]:
+        return {
+            "systems": [self._to_dict(i) for i in self.catalog_service.systems()],
+            "themes": [self._to_dict(i) for i in self.catalog_service.themes()],
+        }
+
     @staticmethod
     def _to_dict(value: Any) -> dict[str, Any]:
         if hasattr(value, "to_dict"):
