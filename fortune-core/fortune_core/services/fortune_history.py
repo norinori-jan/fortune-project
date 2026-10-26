@@ -1,4 +1,4 @@
-rom __future__ import annotations
+from __future__ import annotations
 from collections import deque
 from datetime import datetime, timezone
 from hashlib import sha256
