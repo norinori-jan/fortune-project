@@ -20,6 +20,19 @@ class MeihuaResult:
     moving_line: int
     message: str
     advice: str
+
+    @property
+    def title(self) -> str:
+        return f"{self.upper}{self.lower}"
+
+    @property
+    def trigram_name(self) -> str:
+        return f"上卦{self.upper}・下卦{self.lower}"
+
+    @property
+    def keywords(self) -> tuple[str, ...]:
+        return (self.upper, self.lower, f"第{self.moving_line}爻")
+
     def to_dict(self) -> dict[str, Any]:
         return {
             "question": self.question,

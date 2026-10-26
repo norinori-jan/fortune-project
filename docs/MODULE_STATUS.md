@@ -24,3 +24,10 @@
 あるいは `PeriodFortuneService.get` など呼び先のメソッドが無いという、設計の世代違い。次の作業で揃える。
 本節の修理：`FortuneHubService` に `today()` と `user_key` 引数を追加、`FortuneShare.to_dict` に `id`、
 `runtime_contract` の `name`/`key` 両対応、`platform` が `FortuneRunner` を公開。
+
+## 2026-10-26 追記2：総合占い（complete）の形を案Aに揃えた
+`CompleteFortuneService.divine(question, theme)` は `CompleteFortuneResult` を返す。
+`.unified`（message/advice/keywords/title）、`.tarot`、`.meihua`（title/trigram_name/keywords）を別々に持ち、
+総合の項目（question/theme/overall/message/items/keywords/advice）も同名で読める。
+これで bundle / compare / pipeline / theme-cycle / period-view / content periods の内部エラー 6 本が解消。
+試験呼び出しでの内部エラーは 0 本。

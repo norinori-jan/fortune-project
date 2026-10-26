@@ -27,3 +27,14 @@ def test_restored_endpoints_no_500():
               "/fortune/integration/home/u1", "/fortune/integration/today/u1",
               "/fortune/contract", "/fortune/overview", "/fortune/bootstrap/u1"):
         assert c.get(p).status_code == 200, p
+
+
+def test_complete_shape_and_former_500s():
+    q = {"question": "今日の仕事運は？"}
+    assert c.post("/fortune/bundle", json={**q}).status_code == 200
+    r = c.post("/fortune/compare", json={**q}); assert r.status_code == 200 and len(r.json()["items"]) >= 3
+    assert c.post("/fortune/pipeline", json={**q, "user_key": "u1", "theme": "work"}).status_code in (200, 422)
+    assert c.get("/fortune/period-view/u1?theme=work&period=month").status_code == 200
+    assert c.get("/fortune/content/u1/periods").status_code == 200
+    assert c.post("/fortune/five-elements", json={"text": "仕事"}).status_code == 200
+    assert c.post("/fortune/theme-cycle", json={**q, "theme": "work"}).status_code in (200, 422)

@@ -8,6 +8,16 @@ class TarotCard:
     name: str
     keywords: tuple[str, ...]
     meaning: str
+
+    @property
+    def message(self) -> str:
+        return self.meaning
+
+    @property
+    def advice(self) -> str:
+        return f"「{self.keywords[0]}」を意識して過ごしてください。"
+
+
 @dataclass(frozen=True, slots=True)
 class TarotResult:
     question: str

@@ -21,10 +21,13 @@ class FortunePeriodViewService:
         theme: str,
         period: str,
     ) -> FortunePeriodView:
-        result = self.service.get(
-            user_key=user_key,
-            theme=theme,
-            period=period,
+        # PeriodFortuneService は日付と期間で決まる。user_key・theme で値が変わるよう日付に混ぜる
+        import hashlib
+        from datetime import date, timedelta
+        shift = int(hashlib.sha256(f"{user_key}|{theme}".encode("utf-8")).hexdigest()[:4], 16) % 365
+        result = self.service.divine(
+            date.today() - timedelta(days=shift),
+            period,
         )
 
         return FortunePeriodView(
@@ -33,5 +36,5 @@ class FortunePeriodViewService:
             score=result.score,
             message=result.message,
             advice=result.advice,
-            keywords=tuple(result.keywords),
+            keywords=(theme, period),
         )

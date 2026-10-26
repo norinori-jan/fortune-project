@@ -8,6 +8,17 @@ from fortune_core.models.fortune_bundle import (
 from fortune_core.services.complete_fortune import CompleteFortuneService
 from fortune_core.services.five_elements import FiveElementService
 from fortune_core.services.fortune_summary import FortuneSummaryService
+class _ElementView:
+    """五行バランスを、カード用の文章に直した見え方。"""
+
+    def __init__(self, dominant: str, lacking: str) -> None:
+        self.dominant = dominant
+        self.lacking = lacking
+        self.message = f"{dominant}の気が強く、{lacking}の気が控えめな流れです。"
+        self.advice = f"{lacking}を補うつもりで、無理のない範囲で整えてください。"
+        self.keywords = (dominant, lacking)
+
+
 class FortuneBundleService:
     def __init__(self) -> None:
         self.complete_service = CompleteFortuneService()
@@ -58,9 +69,10 @@ class FortuneBundleService:
                 keywords=tuple(meihua.keywords),
             )
         )
-        element = self.element_service.analyze(
-            question=question,
-            target_date=target_date,
+        balance = self.element_service.analyze(question)
+        element = _ElementView(
+            dominant=balance.dominant(),
+            lacking=balance.lacking(),
         )
         cards.append(
             FortuneDetailCard(

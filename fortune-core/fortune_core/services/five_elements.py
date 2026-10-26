@@ -17,8 +17,9 @@ class ElementBalance:
             "lacking": self.lacking(),
         }
 class FiveElementService:
-    def analyze(self, text: str) -> ElementBalance:
-        text = text.strip()
+    def analyze(self, text: str = "", *, question: str | None = None, target_date=None, **_: Any) -> ElementBalance:
+        # question= で呼ぶ実行基盤（provider_executor）にも対応
+        text = (text or question or "").strip()
         if not text:
             raise ValueError("text must not be empty")
         digest = sha256(text.encode("utf-8")).digest()

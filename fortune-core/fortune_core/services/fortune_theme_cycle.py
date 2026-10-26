@@ -5,7 +5,7 @@ from fortune_core.models.fortune_theme_cycle import (
     FortuneThemeCycle,
     FortuneThemeCycleItem,
 )
-from fortune_core.services.fortune_themes import FortuneThemeService
+from fortune_core.services.theme_fortune import ThemeFortuneService
 class FortuneThemeCycleService:
     THEMES = (
         "love",
@@ -15,7 +15,7 @@ class FortuneThemeCycleService:
         "general",
     )
     def __init__(self) -> None:
-        self.theme_service = FortuneThemeService()
+        self.theme_service = ThemeFortuneService()
     def build(
         self,
         question: str,
@@ -31,11 +31,7 @@ class FortuneThemeCycleService:
             period_label = "週間テーマ"
         items: list[FortuneThemeCycleItem] = []
         for theme in self.THEMES:
-            result = self.theme_service.fortune(
-                question=question,
-                theme=theme,
-                target_date=target_date,
-            )
+            result = self.theme_service.divine(question, theme)
             digest = hashlib.sha256(
                 f"{question}|{theme}|{period_key}".encode(
                     "utf-8"
@@ -51,7 +47,7 @@ class FortuneThemeCycleService:
                     theme=theme,
                     title=result.title,
                     message=result.message,
-                    advice=result.advice,
+                    advice=(" / ".join(result.advice) if isinstance(result.advice, (list, tuple)) else result.advice),
                     keywords=keywords,
                 )
             )
