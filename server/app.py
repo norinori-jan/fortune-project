@@ -356,3 +356,14 @@ for _f in sorted((_pl.Path(__file__).resolve().parent).glob("fortune_*.py"), key
     except Exception as _e:  # noqa: BLE001
         _skipped.append(_f.stem)
         print("[fortune] router skipped:", _f.stem, repr(_e)[:80])
+
+
+# --- iPhone などから開く画面。サーバー自身が配る（https://<このサーバー>/app） ---
+from fastapi.responses import FileResponse as _FileResponse  # noqa: E402
+
+_ENTRY_HTML = _pl.Path(__file__).resolve().parent.parent / "apps" / "fortune-hub" / "entry.html"
+
+
+@app.get("/app", include_in_schema=False)
+def _fortune_app():
+    return _FileResponse(_ENTRY_HTML, media_type="text/html; charset=utf-8")

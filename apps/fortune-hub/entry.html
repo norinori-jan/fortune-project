@@ -82,7 +82,8 @@ const DEFAULT_API = 'https://fortune-project-api.onrender.com';
 const $ = id => document.getElementById(id);
 const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const ls = { get(k,d){ try{ const v=localStorage.getItem(k); return v==null?d:v; }catch(e){ return d; } }, set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} } };
-let API = (new URLSearchParams(location.search).get('api') || ls.get('fh_api', DEFAULT_API)).replace(/\/+$/,'');
+const SAME = location.pathname.replace(/\/+$/,'') === '/app';  // サーバー自身が配る画面（iPhone 用）なら、同じサーバーに話す
+let API = (new URLSearchParams(location.search).get('api') || (SAME ? location.origin : ls.get('fh_api', DEFAULT_API))).replace(/\/+$/,'');
 let USER = ls.get('fh_user', ''); if (!USER){ USER = 'u' + Math.random().toString(36).slice(2,10); ls.set('fh_user', USER); }
 let theme = ls.get('fh_theme', 'general'), tab = 'home', shell = null, current = null, rec = null;
 

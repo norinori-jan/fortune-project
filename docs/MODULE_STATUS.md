@@ -31,3 +31,7 @@
 総合の項目（question/theme/overall/message/items/keywords/advice）も同名で読める。
 これで bundle / compare / pipeline / theme-cycle / period-view / content periods の内部エラー 6 本が解消。
 試験呼び出しでの内部エラーは 0 本。
+
+## Render（iPhone 用）
+- 見る先のブランチを consolidate/hub-revive にすると、https://<サービスURL>/app で画面が開く。
+- main は変更しない。戻すときは Render のブランチ設定を main に戻すだけ。

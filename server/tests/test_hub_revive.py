@@ -38,3 +38,7 @@ def test_complete_shape_and_former_500s():
     assert c.get("/fortune/content/u1/periods").status_code == 200
     assert c.post("/fortune/five-elements", json={"text": "仕事"}).status_code == 200
     assert c.post("/fortune/theme-cycle", json={**q, "theme": "work"}).status_code in (200, 422)
+
+
+def test_app_page_served():
+    r = c.get("/app"); assert r.status_code == 200 and "Fortune Hub" in r.text
