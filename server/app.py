@@ -344,9 +344,15 @@ import sys as _sys, pathlib as _pl
 _core = str(_pl.Path(__file__).resolve().parent.parent / "fortune-core")
 if _core not in _sys.path:
     _sys.path.insert(0, _core)
-for _mod in ("fortune_hub_api", "fortune_mobile_shell", "fortune_entry_api"):
+# server/fortune_*.py の router を全部つなぐ（読み込めないものは黙って飛ばす）
+_skipped = []
+# 「/fortune/{名前}」を受ける fortune_registry_api は、ほかが先に決まるよう最後につなぐ
+for _f in sorted((_pl.Path(__file__).resolve().parent).glob("fortune_*.py"), key=lambda f: (f.stem == "fortune_registry_api", f.stem)):
     try:
-        _m = __import__("server." + _mod, fromlist=["router"])
-        app.include_router(_m.router)
+        _m = __import__("server." + _f.stem, fromlist=["router"])
+        _r = getattr(_m, "router", None)
+        if _r is not None:
+            app.include_router(_r)
     except Exception as _e:  # noqa: BLE001
-        print("[fortune] router skipped:", _mod, _e)
+        _skipped.append(_f.stem)
+        print("[fortune] router skipped:", _f.stem, repr(_e)[:80])

@@ -30,13 +30,13 @@ class FortuneRuntimeContractService:
         catalog = self.catalog.catalog()
 
         systems = tuple(
-            item["name"]
+            (item.get("name") or item.get("key"))
             for item in catalog.get("systems", [])
             if isinstance(item, dict)
         )
 
         themes = tuple(
-            item["name"]
+            (item.get("name") or item.get("key"))
             for item in catalog.get("themes", [])
             if isinstance(item, dict)
         )

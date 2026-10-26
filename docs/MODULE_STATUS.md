@@ -15,3 +15,12 @@
 ## 注意
 - 本格四柱（`shichu/calendar.py` ほか）は `pip install skyfield` が必要。
 - 画面の履歴・お気に入りは端末保存のまま。
+
+## 2026-10-26 追記：サーバー API の状態
+`server/app.py` が `server/fortune_*.py` の router を全部つなぐ形になった（約 145 本の入口）。
+試験呼び出しの結果：正常 112 ／ 入力が足りず 422 18 ／ **内部エラー 6**。
+内部エラー 6（`/fortune/bundle` `/fortune/compare` `/fortune/pipeline` `/fortune/theme-cycle` `/fortune/period-view/{user}` `/fortune/content/{user}/periods`）は、
+「総合占い（complete）」の返す形が、呼び出し側の想定（`.unified` `.tarot` `.meihua` を持つ形）とずれている、
+あるいは `PeriodFortuneService.get` など呼び先のメソッドが無いという、設計の世代違い。次の作業で揃える。
+本節の修理：`FortuneHubService` に `today()` と `user_key` 引数を追加、`FortuneShare.to_dict` に `id`、
+`runtime_contract` の `name`/`key` 両対応、`platform` が `FortuneRunner` を公開。

@@ -26,6 +26,7 @@ class FortuneHubService:
     def home(
         self,
         *,
+        user_key: str | None = None,
         birth_date: str | None = None,
         question: str = "",
         theme: str = "general",
@@ -98,9 +99,22 @@ class FortuneHubService:
             catalog=self._to_dict(catalog),
             sections=sections,
         )
+    def today(
+        self,
+        *,
+        user_key: str | None = None,
+        theme: str = "general",
+    ) -> Any:
+        from .today_view import FortuneTodayViewService
+        return FortuneTodayViewService().build(
+            user_key=user_key or "guest",
+            theme=theme,
+        )
+
     def quick(
         self,
         *,
+        user_key: str | None = None,
         question: str = "",
         theme: str = "general",
         today: date | None = None,

@@ -16,6 +16,7 @@ class FortuneShare:
 
     def to_dict(self) -> dict[str, Any]:
         return {
+            "id": self.share_id,
             "share_id": self.share_id,
             "title": self.title,
             "message": self.message,

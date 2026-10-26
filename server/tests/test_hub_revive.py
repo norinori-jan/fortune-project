@@ -17,3 +17,13 @@ def test_entry_and_tools():
     assert c.post("/fortune/entry", json={"question":"恋人との関係は？"}).status_code == 200
     assert c.post("/fortune/tarot/celtic", json={"question":"x"}).json()["positions"]
     assert c.post("/fortune/shichu/pillars", json={"birth_date":"1990-01-01"}).status_code == 200
+
+
+def test_restored_endpoints_no_500():
+    body = {"title": "t", "message": "m", "advice": "a", "date_key": "2026-10-26"}
+    assert c.post("/fortune/share", json=body).status_code == 200
+    for p in ("/fortune/catalog", "/fortune/suggestions", "/fortune/hub/today",
+              "/fortune/screens/u1/home", "/fortune/screens/u1/today", "/fortune/shell/u1",
+              "/fortune/integration/home/u1", "/fortune/integration/today/u1",
+              "/fortune/contract", "/fortune/overview", "/fortune/bootstrap/u1"):
+        assert c.get(p).status_code == 200, p
