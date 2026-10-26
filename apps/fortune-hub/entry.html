@@ -190,7 +190,7 @@ function result(tool, question, raw, extra){
   } else {
     h += `<p class="msg"><b style="color:var(--gold)">${esc(((extra&&extra.symbols)||[]).join(' '))}</b></p><p class="msg">${esc((extra&&extra.summary)||'')}</p>`;
   }
-  h += `<button class="ghost" id="favBtn">★ お気に入りに保存</button>`;
+  h += `<div style="display:flex;gap:10px"><button class="ghost" id="favBtn">★ お気に入りに保存</button><button class="ghost" id="shareBtn">共有する</button></div><p class="muted" id="shareMsg" style="margin-top:6px"></p>`;
   show(h);
   const a = hist(); a.unshift({t:Date.now(), tool, question, summary: current.summary}); ls.set('fh_hist', JSON.stringify(a.slice(0,30)));
 }
@@ -241,8 +241,23 @@ document.addEventListener('click', e => {
   const x = e.target.closest('[data-ex]'); if (x){ $('q').value = x.dataset.ex; return; }
   if (e.target.id === 'ask') ask();
   if (e.target.id === 'birthGo') runShichu();
+  if (e.target.id === 'shareBtn' && current){ share(); return; }
   if (e.target.id === 'favBtn' && current){ const a = favs(); a.unshift({t:Date.now(), ...current}); ls.set('fh_fav', JSON.stringify(a.slice(0,30))); e.target.textContent = '★ 保存しました'; }
 });
+async function share(){
+  const m = $('shareMsg'); m.textContent = '共有を作っています…';
+  const name = SYSNAME[current.tool] || current.tool;
+  const d = new Date(); const key = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  let text = name + '：' + (current.summary || current.question || '占いの結果') + '（Fortune Hub）';
+  try {
+    const r = await call('/fortune/share', {title: name, message: current.summary || current.question || '占いの結果', advice: current.question || '—', system: current.tool === 'five-elements' ? 'five-elements' : current.tool, theme: theme, date_key: key});
+    text += ' ' + API + '/app#s=' + r.id;
+  } catch(e){ /* サーバーの共有が使えなくても、文章だけで共有する */ }
+  try {
+    if (navigator.share){ await navigator.share({title: name, text}); m.textContent = ''; }
+    else { await navigator.clipboard.writeText(text); m.textContent = 'コピーしました。貼り付けて送れます。'; }
+  } catch(e){ m.textContent = e && e.name === 'AbortError' ? '' : '共有できませんでした。文章：' + text; }
+}
 $('apiSave').onclick = () => { API = $('api').value.trim().replace(/\/+$/,'') || DEFAULT_API; ls.set('fh_api', API); $('apiMsg').textContent = '保存しました：' + API; load(); };
 $('apiTest').onclick = async () => { $('apiMsg').textContent = '確かめています…'; try { const h = await call('/fortune/health'); $('apiMsg').textContent = 'つながりました（version ' + h.version + '）'; } catch(e){ $('apiMsg').textContent = e.message; } };
 $('api').value = API;

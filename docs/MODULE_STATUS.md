@@ -35,3 +35,8 @@
 ## Render（iPhone 用）
 - 見る先のブランチを consolidate/hub-revive にすると、https://<サービスURL>/app で画面が開く。
 - main は変更しない。戻すときは Render のブランチ設定を main に戻すだけ。
+
+## 2026-10-26 追記3
+- `engine.py` の import を `iching/interpreter.py`（ReadingResult と InterpretationEngine の実体）に向けた。読み込みはできるが、`cast_coin()` は CoinCast と HexagramResult の型違いで実行時に失敗する（易の旧版・新版の食い違い。画面は使っていない）。
+- `shichu/astronomy.py` は本体が無いまま（1 行の呼び出しのみ）。
+- 画面に「共有する」を追加（/fortune/share で共有データを作り、iPhone の共有シート、無ければコピー）。
