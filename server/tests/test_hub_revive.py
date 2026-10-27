@@ -50,3 +50,7 @@ def test_shichu_boundary_warning():
     assert "boundary_warning" in r
     r2 = c.post("/fortune/shichu/pillars", json={"birth_date": "2025-02-10", "birth_time": "12:00"}).json()
     assert "boundary_warning" not in r2
+
+
+def test_app_cards_js_served():
+    r = c.get("/app/tarot-cards.js"); assert r.status_code == 200 and "TAROT_FULL" in r.text

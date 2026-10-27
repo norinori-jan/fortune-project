@@ -47,3 +47,8 @@
 - 本格版（shichu/calendar.py）は skyfield＋scipy＋天体暦ファイル（数十 MB を実行時に取得）が要る。Render 無料枠（512MB）では重く、再起動のたびに取得し直す。また engine.py 側に未定義変数（solar_terms_json_path）があり、そのままでは動かない。
 - 代わりに、節入りの前後約15分以内では「暦の確認が必要」と画面に出すようにした（`boundary_warning`）。
 - 本格版が要るときは、PC 側（ローカル）で skyfield を入れて使う。
+
+## 2026-10-27 画面：タロットをケルト十字の並びで表示（設計どおり）
+並び：中央＝1（2 は 90° 回して重ねる）、上＝3、右＝4、下＝5、左＝6、右端の柱は下から 7・8・9・10。
+大アルカナ 22 枚は apps/fortune-hub/tarot-cards.js の SVG（ライダー・ウェイト風）で表示。小アルカナは絵が無いので文字で表示。
+元の apps/fortune-hub/index.html は日本語が文字化けしているが、tarot-cards.js・fortune-registry/tarot/・apps/lopan/ の画面は無事。

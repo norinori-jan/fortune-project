@@ -367,3 +367,8 @@ _ENTRY_HTML = _pl.Path(__file__).resolve().parent.parent / "apps" / "fortune-hub
 @app.get("/app", include_in_schema=False)
 def _fortune_app():
     return _FileResponse(_ENTRY_HTML, media_type="text/html; charset=utf-8")
+
+
+@app.get("/app/tarot-cards.js", include_in_schema=False)
+def _fortune_app_cards():
+    return _FileResponse(_ENTRY_HTML.parent / "tarot-cards.js", media_type="application/javascript; charset=utf-8")

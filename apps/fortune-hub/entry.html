@@ -52,6 +52,19 @@ nav{position:fixed;left:0;right:0;bottom:0;background:rgba(18,18,26,.96);border-
 nav button{flex:1;background:none;border:0;color:var(--sub);padding:10px 2px 8px;font-size:.7rem}
 nav button b{display:block;font-size:1.25rem;font-weight:400;margin-bottom:2px}
 nav button.on{color:var(--gold)}
+.cross{display:grid;grid-template-columns:1fr 1fr 1fr .22fr 1fr;grid-template-rows:repeat(4,auto);gap:6px;margin-top:12px}
+.cx{position:relative;background:var(--surf);border:1px solid var(--line);border-radius:10px;padding:3px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;text-align:center;font-family:inherit;color:var(--text);cursor:pointer;min-height:96px}
+.cx.on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.cx .n{position:absolute;top:2px;left:5px;font-size:.6rem;color:var(--gold);z-index:3;text-shadow:0 0 3px #000}
+.cx .img{display:block;width:100%;line-height:0}.cx .img svg{width:100%;height:auto;display:block}
+.cx .nm{font-size:.68rem;line-height:1.3;padding:14px 0 4px}
+.cx .pl{font-size:.55rem;color:var(--sub);margin-top:3px;line-height:1.2}
+.cx.rv .img{transform:rotate(180deg)}
+.cx.rv .nm{transform:rotate(180deg)}
+.cxwrap{position:relative;grid-column:2;grid-row:2}
+.cxwrap .cx.over{position:absolute;left:50%;top:44%;width:70%;min-height:0;padding:0;border-color:#5b9bd5;background:transparent;transform:translate(-50%,-50%) rotate(90deg);z-index:2;box-shadow:0 0 8px rgba(91,155,213,.7)}
+.cxwrap .cx.over .pl,.cxwrap .cx.over .n{display:none}
+.cxwrap .cx.over.rv{transform:translate(-50%,-50%) rotate(-90deg)}
 .hide{display:none}
 .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:s 1s linear infinite;vertical-align:-2px;margin-right:6px}
 @keyframes s{to{transform:rotate(360deg)}}
@@ -76,6 +89,9 @@ a{color:var(--gold)}
 </div>
 <nav id="nav"></nav>
 
+<script>
+(function(){ var sc=document.createElement('script'); sc.src=(location.pathname.replace(/\/+$/,'')==='/app')?'/app/tarot-cards.js':'tarot-cards.js'; document.head.appendChild(sc); })();
+</script>
 <script>
 'use strict';
 const DEFAULT_API = 'https://fortune-project-api.onrender.com';
@@ -181,7 +197,15 @@ function result(tool, question, raw, extra){
   current = {tool, question, summary: summaryOf(tool, raw, extra)};
   let h = `<h2>${esc(SYSNAME[tool]||tool)}</h2>`;
   if (tool==='tarot' && raw.positions){
-    h += `<p class="muted">ケルト十字（10枚）。各カードは、その位置の意味で読みます。</p><div class="cards">` + Object.values(raw.positions).map(p => { const c = p.card||{}; return `<div class="cd"><div class="pos">${p.position_index}. ${esc(p.position_label)}</div><div class="nm">${esc(c.name)}${p.is_reversed?'<span class="rv">逆位置</span>':''}</div><div class="mn">${esc(p.is_reversed?c.meaning_reversed:c.meaning_upright)}</div></div>`; }).join('') + `</div>`;
+    // ケルト十字の並び（設計どおり）：中央＝1（2 は 90° 回して重ねる）／上＝3／右＝4／下＝5／左＝6／右端の柱＝下から 7,8,9,10
+    const P = {}; Object.values(raw.positions).forEach(p => P[p.position_index] = p);
+    const at = {3:[1,2], 6:[2,1], 4:[2,3], 5:[3,2], 10:[1,5], 9:[2,5], 8:[3,5], 7:[4,5]};
+    const img = c => (typeof TAROT_FULL !== 'undefined' && c.arcana === 'major' && TAROT_FULL[c.number] && TAROT_FULL[c.number].svg) ? `<span class="img">${TAROT_FULL[c.number].svg}</span>` : `<span class="nm">${esc(c.name)}</span>`;
+    const cell = (i, extra) => { const p = P[i], c = p.card || {}; return `<button class="cx${p.is_reversed?' rv':''}${extra||''}" data-cx="${i}" style="${at[i]?'grid-column:'+at[i][1]+';grid-row:'+at[i][0]:''}"><span class="n">${i}</span>${img(c)}<span class="pl">${esc((p.position_label||'').split('・')[0])}${p.is_reversed?'（逆）':''}</span></button>`; };
+    window.__P = P;
+    h += `<p class="muted">ケルト十字（10枚）。中央が 1、青い枠で横に重なるのが 2。上 3・右 4・下 5・左 6、右端は下から 7〜10。タップすると意味が読めます。逆位置はカードが逆さまになります。</p><div class="cross">` +
+      [3,6,4,5,10,9,8,7].map(i => cell(i)).join('') +
+      `<div class="cxwrap" style="grid-column:2;grid-row:2">${cell(1).replace(/ style="[^"]*"/,'')}${cell(2,' over').replace(/ style="[^"]*"/,'')}</div></div><div class="cd" id="cxdetail" style="margin-top:10px"><div class="mn">カードをタップしてください。</div></div>`;
   } else if (tool==='shichu' && raw.year){
     h += `<div class="pil">` + [['hour','時'],['day','日'],['month','月'],['year','年']].filter(([k])=>raw[k]).map(([k,l])=>`<div><small>${l}柱</small><b>${esc(raw[k].stem)}<br>${esc(raw[k].branch)}</b></div>`).join('') + `</div><p class="muted" style="margin-top:10px">${esc(raw.note||'')}</p>${raw.boundary_warning?`<p class="err">${esc(raw.boundary_warning)}</p>`:''}`;
   } else if (tool==='five-elements'){
@@ -241,6 +265,9 @@ document.addEventListener('click', e => {
   const x = e.target.closest('[data-ex]'); if (x){ $('q').value = x.dataset.ex; return; }
   if (e.target.id === 'ask') ask();
   if (e.target.id === 'birthGo') runShichu();
+  const cx = e.target.closest('[data-cx]'); if (cx && window.__P){ const p = window.__P[cx.dataset.cx], c = p.card || {};
+    document.querySelectorAll('.cx').forEach(x => x.classList.toggle('on', x === cx));
+    $('cxdetail').innerHTML = `<div class="pos">${p.position_index}. ${esc(p.position_label)}</div><div class="nm">${esc(c.name)}${p.is_reversed?'<span class="rv">逆位置</span>':'（正位置）'}</div><div class="mn">${esc(p.is_reversed?c.meaning_reversed:c.meaning_upright)}</div><div class="mn">${(c.keywords||[]).map(k=>`<span class="tag">${esc(k)}</span>`).join(' ')}</div>`; return; }
   if (e.target.id === 'shareBtn' && current){ share(); return; }
   if (e.target.id === 'favBtn' && current){ const a = favs(); a.unshift({t:Date.now(), ...current}); ls.set('fh_fav', JSON.stringify(a.slice(0,30))); e.target.textContent = '★ 保存しました'; }
 });
