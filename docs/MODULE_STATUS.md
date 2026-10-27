@@ -52,3 +52,8 @@
 並び：中央＝1（2 は 90° 回して重ねる）、上＝3、右＝4、下＝5、左＝6、右端の柱は下から 7・8・9・10。
 大アルカナ 22 枚は apps/fortune-hub/tarot-cards.js の SVG（ライダー・ウェイト風）で表示。小アルカナは絵が無いので文字で表示。
 元の apps/fortune-hub/index.html は日本語が文字化けしているが、tarot-cards.js・fortune-registry/tarot/・apps/lopan/ の画面は無事。
+
+## 2026-10-27 羅盤 × 四柱推命
+`POST /fortune/lopan/link`（server/fortune_lopan_link.py）。元データは core/registry_a.json の lopan（九星ごとの吉方位・後天定位盤の五行）。
+四柱（簡易エンジン）から五行を数え、不足の五行を補う方位と、本命星（立春で年を切り替え）の吉方位・避ける方位を出す。画面は八方位の羅盤図。
+年盤・月盤・日盤の九星の飛びは見ていない（目安）。

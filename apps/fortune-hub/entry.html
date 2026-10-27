@@ -65,6 +65,10 @@ nav button.on{color:var(--gold)}
 .cxwrap .cx.over{position:absolute;left:50%;top:44%;width:70%;min-height:0;padding:0;border-color:#5b9bd5;background:transparent;transform:translate(-50%,-50%) rotate(90deg);z-index:2;box-shadow:0 0 8px rgba(91,155,213,.7)}
 .cxwrap .cx.over .pl,.cxwrap .cx.over .n{display:none}
 .cxwrap .cx.over.rv{transform:translate(-50%,-50%) rotate(-90deg)}
+.cmp{display:block;margin:10px auto;max-width:300px;width:100%}
+.cmp text{font-family:inherit}
+.lg{display:flex;flex-wrap:wrap;gap:10px;font-size:.72rem;color:var(--sub);justify-content:center}
+.lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
 .hide{display:none}
 .spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:s 1s linear infinite;vertical-align:-2px;margin-right:6px}
 @keyframes s{to{transform:rotate(360deg)}}
@@ -176,7 +180,7 @@ function questionHtml(){
     <button class="go" id="ask">おすすめを聞く</button><div class="err" id="askErr"></div></div>
     <div class="box hide" id="recBox"></div>
     <div class="box"><h2>自分で選ぶ</h2><div class="sys">${sysButtons()}</div></div>
-    <div class="box hide" id="birth"><label>生年月日（四柱推命に使います。この端末の中だけに保存）</label><input type="date" id="bd" value="1990-01-01"><label>出生時刻（分からなければ空のまま）</label><input type="time" id="bt"><button class="go" id="birthGo">四柱を出す</button></div>`;
+    <div class="box hide" id="birth"><label>生年月日（四柱推命に使います。この端末の中だけに保存）</label><input type="date" id="bd" value="1990-01-01"><label>出生時刻（分からなければ空のまま）</label><input type="time" id="bt"><button class="go" id="birthGo">四柱を出す</button><button class="go" id="lopanGo" style="margin-top:8px;background:transparent;color:var(--gold);border:1px solid var(--gold)">羅盤で吉方位を見る（四柱とつなぐ）</button></div>`;
 }
 function hist(){ try { return JSON.parse(ls.get('fh_hist','[]')); } catch(e){ return []; } }
 function favs(){ try { return JSON.parse(ls.get('fh_fav','[]')); } catch(e){ return []; } }
@@ -214,6 +218,7 @@ function result(tool, question, raw, extra){
   } else {
     h += `<p class="msg"><b style="color:var(--gold)">${esc(((extra&&extra.symbols)||[]).join(' '))}</b></p><p class="msg">${esc((extra&&extra.summary)||'')}</p>`;
   }
+  if (tool==='shichu') h += `<button class="ghost" id="lopanGo2">この命式で、羅盤の吉方位を見る</button>`;
   h += `<div style="display:flex;gap:10px"><button class="ghost" id="favBtn">★ お気に入りに保存</button><button class="ghost" id="shareBtn">共有する</button></div><p class="muted" id="shareMsg" style="margin-top:6px"></p>`;
   show(h);
   const a = hist(); a.unshift({t:Date.now(), tool, question, summary: current.summary}); ls.set('fh_hist', JSON.stringify(a.slice(0,30)));
@@ -224,6 +229,7 @@ async function run(sys){
   let tool = sys;
   if (sys === 'unified'){ tool = rec || 'tarot'; }
   if (tool === 'meihua') tool = 'iching';
+  if (tool === 'lopan'){ if (tab !== 'question'){ tab = 'question'; render(); } $('birth').classList.remove('hide'); $('birth').scrollIntoView({behavior:'smooth', block:'center'}); return; }
   if (tool === 'shichu'){ if (tab !== 'question'){ tab = 'question'; render(); } $('birth').classList.remove('hide'); $('birth').scrollIntoView({behavior:'smooth', block:'center'}); return; }
   busy();
   try {
@@ -236,6 +242,40 @@ async function run(sys){
       const r = await call('/fortune/run', {tool, question:q||'今の状況'}); result(tool, q, {}, {summary:r.summary, symbols:r.symbols});
     }
   } catch(e){ show(`<p class="err">${esc(e.message)}</p>`); }
+}
+
+function compassSvg(d){
+  const keys=['N','NE','E','SE','S','SW','W','NW'], ja={N:'北',NE:'北東',E:'東',SE:'南東',S:'南',SW:'南西',W:'西',NW:'北西'};
+  const best=new Set(d.best.map(x=>x.key)), avoid=new Set(d.avoid.map(x=>x.key)), sup=new Set(d.support_lacking.map(x=>x.key)), hp=new Set(d.support_day_master.map(x=>x.key));
+  let g='';
+  keys.forEach((k,i)=>{
+    const a=(i*45-90)*Math.PI/180, x=150+Math.cos(a)*112, y=150+Math.sin(a)*112;
+    const fill=best.has(k)?'#d4af6a':(d.avoid_all||avoid.has(k))?'#e07a6e':'#1a1a28';
+    const col=best.has(k)?'#1a1405':'#e8dcc8';
+    g+=`<circle cx="${x}" cy="${y}" r="27" fill="${fill}" stroke="${sup.has(k)?'#5b9bd5':'rgba(212,175,106,.4)'}" stroke-width="${sup.has(k)?4:1.2}"/>`+
+       `<text x="${x}" y="${y+5}" text-anchor="middle" font-size="14" fill="${col}">${ja[k]}</text>`+
+       (hp.has(k)?`<circle cx="${x+20}" cy="${y-20}" r="5" fill="#4a9e6b"/>`:'');
+  });
+  return `<svg class="cmp" viewBox="0 0 300 300" role="img" aria-label="羅盤">`+
+    `<circle cx="150" cy="150" r="140" fill="none" stroke="rgba(212,175,106,.25)"/><circle cx="150" cy="150" r="70" fill="none" stroke="rgba(212,175,106,.15)"/>`+g+
+    `<text x="150" y="146" text-anchor="middle" font-size="12" fill="#8a8070">本命星</text><text x="150" y="166" text-anchor="middle" font-size="15" fill="#d4af6a">${esc(d.star||'')}</text></svg>`+
+    `<div class="lg"><span><i style="background:#d4af6a"></i>吉方位</span><span><i style="background:#e07a6e"></i>避ける</span><span><i style="border:2px solid #5b9bd5"></i>不足の五行を補う</span><span><i style="background:#4a9e6b"></i>日主を助ける</span></div>`;
+}
+async function runLopan(){
+  const bd=$('bd').value, bt=$('bt').value; const q=($('q')&&$('q').value.trim())||'';
+  if(!bd){ show('<p class="err">生年月日を入れてください。</p>'); return; }
+  busy();
+  try{
+    const r=await call('/fortune/lopan/link', bt?{birth_date:bd,birth_time:bt}:{birth_date:bd});
+    const dd=Object.assign({},r.directions,{star:r.honmei.name});
+    const el=r.elements, pl=['year','month','day','hour'].filter(k=>r.pillars[k]).map(k=>r.pillars[k].name).join(' ');
+    current={tool:'lopan',question:q,summary:r.summary};
+    show(`<h2>羅盤 × 四柱推命</h2><p class="msg">${esc(r.summary)}</p>${compassSvg(dd)}`+
+      `<p class="muted">四柱：${esc(pl)}　五行（木火土金水）：${['木','火','土','金','水'].map(k=>k+el.count[k]).join(' ')}　日主：${esc(el.day_master)}</p>`+
+      `<p class="muted" style="margin-top:6px">${esc(r.note)}</p>`+
+      `<div style="display:flex;gap:10px;margin-top:8px"><button class="ghost" id="favBtn">★ お気に入りに保存</button><button class="ghost" id="shareBtn">共有する</button></div><p class="muted" id="shareMsg" style="margin-top:6px"></p>`);
+    const a=hist(); a.unshift({t:Date.now(),tool:'lopan',question:q,summary:r.summary}); ls.set('fh_hist',JSON.stringify(a.slice(0,30)));
+  }catch(e){ show(`<p class="err">${esc(e.message)}</p>`); }
 }
 async function runShichu(){
   const bd = $('bd').value, bt = $('bt').value; const q = ($('q')&&$('q').value.trim()) || '';
@@ -265,6 +305,7 @@ document.addEventListener('click', e => {
   const x = e.target.closest('[data-ex]'); if (x){ $('q').value = x.dataset.ex; return; }
   if (e.target.id === 'ask') ask();
   if (e.target.id === 'birthGo') runShichu();
+  if (e.target.id === 'lopanGo' || e.target.id === 'lopanGo2') runLopan();
   const cx = e.target.closest('[data-cx]'); if (cx && window.__P){ const p = window.__P[cx.dataset.cx], c = p.card || {};
     document.querySelectorAll('.cx').forEach(x => x.classList.toggle('on', x === cx));
     $('cxdetail').innerHTML = `<div class="pos">${p.position_index}. ${esc(p.position_label)}</div><div class="nm">${esc(c.name)}${p.is_reversed?'<span class="rv">逆位置</span>':'（正位置）'}</div><div class="mn">${esc(p.is_reversed?c.meaning_reversed:c.meaning_upright)}</div><div class="mn">${(c.keywords||[]).map(k=>`<span class="tag">${esc(k)}</span>`).join(' ')}</div>`; return; }

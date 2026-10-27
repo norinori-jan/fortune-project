@@ -54,3 +54,13 @@ def test_shichu_boundary_warning():
 
 def test_app_cards_js_served():
     r = c.get("/app/tarot-cards.js"); assert r.status_code == 200 and "TAROT_FULL" in r.text
+
+
+def test_lopan_shichu_link():
+    r = c.post("/fortune/lopan/link", json={"birth_date": "2024-06-01"}).json()
+    assert r["honmei"]["number"] == 3 and r["honmei"]["name"] == "三碧木星"
+    assert c.post("/fortune/lopan/link", json={"birth_date": "2026-03-01", "birth_time": "09:30"}).json()["honmei"]["number"] == 1
+    # 立春前は前年扱い：2025-01-15 → 2024 年 → 三碧
+    assert c.post("/fortune/lopan/link", json={"birth_date": "2025-01-15"}).json()["honmei"]["number"] == 3
+    assert r["directions"]["best"] and r["elements"]["lacking"] in "木火土金水"
+    assert c.post("/fortune/lopan/link", json={"birth_date": "bad"}).status_code == 400
