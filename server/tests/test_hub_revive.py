@@ -42,3 +42,11 @@ def test_complete_shape_and_former_500s():
 
 def test_app_page_served():
     r = c.get("/app"); assert r.status_code == 200 and "Fortune Hub" in r.text
+
+
+def test_shichu_boundary_warning():
+    # 2025-02-03 23:10 JST が立春。その数分前後は注意文が付く
+    r = c.post("/fortune/shichu/pillars", json={"birth_date": "2025-02-03", "birth_time": "23:08"}).json()
+    assert "boundary_warning" in r
+    r2 = c.post("/fortune/shichu/pillars", json={"birth_date": "2025-02-10", "birth_time": "12:00"}).json()
+    assert "boundary_warning" not in r2

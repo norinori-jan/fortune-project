@@ -183,7 +183,7 @@ function result(tool, question, raw, extra){
   if (tool==='tarot' && raw.positions){
     h += `<p class="muted">ケルト十字（10枚）。各カードは、その位置の意味で読みます。</p><div class="cards">` + Object.values(raw.positions).map(p => { const c = p.card||{}; return `<div class="cd"><div class="pos">${p.position_index}. ${esc(p.position_label)}</div><div class="nm">${esc(c.name)}${p.is_reversed?'<span class="rv">逆位置</span>':''}</div><div class="mn">${esc(p.is_reversed?c.meaning_reversed:c.meaning_upright)}</div></div>`; }).join('') + `</div>`;
   } else if (tool==='shichu' && raw.year){
-    h += `<div class="pil">` + [['hour','時'],['day','日'],['month','月'],['year','年']].filter(([k])=>raw[k]).map(([k,l])=>`<div><small>${l}柱</small><b>${esc(raw[k].stem)}<br>${esc(raw[k].branch)}</b></div>`).join('') + `</div><p class="muted" style="margin-top:10px">${esc(raw.note||'')}</p>`;
+    h += `<div class="pil">` + [['hour','時'],['day','日'],['month','月'],['year','年']].filter(([k])=>raw[k]).map(([k,l])=>`<div><small>${l}柱</small><b>${esc(raw[k].stem)}<br>${esc(raw[k].branch)}</b></div>`).join('') + `</div><p class="muted" style="margin-top:10px">${esc(raw.note||'')}</p>${raw.boundary_warning?`<p class="err">${esc(raw.boundary_warning)}</p>`:''}`;
   } else if (tool==='five-elements'){
     const w = (extra && extra.wuxing) || {}; const L = {wood:'木',fire:'火',earth:'土',metal:'金',water:'水'};
     h += `<p class="muted">いまの流れの五行のバランス。</p><div class="bars">` + Object.keys(L).map(k=>`<div><span style="width:1.5em">${L[k]}</span><i style="width:${Math.round((w[k]||0)*100)}%"></i><span>${Math.round((w[k]||0)*100)}%</span></div>`).join('') + `</div>`;

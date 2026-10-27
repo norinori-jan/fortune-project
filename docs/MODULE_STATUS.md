@@ -40,3 +40,10 @@
 - `engine.py` の import を `iching/interpreter.py`（ReadingResult と InterpretationEngine の実体）に向けた。読み込みはできるが、`cast_coin()` は CoinCast と HexagramResult の型違いで実行時に失敗する（易の旧版・新版の食い違い。画面は使っていない）。
 - `shichu/astronomy.py` は本体が無いまま（1 行の呼び出しのみ）。
 - 画面に「共有する」を追加（/fortune/share で共有データを作り、iPhone の共有シート、無ければコピー）。
+
+## 2026-10-27 四柱推命：skyfield を Render に入れるか
+結論：**入れない**（今の簡易計算を残す）。
+- 簡易計算の節入り時刻は、春分・立春などの実際の時刻に対し ±10 分以内（検証：2020〜2025 の春分と、2023・2025 の立春。日本時間）。
+- 本格版（shichu/calendar.py）は skyfield＋scipy＋天体暦ファイル（数十 MB を実行時に取得）が要る。Render 無料枠（512MB）では重く、再起動のたびに取得し直す。また engine.py 側に未定義変数（solar_terms_json_path）があり、そのままでは動かない。
+- 代わりに、節入りの前後約15分以内では「暦の確認が必要」と画面に出すようにした（`boundary_warning`）。
+- 本格版が要るときは、PC 側（ローカル）で skyfield を入れて使う。

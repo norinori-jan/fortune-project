@@ -54,6 +54,10 @@ def four_pillars(dt: datetime, hour_known: bool = True) -> dict:
     ds, db = idx % 10, idx % 12
     out = {"year": _p(ys, yb), "month": _p(ms, mb), "day": _p(ds, db), "sun_longitude": round(lon, 2),
            "note": "簡易計算（日本標準時のまま・出生地補正なし。大運・通変星は含まない）"}
+    # 節入り（30°ごと）の前後は、この計算（誤差およそ±10分）では月柱・年柱が変わるか判定しきれない
+    gap = min((lon - 315.0) % 30.0, 30.0 - (lon - 315.0) % 30.0)
+    if gap < 0.012:
+        out["boundary_warning"] = "節入りの前後（約15分以内）です。月柱・年柱は暦の確認が必要です。"
     if hour_known:
         hb = ((dt.hour + 1) // 2) % 12
         hs = ((ds % 5) * 2 + hb) % 10
