@@ -33,7 +33,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://norinori-jan.github.io","http://localhost:8000",
                    "http://localhost:3000","http://127.0.0.1:8000","null"],
-    allow_origin_regex=r"https://.*\.github\.io",
+    allow_origin_regex=r"(https://.*\.github\.io|http://(localhost|127\.0\.0\.1)(:\d+)?)",
     allow_methods=["GET","POST","OPTIONS"],
     allow_headers=["*"],
 )
@@ -337,3 +337,33 @@ async def fortune_query(req: FortuneQueryRequest):
         tool=req.tool, core=parsed.get("core",""),
         detail=parsed.get("detail",""), action=parsed.get("action",""),
         resonance=parsed.get("resonance"), ai_model_used=model_used)
+
+
+# --- 占いハブ（画面用API）。無ければ黙って飛ばす ---
+import sys as _sys, pathlib as _pl
+_core = str(_pl.Path(__file__).resolve().parent.parent / "fortune-core")
+if _core not in _sys.path:
+    _sys.path.insert(0, _core)
+# server/fortune_*.py の router を全部つなぐ（読み込めないものは黙って飛ばす）
+_skipped = []
+# 「/fortune/{名前}」を受ける fortune_registry_api は、ほかが先に決まるよう最後につなぐ
+for _f in sorted((_pl.Path(__file__).resolve().parent).glob("fortune_*.py"), key=lambda f: (f.stem == "fortune_registry_api", f.stem)):
+    try:
+        _m = __import__("server." + _f.stem, fromlist=["router"])
+        _r = getattr(_m, "router", None)
+        if _r is not None:
+            app.include_router(_r)
+    except Exception as _e:  # noqa: BLE001
+        _skipped.append(_f.stem)
+        print("[fortune] router skipped:", _f.stem, repr(_e)[:80])
+
+
+# --- iPhone などから開く画面。サーバー自身が配る（https://<このサーバー>/app） ---
+from fastapi.responses import FileResponse as _FileResponse  # noqa: E402
+
+_ENTRY_HTML = _pl.Path(__file__).resolve().parent.parent / "apps" / "fortune-hub" / "entry.html"
+
+
+@app.get("/app", include_in_schema=False)
+def _fortune_app():
+    return _FileResponse(_ENTRY_HTML, media_type="text/html; charset=utf-8")

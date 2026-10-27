@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Fortune Hub</title>
+<style>
+:root{--bg:#0a0a0f;--card:#1a1a28;--surf:#12121a;--line:rgba(212,175,106,.18);--gold:#d4af6a;--text:#e8dcc8;--sub:#8a8070;--err:#e07a6e}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Hiragino Sans","Noto Sans JP",sans-serif;min-height:100dvh;padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+.wrap{max-width:480px;margin:0 auto;padding:0 16px}
+header{text-align:center;padding:22px 0 8px}
+h1{font-size:1.35rem;font-weight:500;color:var(--gold);letter-spacing:.08em}
+.chips{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px;scrollbar-width:none}
+.chip{flex:none;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:999px;padding:8px 14px;font-size:.85rem;font-family:inherit}
+.chip.on{background:var(--gold);color:#1a1405;border-color:var(--gold);font-weight:600}
+.box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-top:14px}
+.box h2{font-size:.95rem;color:var(--gold);font-weight:500;margin-bottom:8px}
+.msg{font-size:.9rem;line-height:1.8}
+.muted{font-size:.8rem;color:var(--sub);line-height:1.7}
+.err{color:var(--err);font-size:.85rem;line-height:1.7}
+button{font-family:inherit;cursor:pointer}
+.go{width:100%;margin-top:12px;padding:14px;border-radius:12px;border:0;background:var(--gold);color:#1a1405;font-size:1rem;font-weight:600}
+.go:disabled{opacity:.5}
+.ghost{background:transparent;border:1px solid var(--line);color:var(--text);padding:12px;border-radius:12px;font-size:.9rem;width:100%;margin-top:8px}
+textarea,input{width:100%;background:var(--surf);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:1rem;font-family:inherit}
+textarea{min-height:84px;resize:vertical}
+label{display:block;font-size:.8rem;color:var(--sub);margin:8px 0}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{background:var(--surf);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:.75rem;color:var(--sub)}
+.score{display:flex;align-items:center;gap:14px}
+.ring{width:72px;height:72px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--gold) calc(var(--p)*1%),var(--surf) 0);flex:none}
+.ring i{width:58px;height:58px;border-radius:50%;background:var(--card);display:grid;place-items:center;font-style:normal;font-size:1.2rem;color:var(--gold)}
+.ex{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.ex button{text-align:left;background:var(--surf);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:10px 12px;font-size:.85rem}
+.sys{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.sys button{background:var(--surf);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:12px;text-align:left;min-height:84px}
+.sys b{display:block;color:var(--gold);margin-bottom:4px}
+.sys span{font-size:.72rem;color:var(--sub);line-height:1.5}
+.sys .rec{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold) inset}
+.cards{display:grid;gap:8px;margin-top:10px}
+.cd{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.cd .pos{font-size:.7rem;color:var(--sub)}.cd .nm{font-size:.95rem;margin-top:2px}.cd .rv{color:#e0a46e;font-size:.7rem;margin-left:6px}.cd .mn{font-size:.78rem;color:var(--sub);margin-top:4px;line-height:1.6}
+.pil{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px;text-align:center}
+.pil div{background:var(--surf);border:1px solid var(--line);border-radius:12px;padding:10px 4px}
+.pil small{display:block;font-size:.65rem;color:var(--sub)}.pil b{display:block;font-size:1.25rem;color:var(--gold);margin-top:2px;font-weight:500}
+.bars div{display:flex;align-items:center;gap:8px;font-size:.8rem;margin-top:6px}.bars i{display:block;height:8px;border-radius:4px;background:var(--gold)}
+.h{padding:10px 0;border-bottom:1px solid var(--line);font-size:.85rem}.h:last-child{border:0}.h small{display:block;color:var(--sub);margin-top:2px}
+nav{position:fixed;left:0;right:0;bottom:0;background:rgba(18,18,26,.96);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom);backdrop-filter:blur(8px)}
+nav button{flex:1;background:none;border:0;color:var(--sub);padding:10px 2px 8px;font-size:.7rem}
+nav button b{display:block;font-size:1.25rem;font-weight:400;margin-bottom:2px}
+nav button.on{color:var(--gold)}
+.hide{display:none}
+.spin{display:inline-block;width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--gold);border-radius:50%;animation:s 1s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes s{to{transform:rotate(360deg)}}
+a{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><h1>Fortune Hub</h1></header>
+  <div class="chips" id="chips"></div>
+  <main id="main"></main>
+  <div class="box hide" id="res"></div>
+  <div class="box">
+    <details><summary class="muted" style="cursor:pointer">設定（つなぎ先）</summary>
+      <label for="api">占いサーバーの URL</label>
+      <input id="api" inputmode="url" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <div style="display:flex;gap:10px"><button class="ghost" id="apiSave">保存</button><button class="ghost" id="apiTest">つながるか確かめる</button></div>
+      <p class="muted" id="apiMsg" style="margin-top:8px"></p>
+      <p class="muted" style="margin-top:8px"><a href="index.html">旧画面</a></p>
+    </details>
+  </div>
+</div>
+<nav id="nav"></nav>
+
+<script>
+'use strict';
+const DEFAULT_API = 'https://fortune-project-api.onrender.com';
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const ls = { get(k,d){ try{ const v=localStorage.getItem(k); return v==null?d:v; }catch(e){ return d; } }, set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} } };
+const SAME = location.pathname.replace(/\/+$/,'') === '/app';  // サーバー自身が配る画面（iPhone 用）なら、同じサーバーに話す
+let API = (new URLSearchParams(location.search).get('api') || (SAME ? location.origin : ls.get('fh_api', DEFAULT_API))).replace(/\/+$/,'');
+let USER = ls.get('fh_user', ''); if (!USER){ USER = 'u' + Math.random().toString(36).slice(2,10); ls.set('fh_user', USER); }
+let theme = ls.get('fh_theme', 'general'), tab = 'home', shell = null, current = null, rec = null;
+
+// 追加の占い（この画面が足したもの。サーバーの設計とは別に動く）
+const EXTRA = [
+  {id:'lopan',  name:'風水・羅盤', desc:'場所と方角、今年の吉方位'},
+  {id:'shichu', name:'四柱推命',   desc:'生年月日から年・月・日・時の柱'}
+];
+const SYSNAME = {unified:'総合占い', tarot:'タロット', meihua:'梅花易数', 'five-elements':'五行', lopan:'風水・羅盤', shichu:'四柱推命', iching:'易'};
+
+async function call(path, body){
+  let r;
+  try { r = await fetch(API + path, {method: body ? 'POST':'GET', headers: body ? {'Content-Type':'application/json'} : undefined, body: body ? JSON.stringify(body) : undefined}); }
+  catch(e){ const x = new Error('サーバーにつながりません。設定のURLと、サーバーが動いているかを確かめてください。'); x.code='net'; throw x; }
+  let d = null; try { d = await r.json(); } catch(e){}
+  if (!r.ok){ const x = new Error((d && d.detail && (typeof d.detail==='string' ? d.detail : JSON.stringify(d.detail))) || ('サーバーのエラー（'+r.status+'）')); x.code = r.status; throw x; }
+  return d;
+}
+
+async function load(){
+  $('main').innerHTML = '<div class="box"><p class="muted"><span class="spin"></span>読み込んでいます…</p></div>';
+  try { shell = await call('/fortune/mobile/' + encodeURIComponent(USER) + '?theme=' + encodeURIComponent(theme)); render(); }
+  catch(e){ shell = null; renderNav(); $('chips').innerHTML = ''; $('main').innerHTML = `<div class="box"><p class="err">${esc(e.code===404 ? 'このサーバーには、ホーム画面の機能がまだ入っていません。' : e.message)}</p></div>`; }
+}
+
+function renderNav(){
+  const items = shell ? shell.screens.home.navigation : [{key:'home',label:'ホーム'}];
+  const ic = {home:'⌂', today:'☀', question:'✦', history:'☰', favorites:'★'};
+  $('nav').innerHTML = items.map(n => `<button data-tab="${n.key}" class="${n.key===tab?'on':''}"><b>${ic[n.key]||'•'}</b>${esc(n.label)}</button>`).join('');
+}
+function renderChips(){
+  const th = shell ? shell.screens.home.themes : [];
+  $('chips').innerHTML = th.map(t => `<button class="chip${t.key===theme?' on':''}" data-theme="${t.key}">${esc(t.label)}</button>`).join('');
+}
+
+function render(){
+  renderNav(); renderChips();
+  const m = $('main'); $('res').classList.add('hide');
+  if (!shell) return;
+  if (tab === 'home') m.innerHTML = homeHtml();
+  else if (tab === 'today') m.innerHTML = todayHtml();
+  else if (tab === 'question') m.innerHTML = questionHtml();
+  else if (tab === 'history') m.innerHTML = listHtml('history');
+  else if (tab === 'favorites') m.innerHTML = listHtml('favorites');
+}
+
+function lucky(d){
+  return `<div class="tags">${(d.lucky_keywords||[]).map(k=>`<span class="tag">${esc(k)}</span>`).join('')}` +
+    (d.lucky_number!=null ? `<span class="tag">数字 ${esc(d.lucky_number)}</span>` : '') + (d.lucky_direction ? `<span class="tag">方角 ${esc(d.lucky_direction)}</span>` : '') + `</div>`;
+}
+function homeHtml(){
+  const ws = shell.screens.home.page.widgets;
+  return ws.map(w => {
+    const d = w.data || {};
+    if (w.widget_type === 'daily-fortune') return `<div class="box"><h2>${esc(w.title)}</h2><p class="msg"><b>${esc(d.title)}</b></p><p class="msg">${esc(d.message)}</p><p class="muted" style="margin-top:6px">${esc(d.advice)}</p>${lucky(d)}</div>`;
+    if (w.widget_type === 'recommendation') return `<div class="box"><h2>${esc(w.title)}</h2><p class="msg">${esc(d.reason)}</p><div class="tags">${(d.keywords||[]).map(k=>`<span class="tag">${esc(k)}</span>`).join('')}</div><button class="go" data-run="${esc(d.system||'unified')}">${esc(SYSNAME[d.system]||'おすすめ')}で占う</button></div>`;
+    if (w.widget_type === 'fortune-card') return '';
+    if (w.widget_type === 'question-input') return `<div class="box"><h2>${esc(w.title)}</h2><button class="ghost" data-tab="question">質問を入力する</button></div>`;
+    return '';
+  }).join('') + `<div class="box"><h2>占いを選ぶ</h2><div class="sys">${sysButtons()}</div></div>`;
+}
+function sysButtons(){
+  const base = shell.screens.question.systems.filter(s => s.enabled && s.key !== 'unified').map(s => ({id:s.key, name:s.title, desc:s.description}));
+  return base.concat(EXTRA).map(s => `<button data-run="${esc(s.id)}" class="${s.id===rec?'rec':''}"><b>${esc(s.name)}</b><span>${esc(s.desc)}</span></button>`).join('');
+}
+function todayHtml(){
+  const t = shell.screens.today.today;
+  return `<div class="box"><div class="score"><div class="ring" style="--p:${esc(t.score)}"><i>${esc(t.score)}</i></div><div><p class="msg"><b>${esc(t.title)}</b></p><p class="muted">${esc(t.date)}</p></div></div><p class="msg" style="margin-top:12px">${esc(t.message)}</p><p class="muted" style="margin-top:6px">${esc(t.advice)}</p>${lucky(t)}</div>`;
+}
+function questionHtml(){
+  const f = shell.screens.question.form;
+  return `<div class="box"><h2>${esc(f.submit_label || '占う')}</h2><textarea id="q" maxlength="${esc(f.max_length||500)}" placeholder="${esc(f.placeholder)}"></textarea>
+    <div class="ex">${(f.examples||[]).map(e=>`<button data-ex="${esc(e)}">${esc(e)}</button>`).join('')}</div>
+    <button class="go" id="ask">おすすめを聞く</button><div class="err" id="askErr"></div></div>
+    <div class="box hide" id="recBox"></div>
+    <div class="box"><h2>自分で選ぶ</h2><div class="sys">${sysButtons()}</div></div>
+    <div class="box hide" id="birth"><label>生年月日（四柱推命に使います。この端末の中だけに保存）</label><input type="date" id="bd" value="1990-01-01"><label>出生時刻（分からなければ空のまま）</label><input type="time" id="bt"><button class="go" id="birthGo">四柱を出す</button></div>`;
+}
+function hist(){ try { return JSON.parse(ls.get('fh_hist','[]')); } catch(e){ return []; } }
+function favs(){ try { return JSON.parse(ls.get('fh_fav','[]')); } catch(e){ return []; } }
+function listHtml(kind){
+  const a = kind === 'history' ? hist() : favs();
+  if (!a.length) return `<div class="box"><p class="muted">${kind==='history' ? 'まだ占っていません。' : 'お気に入りはまだありません。結果の「★ 保存」で入ります。'}</p></div>`;
+  return `<div class="box">` + a.map(x => `<div class="h"><b>${esc(SYSNAME[x.tool]||x.tool)}</b>　${esc(x.question||'（質問なし）')}<small>${new Date(x.t).toLocaleString('ja-JP')}　${esc(x.summary||'')}</small></div>`).join('') + `</div>`;
+}
+
+function show(html){ const r = $('res'); r.classList.remove('hide'); r.innerHTML = html; r.scrollIntoView({behavior:'smooth', block:'start'}); }
+function busy(){ show('<p class="muted"><span class="spin"></span>占っています…</p>'); }
+function summaryOf(tool, raw, extra){
+  if (tool==='tarot' && raw.positions){ const f = Object.values(raw.positions)[0]; return f && f.card ? '現在の状況：' + f.card.name : 'ケルト十字'; }
+  if (tool==='shichu' && raw.year) return ['year','month','day','hour'].filter(k=>raw[k]).map(k=>raw[k].name).join(' ');
+  return (extra && extra.summary) || '';
+}
+function result(tool, question, raw, extra){
+  current = {tool, question, summary: summaryOf(tool, raw, extra)};
+  let h = `<h2>${esc(SYSNAME[tool]||tool)}</h2>`;
+  if (tool==='tarot' && raw.positions){
+    h += `<p class="muted">ケルト十字（10枚）。各カードは、その位置の意味で読みます。</p><div class="cards">` + Object.values(raw.positions).map(p => { const c = p.card||{}; return `<div class="cd"><div class="pos">${p.position_index}. ${esc(p.position_label)}</div><div class="nm">${esc(c.name)}${p.is_reversed?'<span class="rv">逆位置</span>':''}</div><div class="mn">${esc(p.is_reversed?c.meaning_reversed:c.meaning_upright)}</div></div>`; }).join('') + `</div>`;
+  } else if (tool==='shichu' && raw.year){
+    h += `<div class="pil">` + [['hour','時'],['day','日'],['month','月'],['year','年']].filter(([k])=>raw[k]).map(([k,l])=>`<div><small>${l}柱</small><b>${esc(raw[k].stem)}<br>${esc(raw[k].branch)}</b></div>`).join('') + `</div><p class="muted" style="margin-top:10px">${esc(raw.note||'')}</p>${raw.boundary_warning?`<p class="err">${esc(raw.boundary_warning)}</p>`:''}`;
+  } else if (tool==='five-elements'){
+    const w = (extra && extra.wuxing) || {}; const L = {wood:'木',fire:'火',earth:'土',metal:'金',water:'水'};
+    h += `<p class="muted">いまの流れの五行のバランス。</p><div class="bars">` + Object.keys(L).map(k=>`<div><span style="width:1.5em">${L[k]}</span><i style="width:${Math.round((w[k]||0)*100)}%"></i><span>${Math.round((w[k]||0)*100)}%</span></div>`).join('') + `</div>`;
+  } else {
+    h += `<p class="msg"><b style="color:var(--gold)">${esc(((extra&&extra.symbols)||[]).join(' '))}</b></p><p class="msg">${esc((extra&&extra.summary)||'')}</p>`;
+  }
+  h += `<div style="display:flex;gap:10px"><button class="ghost" id="favBtn">★ お気に入りに保存</button><button class="ghost" id="shareBtn">共有する</button></div><p class="muted" id="shareMsg" style="margin-top:6px"></p>`;
+  show(h);
+  const a = hist(); a.unshift({t:Date.now(), tool, question, summary: current.summary}); ls.set('fh_hist', JSON.stringify(a.slice(0,30)));
+}
+
+async function run(sys){
+  const q = ($('q') && $('q').value.trim()) || '';
+  let tool = sys;
+  if (sys === 'unified'){ tool = rec || 'tarot'; }
+  if (tool === 'meihua') tool = 'iching';
+  if (tool === 'shichu'){ if (tab !== 'question'){ tab = 'question'; render(); } $('birth').classList.remove('hide'); $('birth').scrollIntoView({behavior:'smooth', block:'center'}); return; }
+  busy();
+  try {
+    if (tool === 'tarot'){
+      try { result('tarot', q, await call('/fortune/tarot/celtic', {question:q})); }
+      catch(e){ if (e.code !== 404) throw e; const r = await call('/fortune/run', {tool:'tarot', question:q||'今の状況'}); result('tarot', q, {}, {summary:r.summary, symbols:r.symbols}); }
+    } else if (tool === 'five-elements'){
+      const r = await call('/fortune/run', {tool:'iching', question:q||'今の状況'}); result('five-elements', q, {}, {wuxing:r.wuxing, summary:r.summary});
+    } else {
+      const r = await call('/fortune/run', {tool, question:q||'今の状況'}); result(tool, q, {}, {summary:r.summary, symbols:r.symbols});
+    }
+  } catch(e){ show(`<p class="err">${esc(e.message)}</p>`); }
+}
+async function runShichu(){
+  const bd = $('bd').value, bt = $('bt').value; const q = ($('q')&&$('q').value.trim()) || '';
+  if (!bd){ show('<p class="err">生年月日を入れてください。</p>'); return; }
+  busy();
+  try { result('shichu', q, await call('/fortune/shichu/pillars', bt ? {birth_date:bd, birth_time:bt} : {birth_date:bd})); }
+  catch(e){ show(`<p class="err">${esc(e.message)}</p>`); }
+}
+async function ask(){
+  const q = $('q').value.trim(); $('askErr').textContent = '';
+  if (!q){ $('askErr').textContent = '気になっていることを、一言入れてください。'; return; }
+  $('ask').disabled = true; $('ask').textContent = '考えています…';
+  try {
+    const r = await call('/fortune/entry', {question:q}); rec = r.recommended.tool;
+    const b = $('recBox'); b.classList.remove('hide');
+    b.innerHTML = `<h2>おすすめは「${esc(r.recommended.label)}」</h2><p class="msg">${esc(r.recommended.reason)}</p><button class="go" data-run="${esc(rec)}">${esc(r.recommended.label)}で占う</button>`;
+    document.querySelectorAll('.sys button').forEach(x => x.classList.toggle('rec', x.dataset.run === rec || (rec==='iching' && x.dataset.run==='meihua')));
+    b.scrollIntoView({behavior:'smooth', block:'center'});
+  } catch(e){ $('askErr').textContent = e.code===404 ? 'このサーバーには、おすすめ機能がまだ入っていません。下から選んでください。' : e.message; }
+  finally { $('ask').disabled = false; $('ask').textContent = 'おすすめを聞く'; }
+}
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-tab]'); if (t){ tab = t.dataset.tab; render(); window.scrollTo(0,0); return; }
+  const th = e.target.closest('[data-theme]'); if (th){ theme = th.dataset.theme; ls.set('fh_theme', theme); load(); return; }
+  const r = e.target.closest('[data-run]'); if (r){ run(r.dataset.run); return; }
+  const x = e.target.closest('[data-ex]'); if (x){ $('q').value = x.dataset.ex; return; }
+  if (e.target.id === 'ask') ask();
+  if (e.target.id === 'birthGo') runShichu();
+  if (e.target.id === 'shareBtn' && current){ share(); return; }
+  if (e.target.id === 'favBtn' && current){ const a = favs(); a.unshift({t:Date.now(), ...current}); ls.set('fh_fav', JSON.stringify(a.slice(0,30))); e.target.textContent = '★ 保存しました'; }
+});
+async function share(){
+  const m = $('shareMsg'); m.textContent = '共有を作っています…';
+  const name = SYSNAME[current.tool] || current.tool;
+  const d = new Date(); const key = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  let text = name + '：' + (current.summary || current.question || '占いの結果') + '（Fortune Hub）';
+  try {
+    const r = await call('/fortune/share', {title: name, message: current.summary || current.question || '占いの結果', advice: current.question || '—', system: current.tool === 'five-elements' ? 'five-elements' : current.tool, theme: theme, date_key: key});
+    text += ' ' + API + '/app#s=' + r.id;
+  } catch(e){ /* サーバーの共有が使えなくても、文章だけで共有する */ }
+  try {
+    if (navigator.share){ await navigator.share({title: name, text}); m.textContent = ''; }
+    else { await navigator.clipboard.writeText(text); m.textContent = 'コピーしました。貼り付けて送れます。'; }
+  } catch(e){ m.textContent = e && e.name === 'AbortError' ? '' : '共有できませんでした。文章：' + text; }
+}
+$('apiSave').onclick = () => { API = $('api').value.trim().replace(/\/+$/,'') || DEFAULT_API; ls.set('fh_api', API); $('apiMsg').textContent = '保存しました：' + API; load(); };
+$('apiTest').onclick = async () => { $('apiMsg').textContent = '確かめています…'; try { const h = await call('/fortune/health'); $('apiMsg').textContent = 'つながりました（version ' + h.version + '）'; } catch(e){ $('apiMsg').textContent = e.message; } };
+$('api').value = API;
+load();
+</script>
+</body>
+</html>

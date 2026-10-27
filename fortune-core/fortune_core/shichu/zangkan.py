@@ -29,3 +29,4 @@ class ZangKanEngine:
             middle=self.stems.get(data["middle"]) if data["middle"] else None,
             extra=self.stems.get(data["extra"]) if data["extra"] else None,
         )
+ZangkanEngine = ZangKanEngine  # 綴りの別名（大文字小文字違いの呼び出し対策）

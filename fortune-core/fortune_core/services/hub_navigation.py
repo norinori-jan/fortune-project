@@ -1,0 +1,69 @@
+from __future__ import annotations
+from ..models.hub_navigation import (
+    HubNavigation,
+    HubNavigationItem,
+)
+class FortuneHubNavigationService:
+    ITEMS = (
+        HubNavigationItem(
+            key="home",
+            title="ホーム",
+            path="/fortune/hub/home",
+            description="今日の運勢と各サービスをまとめて表示します。",
+        ),
+        HubNavigationItem(
+            key="iching",
+            title="易経",
+            path="/fortune/iching",
+            description="易経による流れと卦を確認します。",
+            system="iching",
+        ),
+        HubNavigationItem(
+            key="tarot",
+            title="タロット",
+            path="/fortune/tarot",
+            description="タロットから現在のテーマを読み解きます。",
+            system="tarot",
+        ),
+        HubNavigationItem(
+            key="meihua",
+            title="梅花易数",
+            path="/fortune/meihua",
+            description="変化の流れを梅花易数で見ます。",
+            system="meihua",
+        ),
+        HubNavigationItem(
+            key="five-elements",
+            title="五行",
+            path="/fortune/five-elements",
+            description="五行のバランスを確認します。",
+            system="five-elements",
+        ),
+        HubNavigationItem(
+            key="shichu",
+            title="四柱プロフィール",
+            path="/fortune/shichu/profile",
+            description="生年月日からプロフィール情報を生成します。",
+            system="shichu",
+        ),
+        HubNavigationItem(
+            key="calendar",
+            title="運勢カレンダー",
+            path="/fortune/calendar",
+            description="日付ごとの運勢を確認します。",
+        ),
+        HubNavigationItem(
+            key="history",
+            title="履歴",
+            path="/fortune/history",
+            description="過去の占い結果を確認します。",
+        ),
+        HubNavigationItem(
+            key="favorites",
+            title="お気に入り",
+            path="/fortune/favorites",
+            description="保存した占い結果を確認します。",
+        ),
+    )
+    def build(self) -> HubNavigation:
+        return HubNavigation(items=self.ITEMS)
