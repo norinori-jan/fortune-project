@@ -1,0 +1,596 @@
+
+==========================================================
+Feng Shui AI
+Lopan Raw Database
+
+Raw Layer 23 / 24
+==========================================================
+
+Rule
+----
+・実物羅盤画像／入力データを原資料とする
+・画像／入力上で確認できる事実のみ記録する
+・角度は「何度から何度まで」の区間を正本とする
+・区間幅と同じ「○度」は重複データとして別保存しない
+・原文に書かれた文字は raw_text に保持する
+・角度区間から幅を必要時に計算できる構造とする
+・不明な文字は推測しない
+・意味付けしない
+・一般知識で補完しない
+・23層と24層を混同しない
+
+==========================================================
+"""
+
+VERSION = "RawLopan-23-24"
+SOURCE = "実物羅盤画像＋入力データ"
+
+
+# ==========================================================
+# Layer 23
+# ==========================================================
+
+LAYER_ID_23 = 23
+
+
+# ==========================================================
+# Raw Layer 23
+# ==========================================================
+#
+# 角度区間を正本とする。
+#
+# 例：
+# 4~12
+# 牛8度
+#
+# の場合、
+#
+# angle_start = 4
+# angle_end = 12
+#
+# とする。
+#
+# 「8度」は 12 - 4 で算出可能なので、
+# degree_width として重複保存しない。
+#
+# ただし「牛」という原文上の文字は保持する。
+#
+
+raw_layer23 = [
+
+{
+"id": 1,
+
+"angle_start": 4.0,
+"angle_end": 12.0,
+
+"raw_text": ["牛"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "4~12",
+
+"notes": ""
+},
+
+{
+"id": 2,
+
+"angle_start": 12.0,
+"angle_end": 36.0,
+
+"raw_text": ["斗"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "12~36",
+
+"notes": ""
+},
+
+{
+"id": 3,
+
+"angle_start": 36.0,
+"angle_end": 45.0,
+
+"raw_text": ["箕"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "36~45",
+
+"notes": ""
+},
+
+{
+"id": 4,
+
+"angle_start": 45.0,
+"angle_end": 60.0,
+
+"raw_text": ["尾"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "45~60",
+
+"notes": ""
+},
+
+{
+"id": 5,
+
+"angle_start": 60.0,
+"angle_end": 68.0,
+
+"raw_text": ["心"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "60~68",
+
+"notes": ""
+},
+
+{
+"id": 6,
+
+"angle_start": 68.0,
+"angle_end": 73.0,
+
+"raw_text": ["房"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "68~73",
+
+"notes": ""
+},
+
+{
+"id": 7,
+
+"angle_start": 73.0,
+"angle_end": 91.0,
+
+"raw_text": ["氏"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "73~91",
+
+"notes": ""
+},
+
+{
+"id": 8,
+
+"angle_start": 91.0,
+"angle_end": 102.0,
+
+"raw_text": ["亢"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "91~102",
+
+"notes": ""
+},
+
+{
+"id": 9,
+
+"angle_start": 102.0,
+"angle_end": 113.0,
+
+"raw_text": ["角"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "102~113",
+
+"notes": ""
+},
+
+{
+"id": 10,
+
+"angle_start": 113.0,
+"angle_end": 127.0,
+
+"raw_text": ["軫"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "113~127",
+
+"notes": ""
+},
+
+{
+"id": 11,
+
+"angle_start": 127.0,
+"angle_end": 144.0,
+
+"raw_text": ["翌"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "127~144",
+
+"notes": ""
+},
+
+{
+"id": 12,
+
+"angle_start": 144.0,
+"angle_end": 161.0,
+
+"raw_text": ["張"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "144~161",
+
+"notes": ""
+},
+
+{
+"id": 13,
+
+"angle_start": 161.0,
+"angle_end": 169.0,
+
+"raw_text": ["星"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "161~169",
+
+"notes": ""
+},
+
+{
+"id": 14,
+
+"angle_start": 169.0,
+"angle_end": 186.0,
+
+"raw_text": ["柳"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "169~186",
+
+"notes": ""
+},
+
+{
+"id": 15,
+
+"angle_start": 186.0,
+"angle_end": 191.0,
+
+"raw_text": ["鬼"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "186~191",
+
+"notes": ""
+},
+
+{
+"id": 16,
+
+"angle_start": 191.0,
+"angle_end": 222.0,
+
+"raw_text": ["井"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "191~222",
+
+"notes": ""
+},
+
+{
+"id": 17,
+
+"angle_start": 222.0,
+"angle_end": 233.0,
+
+"raw_text": ["参"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "222~233",
+
+"notes": ""
+},
+
+{
+"id": 18,
+
+"angle_start": 233.0,
+"angle_end": 234.0,
+
+"raw_text": ["喈"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "233~234",
+
+"notes": ""
+},
+
+{
+"id": 19,
+
+"angle_start": 234.0,
+"angle_end": 249.0,
+
+"raw_text": ["畢"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "234~249",
+
+"notes": ""
+},
+
+{
+"id": 20,
+
+"angle_start": 249.0,
+"angle_end": 258.0,
+
+"raw_text": ["昂"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "249~258",
+
+"notes": ""
+},
+
+{
+"id": 21,
+
+"angle_start": 258.0,
+"angle_end": 270.0,
+
+"raw_text": ["胃"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "258~270",
+
+"notes": ""
+},
+
+{
+"id": 22,
+
+"angle_start": 270.0,
+"angle_end": 283.0,
+
+"raw_text": ["婁"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "270~283",
+
+"notes": ""
+},
+
+{
+"id": 23,
+
+"angle_start": 283.0,
+"angle_end": 294.0,
+
+"raw_text": ["奎"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "283~294",
+
+"notes": ""
+},
+
+{
+"id": 24,
+
+"angle_start": 294.0,
+"angle_end": 309.0,
+
+"raw_text": ["壁"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "294~309",
+
+"notes": ""
+},
+
+{
+"id": 25,
+
+"angle_start": 309.0,
+"angle_end": 323.0,
+
+"raw_text": ["室"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "309~323",
+
+"notes": ""
+}
+]
+
+
+# ==========================================================
+# Layer 23 Derived Angle Width
+# ==========================================================
+#
+# 必要な場合だけ angle_end - angle_start で求める。
+# Rawデータには重複保存しない。
+#
+
+def get_layer23_angle_width(item):
+"""
+Layer 23 の角度区間幅を計算する。
+"""
+return item["angle_end"] - item["angle_start"]
+
+
+# ==========================================================
+# Layer 23 Validation
+# ==========================================================
+#
+# 原文に記載された「○度」と角度区間が一致することを
+# 後から検証できる。
+#
+# ただし、検証値そのものはRawデータとして保存しない。
+#
+
+layer23_validation = {
+
+"angle_width_is_derived": True,
+
+"formula": "angle_end - angle_start",
+
+"raw_degree_value_is_not_duplicated": True
+}
+
+
+# ==========================================================
+# Layer 24
+# ==========================================================
+
+LAYER_ID_24 = 24
+
+
+# ==========================================================
+# Raw Layer 24
+# ==========================================================
+#
+# 今回の入力で確認できたものだけを記録する。
+#
+# 330~315 啓蟄
+# 315~300 春分
+#
+# それ以外については、
+# 「あとは十二節季の順番で同じ角度」
+# という構造情報のみ保持する。
+#
+
+raw_layer24 = [
+
+{
+"id": 1,
+
+"angle_start": 330.0,
+"angle_end": 315.0,
+
+"raw_text": ["啓蟄"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "330~315",
+
+"notes": ""
+},
+
+{
+"id": 2,
+
+"angle_start": 315.0,
+"angle_end": 300.0,
+
+"raw_text": ["春分"],
+
+"raw_symbols": [],
+
+"raw_angle_text": "315~300",
+
+"notes": ""
+}
+]
+
+
+# ==========================================================
+# Layer 24 Sequence Rule
+# ==========================================================
+
+layer24_sequence_rule = {
+
+"type": "十二節季",
+
+"order": "原盤記載順",
+
+"equal_angle_rule": True,
+
+"additional_entries_not_supplied": True,
+
+"do_not_infer_missing_entries": True
+}
+
+
+# ==========================================================
+# Layer 23 / 24 Relation
+# ==========================================================
+
+layer23_24_relation = {
+
+"layer23": {
+"layer_id": 23,
+"angle_ranges_are_primary": True
+},
+
+"layer24": {
+"layer_id": 24,
+"seasonal_sequence": True
+},
+
+"independent_layers": True,
+
+"do_not_merge": True
+}
+
+
+# ==========================================================
+# Raw Data Policy
+# ==========================================================
+
+RAW_DATA_POLICY = {
+
+"image_is_primary_source": True,
+
+"preserve_original_order": True,
+
+"preserve_original_angle_ranges": True,
+
+"preserve_original_text": True,
+
+"preserve_original_symbols": True,
+
+"derive_angle_width_when_needed": True,
+
+"duplicate_degree_field": False,
+
+"semantic_interpretation": False,
+
+"name_inference": False,
+
+"general_knowledge_completion": False,
+
+"unknown_data_is_not_filled": True
+}
+

@@ -1,0 +1,171 @@
+
+
+"""
+==========================================================
+Feng Shui AI
+Lopan Raw Database
+
+Raw Layer 15
+==========================================================
+
+Description
+-----------
+実物羅盤・ユーザー入力データから確認した
+Layer15の事実のみを記録する。
+
+Rule
+----
+・層名称を推測しない
+・盤名称を推測しない
+・意味付けしない
+・一般知識で補完しない
+・入力された文字列をそのまま保持する
+・Layer14、Layer16との行対応を維持する
+・不明な文字は推測しない
+
+Version
+-------
+RawLopan-01
+
+==========================================================
+"""
+
+# ==========================================================
+# Layer Information
+# ==========================================================
+
+LAYER_ID = 15
+VERSION = "RawLopan-01"
+SOURCE = "ユーザー入力"
+
+# Layer14 / Layer15 / Layer16 は同一行で対応
+ROW_COUNT = 64
+
+
+# ==========================================================
+# Raw Layer 15
+# ==========================================================
+
+raw_layer15 = [
+
+{"id": 1, "raw_text": "無妄"},
+{"id": 2, "raw_text": "同人"},
+{"id": 3, "raw_text": "履"},
+{"id": 4, "raw_text": "乾"},
+{"id": 5, "raw_text": "小畜"},
+{"id": 6, "raw_text": "中孚"},
+{"id": 7, "raw_text": "家人"},
+{"id": 8, "raw_text": "益"},
+{"id": 9, "raw_text": "巽"},
+{"id": 10, "raw_text": "渙"},
+{"id": 11, "raw_text": "漸"},
+{"id": 12, "raw_text": "觀"},
+{"id": 13, "raw_text": "需"},
+{"id": 14, "raw_text": "節"},
+{"id": 15, "raw_text": "既済"},
+{"id": 16, "raw_text": "屯"},
+{"id": 17, "raw_text": "井"},
+{"id": 18, "raw_text": "坎"},
+{"id": 19, "raw_text": "蹇"},
+{"id": 20, "raw_text": "比"},
+{"id": 21, "raw_text": "大畜"},
+{"id": 22, "raw_text": "損"},
+{"id": 23, "raw_text": "賁"},
+{"id": 24, "raw_text": "頣"},
+{"id": 25, "raw_text": "蠱"},
+{"id": 26, "raw_text": "蒙"},
+{"id": 27, "raw_text": "艮"},
+{"id": 28, "raw_text": "剥"},
+{"id": 29, "raw_text": "泰"},
+{"id": 30, "raw_text": "臨"},
+{"id": 31, "raw_text": "明夷"},
+{"id": 32, "raw_text": "復"},
+{"id": 33, "raw_text": "升"},
+{"id": 34, "raw_text": "師"},
+{"id": 35, "raw_text": "謙"},
+{"id": 36, "raw_text": "坤"},
+{"id": 37, "raw_text": "豫"},
+{"id": 38, "raw_text": "小過"},
+{"id": 39, "raw_text": "解"},
+{"id": 40, "raw_text": "恆"},
+{"id": 41, "raw_text": "震"},
+{"id": 42, "raw_text": "豊"},
+{"id": 43, "raw_text": "帰妹"},
+{"id": 44, "raw_text": "大壮"},
+{"id": 45, "raw_text": "晋"},
+{"id": 46, "raw_text": "旅"},
+{"id": 47, "raw_text": "未済"},
+{"id": 48, "raw_text": "鼎"},
+{"id": 49, "raw_text": "噬嗑"},
+{"id": 50, "raw_text": "離"},
+{"id": 51, "raw_text": "睽"},
+{"id": 52, "raw_text": "大有"},
+{"id": 53, "raw_text": "萃"},
+{"id": 54, "raw_text": "咸"},
+{"id": 55, "raw_text": "困"},
+{"id": 56, "raw_text": "大過"},
+{"id": 57, "raw_text": "随"},
+{"id": 58, "raw_text": "革"},
+{"id": 59, "raw_text": "兌"},
+{"id": 60, "raw_text": "夬"},
+{"id": 61, "raw_text": "否"},
+{"id": 62, "raw_text": "遯"},
+{"id": 63, "raw_text": "訟"},
+{"id": 64, "raw_text": "姤"},
+]
+
+
+# ==========================================================
+# Layer14 ↔ Layer15 Relationship
+# ==========================================================
+
+LAYER15_RELATIONSHIP = {
+"same_row_as_layer14": True,
+"same_row_as_layer16": True,
+"row_count": 64,
+"relationship_key": "id",
+}
+
+
+# ==========================================================
+# Validation
+# ==========================================================
+
+def validate_layer15(data):
+    """
+    Layer15の基本構造を検証する。
+"""
+
+errors = []
+
+if len(data) != ROW_COUNT:
+    errors.append(
+    f"Layer15の行数が64ではありません: {len(data)}"
+)
+
+expected_ids = list(range(1, ROW_COUNT + 1))
+actual_ids = [item["id"] for item in data]
+
+if actual_ids != expected_ids:
+    errors.append(
+    "Layer15のidが1〜64の連番になっていません"
+)
+
+for item in data:
+    if "raw_text" not in item:
+        errors.append(
+    f"id={item['id']} にraw_textがありません"
+)
+
+elif item["raw_text"] == "":
+errors.append(
+f"id={item['id']} のraw_textが空です"
+)
+
+return errors
+
+
+# ==========================================================
+# End
+# ==========================================================
+

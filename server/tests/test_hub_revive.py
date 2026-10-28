@@ -64,3 +64,11 @@ def test_lopan_shichu_link():
     assert c.post("/fortune/lopan/link", json={"birth_date": "2025-01-15"}).json()["honmei"]["number"] == 3
     assert r["directions"]["best"] and r["elements"]["lacking"] in "木火土金水"
     assert c.post("/fortune/lopan/link", json={"birth_date": "bad"}).status_code == 400
+
+
+def test_lopan_layers_and_measure():
+    r = c.get("/fortune/lopan/layers").json()
+    assert len(r["layers"]) == 18 and r["layers"][0]["layer"] == 10
+    m = c.get("/fortune/lopan/measure?angle=337").json()
+    assert m["layers"]["10"]["status"] == "OK" and m["layers"]["10"]["matches"][0]["record"]["raw_text"] == "癸亥"
+    assert c.get("/fortune/lopan/measure?angle=400").status_code == 422

@@ -1,0 +1,180 @@
+
+"""
+==========================================================
+Feng Shui AI
+Lopan Raw Database
+
+Raw Layer 11
+==========================================================
+
+Description
+-----------
+実物羅盤・ユーザー実測データから確認した
+Layer11 の事実のみを記録する。
+
+Rule
+----
+・層名称は付けない
+・盤名称は付けない
+・意味付けしない
+・一般知識で補完しない
+・入力文字を勝手に訂正しない
+・Layer10と同一の角度区間に対応させる
+・326°〜332°を起点とする
+・右回り
+・60区分
+・各区分はLayer10と同じ6°
+・Layer11の文字列はRaw文字列としてそのまま保持
+・末尾の重複表示は本体データに含めない
+・Layer12以降のデータは含めない
+
+Version
+-------
+RawLopan-01
+
+==========================================================
+"""
+
+# ==========================================================
+# Layer Information
+# ==========================================================
+
+LAYER_ID = 11
+PARENT_LAYER_ID = 10
+
+VERSION = "RawLopan-01"
+SOURCE = "ユーザー入力"
+DIRECTION = "右回り"
+
+DEGREE_START = 326.0
+DEGREE_INTERVAL = 6.0
+ITEM_COUNT = 60
+
+
+# ==========================================================
+# Layer11 Raw Data
+# ==========================================================
+
+raw_layer11 = [
+
+{"id": 1, "degree_start": 326.0, "degree_end": 332.0, "raw_text": "正亥"},
+{"id": 2, "degree_start": 332.0, "degree_end": 338.0, "raw_text": "七亥三壬"},
+{"id": 3, "degree_start": 338.0, "degree_end": 344.0, "raw_text": "三亥七壬"},
+{"id": 4, "degree_start": 344.0, "degree_end": 350.0, "raw_text": "正壬"},
+{"id": 5, "degree_start": 350.0, "degree_end": 356.0, "raw_text": "五壬子"},
+{"id": 6, "degree_start": 356.0, "degree_end": 2.0, "raw_text": "正子"},
+{"id": 7, "degree_start": 2.0, "degree_end": 8.0, "raw_text": "七子三癸"},
+{"id": 8, "degree_start": 8.0, "degree_end": 14.0, "raw_text": "三子七癸"},
+{"id": 9, "degree_start": 14.0, "degree_end": 20.0, "raw_text": "正癸"},
+{"id": 10, "degree_start": 20.0, "degree_end": 26.0, "raw_text": "五癸丑"},
+{"id": 11, "degree_start": 26.0, "degree_end": 32.0, "raw_text": "正丑"},
+{"id": 12, "degree_start": 32.0, "degree_end": 38.0, "raw_text": "七丑三艮"},
+{"id": 13, "degree_start": 38.0, "degree_end": 44.0, "raw_text": "三丑七艮"},
+{"id": 14, "degree_start": 44.0, "degree_end": 50.0, "raw_text": "正艮"},
+{"id": 15, "degree_start": 50.0, "degree_end": 56.0, "raw_text": "五艮寅"},
+{"id": 16, "degree_start": 56.0, "degree_end": 62.0, "raw_text": "正寅"},
+{"id": 17, "degree_start": 62.0, "degree_end": 68.0, "raw_text": "七寅三甲"},
+{"id": 18, "degree_start": 68.0, "degree_end": 74.0, "raw_text": "三寅七甲"},
+{"id": 19, "degree_start": 74.0, "degree_end": 80.0, "raw_text": "正甲"},
+{"id": 20, "degree_start": 80.0, "degree_end": 86.0, "raw_text": "五甲卯"},
+{"id": 21, "degree_start": 86.0, "degree_end": 92.0, "raw_text": "正卯"},
+{"id": 22, "degree_start": 92.0, "degree_end": 98.0, "raw_text": "七卯三乙"},
+{"id": 23, "degree_start": 98.0, "degree_end": 104.0, "raw_text": "三卯七乙"},
+{"id": 24, "degree_start": 104.0, "degree_end": 110.0, "raw_text": "正乙"},
+{"id": 25, "degree_start": 110.0, "degree_end": 116.0, "raw_text": "五乙辰"},
+{"id": 26, "degree_start": 116.0, "degree_end": 122.0, "raw_text": "正辰"},
+{"id": 27, "degree_start": 122.0, "degree_end": 128.0, "raw_text": "七辰三巽"},
+{"id": 28, "degree_start": 128.0, "degree_end": 134.0, "raw_text": "三辰七巽"},
+{"id": 29, "degree_start": 134.0, "degree_end": 140.0, "raw_text": "正巽"},
+{"id": 30, "degree_start": 140.0, "degree_end": 146.0, "raw_text": "五巽巳"},
+{"id": 31, "degree_start": 146.0, "degree_end": 152.0, "raw_text": "正巳"},
+{"id": 32, "degree_start": 152.0, "degree_end": 158.0, "raw_text": "七巳三丙"},
+{"id": 33, "degree_start": 158.0, "degree_end": 164.0, "raw_text": "三巳七丙"},
+{"id": 34, "degree_start": 164.0, "degree_end": 170.0, "raw_text": "正丙"},
+{"id": 35, "degree_start": 170.0, "degree_end": 176.0, "raw_text": "五丙午"},
+{"id": 36, "degree_start": 176.0, "degree_end": 182.0, "raw_text": "正午"},
+{"id": 37, "degree_start": 182.0, "degree_end": 188.0, "raw_text": "七午三丁"},
+{"id": 38, "degree_start": 188.0, "degree_end": 194.0, "raw_text": "三午七丁"},
+{"id": 39, "degree_start": 194.0, "degree_end": 200.0, "raw_text": "正丁"},
+{"id": 40, "degree_start": 200.0, "degree_end": 206.0, "raw_text": "五丁未"},
+{"id": 41, "degree_start": 206.0, "degree_end": 212.0, "raw_text": "正未"},
+{"id": 42, "degree_start": 212.0, "degree_end": 218.0, "raw_text": "七未三坤"},
+{"id": 43, "degree_start": 218.0, "degree_end": 224.0, "raw_text": "三未七坤"},
+{"id": 44, "degree_start": 224.0, "degree_end": 230.0, "raw_text": "正坤"},
+{"id": 45, "degree_start": 230.0, "degree_end": 236.0, "raw_text": "五坤申"},
+{"id": 46, "degree_start": 236.0, "degree_end": 242.0, "raw_text": "正申"},
+{"id": 47, "degree_start": 242.0, "degree_end": 248.0, "raw_text": "七申三庚"},
+{"id": 48, "degree_start": 248.0, "degree_end": 254.0, "raw_text": "三申七庚"},
+{"id": 49, "degree_start": 254.0, "degree_end": 260.0, "raw_text": "正庚"},
+{"id": 50, "degree_start": 260.0, "degree_end": 266.0, "raw_text": "五庚酉"},
+{"id": 51, "degree_start": 266.0, "degree_end": 272.0, "raw_text": "正酉"},
+{"id": 52, "degree_start": 272.0, "degree_end": 278.0, "raw_text": "七酉三辛"},
+{"id": 53, "degree_start": 278.0, "degree_end": 284.0, "raw_text": "三酉七辛"},
+{"id": 54, "degree_start": 284.0, "degree_end": 290.0, "raw_text": "正辛"},
+{"id": 55, "degree_start": 290.0, "degree_end": 296.0, "raw_text": "五辛戌"},
+{"id": 56, "degree_start": 296.0, "degree_end": 302.0, "raw_text": "正戌"},
+{"id": 57, "degree_start": 302.0, "degree_end": 308.0, "raw_text": "七戌三乾"},
+{"id": 58, "degree_start": 308.0, "degree_end": 314.0, "raw_text": "三戌七乾"},
+{"id": 59, "degree_start": 314.0, "degree_end": 320.0, "raw_text": "正乾"},
+{"id": 60, "degree_start": 320.0, "degree_end": 326.0, "raw_text": "五乾亥"},
+]
+
+
+# ==========================================================
+# Wraparound
+# ==========================================================
+
+# 10層の末尾に書かれていた重複部分。
+# Layer11本体60区分には含めない。
+
+wraparound_layer11 = [
+"正亥",
+]
+
+
+# ==========================================================
+# Validation
+# ==========================================================
+
+def validate_layer11(data):
+
+    """
+    Layer11の基本構造を検証する。
+    """
+
+errors = []
+
+if len(data) != ITEM_COUNT:
+    errors.append(
+    f"区分数が {ITEM_COUNT} ではありません: {len(data)}"
+)
+
+for item in data:
+    if item["degree_start"] < 0 or item["degree_start"] >= 360:
+        errors.append(f"id={item['id']} start角度異常")
+
+if item["degree_end"] < 0 or item["degree_end"] >= 360:
+    errors.append(f"id={item['id']} end角度異常")
+
+for previous, current in zip(data, data[1:]):
+    if previous["degree_end"] != current["degree_start"]:
+        errors.append(
+f"id={previous['id']} → id={current['id']} "
+"角度が連続していません"
+)
+
+return errors
+
+
+# ==========================================================
+# Layer10 ↔ Layer11 Relationship
+# ==========================================================
+
+LAYER_RELATIONSHIP = {
+"parent_layer": 10,
+"child_layer": 11,
+"same_degree_range": True,
+"degree_start": DEGREE_START,
+"degree_interval": DEGREE_INTERVAL,
+"item_count": ITEM_COUNT,
+}

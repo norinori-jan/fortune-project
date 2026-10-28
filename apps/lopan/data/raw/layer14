@@ -1,0 +1,525 @@
+==========================================================
+Feng Shui AI
+Lopan Raw Database
+
+Raw Layer 14
+==========================================================
+
+Description
+-----------
+実物羅盤・ユーザー入力データから確認した
+Layer14の事実のみを記録する。
+
+Rule
+----
+・層名称を推測しない
+・盤名称を推測しない
+・意味付けしない
+・一般知識で補完しない
+・不明な文字は推測しない
+・入力された文字列をそのまま保持する
+・Layer15、Layer16との行対応を維持する
+・角度情報は入力されたものをそのまま保持する
+
+Version
+-------
+RawLopan-01
+
+==========================================================
+"""
+
+# ==========================================================
+# Layer Information
+# ==========================================================
+
+LAYER_ID = 14
+VERSION = "RawLopan-01"
+SOURCE = "ユーザー入力"
+
+# ==========================================================
+# Angle Information
+# ==========================================================
+
+ANGLE_START = 338.0
+ANGLE_END = 343.0
+
+# ==========================================================
+# Raw Layer 14
+# ==========================================================
+
+raw_layer14 = [
+
+{
+"id": 1,
+"degree_start": 338.0,
+"degree_end": 343.0,
+"raw_text": "8らい",
+},
+
+{
+"id": 2,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "3離",
+},
+
+{
+"id": 3,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "4兌",
+},
+
+{
+"id": 4,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "9乾",
+},
+
+{
+"id": 5,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "9乾",
+},
+
+{
+"id": 6,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "4兌",
+},
+
+{
+"id": 7,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "3離",
+},
+
+{
+"id": 8,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "8らい",
+},
+
+{
+"id": 9,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "2巽",
+},
+
+{
+"id": 10,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "7坎",
+},
+
+{
+"id": 11,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "6艮",
+},
+
+{
+"id": 12,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "1坤",
+},
+
+{
+"id": 13,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "9乾",
+},
+
+{
+"id": 14,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "4兌",
+},
+
+{
+"id": 15,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "3離",
+},
+
+{
+"id": 16,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "8震",
+},
+
+{
+"id": 17,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "2巽",
+},
+
+{
+"id": 18,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "7坎",
+},
+
+{
+"id": 19,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "6艮",
+},
+
+{
+"id": 20,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "1坤",
+},
+
+{
+"id": 21,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "9乾",
+},
+
+{
+"id": 22,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "4兌",
+},
+
+{
+"id": 23,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "3離",
+},
+
+{
+"id": 24,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "8震",
+},
+
+{
+"id": 25,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "2巽",
+},
+
+{
+"id": 26,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "7坎",
+},
+
+{
+"id": 27,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "6艮",
+},
+
+{
+"id": 28,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "1坤",
+},
+
+{
+"id": 29,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "9乾",
+},
+
+{
+"id": 30,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "4兌",
+},
+
+{
+"id": 31,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "3離",
+},
+
+{
+"id": 32,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "8震",
+},
+
+{
+"id": 33,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "2巽",
+},
+
+{
+"id": 34,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "7坎",
+},
+
+{
+"id": 35,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "6艮",
+},
+
+{
+"id": 36,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "1坤",
+},
+
+{
+"id": 37,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "1坤",
+},
+
+{
+"id": 38,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "6艮",
+},
+
+{
+"id": 39,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "7坎",
+},
+
+{
+"id": 40,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "2巽",
+},
+
+{
+"id": 41,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "8震",
+},
+
+{
+"id": 42,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "3離",
+},
+
+{
+"id": 43,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "4兌",
+},
+
+{
+"id": 44,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "9乾",
+},
+
+{
+"id": 45,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "1坤",
+},
+
+{
+"id": 46,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "6艮",
+},
+
+{
+"id": 47,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "7坎",
+},
+
+{
+"id": 48,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "2巽",
+},
+
+{
+"id": 49,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "8震",
+},
+
+{
+"id": 50,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "3離",
+},
+
+{
+"id": 51,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "4兌",
+},
+
+{
+"id": 52,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "9乾",
+},
+
+{
+"id": 53,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "1坤",
+},
+
+{
+"id": 54,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "6艮",
+},
+
+{
+"id": 55,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "7坎",
+},
+
+{
+"id": 56,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "2巽",
+},
+
+{
+"id": 57,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "8震",
+},
+
+{
+"id": 58,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "3離",
+},
+
+{
+"id": 59,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "4兌",
+},
+
+{
+"id": 60,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "9乾",
+},
+
+{
+"id": 61,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "1坤",
+},
+
+{
+"id": 62,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "6艮",
+},
+
+{
+"id": 63,
+"degree_start": 326.0,
+"degree_end": 332.0,
+"raw_text": "7坎",
+},
+
+{
+"id": 64,
+"degree_start": None,
+"degree_end": None,
+"raw_text": "2巽",
+},
+]
+
+
+# ==========================================================
+# Raw Notes
+# ==========================================================
+
+raw_layer14_notes = {
+"start_note": "Layer14の開始部分は文字説明を含むため、8らいを原文のまま保持",
+"angle_note": "338~343、326~332は入力された角度情報をそのまま保持",
+"end_note": "最終行は『元に戻る』との入力あり",
+"unknown_text": [
+"8らい"
+],
+}
+
+
+# ==========================================================
+# Layer14 ↔ Layer15 ↔ Layer16
+# ==========================================================
+
+# Layer14の各行はLayer15・Layer16の同一行と対応する。
+# 対応関係そのものは後工程で使用するため、
+# Layer14単独データでは意味付けしない。
+
+LAYER14_ROW_COUNT = len(raw_layer14)
+

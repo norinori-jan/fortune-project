@@ -1,0 +1,889 @@
+{
+ "app": "dict-pack",
+ "version": 1,
+ "builtAt": 1792884614789,
+ "entries": [
+  {
+   "id": "cul:羅盤-層10",
+   "term": "羅盤 層10（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層10。Raw に 60 区分が記録されている、326.0° を起点に一周。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "60"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "326.0°（最後の区分の終わりと同じ＝一周）"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "辛亥 ／ 癸亥 ／ 甲子 ／ 丙子"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層11",
+   "term": "羅盤 層11（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層11。Raw に 60 区分が記録されている、326.0° を起点に一周。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "60"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "326.0°（最後の区分の終わりと同じ＝一周）"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "正亥 ／ 七亥三壬 ／ 三亥七壬 ／ 正壬"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層12",
+   "term": "羅盤 層12（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層12。Raw に 24 区分が記録されている、330.0° を起点に一周。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "24"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "330.0°（最後の区分の終わりと同じ＝一周）"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "亥 ／ 壬 ／ 子 ／ 癸"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層13",
+   "term": "羅盤 層13（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層13。Raw に 120 区分が記録されている、330.0° を起点に一周。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "120"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "330.0°（最後の区分の終わりと同じ＝一周）"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "空 ／ 丁亥 ／ 空 ／ 辛亥"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層14",
+   "term": "羅盤 層14（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層14。Raw に 64 区分が記録されている、角度は 338.0° から 332.0° まで。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "64"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "338.0°、最後の区分の終わりは 332.0°"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "8らい ／ 3離 ／ 4兌 ／ 9乾"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層15",
+   "term": "羅盤 層15（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層15。Raw に 64 区分が記録されている。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "64"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "無妄 ／ 同人 ／ 履 ／ 乾"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層16",
+   "term": "羅盤 層16（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層16。Raw に 64 区分が記録されている。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "64"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "輔西 ／ 禄東 ／ 文東 ／ 弼北"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層17",
+   "term": "羅盤 層17（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層17。Raw に 64 区分が記録されている。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "64"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "2巽 ／ 7坎 ／ 6艮 ／ 1坤"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層18",
+   "term": "羅盤 層18（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層18。Raw に 64 区分が記録されている。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "64"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "輔西 ／ 禄東 ／ 文東 ／ 弼北"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層19",
+   "term": "羅盤 層19（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層19。Raw に 64 区分が記録されている、角度は 331.875° から 337.5° まで。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "64"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "331.875°、最後の区分の終わりは 337.5°"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "丁亥 ／ 己亥 ／ 辛亥 ／ 癸亥"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層20",
+   "term": "羅盤 層20（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層20。Raw に 64 区分が記録されている、角度は 331.875° から 337.5° まで。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "64"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "331.875°、最後の区分の終わりは 337.5°"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "天輔 ／ 天巨 ／ 人破 ／ 地武"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層21",
+   "term": "羅盤 層21（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層21。Raw に 64 区分が記録されている、角度は 331.875° から 337.5° まで。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "64"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "331.875°、最後の区分の終わりは 337.5°"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "カ・8・上 ／ カ・2・上 ／ 上・7・カ ／ カ・6・上"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層22",
+   "term": "羅盤 層22（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層22。Raw に 1 区分が記録されている。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "1"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層23",
+   "term": "羅盤 層23（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層23。Raw に 25 区分が記録されている、角度は 4.0° から 323.0° まで。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "25"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "4.0°、最後の区分の終わりは 323.0°"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "牛 ／ 斗 ／ 箕 ／ 尾"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層24",
+   "term": "羅盤 層24（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層24。Raw に 24 区分が記録されている、330.0° を起点に一周。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "24"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "330.0°（最後の区分の終わりと同じ＝一周）"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "啓蟄 ／ 春分 ／ 清明 ／ 穀雨"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層25",
+   "term": "羅盤 層25（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層25。Raw に 62 区分が記録されている、321.1° を起点に一周。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "62"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "321.1°（最後の区分の終わりと同じ＝一周）"
+    ],
+    [
+     "最初の記載（原文のまま）",
+     "辛水亥 ／ 癸木亥 ／ 甲金子 ／ 甲金子"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層26",
+   "term": "羅盤 層26（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層26。Raw に 402 区分が記録されている。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "402"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-層27",
+   "term": "羅盤 層27（Raw）",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "羅盤の層27。Raw に 368 区分が記録されている、角度は 329.5° から 337.5° まで。意味付けはしていない（原文の記録のみ）。",
+   "form": "",
+   "parts": [
+    [
+     "区分の数",
+     "368"
+    ],
+    [
+     "起点（最初の区分の始まり）",
+     "329.5°、最後の区分の終わりは 337.5°"
+    ]
+   ],
+   "example": "",
+   "mistakes": [
+    "層ごとに角度の書き方が違う（始まりの角度・区分の幅）。層をまたいで同じ区分と思わない。"
+   ],
+   "related": [
+    "cul:羅盤-構成",
+    "cul:羅盤-引き方"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-構成",
+   "term": "羅盤（Lopan）の構成と連携",
+   "lang": "cul",
+   "kind": "concept",
+   "summary": "占いの hub（fortune-project）の中で、羅盤は apps/lopan に置く。Raw（層10〜27）→ 読み込み（lopan_service）→ 角度で引く（measure）→ 画面（apps/lopan）／hub の API。知識辞書と ai-hub は、この辞書パックで同じ用語を引く。",
+   "form": "",
+   "parts": [
+    [
+     "Raw（原データ）",
+     "apps/lopan/data/raw/layer10〜27。変更しない。"
+    ],
+    [
+     "読み込み・照合",
+     "apps/lopan/engine/lopan_service.py（measure／verify）"
+    ],
+    [
+     "画面",
+     "apps/lopan/frontend（React）"
+    ],
+    [
+     "hub",
+     "fortune-project（FastAPI・fortune-hub）"
+    ],
+    [
+     "辞書",
+     "この辞書パック（知識辞書・ai-hub）"
+    ],
+    [
+     "元のリポジトリ",
+     "lopanproject（取り込み元。消さない）"
+    ]
+   ],
+   "example": "",
+   "mistakes": [],
+   "related": [
+    "cul:羅盤-引き方",
+    "cul:羅盤-層10",
+    "cul:羅盤-層11",
+    "cul:羅盤-層12",
+    "cul:羅盤-層13",
+    "cul:羅盤-層14",
+    "cul:羅盤-層15",
+    "cul:羅盤-層16",
+    "cul:羅盤-層17",
+    "cul:羅盤-層18",
+    "cul:羅盤-層19",
+    "cul:羅盤-層20",
+    "cul:羅盤-層21",
+    "cul:羅盤-層22",
+    "cul:羅盤-層23",
+    "cul:羅盤-層24",
+    "cul:羅盤-層25",
+    "cul:羅盤-層26",
+    "cul:羅盤-層27"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  },
+  {
+   "id": "cul:羅盤-引き方",
+   "term": "羅盤 角度から各層の記載を引く（measure）",
+   "lang": "cul",
+   "kind": "api",
+   "summary": "角度（度）を渡すと、層10〜27の対応する記載を返す。読み取り専用で、意味付けはしない。",
+   "form": "measure(角度)",
+   "parts": [
+    [
+     "status OK",
+     "1件だけ一致"
+    ],
+    [
+     "status NO_MATCH",
+     "角度は入っているが、その角度に区分がない（隙間）"
+    ],
+    [
+     "status PARTIAL_DATA",
+     "Raw に角度が一部の区分にしか入っていない"
+    ],
+    [
+     "status NO_ANGLE_DATA",
+     "Raw に角度が1つも入っていない"
+    ],
+    [
+     "status OVERLAP",
+     "区間が重なって複数件"
+    ],
+    [
+     "status NOT_REGISTERED",
+     "その層がない"
+    ]
+   ],
+   "example": "from lopan_service import measure\nmeasure(330.0)   # 層10は 辛亥（326°〜332°）",
+   "mistakes": [
+    "PARTIAL_DATA／NO_ANGLE_DATA は、エンジンの不具合ではなく、Raw にまだ角度が入っていないこと（層14・15〜22）。"
+   ],
+   "related": [
+    "cul:羅盤-構成"
+   ],
+   "tags": [
+    "羅盤",
+    "Lopan",
+    "占い"
+   ],
+   "sources": [
+    {
+     "id": "fortune-project",
+     "title": "fortune-project / apps/lopan"
+    }
+   ],
+   "confidence": "high",
+   "verified": false,
+   "updatedAt": 1792884614789
+  }
+ ]
+}

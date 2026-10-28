@@ -1,0 +1,689 @@
+
+==========================================================
+Feng Shui AI
+Lopan Raw Database
+
+Raw Layer 25
+==========================================================
+
+Layer 25
+--------
+
+・現場で目分量により測定した角度
+・実物羅盤を使用するときの現場角度として利用する
+・理論値への補正を行わない
+・等分化しない
+・角度を勝手に修正しない
+・原入力の開始角度・終了角度を保持する
+・360°を跨ぐ角度も原記載を保持する
+・文字列も原記載を保持する
+・不自然な角度は修正せず、検証フラグで管理する
+・意味付けしない
+・名称を推測しない
+
+==========================================================
+"""
+
+
+# ==========================================================
+# Layer Information
+# ==========================================================
+
+LAYER_ID_25 = 25
+
+SOURCE = "実物羅盤＋現場目測角度"
+
+ANGLE_UNIT = "degree"
+
+ANGLE_MEASUREMENT_TYPE = "manual_field_measurement"
+
+IS_THEORETICAL_EQUAL_DIVISION = False
+
+IS_FIELD_USE_DATA = True
+
+
+# ==========================================================
+# Raw Layer 25
+# ==========================================================
+#
+# angle_start / angle_end
+# -----------------------
+# ユーザー入力をそのまま保存。
+#
+# 角度の意味を後から解釈する。
+#
+# raw_angle_text
+# --------------
+# 元の記載そのものを保存。
+#
+# raw_text
+# --------
+# 辛水亥、癸木亥等の原文字列を保存。
+#
+# ==========================================================
+
+raw_layer25 = [
+
+{
+"id": 1,
+"angle_start": 321.1,
+"angle_end": 328.1,
+"raw_angle_text": "321.1~328.1",
+"raw_text": "辛水亥"
+},
+
+{
+"id": 2,
+"angle_start": 328.1,
+"angle_end": 334.2,
+"raw_angle_text": "328.1~334.2",
+"raw_text": "癸木亥"
+},
+
+{
+"id": 3,
+"angle_start": 334.2,
+"angle_end": 336.2,
+"raw_angle_text": "334.2~336.2",
+"raw_text": "甲金子",
+"validation_flags": ["gap_from_previous_data"]
+},
+
+{
+"id": 4,
+"angle_start": 336.2,
+"angle_end": 340.0,
+"raw_angle_text": "336.2~340",
+"raw_text": "甲金子"
+},
+
+{
+"id": 5,
+"angle_start": 340.0,
+"angle_end": 345.2,
+"raw_angle_text": "340~345.2",
+"raw_text": "丙火子"
+},
+
+{
+"id": 6,
+"angle_start": 345.2,
+"angle_end": 351.0,
+"raw_angle_text": "345.2~351",
+"raw_text": "戊水子"
+},
+
+{
+"id": 7,
+"angle_start": 351.0,
+"angle_end": 356.0,
+"raw_angle_text": "351~356",
+"raw_text": "庚金子"
+},
+
+{
+"id": 8,
+"angle_start": 356.0,
+"angle_end": 361.0,
+"raw_angle_text": "356~361",
+"raw_text": "壬木子"
+},
+
+{
+"id": 9,
+"angle_start": 361.0,
+"angle_end": 7.0,
+"raw_angle_text": "361~7",
+"raw_text": "乙土丑",
+"validation_flags": ["crosses_360"]
+},
+
+{
+"id": 10,
+"angle_start": 7.0,
+"angle_end": 13.0,
+"raw_angle_text": "7~13",
+"raw_text": "丁水丑"
+},
+
+{
+"id": 11,
+"angle_start": 13.0,
+"angle_end": 19.0,
+"raw_angle_text": "13~19",
+"raw_text": "己金丑"
+},
+
+{
+"id": 12,
+"angle_start": 19.0,
+"angle_end": 24.0,
+"raw_angle_text": "19~24",
+"raw_text": "辛木丑"
+},
+
+{
+"id": 13,
+"angle_start": 24.0,
+"angle_end": 29.5,
+"raw_angle_text": "24~29.5",
+"raw_text": "癸土丑"
+},
+
+{
+"id": 14,
+"angle_start": 29.5,
+"angle_end": 35.0,
+"raw_angle_text": "29.5~35",
+"raw_text": "丙火寅"
+},
+
+{
+"id": 15,
+"angle_start": 35.0,
+"angle_end": 37.5,
+"raw_angle_text": "35~37.5",
+"raw_text": "戊木寅"
+},
+
+{
+"id": 16,
+"angle_start": 37.5,
+"angle_end": 42.5,
+"raw_angle_text": "37.5~42.5",
+"raw_text": "戊火寅"
+},
+
+{
+"id": 17,
+"angle_start": 42.5,
+"angle_end": 48.1,
+"raw_angle_text": "42.5~48.1",
+"raw_text": "庚金寅"
+},
+
+{
+"id": 18,
+"angle_start": 48.1,
+"angle_end": 53.6,
+"raw_angle_text": "48.1~53.6",
+"raw_text": "壬水寅"
+},
+
+{
+"id": 19,
+"angle_start": 53.6,
+"angle_end": 61.0,
+"raw_angle_text": "53.6~61",
+"raw_text": "甲土寅"
+},
+
+{
+"id": 20,
+"angle_start": 61.0,
+"angle_end": 66.5,
+"raw_angle_text": "61~66.5",
+"raw_text": "丁木卯"
+},
+
+{
+"id": 21,
+"angle_start": 66.5,
+"angle_end": 69.5,
+"raw_angle_text": "66.5~69.5",
+"raw_text": "己金卯"
+},
+
+{
+"id": 22,
+"angle_start": 69.5,
+"angle_end": 79.1,
+"raw_angle_text": "69.5~79.1",
+"raw_text": "辛水卯"
+},
+
+{
+"id": 23,
+"angle_start": 79.1,
+"angle_end": 85.0,
+"raw_angle_text": "79.1~85",
+"raw_text": "癸土卯"
+},
+
+{
+"id": 24,
+"angle_start": 85.0,
+"angle_end": 92.1,
+"raw_angle_text": "85~92.1",
+"raw_text": "乙木卯"
+},
+
+{
+"id": 25,
+"angle_start": 92.1,
+"angle_end": 98.0,
+"raw_angle_text": "92.1~98",
+"raw_text": "戊火辰"
+},
+
+{
+"id": 26,
+"angle_start": 98.0,
+"angle_end": 103.0,
+"raw_angle_text": "98~103",
+"raw_text": "庚水辰"
+},
+
+{
+"id": 27,
+"angle_start": 103.0,
+"angle_end": 109.5,
+"raw_angle_text": "103~109.5",
+"raw_text": "壬土辰"
+},
+
+{
+"id": 28,
+"angle_start": 109.5,
+"angle_end": 116.3,
+"raw_angle_text": "109.5~116.3",
+"raw_text": "甲木辰"
+},
+
+{
+"id": 29,
+"angle_start": 116.3,
+"angle_end": 122.2,
+"raw_angle_text": "116.3~122.2",
+"raw_text": "丙火辰"
+},
+
+{
+"id": 30,
+"angle_start": 122.2,
+"angle_end": 129.0,
+"raw_angle_text": "122.2~129",
+"raw_text": "己金巳"
+},
+
+{
+"id": 31,
+"angle_start": 129.0,
+"angle_end": 135.0,
+"raw_angle_text": "129~135",
+"raw_text": "辛木巳"
+},
+
+{
+"id": 32,
+"angle_start": 135.0,
+"angle_end": 141.8,
+"raw_angle_text": "135~141.8",
+"raw_text": "発土巳"
+},
+
+{
+"id": 33,
+"angle_start": 141.8,
+"angle_end": 149.0,
+"raw_angle_text": "141.8~149",
+"raw_text": "乙火巳"
+},
+
+{
+"id": 34,
+"angle_start": 149.0,
+"angle_end": 154.7,
+"raw_angle_text": "149~154.7",
+"raw_text": "丁金巳"
+},
+
+{
+"id": 35,
+"angle_start": 154.7,
+"angle_end": 159.8,
+"raw_angle_text": "154.7~159.8",
+"raw_text": "庚火午"
+},
+
+{
+"id": 36,
+"angle_start": 159.8,
+"angle_end": 165.0,
+"raw_angle_text": "159.8~165",
+"raw_text": "壬土午"
+},
+
+{
+"id": 37,
+"angle_start": 165.0,
+"angle_end": 171.0,
+"raw_angle_text": "165~171",
+"raw_text": "甲木午"
+},
+
+{
+"id": 38,
+"angle_start": 171.0,
+"angle_end": 176.3,
+"raw_angle_text": "171~176.3",
+"raw_text": "丙火午"
+},
+
+{
+"id": 39,
+"angle_start": 176.3,
+"angle_end": 181.0,
+"raw_angle_text": "176.3~181",
+"raw_text": "戊水午"
+},
+
+{
+"id": 40,
+"angle_start": 181.0,
+"angle_end": 190.0,
+"raw_angle_text": "181~190",
+"raw_text": "辛金未"
+},
+
+{
+"id": 41,
+"angle_start": 190.0,
+"angle_end": 194.1,
+"raw_angle_text": "190~194.1",
+"raw_text": "癸土未"
+},
+
+{
+"id": 42,
+"angle_start": 194.1,
+"angle_end": 200.0,
+"raw_angle_text": "194.1~200",
+"raw_text": "乙水未"
+},
+
+{
+"id": 43,
+"angle_start": 200.0,
+"angle_end": 208.0,
+"raw_angle_text": "200~208",
+"raw_text": "丁火未"
+},
+
+{
+"id": 44,
+"angle_start": 208.0,
+"angle_end": 213.9,
+"raw_angle_text": "208~213.9",
+"raw_text": "己金未"
+},
+
+{
+"id": 45,
+"angle_start": 213.9,
+"angle_end": 219.3,
+"raw_angle_text": "213.9~219.3",
+"raw_text": "壬木申"
+},
+
+{
+"id": 46,
+"angle_start": 219.3,
+"angle_end": 224.2,
+"raw_angle_text": "219.3~224.2",
+"raw_text": "甲火申"
+},
+
+{
+"id": 47,
+"angle_start": 224.2,
+"angle_end": 229.0,
+"raw_angle_text": "224.2~229",
+"raw_text": "丙水申"
+},
+
+{
+"id": 48,
+"angle_start": 229.0,
+"angle_end": 226.5,
+"raw_angle_text": "229~226.5",
+"raw_text": "戊金申",
+"validation_flags": ["reverse_angle_as_entered"]
+},
+
+{
+"id": 49,
+"angle_start": 226.5,
+"angle_end": 241.6,
+"raw_angle_text": "226.5~241.6",
+"raw_text": "庚木申"
+},
+
+{
+"id": 50,
+"angle_start": 241.6,
+"angle_end": 248.5,
+"raw_angle_text": "241.6~248.5",
+"raw_text": "発土申"
+},
+
+{
+"id": 51,
+"angle_start": 248.5,
+"angle_end": 254.5,
+"raw_angle_text": "248.5~254.5",
+"raw_text": "乙水酉"
+},
+
+{
+"id": 52,
+"angle_start": 254.5,
+"angle_end": 259.4,
+"raw_angle_text": "254.5~259.4",
+"raw_text": "丁火酉"
+},
+
+{
+"id": 53,
+"angle_start": 259.4,
+"angle_end": 266.2,
+"raw_angle_text": "259.4~266.2",
+"raw_text": "己木酉"
+},
+
+{
+"id": 54,
+"angle_start": 266.2,
+"angle_end": 272.8,
+"raw_angle_text": "266.2~272.8",
+"raw_text": "辛土酉"
+},
+
+{
+"id": 55,
+"angle_start": 272.8,
+"angle_end": 278.1,
+"raw_angle_text": "272.8~278.1",
+"raw_text": "甲金戌"
+},
+
+{
+"id": 56,
+"angle_start": 278.1,
+"angle_end": 283.1,
+"raw_angle_text": "278.1~283.1",
+"raw_text": "丙土戌"
+},
+
+{
+"id": 57,
+"angle_start": 283.1,
+"angle_end": 291.0,
+"raw_angle_text": "283.1~291",
+"raw_text": "戊水戌"
+},
+
+{
+"id": 58,
+"angle_start": 291.0,
+"angle_end": 296.0,
+"raw_angle_text": "291~296",
+"raw_text": "庚金戌"
+},
+
+{
+"id": 59,
+"angle_start": 296.0,
+"angle_end": 303.0,
+"raw_angle_text": "296~303",
+"raw_text": "壬火戌"
+},
+
+{
+"id": 60,
+"angle_start": 303.0,
+"angle_end": 309.0,
+"raw_angle_text": "303~309",
+"raw_text": "乙木亥"
+},
+
+{
+"id": 61,
+"angle_start": 309.0,
+"angle_end": 315.5,
+"raw_angle_text": "309~315.5",
+"raw_text": "丁火亥"
+},
+
+{
+"id": 62,
+"angle_start": 315.5,
+"angle_end": 321.1,
+"raw_angle_text": "315.5~321.1",
+"raw_text": "己土亥"
+}
+]
+
+
+# ==========================================================
+# Raw Measurement Rule
+# ==========================================================
+
+layer25_angle_rule = {
+
+"measurement_type": "manual",
+
+"source": "field_measurement",
+
+"theoretical_equal_division": False,
+
+"preserve_original_angles": True,
+
+"preserve_original_order": True,
+
+"do_not_normalize": True,
+
+"do_not_correct": True,
+
+"do_not_interpolate": True,
+
+"do_not_force_equal_width": True,
+
+"cross_360_allowed": True
+}
+
+
+# ==========================================================
+# Validation Notes
+# ==========================================================
+#
+# 以下は「エラーとして修正する」のではなく、
+# 原データ上の確認候補として保持する。
+#
+# ==========================================================
+
+layer25_validation = {
+
+"raw_data_is_authoritative": True,
+
+"manual_measurement": True,
+
+"known_anomalies": [
+
+{
+"id": 3,
+"type": "gap_from_previous_data",
+"raw": "334.2~336.2",
+"action": "preserve"
+},
+
+{
+"id": 9,
+"type": "cross_360",
+"raw": "361~7",
+"action": "preserve"
+},
+
+{
+"id": 48,
+"type": "reverse_angle_as_entered",
+"raw": "229~226.5",
+"action": "preserve"
+},
+
+{
+"id": 32,
+"type": "raw_text_uncertain",
+"raw": "発土巳",
+"action": "preserve_without_inference"
+},
+
+{
+"id": 50,
+"type": "raw_text_uncertain",
+"raw": "発土申",
+"action": "preserve_without_inference"
+}
+],
+
+"verification_required_before_correction": True,
+
+"correction_policy": (
+"実物羅盤との照合なしに角度・文字列を修正しない"
+)
+}
+
+
+# ==========================================================
+# Raw Data Policy
+# ==========================================================
+
+RAW_DATA_POLICY_LAYER_25 = {
+
+"image_is_primary_source": True,
+
+"field_measurement_is_preserved": True,
+
+"preserve_original_order": True,
+
+"preserve_original_angle": True,
+
+"preserve_original_text": True,
+
+"preserve_360_crossing": True,
+
+"preserve_irregular_intervals": True,
+
+"preserve_possible_typographical_data": True,
+
+"no_semantic_interpretation": True,
+
+"no_name_inference": True,
+
+"no_angle_correction": True,
+
+"no_equalization": True,
+
+"no_auto_completion": True
+}
+

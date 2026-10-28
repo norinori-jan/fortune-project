@@ -1,0 +1,1017 @@
+==========================================================
+Feng Shui AI
+Lopan Raw Database
+
+Raw Layer 10
+==========================================================
+
+Description
+-----------
+実物羅盤・ユーザー実測データから確認した
+Layer10 の事実のみを記録する。
+
+Rule
+----
+・層名称は付けない
+・盤名称は付けない
+・意味付けしない
+・一般知識で補完しない
+・入力文字を勝手に訂正しない
+・326°〜332°を起点とする
+・右回り
+・60区分
+・各区分は6°
+・末尾の重複表示は本体データに含めない
+・Layer11以降のデータは含めない
+
+Version
+-------
+RawLopan-01
+
+==========================================================
+"""
+
+# ==========================================================
+# Layer Information
+# ==========================================================
+
+LAYER_ID = 10
+VERSION = "RawLopan-01"
+SOURCE = "ユーザー入力"
+DIRECTION = "右回り"
+
+DEGREE_START = 326.0
+DEGREE_INTERVAL = 6.0
+ITEM_COUNT = 60
+
+
+# ==========================================================
+# Layer10 Raw Data
+# ==========================================================
+
+raw_layer10 = [
+
+{
+"id": 1,
+"degree_start": 326.0,
+"degree_end": 332.0,
+"raw_text": "辛亥",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 2,
+"degree_start": 332.0,
+"degree_end": 338.0,
+"raw_text": "癸亥",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 3,
+"degree_start": 338.0,
+"degree_end": 344.0,
+"raw_text": "甲子",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 4,
+"degree_start": 344.0,
+"degree_end": 350.0,
+"raw_text": "丙子",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 5,
+"degree_start": 350.0,
+"degree_end": 356.0,
+"raw_text": "戊子",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 6,
+"degree_start": 356.0,
+"degree_end": 2.0,
+"raw_text": "庚子",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 7,
+"degree_start": 2.0,
+"degree_end": 8.0,
+"raw_text": "壬子",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 8,
+"degree_start": 8.0,
+"degree_end": 14.0,
+"raw_text": "乙丑",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 9,
+"degree_start": 14.0,
+"degree_end": 20.0,
+"raw_text": "丁丑",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 10,
+"degree_start": 20.0,
+"degree_end": 26.0,
+"raw_text": "巳丑",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 11,
+"degree_start": 26.0,
+"degree_end": 32.0,
+"raw_text": "辛丑",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 12,
+"degree_start": 32.0,
+"degree_end": 38.0,
+"raw_text": "癸丑",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 13,
+"degree_start": 38.0,
+"degree_end": 44.0,
+"raw_text": "丙寅",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 14,
+"degree_start": 44.0,
+"degree_end": 50.0,
+"raw_text": "戊寅",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 15,
+"degree_start": 50.0,
+"degree_end": 56.0,
+"raw_text": "庚寅",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 16,
+"degree_start": 56.0,
+"degree_end": 62.0,
+"raw_text": "壬寅",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 17,
+"degree_start": 62.0,
+"degree_end": 68.0,
+"raw_text": "甲寅",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 18,
+"degree_start": 68.0,
+"degree_end": 74.0,
+"raw_text": "丁卯",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 19,
+"degree_start": 74.0,
+"degree_end": 80.0,
+"raw_text": "巳卯",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 20,
+"degree_start": 80.0,
+"degree_end": 86.0,
+"raw_text": "辛卯",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 21,
+"degree_start": 86.0,
+"degree_end": 92.0,
+"raw_text": "癸卯",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 22,
+"degree_start": 92.0,
+"degree_end": 98.0,
+"raw_text": "乙卯",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 23,
+"degree_start": 98.0,
+"degree_end": 104.0,
+"raw_text": "戊辰",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 24,
+"degree_start": 104.0,
+"degree_end": 110.0,
+"raw_text": "庚辰",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 25,
+"degree_start": 110.0,
+"degree_end": 116.0,
+"raw_text": "壬辰",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 26,
+"degree_start": 116.0,
+"degree_end": 122.0,
+"raw_text": "甲辰",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 27,
+"degree_start": 122.0,
+"degree_end": 128.0,
+"raw_text": "丙辰",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 28,
+"degree_start": 128.0,
+"degree_end": 134.0,
+"raw_text": "己巳",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 29,
+"degree_start": 134.0,
+"degree_end": 140.0,
+"raw_text": "辛巳",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 30,
+"degree_start": 140.0,
+"degree_end": 146.0,
+"raw_text": "癸巳",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 31,
+"degree_start": 146.0,
+"degree_end": 152.0,
+"raw_text": "乙巳",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 32,
+"degree_start": 152.0,
+"degree_end": 158.0,
+"raw_text": "丁巳",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 33,
+"degree_start": 158.0,
+"degree_end": 164.0,
+"raw_text": "庚午",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 34,
+"degree_start": 164.0,
+"degree_end": 170.0,
+"raw_text": "壬午",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 35,
+"degree_start": 170.0,
+"degree_end": 176.0,
+"raw_text": "甲午",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 36,
+"degree_start": 176.0,
+"degree_end": 182.0,
+"raw_text": "丙午",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 37,
+"degree_start": 182.0,
+"degree_end": 188.0,
+"raw_text": "戊午",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 38,
+"degree_start": 188.0,
+"degree_end": 194.0,
+"raw_text": "辛未",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 39,
+"degree_start": 194.0,
+"degree_end": 200.0,
+"raw_text": "癸未",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 40,
+"degree_start": 200.0,
+"degree_end": 206.0,
+"raw_text": "乙未",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 41,
+"degree_start": 206.0,
+"degree_end": 212.0,
+"raw_text": "丁未",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 42,
+"degree_start": 212.0,
+"degree_end": 218.0,
+"raw_text": "己未",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 43,
+"degree_start": 218.0,
+"degree_end": 224.0,
+"raw_text": "壬申",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 44,
+"degree_start": 224.0,
+"degree_end": 230.0,
+"raw_text": "甲申",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 45,
+"degree_start": 230.0,
+"degree_end": 236.0,
+"raw_text": "丙申",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 46,
+"degree_start": 236.0,
+"degree_end": 242.0,
+"raw_text": "戊申",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 47,
+"degree_start": 242.0,
+"degree_end": 248.0,
+"raw_text": "庚申",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 48,
+"degree_start": 248.0,
+"degree_end": 254.0,
+"raw_text": "癸酉",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 49,
+"degree_start": 254.0,
+"degree_end": 260.0,
+"raw_text": "乙酉",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 50,
+"degree_start": 260.0,
+"degree_end": 266.0,
+"raw_text": "丁酉",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 51,
+"degree_start": 266.0,
+"degree_end": 272.0,
+"raw_text": "己酉",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 52,
+"degree_start": 272.0,
+"degree_end": 278.0,
+"raw_text": "辛酉",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 53,
+"degree_start": 278.0,
+"degree_end": 284.0,
+"raw_text": "甲戌",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 54,
+"degree_start": 284.0,
+"degree_end": 290.0,
+"raw_text": "丙戌",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 55,
+"degree_start": 290.0,
+"degree_end": 296.0,
+"raw_text": "戊戌",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 56,
+"degree_start": 296.0,
+"degree_end": 302.0,
+"raw_text": "庚戌",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 57,
+"degree_start": 302.0,
+"degree_end": 308.0,
+"raw_text": "壬戌",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 58,
+"degree_start": 308.0,
+"degree_end": 314.0,
+"raw_text": "乙亥",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 59,
+"degree_start": 314.0,
+"degree_end": 320.0,
+"raw_text": "丁亥",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+},
+
+{
+"id": 60,
+"degree_start": 320.0,
+"degree_end": 326.0,
+"raw_text": "己亥",
+
+"meta": {
+"layer_id": LAYER_ID,
+"version": VERSION,
+"source": SOURCE,
+"verified": False,
+"notes": ""
+}
+}
+]
+
+
+# ==========================================================
+# Wraparound
+# ==========================================================
+
+# ユーザー入力の末尾にある重複表示。
+# 本体60区分には含めない。
+
+wraparound_layer10 = [
+"辛亥",
+"癸亥",
+"甲子",
+"丙子",
+"戊子",
+"庚子"
+]
+
+
+# ==========================================================
+# Validation
+# ==========================================================
+
+def validate_layer10(data):
+"""
+Layer10 の基本構造を検証する。
+"""
+
+errors = []
+
+if len(data) != ITEM_COUNT:
+errors.append(
+f"区分数が {ITEM_COUNT} ではありません: {len(data)}"
+)
+
+if data:
+if data[0]["degree_start"] != DEGREE_START:
+errors.append(
+f"開始角度が {DEGREE_START}° ではありません"
+)
+
+for item in data:
+start = item["degree_start"]
+end = item["degree_end"]
+
+if start < 0 or start >= 360:
+errors.append(f"id={item['id']} start角度異常")
+
+if end < 0 or end >= 360:
+errors.append(f"id={item['id']} end角度異常")
+
+for previous, current in zip(data, data[1:]):
+if previous["degree_end"] != current["degree_start"]:
+errors.append(
+f"id={previous['id']} → id={current['id']} "
+"角度が連続していません"
+)
+
+return errors
+
+
+# ==========================================================
+# End
+# ==========================================================

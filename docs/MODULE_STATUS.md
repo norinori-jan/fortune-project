@@ -57,3 +57,9 @@
 `POST /fortune/lopan/link`（server/fortune_lopan_link.py）。元データは core/registry_a.json の lopan（九星ごとの吉方位・後天定位盤の五行）。
 四柱（簡易エンジン）から五行を数え、不足の五行を補う方位と、本命星（立春で年を切り替え）の吉方位・避ける方位を出す。画面は八方位の羅盤図。
 年盤・月盤・日盤の九星の飛びは見ていない（目安）。
+
+## 2026-10-28 羅盤の整理を開始
+- 九星だけの「羅盤×四柱」は暫定（API は残すが画面からは外した）。羅盤は層ごとに出すものが違うため、整理が先。
+- 羅盤エンジンと Raw（層10〜27）を main に取り込んだ（consolidate/lopan の内容）。
+- `apps/lopan/docs/LOPAN_LAYER_CATALOG.md`：層ごとの事実一覧（自動生成）。**「この層で出すもの」「他の層との関係」は Nori が記入する欄**。
+- `GET /fortune/lopan/layers`、`GET /fortune/lopan/measure?angle=`：角度で各層の記載を原文のまま返す。画面の「羅盤（層ごと）」から使う。

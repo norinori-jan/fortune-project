@@ -1,0 +1,272 @@
+
+"""
+==========================================================
+Feng Shui AI
+Lopan Raw Database
+
+Raw Layer 17 / Layer 18
+==========================================================
+
+Description
+-----------
+Layer14を基準行として、
+実物羅盤・ユーザー入力データから確認した
+Layer17 / Layer18の事実のみを記録する。
+
+Rule
+----
+・Layer14のidを基準キーとする
+・Layer14との行対応を維持する
+・層名称を推測しない
+・盤名称を推測しない
+・意味付けしない
+・一般知識で補完しない
+・入力された文字列をそのまま保持する
+・不明・未入力はNoneとする
+・Layer15 / Layer16との既存対応関係を壊さない
+・角度は基準Layer14の角度情報を参照する
+・「元に戻る」はRawメモとして保持する
+
+Version
+-------
+RawLopan-01
+
+==========================================================
+"""
+
+# ==========================================================
+# Layer Information
+# ==========================================================
+
+LAYER17_ID = 17
+LAYER18_ID = 18
+
+VERSION = "RawLopan-01"
+SOURCE = "ユーザー入力"
+
+# Layer14を基準とする
+BASE_LAYER_ID = 14
+
+ROW_COUNT = 64
+
+
+# ==========================================================
+# Angle Information
+# ==========================================================
+
+ANGLE_START = 338.0
+ANGLE_END = 343.0
+
+ANGLE_RETURN_START = 326.0
+ANGLE_RETURN_END = 332.0
+
+
+# ==========================================================
+# Raw Layer 17
+# ==========================================================
+
+raw_layer17 = [
+
+{"id": 1, "raw_text": "2巽"},
+{"id": 2, "raw_text": "7坎"},
+{"id": 3, "raw_text": "6艮"},
+{"id": 4, "raw_text": "1坤"},
+{"id": 5, "raw_text": "1坤"},
+{"id": 6, "raw_text": "6艮"},
+{"id": 7, "raw_text": "7坎"},
+{"id": 8, "raw_text": "2巽"},
+{"id": 9, "raw_text": "8らい"},
+{"id": 10, "raw_text": "3離"},
+{"id": 11, "raw_text": "4兌"},
+{"id": 12, "raw_text": "9乾"},
+{"id": 13, "raw_text": "1坤"},
+{"id": 14, "raw_text": "6艮"},
+{"id": 15, "raw_text": "7坎"},
+{"id": 16, "raw_text": "2巽"},
+{"id": 17, "raw_text": "8震"},
+{"id": 18, "raw_text": "3離"},
+{"id": 19, "raw_text": "4兌"},
+{"id": 20, "raw_text": "9乾"},
+{"id": 21, "raw_text": "1坤"},
+{"id": 22, "raw_text": "6艮"},
+{"id": 23, "raw_text": "7坎"},
+{"id": 24, "raw_text": "2巽"},
+{"id": 25, "raw_text": "8震"},
+{"id": 26, "raw_text": "3離"},
+{"id": 27, "raw_text": "4兌"},
+{"id": 28, "raw_text": "9乾"},
+{"id": 29, "raw_text": "1坤"},
+{"id": 30, "raw_text": "6艮"},
+{"id": 31, "raw_text": "7坎"},
+{"id": 32, "raw_text": "2巽"},
+{"id": 33, "raw_text": "8震"},
+{"id": 34, "raw_text": "3離"},
+{"id": 35, "raw_text": "4兌"},
+{"id": 36, "raw_text": "9乾"},
+{"id": 37, "raw_text": "9乾"},
+{"id": 38, "raw_text": "4兌"},
+{"id": 39, "raw_text": "3離"},
+{"id": 40, "raw_text": "8震"},
+{"id": 41, "raw_text": "2巽"},
+{"id": 42, "raw_text": "7坎"},
+{"id": 43, "raw_text": "6艮"},
+{"id": 44, "raw_text": "1坤"},
+{"id": 45, "raw_text": "9乾"},
+{"id": 46, "raw_text": "4兌"},
+{"id": 47, "raw_text": "3離"},
+{"id": 48, "raw_text": "8震"},
+{"id": 49, "raw_text": "2巽"},
+{"id": 50, "raw_text": "7坎"},
+{"id": 51, "raw_text": "6艮"},
+{"id": 52, "raw_text": "7坎"},
+{"id": 53, "raw_text": None},
+{"id": 54, "raw_text": None},
+{"id": 55, "raw_text": None},
+{"id": 56, "raw_text": None},
+{"id": 57, "raw_text": None},
+{"id": 58, "raw_text": None},
+{"id": 59, "raw_text": None},
+{"id": 60, "raw_text": None},
+{"id": 61, "raw_text": None},
+{"id": 62, "raw_text": None},
+{"id": 63, "raw_text": None},
+{"id": 64, "raw_text": None},
+]
+
+
+# ==========================================================
+# Raw Layer 18
+# ==========================================================
+
+raw_layer18 = [
+
+{"id": 1, "raw_text": "輔西"},
+{"id": 2, "raw_text": "禄東"},
+{"id": 3, "raw_text": "文東"},
+{"id": 4, "raw_text": "弼北"},
+{"id": 5, "raw_text": "巨東"},
+{"id": 6, "raw_text": "破西"},
+{"id": 7, "raw_text": "武西"},
+{"id": 8, "raw_text": "貪南"},
+{"id": 9, "raw_text": "弼"},
+{"id": 10, "raw_text": "文東"},
+{"id": 11, "raw_text": "禄東"},
+{"id": 12, "raw_text": "輔西"},
+{"id": 13, "raw_text": "破西"},
+{"id": 14, "raw_text": "巨東"},
+{"id": 15, "raw_text": "貪南"},
+{"id": 16, "raw_text": "武西"},
+{"id": 17, "raw_text": "分東"},
+{"id": 18, "raw_text": "弼東"},
+{"id": 19, "raw_text": "輔西"},
+{"id": 20, "raw_text": "禄東"},
+{"id": 21, "raw_text": "武西"},
+{"id": 22, "raw_text": "貪南"},
+{"id": 23, "raw_text": "巨東"},
+{"id": 24, "raw_text": "破西"},
+{"id": 25, "raw_text": "禄東"},
+{"id": 26, "raw_text": "輔西"},
+{"id": 27, "raw_text": "弼北"},
+{"id": 28, "raw_text": "分東"},
+{"id": 29, "raw_text": "貪南"},
+{"id": 30, "raw_text": "武西"},
+{"id": 31, "raw_text": "破西"},
+{"id": 32, "raw_text": "巨東"},
+{"id": 33, "raw_text": "輔西"},
+{"id": 34, "raw_text": "禄東"},
+{"id": 35, "raw_text": "文東"},
+{"id": 36, "raw_text": "弼北"},
+{"id": 37, "raw_text": "巨東"},
+{"id": 38, "raw_text": "破西"},
+{"id": 39, "raw_text": "武西"},
+{"id": 40, "raw_text": "貪南"},
+{"id": 41, "raw_text": "弼北"},
+{"id": 42, "raw_text": "文東"},
+{"id": 43, "raw_text": "禄東"},
+{"id": 44, "raw_text": "弼西"},
+{"id": 45, "raw_text": "破西"},
+{"id": 46, "raw_text": "巨東"},
+{"id": 47, "raw_text": "貪南"},
+{"id": 48, "raw_text": "武西"},
+{"id": 49, "raw_text": "分東"},
+{"id": 50, "raw_text": "弼北"},
+{"id": 51, "raw_text": "輔西"},
+{"id": 52, "raw_text": "禄東"},
+{"id": 53, "raw_text": "武西"},
+{"id": 54, "raw_text": "貪南"},
+{"id": 55, "raw_text": "巨東"},
+{"id": 56, "raw_text": "破西"},
+{"id": 57, "raw_text": "禄東"},
+{"id": 58, "raw_text": "輔西"},
+{"id": 59, "raw_text": "弼北"},
+{"id": 60, "raw_text": "分東"},
+{"id": 61, "raw_text": "貪南"},
+{"id": 62, "raw_text": "武西"},
+{"id": 63, "raw_text": "破西"},
+{"id": 64, "raw_text": "巨東"},
+]
+
+
+# ==========================================================
+# Layer14 基準との対応情報
+# ==========================================================
+
+layer17_18_relationship = {
+
+"base_layer": 14,
+
+"layer17": {
+"layer_id": 17,
+"same_row_as_base": True,
+"key": "id",
+"row_count": 64,
+},
+
+"layer18": {
+"layer_id": 18,
+"same_row_as_base": True,
+"key": "id",
+"row_count": 64,
+},
+
+"angle_reference": {
+"base_layer": 14,
+"start": 338.0,
+"end": 343.0,
+"return_start": 326.0,
+"return_end": 332.0,
+},
+}
+
+
+# ==========================================================
+# Validation
+# ==========================================================
+
+def validate_layer17_18():
+
+    errors = []
+
+expected_ids = list(range(1, 65))
+
+ids17 = [item["id"] for item in raw_layer17]
+ids18 = [item["id"] for item in raw_layer18]
+
+if ids17 != expected_ids:
+    errors.append("Layer17のidが1〜64の連番ではありません")
+
+if ids18 != expected_ids:
+    errors.append("Layer18のidが1〜64の連番ではありません")
+
+if len(raw_layer17) != 64:
+    errors.append(
+f"Layer17の行数が64ではありません: {len(raw_layer17)}"
+)
+
+if len(raw_layer18) != 64:
+    errors.append(
+f"Layer18の行数が64ではありません: {len(raw_layer18)}"
+)
+
+return errors
+

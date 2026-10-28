@@ -1,0 +1,901 @@
+
+==========================================================
+Feng Shui AI
+Lopan Raw Database
+
+Raw Layer 22
+==========================================================
+
+Rule
+----
+・実物羅盤画像／入力データを原資料とする
+・既存の21層データとの対応関係を保持する
+・21層の空白位置を構造として保持する
+・22層の文字列を独立した要素として記録する
+・22層の両端要素を21層の対応位置へリンクする
+・角度は按分して管理する
+・意味付けしない
+・名称を推測しない
+・読めないものは推測しない
+
+==========================================================
+"""
+
+VERSION = "RawLopan-22"
+SOURCE = "実物羅盤画像＋入力データ"
+
+
+# ==========================================================
+# Layer Information
+# ==========================================================
+
+LAYER_ID = 22
+
+# 15〜23層は同じ角度基準
+ANGLE_START = 331.875
+ANGLE_END = 337.500
+
+
+# ==========================================================
+# Angle Division
+# ==========================================================
+
+# 22層は、21層の対応位置を基準として
+# さらに角度を按分して記録する。
+#
+# 重要：
+# 22層の角度は単純に「1行 = 1区間」としない。
+# 21層側の空白を含む3要素構造との対応を維持する。
+
+
+raw_layer22 = [
+
+{
+"id": 1,
+"angle_start": None,
+"angle_end": None,
+
+# --------------------------------------------------
+# 21層との対応
+# --------------------------------------------------
+"layer21_link": {
+"source_layer": 21,
+"structure": [
+{
+"position": "left",
+"text": None
+},
+{
+"position": "center",
+"text": None
+},
+{
+"position": "right",
+"text": None
+}
+]
+},
+
+# --------------------------------------------------
+# 22層 左端
+# --------------------------------------------------
+"left": {
+"raw_text": None
+},
+
+# --------------------------------------------------
+# 22層 中央
+# --------------------------------------------------
+"center": {
+"raw_text": None
+},
+
+# --------------------------------------------------
+# 22層 右端
+# --------------------------------------------------
+"right": {
+"raw_text": None
+}
+}
+
+]
+
+
+# ==========================================================
+# 22 Layer Angle Allocation
+# ==========================================================
+
+layer22_angle_allocation = {
+
+"source_angle_start": ANGLE_START,
+"source_angle_end": ANGLE_END,
+
+"division_rule": {
+"type": "proportional",
+"based_on": "layer21_spacing"
+},
+
+"segments": []
+}
+
+
+# ==========================================================
+# Explicit Correspondence Rule
+# ==========================================================
+
+layer22_link_rule = {
+
+"layer21": {
+"elements": [
+"left",
+"center",
+"right"
+],
+
+"spacing_is_significant": True
+},
+
+"layer22": {
+"elements": [
+"left",
+"center",
+"right"
+],
+
+"angle_allocation_required": True
+},
+
+"correspondence": [
+{
+"layer21_position": "left",
+"layer22_position": "left"
+},
+{
+"layer21_position": "center",
+"layer22_position": "center"
+},
+{
+"layer21_position": "right",
+"layer22_position": "right"
+}
+]
+}
+
+
+# ==========================================================
+# Raw Data Policy
+# ==========================================================
+
+RAW_DATA_POLICY = {
+"image_is_primary_source": True,
+"preserve_original_order": True,
+"preserve_spacing": True,
+"preserve_blank_positions": True,
+"angle_division_required": True,
+"semantic_interpretation": False,
+"name_inference": False,
+"general_knowledge_completion": False
+}
+
+# ==========================================================
+# Raw Layer 21
+# ==========================================================
+
+raw_layer21 = [
+
+{
+"id": 1,
+"degree_start": 331.875,
+"degree_end": 337.500,
+"raw_text": ["カ", "8", "上"],
+"raw_numbers": [8],
+"raw_symbols": ["カ", "上"],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": ""
+}
+},
+
+{
+"id": 2,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "2", "上"],
+"raw_numbers": [2],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 3,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "7", "カ"],
+"raw_numbers": [7],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 4,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "6", "上"],
+"raw_numbers": [6],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 5,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "1", "カ"],
+"raw_numbers": [1],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 6,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "9", "上"],
+"raw_numbers": [9],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 7,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "3", "カ"],
+"raw_numbers": [3],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 8,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "4", "上"],
+"raw_numbers": [4],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 9,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "9", "カ"],
+"raw_numbers": [9],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 10,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "1", "カ"],
+"raw_numbers": [1],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 11,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "6", "上"],
+"raw_numbers": [6],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 12,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "7", "カ"],
+"raw_numbers": [7],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 13,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "2", "上"],
+"raw_numbers": [2],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 14,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "3", "カ"],
+"raw_numbers": [3],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 15,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "8", "上"],
+"raw_numbers": [8],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 16,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "9", "カ"],
+"raw_numbers": [9],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 17,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "4", "上"],
+"raw_numbers": [4],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 18,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "6", "上"],
+"raw_numbers": [6],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 19,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "1", "カ"],
+"raw_numbers": [1],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 20,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "2", "上"],
+"raw_numbers": [2],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 21,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "7", "カ"],
+"raw_numbers": [7],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 22,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "4", "上"],
+"raw_numbers": [4],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 23,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "9", "カ"],
+"raw_numbers": [9],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 24,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "8", "上"],
+"raw_numbers": [8],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 25,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "3", "カ"],
+"raw_numbers": [3],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 26,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "7", "カ"],
+"raw_numbers": [7],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 27,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "2", "上"],
+"raw_numbers": [2],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 28,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "1", "カ"],
+"raw_numbers": [1],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 29,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "6", "上"],
+"raw_numbers": [6],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 30,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "9", "カ"],
+"raw_numbers": [9],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 31,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "4", "上"],
+"raw_numbers": [4],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 32,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "3", "カ"],
+"raw_numbers": [3],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 33,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "8", "上"],
+"raw_numbers": [8],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 34,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "2", "上"],
+"raw_numbers": [2],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 35,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "7", "カ"],
+"raw_numbers": [7],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 36,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "6", "上"],
+"raw_numbers": [6],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 37,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "1", "カ"],
+"raw_numbers": [1],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 38,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "8", "上"],
+"raw_numbers": [8],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 39,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "3", "カ"],
+"raw_numbers": [3],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 40,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "4", "上"],
+"raw_numbers": [4],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 41,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "9", "カ"],
+"raw_numbers": [9],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 42,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "1", "カ"],
+"raw_numbers": [1],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 43,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "6", "上"],
+"raw_numbers": [6],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 44,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "7", "カ"],
+"raw_numbers": [7],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 45,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "2", "上"],
+"raw_numbers": [2],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 46,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "3", "カ"],
+"raw_numbers": [3],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 47,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "8", "上"],
+"raw_numbers": [8],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 48,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "9", "カ"],
+"raw_numbers": [9],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 49,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "4", "上"],
+"raw_numbers": [4],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 50,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "6", "上"],
+"raw_numbers": [6],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 51,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "1", "カ"],
+"raw_numbers": [1],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 52,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "2", "上"],
+"raw_numbers": [2],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 53,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "7", "カ"],
+"raw_numbers": [7],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 54,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "4", "上"],
+"raw_numbers": [4],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 55,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "9", "カ"],
+"raw_numbers": [9],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 56,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "8", "上"],
+"raw_numbers": [8],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 57,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "3", "カ"],
+"raw_numbers": [3],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 58,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "7", "カ"],
+"raw_numbers": [7],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 59,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "2", "上"],
+"raw_numbers": [2],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 60,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "1", "カ"],
+"raw_numbers": [1],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 61,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "6", "上"],
+"raw_numbers": [6],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 62,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "9", "カ"],
+"raw_numbers": [9],
+"raw_symbols": ["上", "カ"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 63,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["カ", "4", "上"],
+"raw_numbers": [4],
+"raw_symbols": ["カ", "上"],
+"visual": {"color": [], "line": [], "mark": [], "notes": ""}
+},
+
+{
+"id": 64,
+"degree_start": None,
+"degree_end": None,
+"raw_text": ["上", "3", "カ"],
+"raw_numbers": [3],
+"raw_symbols": ["上", "カ"],
+"visual": {
+"color": [],
+"line": [],
+"mark": [],
+"notes": "ここで一周"
+}
+}
+]
+
+
+# ==========================================================
+# Layer 21 Information
+# ==========================================================
+
+raw_layer21_info = {
+"layer_id": 21,
+
+"degree_start": 331.875,
+"degree_end": 337.500,
+
+"direction": "right",
+
+"row_count": 64,
+
+"element_count_per_position": 3,
+
+"element_structure": [
+"element_1",
+"element_2",
+"element_3"
+],
+
+"angle_source": "Layer15〜23共通角度としてユーザー指定",
+
+"relation_note": (
+"Layer21は3要素で構成される。"
+"各要素は分離して保存し、"
+"Layer22との対応関係を後段で保持できる構造とする。"
+),
+
+"source_note": (
+"実物羅盤の入力データをRaw形式で記録。"
+"意味・名称・分類は付与しない。"
+),
+
+"verified": True
+}
+
+
+# ==========================================================
+# Validation
+# ==========================================================
+
+assert len(raw_layer21) == 64
+
+assert [item["id"] for item in raw_layer21] == list(range(1, 65))
+
+assert all(
+len(item["raw_text"]) == 3
+for item in raw_layer21
+)
+
+assert all(
+len(item["raw_numbers"]) == 1
+for item in raw_layer21
+)
+
+assert raw_layer21[0]["raw_text"] == ["カ", "8", "上"]
+assert raw_layer21[1]["raw_text"] == ["カ", "2", "上"]
+assert raw_layer21[2]["raw_text"] == ["上", "7", "カ"]
+
+assert raw_layer21[-1]["raw_text"] == ["上", "3", "カ"]
+assert raw_layer21[-1]["visual"]["notes"] == "ここで一周"
+

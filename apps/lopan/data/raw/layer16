@@ -1,0 +1,170 @@
+
+"""
+==========================================================
+Feng Shui AI
+Lopan Raw Database
+
+Raw Layer 16
+==========================================================
+
+Description
+-----------
+実物羅盤・ユーザー入力データから確認した
+Layer16の事実のみを記録する。
+
+Rule
+----
+・層名称を推測しない
+・盤名称を推測しない
+・意味付けしない
+・一般知識で補完しない
+・入力された文字列をそのまま保持する
+・Layer14、Layer15との行対応を維持する
+・不明な文字は推測しない
+
+Version
+-------
+RawLopan-01
+
+==========================================================
+"""
+
+# ==========================================================
+# Layer Information
+# ==========================================================
+
+LAYER_ID = 16
+VERSION = "RawLopan-01"
+SOURCE = "ユーザー入力"
+
+# Layer14 / Layer15 / Layer16 は同一行で対応
+ROW_COUNT = 64
+
+
+# ==========================================================
+# Raw Layer 16
+# ==========================================================
+
+raw_layer16 = [
+
+{"id": 1, "raw_text": "輔西"},
+{"id": 2, "raw_text": "禄東"},
+{"id": 3, "raw_text": "文東"},
+{"id": 4, "raw_text": "弼北"},
+{"id": 5, "raw_text": "巨東"},
+{"id": 6, "raw_text": "破西"},
+{"id": 7, "raw_text": "武西"},
+{"id": 8, "raw_text": "貪南"},
+{"id": 9, "raw_text": "弼北"},
+{"id": 10, "raw_text": "文東"},
+{"id": 11, "raw_text": "禄東"},
+{"id": 12, "raw_text": "輔西"},
+{"id": 13, "raw_text": "破西"},
+{"id": 14, "raw_text": "巨東"},
+{"id": 15, "raw_text": "貪南"},
+{"id": 16, "raw_text": "武西"},
+{"id": 17, "raw_text": "分東"},
+{"id": 18, "raw_text": "弼東"},
+{"id": 19, "raw_text": "輔西"},
+{"id": 20, "raw_text": "禄東"},
+{"id": 21, "raw_text": "武西"},
+{"id": 22, "raw_text": "貪南"},
+{"id": 23, "raw_text": "巨東"},
+{"id": 24, "raw_text": "破西"},
+{"id": 25, "raw_text": "禄東"},
+{"id": 26, "raw_text": "輔西"},
+{"id": 27, "raw_text": "弼北"},
+{"id": 28, "raw_text": "分東"},
+{"id": 29, "raw_text": "貪南"},
+{"id": 30, "raw_text": "武西"},
+{"id": 31, "raw_text": "破西"},
+{"id": 32, "raw_text": "巨東"},
+{"id": 33, "raw_text": "輔西"},
+{"id": 34, "raw_text": "禄東"},
+{"id": 35, "raw_text": "文東"},
+{"id": 36, "raw_text": "弼北"},
+{"id": 37, "raw_text": "巨東"},
+{"id": 38, "raw_text": "破西"},
+{"id": 39, "raw_text": "武西"},
+{"id": 40, "raw_text": "貪南"},
+{"id": 41, "raw_text": "弼北"},
+{"id": 42, "raw_text": "文東"},
+{"id": 43, "raw_text": "禄東"},
+{"id": 44, "raw_text": "弼西"},
+{"id": 45, "raw_text": "破西"},
+{"id": 46, "raw_text": "巨東"},
+{"id": 47, "raw_text": "貪南"},
+{"id": 48, "raw_text": "武西"},
+{"id": 49, "raw_text": "分東"},
+{"id": 50, "raw_text": "弼北"},
+{"id": 51, "raw_text": "輔西"},
+{"id": 52, "raw_text": "禄東"},
+{"id": 53, "raw_text": "武西"},
+{"id": 54, "raw_text": "貪南"},
+{"id": 55, "raw_text": "巨東"},
+{"id": 56, "raw_text": "破西"},
+{"id": 57, "raw_text": "禄東"},
+{"id": 58, "raw_text": "輔西"},
+{"id": 59, "raw_text": "弼北"},
+{"id": 60, "raw_text": "分東"},
+{"id": 61, "raw_text": "貪南"},
+{"id": 62, "raw_text": "武西"},
+{"id": 63, "raw_text": "破西"},
+{"id": 64, "raw_text": "巨東"},
+]
+
+
+# ==========================================================
+# Layer14 ↔ Layer15 ↔ Layer16
+# ==========================================================
+
+LAYER16_RELATIONSHIP = {
+"same_row_as_layer14": True,
+"same_row_as_layer15": True,
+"row_count": 64,
+"relationship_key": "id",
+}
+
+
+# ==========================================================
+# Validation
+# ==========================================================
+
+def validate_layer16(data):
+    """
+    Layer16の基本構造を検証する。
+    """
+
+errors = []
+
+if len(data) != ROW_COUNT:
+    errors.append(
+f"Layer16の行数が64ではありません: {len(data)}"
+)
+
+expected_ids = list(range(1, ROW_COUNT + 1))
+actual_ids = [item["id"] for item in data]
+
+if actual_ids != expected_ids:
+    errors.append(
+"Layer16のidが1〜64の連番になっていません"
+)
+
+for item in data:
+    if "raw_text" not in item:
+        errors.append(
+    f"id={item['id']} にraw_textがありません"
+)
+
+elif item["raw_text"] == "":
+errors.append(
+f"id={item['id']} のraw_textが空です"
+)
+
+return errors
+
+
+# ==========================================================
+# End
+# ==========================================================
+
