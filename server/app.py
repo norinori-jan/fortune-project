@@ -51,7 +51,7 @@ class FortuneRunRequest(BaseModel):
 class FortuneQueryRequest(BaseModel):
     tool:       ToolName
     raw_result: dict
-    question:   str
+    question:   str      = Field(..., max_length=1000)
     language:   str      = Field(default="ja")
     ai_model:   AIModel  = Field(default="claude",
                     description="使用するAIモデル: claude / gemini / openai")
@@ -79,7 +79,7 @@ def load_registry() -> dict:
                  ROOT/"fortune-core"/"docs"/"index.json",
                  ROOT/"fortune-registry"/"registry.json"]:
         if path.exists():
-            with open(path, encoding="utf-8") as f:
+            with open(path, encoding="utf-8-sig") as f:
                 _registry_cache = json.load(f)
             return _registry_cache
     raise RuntimeError("registry_a.json が見つかりません")
@@ -319,7 +319,7 @@ async def fortune_query(req: FortuneQueryRequest):
     prompt_path = ROOT/"fortune-registry"/"prompts"/f"{req.tool}.json"
     tool_prompt = ""
     if prompt_path.exists():
-        with open(prompt_path,encoding="utf-8") as f:
+        with open(prompt_path,encoding="utf-8-sig") as f:
             tool_prompt = json.load(f).get("system","")
 
     system, user = build_prompt(req, tool_prompt)
@@ -372,3 +372,36 @@ def _fortune_app():
 @app.get("/app/tarot-cards.js", include_in_schema=False)
 def _fortune_app_cards():
     return _FileResponse(_ENTRY_HTML.parent / "tarot-cards.js", media_type="application/javascript; charset=utf-8")
+
+
+# --- 守り：リクエストの大きさ制限と、AI 呼び出し（/fortune/query）の回数制限 ---
+# /fortune/query はサーバーの API キーで AI を呼ぶ（費用がかかる）。誰でも叩けるので、IP ごとに 1 時間あたりの回数を制限する。
+import os as _os  # noqa: E402
+import time as _time  # noqa: E402
+from collections import defaultdict as _dd, deque as _dq  # noqa: E402
+from fastapi.responses import JSONResponse as _JSONResponse  # noqa: E402
+
+_MAX_BODY = 64 * 1024
+_hits: dict[str, _dq] = _dd(_dq)
+
+
+@app.middleware("http")
+async def _guard(request, call_next):
+    cl = request.headers.get("content-length")
+    if cl and cl.isdigit() and int(cl) > _MAX_BODY:
+        return _JSONResponse({"detail": "リクエストが大きすぎます"}, status_code=413)
+    if request.url.path == "/fortune/query":
+        limit = int(_os.getenv("FORTUNE_QUERY_PER_HOUR", "30"))
+        ip = (request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+              or (request.client.host if request.client else "unknown"))
+        now = _time.time()
+        q = _hits[ip]
+        while q and now - q[0] > 3600:
+            q.popleft()
+        if len(q) >= limit:
+            return _JSONResponse({"detail": "AI の呼び出し回数の上限に達しました。しばらくしてからお試しください"}, status_code=429)
+        q.append(now)
+        if len(_hits) > 5000:  # 記録が増えすぎないように、古い IP を捨てる
+            for k in [k for k, v in _hits.items() if not v][:1000]:
+                _hits.pop(k, None)
+    return await call_next(request)

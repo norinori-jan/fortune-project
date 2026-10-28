@@ -72,3 +72,12 @@ def test_lopan_layers_and_measure():
     m = c.get("/fortune/lopan/measure?angle=337").json()
     assert m["layers"]["10"]["status"] == "OK" and m["layers"]["10"]["matches"][0]["record"]["raw_text"] == "癸亥"
     assert c.get("/fortune/lopan/measure?angle=400").status_code == 422
+
+
+def test_guard_body_size_and_query_rate(monkeypatch):
+    big = {"question": "x" * 70000}
+    assert c.post("/fortune/entry", json=big).status_code == 413
+    monkeypatch.setenv("FORTUNE_QUERY_PER_HOUR", "2")
+    body = {"tool": "tarot", "raw_result": {}, "question": "q"}
+    codes = [c.post("/fortune/query", json=body, headers={"x-forwarded-for": "203.0.113.9"}).status_code for _ in range(3)]
+    assert codes[2] == 429 and 429 not in codes[:2]
