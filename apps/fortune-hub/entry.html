@@ -204,12 +204,12 @@ function result(tool, question, raw, extra){
     // ケルト十字の並び（設計どおり）：中央＝1（2 は 90° 回して重ねる）／上＝3／右＝4／下＝5／左＝6／右端の柱＝下から 7,8,9,10
     const P = {}; Object.values(raw.positions).forEach(p => P[p.position_index] = p);
     const at = {3:[1,2], 6:[2,1], 4:[2,3], 5:[3,2], 10:[1,5], 9:[2,5], 8:[3,5], 7:[4,5]};
-    const img = c => (typeof TAROT_FULL !== 'undefined' && c.arcana === 'major' && TAROT_FULL[c.number] && TAROT_FULL[c.number].svg) ? `<span class="img">${TAROT_FULL[c.number].svg}</span>` : `<span class="nm">${esc(c.name)}</span>`;
+    const img = c => { const sv = (typeof TAROT_FULL !== 'undefined' && c.arcana === 'major' && TAROT_FULL[c.number] && TAROT_FULL[c.number].svg) || (typeof TAROT_MINOR !== 'undefined' && c.arcana === 'minor' && TAROT_MINOR[c.id]) || ''; return sv ? `<span class="img">${sv}</span>` : `<span class="nm">${esc(c.name)}</span>`; };
     const cell = (i, extra) => { const p = P[i], c = p.card || {}; return `<button class="cx${p.is_reversed?' rv':''}${extra||''}" data-cx="${i}" style="${at[i]?'grid-column:'+at[i][1]+';grid-row:'+at[i][0]:''}"><span class="n">${i}</span>${img(c)}<span class="pl">${esc((p.position_label||'').split('・')[0])}${p.is_reversed?'（逆）':''}</span></button>`; };
-    window.__P = P;
+    window.__P = P; window.__R = raw.reading || null;
     h += `<p class="muted">ケルト十字（10枚）。中央が 1、青い枠で横に重なるのが 2。上 3・右 4・下 5・左 6、右端は下から 7〜10。タップすると意味が読めます。逆位置はカードが逆さまになります。</p><div class="cross">` +
       [3,6,4,5,10,9,8,7].map(i => cell(i)).join('') +
-      `<div class="cxwrap" style="grid-column:2;grid-row:2">${cell(1).replace(/ style="[^"]*"/,'')}${cell(2,' over').replace(/ style="[^"]*"/,'')}</div></div><div class="cd" id="cxdetail" style="margin-top:10px"><div class="mn">カードをタップしてください。</div></div>`;
+      `<div class="cxwrap" style="grid-column:2;grid-row:2">${cell(1).replace(/ style="[^"]*"/,'')}${cell(2,' over').replace(/ style="[^"]*"/,'')}</div></div><div class="cd" id="cxdetail" style="margin-top:10px"><div class="mn">カードをタップしてください。</div></div>` + (raw.reading ? `<div class="cd" style="margin-top:10px"><div class="pos">総合鑑定　判定：${esc(raw.reading.verdict)}</div><div class="mn" style="white-space:pre-wrap">${esc(raw.reading.overall)}</div></div>` : '');
   } else if (tool==='shichu' && raw.year){
     h += `<div class="pil">` + [['hour','時'],['day','日'],['month','月'],['year','年']].filter(([k])=>raw[k]).map(([k,l])=>`<div><small>${l}柱</small><b>${esc(raw[k].stem)}<br>${esc(raw[k].branch)}</b></div>`).join('') + `</div><p class="muted" style="margin-top:10px">${esc(raw.note||'')}</p>${raw.boundary_warning?`<p class="err">${esc(raw.boundary_warning)}</p>`:''}`;
   } else if (tool==='five-elements'){
@@ -311,7 +311,7 @@ document.addEventListener('click', e => {
   if (e.target.id === 'lopanGo') runLopan();
   const cx = e.target.closest('[data-cx]'); if (cx && window.__P){ const p = window.__P[cx.dataset.cx], c = p.card || {};
     document.querySelectorAll('.cx').forEach(x => x.classList.toggle('on', x === cx));
-    $('cxdetail').innerHTML = `<div class="pos">${p.position_index}. ${esc(p.position_label)}</div><div class="nm">${esc(c.name)}${p.is_reversed?'<span class="rv">逆位置</span>':'（正位置）'}</div><div class="mn">${esc(p.is_reversed?c.meaning_reversed:c.meaning_upright)}</div><div class="mn">${(c.keywords||[]).map(k=>`<span class="tag">${esc(k)}</span>`).join(' ')}</div>`; return; }
+    $('cxdetail').innerHTML = `<div class="pos">${p.position_index}. ${esc(p.position_label)}</div><div class="nm">${esc(c.name)}${p.is_reversed?'<span class="rv">逆位置</span>':'（正位置）'}</div><div class="mn">${esc(window.__R && window.__R.positions[p.position_index] ? window.__R.positions[p.position_index].text : (p.is_reversed?c.meaning_reversed:c.meaning_upright))}</div><div class="mn">${(c.keywords||[]).map(k=>`<span class="tag">${esc(k)}</span>`).join(' ')}</div>`; return; }
   if (e.target.id === 'shareBtn' && current){ share(); return; }
   if (e.target.id === 'favBtn' && current){ const a = favs(); a.unshift({t:Date.now(), ...current}); ls.set('fh_fav', JSON.stringify(a.slice(0,30))); e.target.textContent = '★ 保存しました'; }
 });

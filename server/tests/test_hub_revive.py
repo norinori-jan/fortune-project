@@ -81,3 +81,20 @@ def test_guard_body_size_and_query_rate(monkeypatch):
     body = {"tool": "tarot", "raw_result": {}, "question": "q"}
     codes = [c.post("/fortune/query", json=body, headers={"x-forwarded-for": "203.0.113.9"}).status_code for _ in range(3)]
     assert codes[2] == 429 and 429 not in codes[:2]
+
+
+def test_celtic_has_reading_text():
+    from fastapi.testclient import TestClient
+    from server.app import app
+    r = TestClient(app).post("/fortune/tarot/celtic", json={"question": "転職すべき？", "seed": 7}).json()
+    rd = r["reading"]
+    assert rd["verdict"] in ("吉", "小吉", "平", "吝", "凶")
+    assert len(rd["positions"]) == 10 and "転職" in rd["overall"]
+    assert all(len(v["text"]) > 20 for v in rd["positions"].values())
+
+
+def test_minor_arcana_svg_complete():
+    import re, pathlib
+    js = (pathlib.Path(__file__).resolve().parents[2] / "apps/fortune-hub/tarot-cards.js").read_text(encoding="utf-8")
+    ids = set(re.findall(r'"((?:wands|cups|swords|pentacles)_\d\d)": "<svg', js))
+    assert len(ids) == 56
