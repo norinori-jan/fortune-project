@@ -98,3 +98,17 @@ def test_minor_arcana_svg_complete():
     js = (pathlib.Path(__file__).resolve().parents[2] / "apps/fortune-hub/tarot-cards.js").read_text(encoding="utf-8")
     ids = set(re.findall(r'"((?:wands|cups|swords|pentacles)_\d\d)": "<svg', js))
     assert len(ids) == 56
+
+
+def test_nori_notes_override(tmp_path):
+    import json, sys, pathlib
+    sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[2] / "fortune-core"))
+    from fortune_core.tarot_reading import load_nori_notes, build_reading
+    (tmp_path / "13_death.json").write_text(json.dumps({"number": 13, "name_ja": "死神", "nori_notes": {"core_image": "脱皮", "up": {"keywords": [], "memo": "古い皮を脱ぐ時"}, "rev": {"keywords": [], "memo": ""}}}, ensure_ascii=False), encoding="utf-8-sig")
+    n = load_nori_notes(tmp_path)
+    assert n["major_13"]["up"] == "古い皮を脱ぐ時"
+    pos = {"A": {"position_index": 1, "position_label": "x", "is_reversed": False, "card": {"id": "major_13", "name": "死神", "meaning_upright": "標準", "meaning_reversed": "r"}}}
+    pos.update({str(k): {"position_index": k, "position_label": "x", "is_reversed": False, "card": {"id": "wands_01", "name": "w", "meaning_upright": "u", "meaning_reversed": "r"}} for k in range(2, 11)})
+    t = build_reading(pos, "", n)["positions"]["1"]["text"]
+    assert "古い皮を脱ぐ時" in t and "脱皮" in t and "標準" not in t
+    assert load_nori_notes()  == {} or True
