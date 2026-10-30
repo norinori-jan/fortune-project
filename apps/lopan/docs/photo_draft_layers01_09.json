@@ -1,0 +1,1881 @@
+{
+ "note": "写真からの下書き（未確認）。向きは上=子(0°)・右回り（層10の既存Rawと突き合わせ済み：辛亥が326〜332°に一致、誤差約1°）。層名・意味は付けない。data/raw には入れない。",
+ "layers": {
+  "layer01": {
+   "cells": 8,
+   "width": 45,
+   "note": "線は外側→内側の順（実=つながった線、欠=途切れた線）。0°は赤い十字線が重なり要確認。",
+   "items": [
+    {
+     "center": 0.0,
+     "degree_start": 337.5,
+     "degree_end": 22.5,
+     "text": "欠欠欠"
+    },
+    {
+     "center": 45.0,
+     "degree_start": 22.5,
+     "degree_end": 67.5,
+     "text": "実欠欠"
+    },
+    {
+     "center": 90.0,
+     "degree_start": 67.5,
+     "degree_end": 112.5,
+     "text": "実欠実"
+    },
+    {
+     "center": 135.0,
+     "degree_start": 112.5,
+     "degree_end": 157.5,
+     "text": "実実欠"
+    },
+    {
+     "center": 180.0,
+     "degree_start": 157.5,
+     "degree_end": 202.5,
+     "text": "実実実"
+    },
+    {
+     "center": 225.0,
+     "degree_start": 202.5,
+     "degree_end": 247.5,
+     "text": "欠実実"
+    },
+    {
+     "center": 270.0,
+     "degree_start": 247.5,
+     "degree_end": 292.5,
+     "text": "欠実欠"
+    },
+    {
+     "center": 315.0,
+     "degree_start": 292.5,
+     "degree_end": 337.5,
+     "text": "欠欠実"
+    }
+   ],
+   "check": [
+    0
+   ]
+  },
+  "layer02": {
+   "cells": 24,
+   "width": 15,
+   "note": "0°・90°・180°・270°は赤い線が重なり要確認（0,90,180,270）",
+   "items": [
+    {
+     "center": 0.0,
+     "degree_start": 352.5,
+     "degree_end": 7.5,
+     "text": "巳"
+    },
+    {
+     "center": 15.0,
+     "degree_start": 7.5,
+     "degree_end": 22.5,
+     "text": "巳"
+    },
+    {
+     "center": 30.0,
+     "degree_start": 22.5,
+     "degree_end": 37.5,
+     "text": "辰"
+    },
+    {
+     "center": 45.0,
+     "degree_start": 37.5,
+     "degree_end": 52.5,
+     "text": "丁"
+    },
+    {
+     "center": 60.0,
+     "degree_start": 52.5,
+     "degree_end": 67.5,
+     "text": "未"
+    },
+    {
+     "center": 75.0,
+     "degree_start": 67.5,
+     "degree_end": 82.5,
+     "text": "丙"
+    },
+    {
+     "center": 90.0,
+     "degree_start": 82.5,
+     "degree_end": 97.5,
+     "text": "午"
+    },
+    {
+     "center": 105.0,
+     "degree_start": 97.5,
+     "degree_end": 112.5,
+     "text": "申"
+    },
+    {
+     "center": 120.0,
+     "degree_start": 112.5,
+     "degree_end": 127.5,
+     "text": "未"
+    },
+    {
+     "center": 135.0,
+     "degree_start": 127.5,
+     "degree_end": 142.5,
+     "text": "癸"
+    },
+    {
+     "center": 150.0,
+     "degree_start": 142.5,
+     "degree_end": 157.5,
+     "text": "酉"
+    },
+    {
+     "center": 165.0,
+     "degree_start": 157.5,
+     "degree_end": 172.5,
+     "text": "辛"
+    },
+    {
+     "center": 180.0,
+     "degree_start": 172.5,
+     "degree_end": 187.5,
+     "text": "酉"
+    },
+    {
+     "center": 195.0,
+     "degree_start": 187.5,
+     "degree_end": 202.5,
+     "text": "寅"
+    },
+    {
+     "center": 210.0,
+     "degree_start": 202.5,
+     "degree_end": 217.5,
+     "text": "癸"
+    },
+    {
+     "center": 225.0,
+     "degree_start": 217.5,
+     "degree_end": 232.5,
+     "text": "乙"
+    },
+    {
+     "center": 240.0,
+     "degree_start": 232.5,
+     "degree_end": 247.5,
+     "text": "癸"
+    },
+    {
+     "center": 255.0,
+     "degree_start": 247.5,
+     "degree_end": 262.5,
+     "text": "午"
+    },
+    {
+     "center": 270.0,
+     "degree_start": 262.5,
+     "degree_end": 277.5,
+     "text": "寅"
+    },
+    {
+     "center": 285.0,
+     "degree_start": 277.5,
+     "degree_end": 292.5,
+     "text": "丑"
+    },
+    {
+     "center": 300.0,
+     "degree_start": 292.5,
+     "degree_end": 307.5,
+     "text": "丑"
+    },
+    {
+     "center": 315.0,
+     "degree_start": 307.5,
+     "degree_end": 322.5,
+     "text": "卯"
+    },
+    {
+     "center": 330.0,
+     "degree_start": 322.5,
+     "degree_end": 337.5,
+     "text": "乙"
+    },
+    {
+     "center": 345.0,
+     "degree_start": 337.5,
+     "degree_end": 352.5,
+     "text": "申"
+    }
+   ],
+   "check": [
+    0,
+    90,
+    180,
+    270
+   ]
+  },
+  "layer03": {
+   "cells": 24,
+   "width": 15,
+   "note": "空白の区分は文字なし。0,90,180,270は要確認",
+   "items": [
+    {
+     "center": 0.0,
+     "degree_start": 352.5,
+     "degree_end": 7.5,
+     "text": "空白"
+    },
+    {
+     "center": 15.0,
+     "degree_start": 7.5,
+     "degree_end": 22.5,
+     "text": "艮"
+    },
+    {
+     "center": 30.0,
+     "degree_start": 22.5,
+     "degree_end": 37.5,
+     "text": "空白"
+    },
+    {
+     "center": 45.0,
+     "degree_start": 37.5,
+     "degree_end": 52.5,
+     "text": "癸甲"
+    },
+    {
+     "center": 60.0,
+     "degree_start": 52.5,
+     "degree_end": 67.5,
+     "text": "空白"
+    },
+    {
+     "center": 75.0,
+     "degree_start": 67.5,
+     "degree_end": 82.5,
+     "text": "艮"
+    },
+    {
+     "center": 90.0,
+     "degree_start": 82.5,
+     "degree_end": 97.5,
+     "text": "空白"
+    },
+    {
+     "center": 105.0,
+     "degree_start": 97.5,
+     "degree_end": 112.5,
+     "text": "巽"
+    },
+    {
+     "center": 120.0,
+     "degree_start": 112.5,
+     "degree_end": 127.5,
+     "text": "空白"
+    },
+    {
+     "center": 135.0,
+     "degree_start": 127.5,
+     "degree_end": 142.5,
+     "text": "丙乙"
+    },
+    {
+     "center": 150.0,
+     "degree_start": 142.5,
+     "degree_end": 157.5,
+     "text": "空白"
+    },
+    {
+     "center": 165.0,
+     "degree_start": 157.5,
+     "degree_end": 172.5,
+     "text": "巽"
+    },
+    {
+     "center": 180.0,
+     "degree_start": 172.5,
+     "degree_end": 187.5,
+     "text": "空白"
+    },
+    {
+     "center": 195.0,
+     "degree_start": 187.5,
+     "degree_end": 202.5,
+     "text": "坤"
+    },
+    {
+     "center": 210.0,
+     "degree_start": 202.5,
+     "degree_end": 217.5,
+     "text": "空白"
+    },
+    {
+     "center": 225.0,
+     "degree_start": 217.5,
+     "degree_end": 232.5,
+     "text": "庚丁"
+    },
+    {
+     "center": 240.0,
+     "degree_start": 232.5,
+     "degree_end": 247.5,
+     "text": "空白"
+    },
+    {
+     "center": 255.0,
+     "degree_start": 247.5,
+     "degree_end": 262.5,
+     "text": "坤"
+    },
+    {
+     "center": 270.0,
+     "degree_start": 262.5,
+     "degree_end": 277.5,
+     "text": "空白"
+    },
+    {
+     "center": 285.0,
+     "degree_start": 277.5,
+     "degree_end": 292.5,
+     "text": "乾"
+    },
+    {
+     "center": 300.0,
+     "degree_start": 292.5,
+     "degree_end": 307.5,
+     "text": "空白"
+    },
+    {
+     "center": 315.0,
+     "degree_start": 307.5,
+     "degree_end": 322.5,
+     "text": "壬辛"
+    },
+    {
+     "center": 330.0,
+     "degree_start": 322.5,
+     "degree_end": 337.5,
+     "text": "空白"
+    },
+    {
+     "center": 345.0,
+     "degree_start": 337.5,
+     "degree_end": 352.5,
+     "text": "乾"
+    }
+   ],
+   "check": [
+    0,
+    90,
+    180,
+    270
+   ]
+  },
+  "layer04": {
+   "cells": 24,
+   "width": 15,
+   "note": "字形が細かい：天壘 陰機 陰光 天廄 天罡 天廚",
+   "items": [
+    {
+     "center": 0.0,
+     "degree_start": 352.5,
+     "degree_end": 7.5,
+     "text": "天壘"
+    },
+    {
+     "center": 15.0,
+     "degree_start": 7.5,
+     "degree_end": 22.5,
+     "text": "陰光"
+    },
+    {
+     "center": 30.0,
+     "degree_start": 22.5,
+     "degree_end": 37.5,
+     "text": "天廚"
+    },
+    {
+     "center": 45.0,
+     "degree_start": 37.5,
+     "degree_end": 52.5,
+     "text": "天市"
+    },
+    {
+     "center": 60.0,
+     "degree_start": 52.5,
+     "degree_end": 67.5,
+     "text": "天培"
+    },
+    {
+     "center": 75.0,
+     "degree_start": 67.5,
+     "degree_end": 82.5,
+     "text": "陰機"
+    },
+    {
+     "center": 90.0,
+     "degree_start": 82.5,
+     "degree_end": 97.5,
+     "text": "天命"
+    },
+    {
+     "center": 105.0,
+     "degree_start": 97.5,
+     "degree_end": 112.5,
+     "text": "天官"
+    },
+    {
+     "center": 120.0,
+     "degree_start": 112.5,
+     "degree_end": 127.5,
+     "text": "天罡"
+    },
+    {
+     "center": 135.0,
+     "degree_start": 127.5,
+     "degree_end": 142.5,
+     "text": "太乙"
+    },
+    {
+     "center": 150.0,
+     "degree_start": 142.5,
+     "degree_end": 157.5,
+     "text": "天屏"
+    },
+    {
+     "center": 165.0,
+     "degree_start": 157.5,
+     "degree_end": 172.5,
+     "text": "太微"
+    },
+    {
+     "center": 180.0,
+     "degree_start": 172.5,
+     "degree_end": 187.5,
+     "text": "陽權"
+    },
+    {
+     "center": 195.0,
+     "degree_start": 187.5,
+     "degree_end": 202.5,
+     "text": "南極"
+    },
+    {
+     "center": 210.0,
+     "degree_start": 202.5,
+     "degree_end": 217.5,
+     "text": "天常"
+    },
+    {
+     "center": 225.0,
+     "degree_start": 217.5,
+     "degree_end": 232.5,
+     "text": "天鉞"
+    },
+    {
+     "center": 240.0,
+     "degree_start": 232.5,
+     "degree_end": 247.5,
+     "text": "天關"
+    },
+    {
+     "center": 255.0,
+     "degree_start": 247.5,
+     "degree_end": 262.5,
+     "text": "天漢"
+    },
+    {
+     "center": 270.0,
+     "degree_start": 262.5,
+     "degree_end": 277.5,
+     "text": "少微"
+    },
+    {
+     "center": 285.0,
+     "degree_start": 277.5,
+     "degree_end": 292.5,
+     "text": "天乙"
+    },
+    {
+     "center": 300.0,
+     "degree_start": 292.5,
+     "degree_end": 307.5,
+     "text": "天魁"
+    },
+    {
+     "center": 315.0,
+     "degree_start": 307.5,
+     "degree_end": 322.5,
+     "text": "天廄"
+    },
+    {
+     "center": 330.0,
+     "degree_start": 322.5,
+     "degree_end": 337.5,
+     "text": "天皇"
+    },
+    {
+     "center": 345.0,
+     "degree_start": 337.5,
+     "degree_end": 352.5,
+     "text": "天輔"
+    }
+   ],
+   "check": [
+    0,
+    90,
+    180,
+    270
+   ]
+  },
+  "layer05": {
+   "cells": 24,
+   "width": 15,
+   "note": "0°,15°の破／90°,105°の輔が連続。要確認",
+   "items": [
+    {
+     "center": 0.0,
+     "degree_start": 352.5,
+     "degree_end": 7.5,
+     "text": "破"
+    },
+    {
+     "center": 15.0,
+     "degree_start": 7.5,
+     "degree_end": 22.5,
+     "text": "破"
+    },
+    {
+     "center": 30.0,
+     "degree_start": 22.5,
+     "degree_end": 37.5,
+     "text": "武"
+    },
+    {
+     "center": 45.0,
+     "degree_start": 37.5,
+     "degree_end": 52.5,
+     "text": "貪"
+    },
+    {
+     "center": 60.0,
+     "degree_start": 52.5,
+     "degree_end": 67.5,
+     "text": "文"
+    },
+    {
+     "center": 75.0,
+     "degree_start": 67.5,
+     "degree_end": 82.5,
+     "text": "祿"
+    },
+    {
+     "center": 90.0,
+     "degree_start": 82.5,
+     "degree_end": 97.5,
+     "text": "輔"
+    },
+    {
+     "center": 105.0,
+     "degree_start": 97.5,
+     "degree_end": 112.5,
+     "text": "輔"
+    },
+    {
+     "center": 120.0,
+     "degree_start": 112.5,
+     "degree_end": 127.5,
+     "text": "破"
+    },
+    {
+     "center": 135.0,
+     "degree_start": 127.5,
+     "degree_end": 142.5,
+     "text": "巨"
+    },
+    {
+     "center": 150.0,
+     "degree_start": 142.5,
+     "degree_end": 157.5,
+     "text": "武"
+    },
+    {
+     "center": 165.0,
+     "degree_start": 157.5,
+     "degree_end": 172.5,
+     "text": "貪"
+    },
+    {
+     "center": 180.0,
+     "degree_start": 172.5,
+     "degree_end": 187.5,
+     "text": "文"
+    },
+    {
+     "center": 195.0,
+     "degree_start": 187.5,
+     "degree_end": 202.5,
+     "text": "武"
+    },
+    {
+     "center": 210.0,
+     "degree_start": 202.5,
+     "degree_end": 217.5,
+     "text": "貞"
+    },
+    {
+     "center": 225.0,
+     "degree_start": 217.5,
+     "degree_end": 232.5,
+     "text": "輔"
+    },
+    {
+     "center": 240.0,
+     "degree_start": 232.5,
+     "degree_end": 247.5,
+     "text": "破"
+    },
+    {
+     "center": 255.0,
+     "degree_start": 247.5,
+     "degree_end": 262.5,
+     "text": "貞"
+    },
+    {
+     "center": 270.0,
+     "degree_start": 262.5,
+     "degree_end": 277.5,
+     "text": "武"
+    },
+    {
+     "center": 285.0,
+     "degree_start": 277.5,
+     "degree_end": 292.5,
+     "text": "巨"
+    },
+    {
+     "center": 300.0,
+     "degree_start": 292.5,
+     "degree_end": 307.5,
+     "text": "文"
+    },
+    {
+     "center": 315.0,
+     "degree_start": 307.5,
+     "degree_end": 322.5,
+     "text": "祿"
+    },
+    {
+     "center": 330.0,
+     "degree_start": 322.5,
+     "degree_end": 337.5,
+     "text": "貞"
+    },
+    {
+     "center": 345.0,
+     "degree_start": 337.5,
+     "degree_end": 352.5,
+     "text": "文"
+    }
+   ],
+   "check": [
+    0,
+    90,
+    180,
+    270
+   ]
+  },
+  "layer06": {
+   "cells": 24,
+   "width": 15,
+   "note": "名＋小さく添えられた一文字（五行の文字）。坤の添え字は薄く要確認",
+   "items": [
+    {
+     "center": 0.0,
+     "degree_start": 352.5,
+     "degree_end": 7.5,
+     "text": "子",
+     "sub": "水"
+    },
+    {
+     "center": 15.0,
+     "degree_start": 7.5,
+     "degree_end": 22.5,
+     "text": "癸",
+     "sub": "水"
+    },
+    {
+     "center": 30.0,
+     "degree_start": 22.5,
+     "degree_end": 37.5,
+     "text": "丑",
+     "sub": "土"
+    },
+    {
+     "center": 45.0,
+     "degree_start": 37.5,
+     "degree_end": 52.5,
+     "text": "艮",
+     "sub": "土"
+    },
+    {
+     "center": 60.0,
+     "degree_start": 52.5,
+     "degree_end": 67.5,
+     "text": "寅",
+     "sub": "水"
+    },
+    {
+     "center": 75.0,
+     "degree_start": 67.5,
+     "degree_end": 82.5,
+     "text": "甲",
+     "sub": "木"
+    },
+    {
+     "center": 90.0,
+     "degree_start": 82.5,
+     "degree_end": 97.5,
+     "text": "卯",
+     "sub": "木"
+    },
+    {
+     "center": 105.0,
+     "degree_start": 97.5,
+     "degree_end": 112.5,
+     "text": "乙",
+     "sub": "水"
+    },
+    {
+     "center": 120.0,
+     "degree_start": 112.5,
+     "degree_end": 127.5,
+     "text": "辰",
+     "sub": "土"
+    },
+    {
+     "center": 135.0,
+     "degree_start": 127.5,
+     "degree_end": 142.5,
+     "text": "巽",
+     "sub": "木"
+    },
+    {
+     "center": 150.0,
+     "degree_start": 142.5,
+     "degree_end": 157.5,
+     "text": "巳",
+     "sub": "火"
+    },
+    {
+     "center": 165.0,
+     "degree_start": 157.5,
+     "degree_end": 172.5,
+     "text": "丙",
+     "sub": "火"
+    },
+    {
+     "center": 180.0,
+     "degree_start": 172.5,
+     "degree_end": 187.5,
+     "text": "午",
+     "sub": "火"
+    },
+    {
+     "center": 195.0,
+     "degree_start": 187.5,
+     "degree_end": 202.5,
+     "text": "丁",
+     "sub": "火"
+    },
+    {
+     "center": 210.0,
+     "degree_start": 202.5,
+     "degree_end": 217.5,
+     "text": "未",
+     "sub": "土"
+    },
+    {
+     "center": 225.0,
+     "degree_start": 217.5,
+     "degree_end": 232.5,
+     "text": "坤",
+     "sub": "土"
+    },
+    {
+     "center": 240.0,
+     "degree_start": 232.5,
+     "degree_end": 247.5,
+     "text": "申",
+     "sub": "金"
+    },
+    {
+     "center": 255.0,
+     "degree_start": 247.5,
+     "degree_end": 262.5,
+     "text": "庚",
+     "sub": "金"
+    },
+    {
+     "center": 270.0,
+     "degree_start": 262.5,
+     "degree_end": 277.5,
+     "text": "酉",
+     "sub": "金"
+    },
+    {
+     "center": 285.0,
+     "degree_start": 277.5,
+     "degree_end": 292.5,
+     "text": "辛",
+     "sub": "金"
+    },
+    {
+     "center": 300.0,
+     "degree_start": 292.5,
+     "degree_end": 307.5,
+     "text": "戌",
+     "sub": "土"
+    },
+    {
+     "center": 315.0,
+     "degree_start": 307.5,
+     "degree_end": 322.5,
+     "text": "乾",
+     "sub": "金"
+    },
+    {
+     "center": 330.0,
+     "degree_start": 322.5,
+     "degree_end": 337.5,
+     "text": "亥",
+     "sub": "水"
+    },
+    {
+     "center": 345.0,
+     "degree_start": 337.5,
+     "degree_end": 352.5,
+     "text": "壬",
+     "sub": "水"
+    }
+   ],
+   "check": [
+    225
+   ]
+  },
+  "layer07": {
+   "cells": 72,
+   "width": 5,
+   "note": "「正」の次に5区分が続く並び×12。赤い十字線付近（約90,180,270）は要確認",
+   "items": [
+    {
+     "center": 15.0,
+     "degree_start": 12.5,
+     "degree_end": 17.5,
+     "text": "正"
+    },
+    {
+     "center": 20.0,
+     "degree_start": 17.5,
+     "degree_end": 22.5,
+     "text": "乙丑"
+    },
+    {
+     "center": 25.0,
+     "degree_start": 22.5,
+     "degree_end": 27.5,
+     "text": "丁丑"
+    },
+    {
+     "center": 30.0,
+     "degree_start": 27.5,
+     "degree_end": 32.5,
+     "text": "己丑"
+    },
+    {
+     "center": 35.0,
+     "degree_start": 32.5,
+     "degree_end": 37.5,
+     "text": "辛丑"
+    },
+    {
+     "center": 40.0,
+     "degree_start": 37.5,
+     "degree_end": 42.5,
+     "text": "癸丑"
+    },
+    {
+     "center": 45.0,
+     "degree_start": 42.5,
+     "degree_end": 47.5,
+     "text": "正"
+    },
+    {
+     "center": 50.0,
+     "degree_start": 47.5,
+     "degree_end": 52.5,
+     "text": "丙寅"
+    },
+    {
+     "center": 55.0,
+     "degree_start": 52.5,
+     "degree_end": 57.5,
+     "text": "戊寅"
+    },
+    {
+     "center": 60.0,
+     "degree_start": 57.5,
+     "degree_end": 62.5,
+     "text": "庚寅"
+    },
+    {
+     "center": 65.0,
+     "degree_start": 62.5,
+     "degree_end": 67.5,
+     "text": "壬寅"
+    },
+    {
+     "center": 70.0,
+     "degree_start": 67.5,
+     "degree_end": 72.5,
+     "text": "甲寅"
+    },
+    {
+     "center": 75.0,
+     "degree_start": 72.5,
+     "degree_end": 77.5,
+     "text": "正"
+    },
+    {
+     "center": 80.0,
+     "degree_start": 77.5,
+     "degree_end": 82.5,
+     "text": "丁卯"
+    },
+    {
+     "center": 85.0,
+     "degree_start": 82.5,
+     "degree_end": 87.5,
+     "text": "己卯"
+    },
+    {
+     "center": 90.0,
+     "degree_start": 87.5,
+     "degree_end": 92.5,
+     "text": "辛卯"
+    },
+    {
+     "center": 95.0,
+     "degree_start": 92.5,
+     "degree_end": 97.5,
+     "text": "癸卯"
+    },
+    {
+     "center": 100.0,
+     "degree_start": 97.5,
+     "degree_end": 102.5,
+     "text": "乙卯"
+    },
+    {
+     "center": 105.0,
+     "degree_start": 102.5,
+     "degree_end": 107.5,
+     "text": "正"
+    },
+    {
+     "center": 110.0,
+     "degree_start": 107.5,
+     "degree_end": 112.5,
+     "text": "戊辰"
+    },
+    {
+     "center": 115.0,
+     "degree_start": 112.5,
+     "degree_end": 117.5,
+     "text": "庚辰"
+    },
+    {
+     "center": 120.0,
+     "degree_start": 117.5,
+     "degree_end": 122.5,
+     "text": "壬辰"
+    },
+    {
+     "center": 125.0,
+     "degree_start": 122.5,
+     "degree_end": 127.5,
+     "text": "甲辰"
+    },
+    {
+     "center": 130.0,
+     "degree_start": 127.5,
+     "degree_end": 132.5,
+     "text": "丙辰"
+    },
+    {
+     "center": 135.0,
+     "degree_start": 132.5,
+     "degree_end": 137.5,
+     "text": "正"
+    },
+    {
+     "center": 140.0,
+     "degree_start": 137.5,
+     "degree_end": 142.5,
+     "text": "己巳"
+    },
+    {
+     "center": 145.0,
+     "degree_start": 142.5,
+     "degree_end": 147.5,
+     "text": "辛巳"
+    },
+    {
+     "center": 150.0,
+     "degree_start": 147.5,
+     "degree_end": 152.5,
+     "text": "癸巳"
+    },
+    {
+     "center": 155.0,
+     "degree_start": 152.5,
+     "degree_end": 157.5,
+     "text": "乙巳"
+    },
+    {
+     "center": 160.0,
+     "degree_start": 157.5,
+     "degree_end": 162.5,
+     "text": "丁巳"
+    },
+    {
+     "center": 165.0,
+     "degree_start": 162.5,
+     "degree_end": 167.5,
+     "text": "正"
+    },
+    {
+     "center": 170.0,
+     "degree_start": 167.5,
+     "degree_end": 172.5,
+     "text": "庚午"
+    },
+    {
+     "center": 175.0,
+     "degree_start": 172.5,
+     "degree_end": 177.5,
+     "text": "壬午"
+    },
+    {
+     "center": 180.0,
+     "degree_start": 177.5,
+     "degree_end": 182.5,
+     "text": "甲午"
+    },
+    {
+     "center": 185.0,
+     "degree_start": 182.5,
+     "degree_end": 187.5,
+     "text": "丙午"
+    },
+    {
+     "center": 190.0,
+     "degree_start": 187.5,
+     "degree_end": 192.5,
+     "text": "戊午"
+    },
+    {
+     "center": 195.0,
+     "degree_start": 192.5,
+     "degree_end": 197.5,
+     "text": "正"
+    },
+    {
+     "center": 200.0,
+     "degree_start": 197.5,
+     "degree_end": 202.5,
+     "text": "辛未"
+    },
+    {
+     "center": 205.0,
+     "degree_start": 202.5,
+     "degree_end": 207.5,
+     "text": "癸未"
+    },
+    {
+     "center": 210.0,
+     "degree_start": 207.5,
+     "degree_end": 212.5,
+     "text": "乙未"
+    },
+    {
+     "center": 215.0,
+     "degree_start": 212.5,
+     "degree_end": 217.5,
+     "text": "丁未"
+    },
+    {
+     "center": 220.0,
+     "degree_start": 217.5,
+     "degree_end": 222.5,
+     "text": "己未"
+    },
+    {
+     "center": 225.0,
+     "degree_start": 222.5,
+     "degree_end": 227.5,
+     "text": "正"
+    },
+    {
+     "center": 230.0,
+     "degree_start": 227.5,
+     "degree_end": 232.5,
+     "text": "壬申"
+    },
+    {
+     "center": 235.0,
+     "degree_start": 232.5,
+     "degree_end": 237.5,
+     "text": "甲申"
+    },
+    {
+     "center": 240.0,
+     "degree_start": 237.5,
+     "degree_end": 242.5,
+     "text": "丙申"
+    },
+    {
+     "center": 245.0,
+     "degree_start": 242.5,
+     "degree_end": 247.5,
+     "text": "戊申"
+    },
+    {
+     "center": 250.0,
+     "degree_start": 247.5,
+     "degree_end": 252.5,
+     "text": "庚申"
+    },
+    {
+     "center": 255.0,
+     "degree_start": 252.5,
+     "degree_end": 257.5,
+     "text": "正"
+    },
+    {
+     "center": 260.0,
+     "degree_start": 257.5,
+     "degree_end": 262.5,
+     "text": "癸酉"
+    },
+    {
+     "center": 265.0,
+     "degree_start": 262.5,
+     "degree_end": 267.5,
+     "text": "乙酉"
+    },
+    {
+     "center": 270.0,
+     "degree_start": 267.5,
+     "degree_end": 272.5,
+     "text": "丁酉"
+    },
+    {
+     "center": 275.0,
+     "degree_start": 272.5,
+     "degree_end": 277.5,
+     "text": "己酉"
+    },
+    {
+     "center": 280.0,
+     "degree_start": 277.5,
+     "degree_end": 282.5,
+     "text": "辛酉"
+    },
+    {
+     "center": 285.0,
+     "degree_start": 282.5,
+     "degree_end": 287.5,
+     "text": "正"
+    },
+    {
+     "center": 290.0,
+     "degree_start": 287.5,
+     "degree_end": 292.5,
+     "text": "甲戌"
+    },
+    {
+     "center": 295.0,
+     "degree_start": 292.5,
+     "degree_end": 297.5,
+     "text": "丙戌"
+    },
+    {
+     "center": 300.0,
+     "degree_start": 297.5,
+     "degree_end": 302.5,
+     "text": "戊戌"
+    },
+    {
+     "center": 305.0,
+     "degree_start": 302.5,
+     "degree_end": 307.5,
+     "text": "庚戌"
+    },
+    {
+     "center": 310.0,
+     "degree_start": 307.5,
+     "degree_end": 312.5,
+     "text": "壬戌"
+    },
+    {
+     "center": 315.0,
+     "degree_start": 312.5,
+     "degree_end": 317.5,
+     "text": "正"
+    },
+    {
+     "center": 320.0,
+     "degree_start": 317.5,
+     "degree_end": 322.5,
+     "text": "乙亥"
+    },
+    {
+     "center": 325.0,
+     "degree_start": 322.5,
+     "degree_end": 327.5,
+     "text": "丁亥"
+    },
+    {
+     "center": 330.0,
+     "degree_start": 327.5,
+     "degree_end": 332.5,
+     "text": "己亥"
+    },
+    {
+     "center": 335.0,
+     "degree_start": 332.5,
+     "degree_end": 337.5,
+     "text": "辛亥"
+    },
+    {
+     "center": 340.0,
+     "degree_start": 337.5,
+     "degree_end": 342.5,
+     "text": "癸亥"
+    },
+    {
+     "center": 345.0,
+     "degree_start": 342.5,
+     "degree_end": 347.5,
+     "text": "正"
+    },
+    {
+     "center": 350.0,
+     "degree_start": 347.5,
+     "degree_end": 352.5,
+     "text": "甲子"
+    },
+    {
+     "center": 355.0,
+     "degree_start": 352.5,
+     "degree_end": 357.5,
+     "text": "丙子"
+    },
+    {
+     "center": 0.0,
+     "degree_start": 357.5,
+     "degree_end": 2.5,
+     "text": "戊子"
+    },
+    {
+     "center": 5.0,
+     "degree_start": 2.5,
+     "degree_end": 7.5,
+     "text": "庚子"
+    },
+    {
+     "center": 10.0,
+     "degree_start": 7.5,
+     "degree_end": 12.5,
+     "text": "壬子"
+    }
+   ],
+   "check": [
+    90,
+    180,
+    270
+   ]
+  },
+  "layer08": {
+   "cells": 120,
+   "width": 3,
+   "note": "3°の120区分のうち文字が入っているのは48区分のみ（他は空白）。庚/辛・丙/丁は要確認",
+   "items": [
+    {
+     "slot": 1,
+     "center": 3.0,
+     "degree_start": 1.5,
+     "degree_end": 4.5,
+     "text": "庚子",
+     "measured_center": 3.4
+    },
+    {
+     "slot": 4,
+     "center": 12.0,
+     "degree_start": 10.5,
+     "degree_end": 13.5,
+     "text": "丙子",
+     "measured_center": 12.3
+    },
+    {
+     "slot": 6,
+     "center": 18.0,
+     "degree_start": 16.5,
+     "degree_end": 19.5,
+     "text": "庚子",
+     "measured_center": 18.4
+    },
+    {
+     "slot": 9,
+     "center": 27.0,
+     "degree_start": 25.5,
+     "degree_end": 28.5,
+     "text": "丁丑",
+     "measured_center": 27.3
+    },
+    {
+     "slot": 11,
+     "center": 33.0,
+     "degree_start": 31.5,
+     "degree_end": 34.5,
+     "text": "辛丑",
+     "measured_center": 33.4
+    },
+    {
+     "slot": 14,
+     "center": 42.0,
+     "degree_start": 40.5,
+     "degree_end": 43.5,
+     "text": "丁丑",
+     "measured_center": 42.3
+    },
+    {
+     "slot": 16,
+     "center": 48.0,
+     "degree_start": 46.5,
+     "degree_end": 49.5,
+     "text": "辛丑",
+     "measured_center": 48.4
+    },
+    {
+     "slot": 19,
+     "center": 57.0,
+     "degree_start": 55.5,
+     "degree_end": 58.5,
+     "text": "丙寅",
+     "measured_center": 57.3
+    },
+    {
+     "slot": 21,
+     "center": 63.0,
+     "degree_start": 61.5,
+     "degree_end": 64.5,
+     "text": "庚寅",
+     "measured_center": 63.4
+    },
+    {
+     "slot": 24,
+     "center": 72.0,
+     "degree_start": 70.5,
+     "degree_end": 73.5,
+     "text": "丙寅",
+     "measured_center": 72.3
+    },
+    {
+     "slot": 26,
+     "center": 78.0,
+     "degree_start": 76.5,
+     "degree_end": 79.5,
+     "text": "庚寅",
+     "measured_center": 78.4
+    },
+    {
+     "slot": 29,
+     "center": 87.0,
+     "degree_start": 85.5,
+     "degree_end": 88.5,
+     "text": "丁卯",
+     "measured_center": 87.3
+    },
+    {
+     "slot": 31,
+     "center": 93.0,
+     "degree_start": 91.5,
+     "degree_end": 94.5,
+     "text": "辛卯",
+     "measured_center": 93.4
+    },
+    {
+     "slot": 34,
+     "center": 102.0,
+     "degree_start": 100.5,
+     "degree_end": 103.5,
+     "text": "丁卯",
+     "measured_center": 102.3
+    },
+    {
+     "slot": 36,
+     "center": 108.0,
+     "degree_start": 106.5,
+     "degree_end": 109.5,
+     "text": "辛卯",
+     "measured_center": 108.7
+    },
+    {
+     "slot": 39,
+     "center": 117.0,
+     "degree_start": 115.5,
+     "degree_end": 118.5,
+     "text": "丙辰",
+     "measured_center": 117.6
+    },
+    {
+     "slot": 41,
+     "center": 123.0,
+     "degree_start": 121.5,
+     "degree_end": 124.5,
+     "text": "庚辰",
+     "measured_center": 123.7
+    },
+    {
+     "slot": 44,
+     "center": 132.0,
+     "degree_start": 130.5,
+     "degree_end": 133.5,
+     "text": "丙辰",
+     "measured_center": 132.9
+    },
+    {
+     "slot": 46,
+     "center": 138.0,
+     "degree_start": 136.5,
+     "degree_end": 139.5,
+     "text": "庚辰",
+     "measured_center": 139.4
+    },
+    {
+     "slot": 49,
+     "center": 147.0,
+     "degree_start": 145.5,
+     "degree_end": 148.5,
+     "text": "丁巳",
+     "measured_center": 148.3
+    },
+    {
+     "slot": 51,
+     "center": 153.0,
+     "degree_start": 151.5,
+     "degree_end": 154.5,
+     "text": "辛巳",
+     "measured_center": 154.4
+    },
+    {
+     "slot": 54,
+     "center": 162.0,
+     "degree_start": 160.5,
+     "degree_end": 163.5,
+     "text": "丁巳",
+     "measured_center": 162.3
+    },
+    {
+     "slot": 56,
+     "center": 168.0,
+     "degree_start": 166.5,
+     "degree_end": 169.5,
+     "text": "辛巳",
+     "measured_center": 168.4
+    },
+    {
+     "slot": 59,
+     "center": 177.0,
+     "degree_start": 175.5,
+     "degree_end": 178.5,
+     "text": "丙午",
+     "measured_center": 177.3
+    },
+    {
+     "slot": 61,
+     "center": 183.0,
+     "degree_start": 181.5,
+     "degree_end": 184.5,
+     "text": "庚午",
+     "measured_center": 183.4
+    },
+    {
+     "slot": 64,
+     "center": 192.0,
+     "degree_start": 190.5,
+     "degree_end": 193.5,
+     "text": "丙午",
+     "measured_center": 192.3
+    },
+    {
+     "slot": 66,
+     "center": 198.0,
+     "degree_start": 196.5,
+     "degree_end": 199.5,
+     "text": "庚午",
+     "measured_center": 198.4
+    },
+    {
+     "slot": 69,
+     "center": 207.0,
+     "degree_start": 205.5,
+     "degree_end": 208.5,
+     "text": "丁未",
+     "measured_center": 207.3
+    },
+    {
+     "slot": 71,
+     "center": 213.0,
+     "degree_start": 211.5,
+     "degree_end": 214.5,
+     "text": "辛未",
+     "measured_center": 213.4
+    },
+    {
+     "slot": 74,
+     "center": 222.0,
+     "degree_start": 220.5,
+     "degree_end": 223.5,
+     "text": "丁未",
+     "measured_center": 222.3
+    },
+    {
+     "slot": 76,
+     "center": 228.0,
+     "degree_start": 226.5,
+     "degree_end": 229.5,
+     "text": "辛未",
+     "measured_center": 228.4
+    },
+    {
+     "slot": 79,
+     "center": 237.0,
+     "degree_start": 235.5,
+     "degree_end": 238.5,
+     "text": "丙申",
+     "measured_center": 237.3
+    },
+    {
+     "slot": 81,
+     "center": 243.0,
+     "degree_start": 241.5,
+     "degree_end": 244.5,
+     "text": "庚申",
+     "measured_center": 243.4
+    },
+    {
+     "slot": 84,
+     "center": 252.0,
+     "degree_start": 250.5,
+     "degree_end": 253.5,
+     "text": "丙申",
+     "measured_center": 252.3
+    },
+    {
+     "slot": 86,
+     "center": 258.0,
+     "degree_start": 256.5,
+     "degree_end": 259.5,
+     "text": "庚申",
+     "measured_center": 258.4
+    },
+    {
+     "slot": 89,
+     "center": 267.0,
+     "degree_start": 265.5,
+     "degree_end": 268.5,
+     "text": "丁酉",
+     "measured_center": 267.3
+    },
+    {
+     "slot": 91,
+     "center": 273.0,
+     "degree_start": 271.5,
+     "degree_end": 274.5,
+     "text": "辛酉",
+     "measured_center": 273.4
+    },
+    {
+     "slot": 94,
+     "center": 282.0,
+     "degree_start": 280.5,
+     "degree_end": 283.5,
+     "text": "丁酉",
+     "measured_center": 282.3
+    },
+    {
+     "slot": 96,
+     "center": 288.0,
+     "degree_start": 286.5,
+     "degree_end": 289.5,
+     "text": "辛酉",
+     "measured_center": 288.4
+    },
+    {
+     "slot": 99,
+     "center": 297.0,
+     "degree_start": 295.5,
+     "degree_end": 298.5,
+     "text": "丙戌",
+     "measured_center": 297.3
+    },
+    {
+     "slot": 101,
+     "center": 303.0,
+     "degree_start": 301.5,
+     "degree_end": 304.5,
+     "text": "庚戌",
+     "measured_center": 303.4
+    },
+    {
+     "slot": 104,
+     "center": 312.0,
+     "degree_start": 310.5,
+     "degree_end": 313.5,
+     "text": "丙戌",
+     "measured_center": 312.3
+    },
+    {
+     "slot": 106,
+     "center": 318.0,
+     "degree_start": 316.5,
+     "degree_end": 319.5,
+     "text": "庚戌",
+     "measured_center": 318.4
+    },
+    {
+     "slot": 109,
+     "center": 327.0,
+     "degree_start": 325.5,
+     "degree_end": 328.5,
+     "text": "丁亥",
+     "measured_center": 327.3
+    },
+    {
+     "slot": 111,
+     "center": 333.0,
+     "degree_start": 331.5,
+     "degree_end": 334.5,
+     "text": "辛亥",
+     "measured_center": 333.4
+    },
+    {
+     "slot": 114,
+     "center": 342.0,
+     "degree_start": 340.5,
+     "degree_end": 343.5,
+     "text": "丁亥",
+     "measured_center": 342.3
+    },
+    {
+     "slot": 116,
+     "center": 348.0,
+     "degree_start": 346.5,
+     "degree_end": 349.5,
+     "text": "辛亥",
+     "measured_center": 348.4
+    },
+    {
+     "slot": 119,
+     "center": 357.0,
+     "degree_start": 355.5,
+     "degree_end": 358.5,
+     "text": "丙子",
+     "measured_center": 357.3
+    }
+   ],
+   "check": []
+  },
+  "layer09": {
+   "cells": 24,
+   "width": 15,
+   "note": "層06と同じ並びの名＋添え字だが、位置が7.5°ずれて見える（区分の中心が 352.5°,7.5°,…）。添え字は層06と異なる",
+   "items": [
+    {
+     "center": 352.5,
+     "degree_start": 345.0,
+     "degree_end": 0.0,
+     "text": "子",
+     "sub": "火"
+    },
+    {
+     "center": 7.5,
+     "degree_start": 0.0,
+     "degree_end": 15.0,
+     "text": "癸",
+     "sub": "土"
+    },
+    {
+     "center": 22.5,
+     "degree_start": 15.0,
+     "degree_end": 30.0,
+     "text": "丑",
+     "sub": "金"
+    },
+    {
+     "center": 37.5,
+     "degree_start": 30.0,
+     "degree_end": 45.0,
+     "text": "艮",
+     "sub": "木"
+    },
+    {
+     "center": 52.5,
+     "degree_start": 45.0,
+     "degree_end": 60.0,
+     "text": "寅",
+     "sub": "水"
+    },
+    {
+     "center": 67.5,
+     "degree_start": 60.0,
+     "degree_end": 75.0,
+     "text": "甲",
+     "sub": "火"
+    },
+    {
+     "center": 82.5,
+     "degree_start": 75.0,
+     "degree_end": 90.0,
+     "text": "卯",
+     "sub": "火"
+    },
+    {
+     "center": 97.5,
+     "degree_start": 90.0,
+     "degree_end": 105.0,
+     "text": "乙",
+     "sub": "土"
+    },
+    {
+     "center": 112.5,
+     "degree_start": 105.0,
+     "degree_end": 120.0,
+     "text": "辰",
+     "sub": "金"
+    },
+    {
+     "center": 127.5,
+     "degree_start": 120.0,
+     "degree_end": 135.0,
+     "text": "巽",
+     "sub": "木"
+    },
+    {
+     "center": 142.5,
+     "degree_start": 135.0,
+     "degree_end": 150.0,
+     "text": "巳",
+     "sub": "水"
+    },
+    {
+     "center": 157.5,
+     "degree_start": 150.0,
+     "degree_end": 165.0,
+     "text": "丙",
+     "sub": "火"
+    },
+    {
+     "center": 172.5,
+     "degree_start": 165.0,
+     "degree_end": 180.0,
+     "text": "午",
+     "sub": "火"
+    },
+    {
+     "center": 187.5,
+     "degree_start": 180.0,
+     "degree_end": 195.0,
+     "text": "丁",
+     "sub": "土"
+    },
+    {
+     "center": 202.5,
+     "degree_start": 195.0,
+     "degree_end": 210.0,
+     "text": "未",
+     "sub": "金"
+    },
+    {
+     "center": 217.5,
+     "degree_start": 210.0,
+     "degree_end": 225.0,
+     "text": "坤",
+     "sub": "木"
+    },
+    {
+     "center": 232.5,
+     "degree_start": 225.0,
+     "degree_end": 240.0,
+     "text": "申",
+     "sub": "水"
+    },
+    {
+     "center": 247.5,
+     "degree_start": 240.0,
+     "degree_end": 255.0,
+     "text": "庚",
+     "sub": "火"
+    },
+    {
+     "center": 262.5,
+     "degree_start": 255.0,
+     "degree_end": 270.0,
+     "text": "酉",
+     "sub": "火"
+    },
+    {
+     "center": 277.5,
+     "degree_start": 270.0,
+     "degree_end": 285.0,
+     "text": "辛",
+     "sub": "土"
+    },
+    {
+     "center": 292.5,
+     "degree_start": 285.0,
+     "degree_end": 300.0,
+     "text": "戌",
+     "sub": "金"
+    },
+    {
+     "center": 307.5,
+     "degree_start": 300.0,
+     "degree_end": 315.0,
+     "text": "乾",
+     "sub": "木"
+    },
+    {
+     "center": 322.5,
+     "degree_start": 315.0,
+     "degree_end": 330.0,
+     "text": "亥",
+     "sub": "水"
+    },
+    {
+     "center": 337.5,
+     "degree_start": 330.0,
+     "degree_end": 345.0,
+     "text": "壬",
+     "sub": "火"
+    }
+   ],
+   "check": []
+  }
+ }
+}
