@@ -1,0 +1,1844 @@
+{
+ "note": "写真から確かめた角度の提案（下書き）。Raw は変更していません。64区分を5.625°で等分。層14は写真で 337.5°起点に見える（Raw の最初の区分は 338.0〜343.0 と入力されている）。",
+ "verified_range_deg": [
+  303,
+  420
+ ],
+ "layers": {
+  "layer14": {
+   "first_start": 337.5,
+   "width": 5.625,
+   "count": 64,
+   "items": [
+    {
+     "id": 1,
+     "raw_text": "8らい",
+     "degree_start": 337.5,
+     "degree_end": 343.125,
+     "user_given": [
+      338.0,
+      343.0
+     ]
+    },
+    {
+     "id": 2,
+     "raw_text": "3離",
+     "degree_start": 343.125,
+     "degree_end": 348.75,
+     "user_given": null
+    },
+    {
+     "id": 3,
+     "raw_text": "4兌",
+     "degree_start": 348.75,
+     "degree_end": 354.375,
+     "user_given": null
+    },
+    {
+     "id": 4,
+     "raw_text": "9乾",
+     "degree_start": 354.375,
+     "degree_end": 0.0,
+     "user_given": null
+    },
+    {
+     "id": 5,
+     "raw_text": "9乾",
+     "degree_start": 0.0,
+     "degree_end": 5.625,
+     "user_given": null
+    },
+    {
+     "id": 6,
+     "raw_text": "4兌",
+     "degree_start": 5.625,
+     "degree_end": 11.25,
+     "user_given": null
+    },
+    {
+     "id": 7,
+     "raw_text": "3離",
+     "degree_start": 11.25,
+     "degree_end": 16.875,
+     "user_given": null
+    },
+    {
+     "id": 8,
+     "raw_text": "8らい",
+     "degree_start": 16.875,
+     "degree_end": 22.5,
+     "user_given": null
+    },
+    {
+     "id": 9,
+     "raw_text": "2巽",
+     "degree_start": 22.5,
+     "degree_end": 28.125,
+     "user_given": null
+    },
+    {
+     "id": 10,
+     "raw_text": "7坎",
+     "degree_start": 28.125,
+     "degree_end": 33.75,
+     "user_given": null
+    },
+    {
+     "id": 11,
+     "raw_text": "6艮",
+     "degree_start": 33.75,
+     "degree_end": 39.375,
+     "user_given": null
+    },
+    {
+     "id": 12,
+     "raw_text": "1坤",
+     "degree_start": 39.375,
+     "degree_end": 45.0,
+     "user_given": null
+    },
+    {
+     "id": 13,
+     "raw_text": "9乾",
+     "degree_start": 45.0,
+     "degree_end": 50.625,
+     "user_given": null
+    },
+    {
+     "id": 14,
+     "raw_text": "4兌",
+     "degree_start": 50.625,
+     "degree_end": 56.25,
+     "user_given": null
+    },
+    {
+     "id": 15,
+     "raw_text": "3離",
+     "degree_start": 56.25,
+     "degree_end": 61.875,
+     "user_given": null
+    },
+    {
+     "id": 16,
+     "raw_text": "8震",
+     "degree_start": 61.875,
+     "degree_end": 67.5,
+     "user_given": null
+    },
+    {
+     "id": 17,
+     "raw_text": "2巽",
+     "degree_start": 67.5,
+     "degree_end": 73.125,
+     "user_given": null
+    },
+    {
+     "id": 18,
+     "raw_text": "7坎",
+     "degree_start": 73.125,
+     "degree_end": 78.75,
+     "user_given": null
+    },
+    {
+     "id": 19,
+     "raw_text": "6艮",
+     "degree_start": 78.75,
+     "degree_end": 84.375,
+     "user_given": null
+    },
+    {
+     "id": 20,
+     "raw_text": "1坤",
+     "degree_start": 84.375,
+     "degree_end": 90.0,
+     "user_given": null
+    },
+    {
+     "id": 21,
+     "raw_text": "9乾",
+     "degree_start": 90.0,
+     "degree_end": 95.625,
+     "user_given": null
+    },
+    {
+     "id": 22,
+     "raw_text": "4兌",
+     "degree_start": 95.625,
+     "degree_end": 101.25,
+     "user_given": null
+    },
+    {
+     "id": 23,
+     "raw_text": "3離",
+     "degree_start": 101.25,
+     "degree_end": 106.875,
+     "user_given": null
+    },
+    {
+     "id": 24,
+     "raw_text": "8震",
+     "degree_start": 106.875,
+     "degree_end": 112.5,
+     "user_given": null
+    },
+    {
+     "id": 25,
+     "raw_text": "2巽",
+     "degree_start": 112.5,
+     "degree_end": 118.125,
+     "user_given": null
+    },
+    {
+     "id": 26,
+     "raw_text": "7坎",
+     "degree_start": 118.125,
+     "degree_end": 123.75,
+     "user_given": null
+    },
+    {
+     "id": 27,
+     "raw_text": "6艮",
+     "degree_start": 123.75,
+     "degree_end": 129.375,
+     "user_given": null
+    },
+    {
+     "id": 28,
+     "raw_text": "1坤",
+     "degree_start": 129.375,
+     "degree_end": 135.0,
+     "user_given": null
+    },
+    {
+     "id": 29,
+     "raw_text": "9乾",
+     "degree_start": 135.0,
+     "degree_end": 140.625,
+     "user_given": null
+    },
+    {
+     "id": 30,
+     "raw_text": "4兌",
+     "degree_start": 140.625,
+     "degree_end": 146.25,
+     "user_given": null
+    },
+    {
+     "id": 31,
+     "raw_text": "3離",
+     "degree_start": 146.25,
+     "degree_end": 151.875,
+     "user_given": null
+    },
+    {
+     "id": 32,
+     "raw_text": "8震",
+     "degree_start": 151.875,
+     "degree_end": 157.5,
+     "user_given": null
+    },
+    {
+     "id": 33,
+     "raw_text": "2巽",
+     "degree_start": 157.5,
+     "degree_end": 163.125,
+     "user_given": null
+    },
+    {
+     "id": 34,
+     "raw_text": "7坎",
+     "degree_start": 163.125,
+     "degree_end": 168.75,
+     "user_given": null
+    },
+    {
+     "id": 35,
+     "raw_text": "6艮",
+     "degree_start": 168.75,
+     "degree_end": 174.375,
+     "user_given": null
+    },
+    {
+     "id": 36,
+     "raw_text": "1坤",
+     "degree_start": 174.375,
+     "degree_end": 180.0,
+     "user_given": null
+    },
+    {
+     "id": 37,
+     "raw_text": "1坤",
+     "degree_start": 180.0,
+     "degree_end": 185.625,
+     "user_given": null
+    },
+    {
+     "id": 38,
+     "raw_text": "6艮",
+     "degree_start": 185.625,
+     "degree_end": 191.25,
+     "user_given": null
+    },
+    {
+     "id": 39,
+     "raw_text": "7坎",
+     "degree_start": 191.25,
+     "degree_end": 196.875,
+     "user_given": null
+    },
+    {
+     "id": 40,
+     "raw_text": "2巽",
+     "degree_start": 196.875,
+     "degree_end": 202.5,
+     "user_given": null
+    },
+    {
+     "id": 41,
+     "raw_text": "8震",
+     "degree_start": 202.5,
+     "degree_end": 208.125,
+     "user_given": null
+    },
+    {
+     "id": 42,
+     "raw_text": "3離",
+     "degree_start": 208.125,
+     "degree_end": 213.75,
+     "user_given": null
+    },
+    {
+     "id": 43,
+     "raw_text": "4兌",
+     "degree_start": 213.75,
+     "degree_end": 219.375,
+     "user_given": null
+    },
+    {
+     "id": 44,
+     "raw_text": "9乾",
+     "degree_start": 219.375,
+     "degree_end": 225.0,
+     "user_given": null
+    },
+    {
+     "id": 45,
+     "raw_text": "1坤",
+     "degree_start": 225.0,
+     "degree_end": 230.625,
+     "user_given": null
+    },
+    {
+     "id": 46,
+     "raw_text": "6艮",
+     "degree_start": 230.625,
+     "degree_end": 236.25,
+     "user_given": null
+    },
+    {
+     "id": 47,
+     "raw_text": "7坎",
+     "degree_start": 236.25,
+     "degree_end": 241.875,
+     "user_given": null
+    },
+    {
+     "id": 48,
+     "raw_text": "2巽",
+     "degree_start": 241.875,
+     "degree_end": 247.5,
+     "user_given": null
+    },
+    {
+     "id": 49,
+     "raw_text": "8震",
+     "degree_start": 247.5,
+     "degree_end": 253.125,
+     "user_given": null
+    },
+    {
+     "id": 50,
+     "raw_text": "3離",
+     "degree_start": 253.125,
+     "degree_end": 258.75,
+     "user_given": null
+    },
+    {
+     "id": 51,
+     "raw_text": "4兌",
+     "degree_start": 258.75,
+     "degree_end": 264.375,
+     "user_given": null
+    },
+    {
+     "id": 52,
+     "raw_text": "9乾",
+     "degree_start": 264.375,
+     "degree_end": 270.0,
+     "user_given": null
+    },
+    {
+     "id": 53,
+     "raw_text": "1坤",
+     "degree_start": 270.0,
+     "degree_end": 275.625,
+     "user_given": null
+    },
+    {
+     "id": 54,
+     "raw_text": "6艮",
+     "degree_start": 275.625,
+     "degree_end": 281.25,
+     "user_given": null
+    },
+    {
+     "id": 55,
+     "raw_text": "7坎",
+     "degree_start": 281.25,
+     "degree_end": 286.875,
+     "user_given": null
+    },
+    {
+     "id": 56,
+     "raw_text": "2巽",
+     "degree_start": 286.875,
+     "degree_end": 292.5,
+     "user_given": null
+    },
+    {
+     "id": 57,
+     "raw_text": "8震",
+     "degree_start": 292.5,
+     "degree_end": 298.125,
+     "user_given": null
+    },
+    {
+     "id": 58,
+     "raw_text": "3離",
+     "degree_start": 298.125,
+     "degree_end": 303.75,
+     "user_given": null
+    },
+    {
+     "id": 59,
+     "raw_text": "4兌",
+     "degree_start": 303.75,
+     "degree_end": 309.375,
+     "user_given": null
+    },
+    {
+     "id": 60,
+     "raw_text": "9乾",
+     "degree_start": 309.375,
+     "degree_end": 315.0,
+     "user_given": null
+    },
+    {
+     "id": 61,
+     "raw_text": "1坤",
+     "degree_start": 315.0,
+     "degree_end": 320.625,
+     "user_given": null
+    },
+    {
+     "id": 62,
+     "raw_text": "6艮",
+     "degree_start": 320.625,
+     "degree_end": 326.25,
+     "user_given": null
+    },
+    {
+     "id": 63,
+     "raw_text": "7坎",
+     "degree_start": 326.25,
+     "degree_end": 331.875,
+     "user_given": [
+      326.0,
+      332.0
+     ]
+    },
+    {
+     "id": 64,
+     "raw_text": "2巽",
+     "degree_start": 331.875,
+     "degree_end": 337.5,
+     "user_given": null
+    }
+   ]
+  },
+  "layer19": {
+   "first_start": 331.875,
+   "width": 5.625,
+   "count": 64,
+   "items": [
+    {
+     "id": 1,
+     "raw_text": "丁亥",
+     "degree_start": 331.875,
+     "degree_end": 337.5,
+     "user_given": [
+      331.875,
+      337.5
+     ]
+    },
+    {
+     "id": 2,
+     "raw_text": "己亥",
+     "degree_start": 337.5,
+     "degree_end": 343.125,
+     "user_given": null
+    },
+    {
+     "id": 3,
+     "raw_text": "辛亥",
+     "degree_start": 343.125,
+     "degree_end": 348.75,
+     "user_given": null
+    },
+    {
+     "id": 4,
+     "raw_text": "癸亥",
+     "degree_start": 348.75,
+     "degree_end": 354.375,
+     "user_given": null
+    },
+    {
+     "id": 5,
+     "raw_text": "甲子",
+     "degree_start": 354.375,
+     "degree_end": 0.0,
+     "user_given": null
+    },
+    {
+     "id": 6,
+     "raw_text": "甲子",
+     "degree_start": 0.0,
+     "degree_end": 5.625,
+     "user_given": null
+    },
+    {
+     "id": 7,
+     "raw_text": "丙子",
+     "degree_start": 5.625,
+     "degree_end": 11.25,
+     "user_given": null
+    },
+    {
+     "id": 8,
+     "raw_text": "戊子",
+     "degree_start": 11.25,
+     "degree_end": 16.875,
+     "user_given": null
+    },
+    {
+     "id": 9,
+     "raw_text": "庚子",
+     "degree_start": 16.875,
+     "degree_end": 22.5,
+     "user_given": null
+    },
+    {
+     "id": 10,
+     "raw_text": "壬子",
+     "degree_start": 22.5,
+     "degree_end": 28.125,
+     "user_given": null
+    },
+    {
+     "id": 11,
+     "raw_text": "乙丑",
+     "degree_start": 28.125,
+     "degree_end": 33.75,
+     "user_given": null
+    },
+    {
+     "id": 12,
+     "raw_text": "丁丑",
+     "degree_start": 33.75,
+     "degree_end": 39.375,
+     "user_given": null
+    },
+    {
+     "id": 13,
+     "raw_text": "巳丑",
+     "degree_start": 39.375,
+     "degree_end": 45.0,
+     "user_given": null
+    },
+    {
+     "id": 14,
+     "raw_text": "辛丑",
+     "degree_start": 45.0,
+     "degree_end": 50.625,
+     "user_given": null
+    },
+    {
+     "id": 15,
+     "raw_text": "癸丑",
+     "degree_start": 50.625,
+     "degree_end": 56.25,
+     "user_given": null
+    },
+    {
+     "id": 16,
+     "raw_text": "甲寅",
+     "degree_start": 56.25,
+     "degree_end": 61.875,
+     "user_given": null
+    },
+    {
+     "id": 17,
+     "raw_text": "丙寅",
+     "degree_start": 61.875,
+     "degree_end": 67.5,
+     "user_given": null
+    },
+    {
+     "id": 18,
+     "raw_text": "戊寅",
+     "degree_start": 67.5,
+     "degree_end": 73.125,
+     "user_given": null
+    },
+    {
+     "id": 19,
+     "raw_text": "庚寅",
+     "degree_start": 73.125,
+     "degree_end": 78.75,
+     "user_given": null
+    },
+    {
+     "id": 20,
+     "raw_text": "庚寅",
+     "degree_start": 78.75,
+     "degree_end": 84.375,
+     "user_given": null
+    },
+    {
+     "id": 21,
+     "raw_text": "壬寅",
+     "degree_start": 84.375,
+     "degree_end": 90.0,
+     "user_given": null
+    },
+    {
+     "id": 22,
+     "raw_text": "乙卯",
+     "degree_start": 90.0,
+     "degree_end": 95.625,
+     "user_given": null
+    },
+    {
+     "id": 23,
+     "raw_text": "丁卯",
+     "degree_start": 95.625,
+     "degree_end": 101.25,
+     "user_given": null
+    },
+    {
+     "id": 24,
+     "raw_text": "巳卯",
+     "degree_start": 101.25,
+     "degree_end": 106.875,
+     "user_given": null
+    },
+    {
+     "id": 25,
+     "raw_text": "辛卯",
+     "degree_start": 106.875,
+     "degree_end": 112.5,
+     "user_given": null
+    },
+    {
+     "id": 26,
+     "raw_text": "癸卯",
+     "degree_start": 112.5,
+     "degree_end": 118.125,
+     "user_given": null
+    },
+    {
+     "id": 27,
+     "raw_text": "甲辰",
+     "degree_start": 118.125,
+     "degree_end": 123.75,
+     "user_given": null
+    },
+    {
+     "id": 28,
+     "raw_text": "丙辰",
+     "degree_start": 123.75,
+     "degree_end": 129.375,
+     "user_given": null
+    },
+    {
+     "id": 29,
+     "raw_text": "戊辰",
+     "degree_start": 129.375,
+     "degree_end": 135.0,
+     "user_given": null
+    },
+    {
+     "id": 30,
+     "raw_text": "庚辰",
+     "degree_start": 135.0,
+     "degree_end": 140.625,
+     "user_given": null
+    },
+    {
+     "id": 31,
+     "raw_text": "壬辰",
+     "degree_start": 140.625,
+     "degree_end": 146.25,
+     "user_given": null
+    },
+    {
+     "id": 32,
+     "raw_text": "乙巳",
+     "degree_start": 146.25,
+     "degree_end": 151.875,
+     "user_given": null
+    },
+    {
+     "id": 33,
+     "raw_text": "丁巳",
+     "degree_start": 151.875,
+     "degree_end": 157.5,
+     "user_given": null
+    },
+    {
+     "id": 34,
+     "raw_text": "己巳",
+     "degree_start": 157.5,
+     "degree_end": 163.125,
+     "user_given": null
+    },
+    {
+     "id": 35,
+     "raw_text": "辛巳",
+     "degree_start": 163.125,
+     "degree_end": 168.75,
+     "user_given": null
+    },
+    {
+     "id": 36,
+     "raw_text": "癸巳",
+     "degree_start": 168.75,
+     "degree_end": 174.375,
+     "user_given": null
+    },
+    {
+     "id": 37,
+     "raw_text": "甲午",
+     "degree_start": 174.375,
+     "degree_end": 180.0,
+     "user_given": null
+    },
+    {
+     "id": 38,
+     "raw_text": "甲午",
+     "degree_start": 180.0,
+     "degree_end": 185.625,
+     "user_given": null
+    },
+    {
+     "id": 39,
+     "raw_text": "丙午",
+     "degree_start": 185.625,
+     "degree_end": 191.25,
+     "user_given": null
+    },
+    {
+     "id": 40,
+     "raw_text": "戊午",
+     "degree_start": 191.25,
+     "degree_end": 196.875,
+     "user_given": null
+    },
+    {
+     "id": 41,
+     "raw_text": "庚午",
+     "degree_start": 196.875,
+     "degree_end": 202.5,
+     "user_given": null
+    },
+    {
+     "id": 42,
+     "raw_text": "壬午",
+     "degree_start": 202.5,
+     "degree_end": 208.125,
+     "user_given": null
+    },
+    {
+     "id": 43,
+     "raw_text": "乙未",
+     "degree_start": 208.125,
+     "degree_end": 213.75,
+     "user_given": null
+    },
+    {
+     "id": 44,
+     "raw_text": "丁未",
+     "degree_start": 213.75,
+     "degree_end": 219.375,
+     "user_given": null
+    },
+    {
+     "id": 45,
+     "raw_text": "己未",
+     "degree_start": 219.375,
+     "degree_end": 225.0,
+     "user_given": null
+    },
+    {
+     "id": 46,
+     "raw_text": "辛未",
+     "degree_start": 225.0,
+     "degree_end": 230.625,
+     "user_given": null
+    },
+    {
+     "id": 47,
+     "raw_text": "癸未",
+     "degree_start": 230.625,
+     "degree_end": 236.25,
+     "user_given": null
+    },
+    {
+     "id": 48,
+     "raw_text": "甲申",
+     "degree_start": 236.25,
+     "degree_end": 241.875,
+     "user_given": null
+    },
+    {
+     "id": 49,
+     "raw_text": "丙申",
+     "degree_start": 241.875,
+     "degree_end": 247.5,
+     "user_given": null
+    },
+    {
+     "id": 50,
+     "raw_text": "戊申",
+     "degree_start": 247.5,
+     "degree_end": 253.125,
+     "user_given": null
+    },
+    {
+     "id": 51,
+     "raw_text": "庚申",
+     "degree_start": 253.125,
+     "degree_end": 258.75,
+     "user_given": null
+    },
+    {
+     "id": 52,
+     "raw_text": "庚申",
+     "degree_start": 258.75,
+     "degree_end": 264.375,
+     "user_given": null
+    },
+    {
+     "id": 53,
+     "raw_text": "壬申",
+     "degree_start": 264.375,
+     "degree_end": 270.0,
+     "user_given": null
+    },
+    {
+     "id": 54,
+     "raw_text": "乙酉",
+     "degree_start": 270.0,
+     "degree_end": 275.625,
+     "user_given": null
+    },
+    {
+     "id": 55,
+     "raw_text": "丁酉",
+     "degree_start": 275.625,
+     "degree_end": 281.25,
+     "user_given": null
+    },
+    {
+     "id": 56,
+     "raw_text": "己酉",
+     "degree_start": 281.25,
+     "degree_end": 286.875,
+     "user_given": null
+    },
+    {
+     "id": 57,
+     "raw_text": "辛酉",
+     "degree_start": 286.875,
+     "degree_end": 292.5,
+     "user_given": null
+    },
+    {
+     "id": 58,
+     "raw_text": "癸酉",
+     "degree_start": 292.5,
+     "degree_end": 298.125,
+     "user_given": null
+    },
+    {
+     "id": 59,
+     "raw_text": "甲戌",
+     "degree_start": 298.125,
+     "degree_end": 303.75,
+     "user_given": null
+    },
+    {
+     "id": 60,
+     "raw_text": "丙戌",
+     "degree_start": 303.75,
+     "degree_end": 309.375,
+     "user_given": null
+    },
+    {
+     "id": 61,
+     "raw_text": "戊戌",
+     "degree_start": 309.375,
+     "degree_end": 315.0,
+     "user_given": null
+    },
+    {
+     "id": 62,
+     "raw_text": "庚戌",
+     "degree_start": 315.0,
+     "degree_end": 320.625,
+     "user_given": null
+    },
+    {
+     "id": 63,
+     "raw_text": "壬戌",
+     "degree_start": 320.625,
+     "degree_end": 326.25,
+     "user_given": null
+    },
+    {
+     "id": 64,
+     "raw_text": "乙亥",
+     "degree_start": 326.25,
+     "degree_end": 331.875,
+     "user_given": null
+    }
+   ]
+  },
+  "layer20": {
+   "first_start": 331.875,
+   "width": 5.625,
+   "count": 64,
+   "items": [
+    {
+     "id": 1,
+     "raw_text": "天輔",
+     "degree_start": 331.875,
+     "degree_end": 337.5,
+     "user_given": [
+      331.875,
+      337.5
+     ]
+    },
+    {
+     "id": 2,
+     "raw_text": "天巨",
+     "degree_start": 337.5,
+     "degree_end": 343.125,
+     "user_given": null
+    },
+    {
+     "id": 3,
+     "raw_text": "人破",
+     "degree_start": 343.125,
+     "degree_end": 348.75,
+     "user_given": null
+    },
+    {
+     "id": 4,
+     "raw_text": "地武",
+     "degree_start": 348.75,
+     "degree_end": 354.375,
+     "user_given": null
+    },
+    {
+     "id": 5,
+     "raw_text": "父貪",
+     "degree_start": 354.375,
+     "degree_end": 0.0,
+     "user_given": null
+    },
+    {
+     "id": 6,
+     "raw_text": "天輔",
+     "degree_start": 0.0,
+     "degree_end": 5.625,
+     "user_given": null
+    },
+    {
+     "id": 7,
+     "raw_text": "人禄",
+     "degree_start": 5.625,
+     "degree_end": 11.25,
+     "user_given": null
+    },
+    {
+     "id": 8,
+     "raw_text": "地文",
+     "degree_start": 11.25,
+     "degree_end": 16.875,
+     "user_given": null
+    },
+    {
+     "id": 9,
+     "raw_text": "母弼",
+     "degree_start": 16.875,
+     "degree_end": 22.5,
+     "user_given": null
+    },
+    {
+     "id": 10,
+     "raw_text": "父貪",
+     "degree_start": 22.5,
+     "degree_end": 28.125,
+     "user_given": null
+    },
+    {
+     "id": 11,
+     "raw_text": "地武",
+     "degree_start": 28.125,
+     "degree_end": 33.75,
+     "user_given": null
+    },
+    {
+     "id": 12,
+     "raw_text": "人破",
+     "degree_start": 33.75,
+     "degree_end": 39.375,
+     "user_given": null
+    },
+    {
+     "id": 13,
+     "raw_text": "天巨",
+     "degree_start": 39.375,
+     "degree_end": 45.0,
+     "user_given": null
+    },
+    {
+     "id": 14,
+     "raw_text": "人禄",
+     "degree_start": 45.0,
+     "degree_end": 50.625,
+     "user_given": null
+    },
+    {
+     "id": 15,
+     "raw_text": "天輔",
+     "degree_start": 50.625,
+     "degree_end": 56.25,
+     "user_given": null
+    },
+    {
+     "id": 16,
+     "raw_text": "母弼",
+     "degree_start": 56.25,
+     "degree_end": 61.875,
+     "user_given": null
+    },
+    {
+     "id": 17,
+     "raw_text": "地文",
+     "degree_start": 61.875,
+     "degree_end": 67.5,
+     "user_given": null
+    },
+    {
+     "id": 18,
+     "raw_text": "地武",
+     "degree_start": 67.5,
+     "degree_end": 73.125,
+     "user_given": null
+    },
+    {
+     "id": 19,
+     "raw_text": "父貪",
+     "degree_start": 73.125,
+     "degree_end": 78.75,
+     "user_given": null
+    },
+    {
+     "id": 20,
+     "raw_text": "天巨",
+     "degree_start": 78.75,
+     "degree_end": 84.375,
+     "user_given": null
+    },
+    {
+     "id": 21,
+     "raw_text": "人破",
+     "degree_start": 84.375,
+     "degree_end": 90.0,
+     "user_given": null
+    },
+    {
+     "id": 22,
+     "raw_text": "地文",
+     "degree_start": 90.0,
+     "degree_end": 95.625,
+     "user_given": null
+    },
+    {
+     "id": 23,
+     "raw_text": "母弼",
+     "degree_start": 95.625,
+     "degree_end": 101.25,
+     "user_given": null
+    },
+    {
+     "id": 24,
+     "raw_text": "天輔",
+     "degree_start": 101.25,
+     "degree_end": 106.875,
+     "user_given": null
+    },
+    {
+     "id": 25,
+     "raw_text": "人禄",
+     "degree_start": 106.875,
+     "degree_end": 112.5,
+     "user_given": null
+    },
+    {
+     "id": 26,
+     "raw_text": "人破",
+     "degree_start": 112.5,
+     "degree_end": 118.125,
+     "user_given": null
+    },
+    {
+     "id": 27,
+     "raw_text": "天巨",
+     "degree_start": 118.125,
+     "degree_end": 123.75,
+     "user_given": null
+    },
+    {
+     "id": 28,
+     "raw_text": "父貪",
+     "degree_start": 123.75,
+     "degree_end": 129.375,
+     "user_given": null
+    },
+    {
+     "id": 29,
+     "raw_text": "地武",
+     "degree_start": 129.375,
+     "degree_end": 135.0,
+     "user_given": null
+    },
+    {
+     "id": 30,
+     "raw_text": "母弼",
+     "degree_start": 135.0,
+     "degree_end": 140.625,
+     "user_given": null
+    },
+    {
+     "id": 31,
+     "raw_text": "地文",
+     "degree_start": 140.625,
+     "degree_end": 146.25,
+     "user_given": null
+    },
+    {
+     "id": 32,
+     "raw_text": "人禄",
+     "degree_start": 146.25,
+     "degree_end": 151.875,
+     "user_given": null
+    },
+    {
+     "id": 33,
+     "raw_text": "天輔",
+     "degree_start": 151.875,
+     "degree_end": 157.5,
+     "user_given": null
+    },
+    {
+     "id": 34,
+     "raw_text": "天巨",
+     "degree_start": 157.5,
+     "degree_end": 163.125,
+     "user_given": null
+    },
+    {
+     "id": 35,
+     "raw_text": "人破",
+     "degree_start": 163.125,
+     "degree_end": 168.75,
+     "user_given": null
+    },
+    {
+     "id": 36,
+     "raw_text": "地武",
+     "degree_start": 168.75,
+     "degree_end": 174.375,
+     "user_given": null
+    },
+    {
+     "id": 37,
+     "raw_text": "父貪",
+     "degree_start": 174.375,
+     "degree_end": 180.0,
+     "user_given": null
+    },
+    {
+     "id": 38,
+     "raw_text": "天輔",
+     "degree_start": 180.0,
+     "degree_end": 185.625,
+     "user_given": null
+    },
+    {
+     "id": 39,
+     "raw_text": "人禄",
+     "degree_start": 185.625,
+     "degree_end": 191.25,
+     "user_given": null
+    },
+    {
+     "id": 40,
+     "raw_text": "地文",
+     "degree_start": 191.25,
+     "degree_end": 196.875,
+     "user_given": null
+    },
+    {
+     "id": 41,
+     "raw_text": "母弼",
+     "degree_start": 196.875,
+     "degree_end": 202.5,
+     "user_given": null
+    },
+    {
+     "id": 42,
+     "raw_text": "父貪",
+     "degree_start": 202.5,
+     "degree_end": 208.125,
+     "user_given": null
+    },
+    {
+     "id": 43,
+     "raw_text": "地武",
+     "degree_start": 208.125,
+     "degree_end": 213.75,
+     "user_given": null
+    },
+    {
+     "id": 44,
+     "raw_text": "人破",
+     "degree_start": 213.75,
+     "degree_end": 219.375,
+     "user_given": null
+    },
+    {
+     "id": 45,
+     "raw_text": "天巨",
+     "degree_start": 219.375,
+     "degree_end": 225.0,
+     "user_given": null
+    },
+    {
+     "id": 46,
+     "raw_text": "人禄",
+     "degree_start": 225.0,
+     "degree_end": 230.625,
+     "user_given": null
+    },
+    {
+     "id": 47,
+     "raw_text": "天輔",
+     "degree_start": 230.625,
+     "degree_end": 236.25,
+     "user_given": null
+    },
+    {
+     "id": 48,
+     "raw_text": "母弼",
+     "degree_start": 236.25,
+     "degree_end": 241.875,
+     "user_given": null
+    },
+    {
+     "id": 49,
+     "raw_text": "地文",
+     "degree_start": 241.875,
+     "degree_end": 247.5,
+     "user_given": null
+    },
+    {
+     "id": 50,
+     "raw_text": "地武",
+     "degree_start": 247.5,
+     "degree_end": 253.125,
+     "user_given": null
+    },
+    {
+     "id": 51,
+     "raw_text": "父貪",
+     "degree_start": 253.125,
+     "degree_end": 258.75,
+     "user_given": null
+    },
+    {
+     "id": 52,
+     "raw_text": "天巨",
+     "degree_start": 258.75,
+     "degree_end": 264.375,
+     "user_given": null
+    },
+    {
+     "id": 53,
+     "raw_text": "人破",
+     "degree_start": 264.375,
+     "degree_end": 270.0,
+     "user_given": null
+    },
+    {
+     "id": 54,
+     "raw_text": "地文",
+     "degree_start": 270.0,
+     "degree_end": 275.625,
+     "user_given": null
+    },
+    {
+     "id": 55,
+     "raw_text": "母弼",
+     "degree_start": 275.625,
+     "degree_end": 281.25,
+     "user_given": null
+    },
+    {
+     "id": 56,
+     "raw_text": "天輔",
+     "degree_start": 281.25,
+     "degree_end": 286.875,
+     "user_given": null
+    },
+    {
+     "id": 57,
+     "raw_text": "人禄",
+     "degree_start": 286.875,
+     "degree_end": 292.5,
+     "user_given": null
+    },
+    {
+     "id": 58,
+     "raw_text": "人破",
+     "degree_start": 292.5,
+     "degree_end": 298.125,
+     "user_given": null
+    },
+    {
+     "id": 59,
+     "raw_text": "天巨",
+     "degree_start": 298.125,
+     "degree_end": 303.75,
+     "user_given": null
+    },
+    {
+     "id": 60,
+     "raw_text": "父貪",
+     "degree_start": 303.75,
+     "degree_end": 309.375,
+     "user_given": null
+    },
+    {
+     "id": 61,
+     "raw_text": "地武",
+     "degree_start": 309.375,
+     "degree_end": 315.0,
+     "user_given": null
+    },
+    {
+     "id": 62,
+     "raw_text": "母弼",
+     "degree_start": 315.0,
+     "degree_end": 320.625,
+     "user_given": null
+    },
+    {
+     "id": 63,
+     "raw_text": "地文",
+     "degree_start": 320.625,
+     "degree_end": 326.25,
+     "user_given": null
+    },
+    {
+     "id": 64,
+     "raw_text": "人禄",
+     "degree_start": 326.25,
+     "degree_end": 331.875,
+     "user_given": null
+    }
+   ]
+  },
+  "layer21": {
+   "first_start": 331.875,
+   "width": 5.625,
+   "count": 64,
+   "items": [
+    {
+     "id": 1,
+     "raw_text": "カ8上",
+     "degree_start": 331.875,
+     "degree_end": 337.5,
+     "user_given": [
+      331.875,
+      337.5
+     ]
+    },
+    {
+     "id": 2,
+     "raw_text": "カ2上",
+     "degree_start": 337.5,
+     "degree_end": 343.125,
+     "user_given": null
+    },
+    {
+     "id": 3,
+     "raw_text": "上7カ",
+     "degree_start": 343.125,
+     "degree_end": 348.75,
+     "user_given": null
+    },
+    {
+     "id": 4,
+     "raw_text": "カ6上",
+     "degree_start": 348.75,
+     "degree_end": 354.375,
+     "user_given": null
+    },
+    {
+     "id": 5,
+     "raw_text": "上1カ",
+     "degree_start": 354.375,
+     "degree_end": 0.0,
+     "user_given": null
+    },
+    {
+     "id": 6,
+     "raw_text": "カ9上",
+     "degree_start": 0.0,
+     "degree_end": 5.625,
+     "user_given": null
+    },
+    {
+     "id": 7,
+     "raw_text": "上3カ",
+     "degree_start": 5.625,
+     "degree_end": 11.25,
+     "user_given": null
+    },
+    {
+     "id": 8,
+     "raw_text": "カ4上",
+     "degree_start": 11.25,
+     "degree_end": 16.875,
+     "user_given": null
+    },
+    {
+     "id": 9,
+     "raw_text": "上9カ",
+     "degree_start": 16.875,
+     "degree_end": 22.5,
+     "user_given": null
+    },
+    {
+     "id": 10,
+     "raw_text": "上1カ",
+     "degree_start": 22.5,
+     "degree_end": 28.125,
+     "user_given": null
+    },
+    {
+     "id": 11,
+     "raw_text": "カ6上",
+     "degree_start": 28.125,
+     "degree_end": 33.75,
+     "user_given": null
+    },
+    {
+     "id": 12,
+     "raw_text": "上7カ",
+     "degree_start": 33.75,
+     "degree_end": 39.375,
+     "user_given": null
+    },
+    {
+     "id": 13,
+     "raw_text": "カ2上",
+     "degree_start": 39.375,
+     "degree_end": 45.0,
+     "user_given": null
+    },
+    {
+     "id": 14,
+     "raw_text": "上3カ",
+     "degree_start": 45.0,
+     "degree_end": 50.625,
+     "user_given": null
+    },
+    {
+     "id": 15,
+     "raw_text": "カ8上",
+     "degree_start": 50.625,
+     "degree_end": 56.25,
+     "user_given": null
+    },
+    {
+     "id": 16,
+     "raw_text": "上9カ",
+     "degree_start": 56.25,
+     "degree_end": 61.875,
+     "user_given": null
+    },
+    {
+     "id": 17,
+     "raw_text": "カ4上",
+     "degree_start": 61.875,
+     "degree_end": 67.5,
+     "user_given": null
+    },
+    {
+     "id": 18,
+     "raw_text": "カ6上",
+     "degree_start": 67.5,
+     "degree_end": 73.125,
+     "user_given": null
+    },
+    {
+     "id": 19,
+     "raw_text": "上1カ",
+     "degree_start": 73.125,
+     "degree_end": 78.75,
+     "user_given": null
+    },
+    {
+     "id": 20,
+     "raw_text": "カ2上",
+     "degree_start": 78.75,
+     "degree_end": 84.375,
+     "user_given": null
+    },
+    {
+     "id": 21,
+     "raw_text": "上7カ",
+     "degree_start": 84.375,
+     "degree_end": 90.0,
+     "user_given": null
+    },
+    {
+     "id": 22,
+     "raw_text": "カ4上",
+     "degree_start": 90.0,
+     "degree_end": 95.625,
+     "user_given": null
+    },
+    {
+     "id": 23,
+     "raw_text": "上9カ",
+     "degree_start": 95.625,
+     "degree_end": 101.25,
+     "user_given": null
+    },
+    {
+     "id": 24,
+     "raw_text": "カ8上",
+     "degree_start": 101.25,
+     "degree_end": 106.875,
+     "user_given": null
+    },
+    {
+     "id": 25,
+     "raw_text": "上3カ",
+     "degree_start": 106.875,
+     "degree_end": 112.5,
+     "user_given": null
+    },
+    {
+     "id": 26,
+     "raw_text": "上7カ",
+     "degree_start": 112.5,
+     "degree_end": 118.125,
+     "user_given": null
+    },
+    {
+     "id": 27,
+     "raw_text": "カ2上",
+     "degree_start": 118.125,
+     "degree_end": 123.75,
+     "user_given": null
+    },
+    {
+     "id": 28,
+     "raw_text": "上1カ",
+     "degree_start": 123.75,
+     "degree_end": 129.375,
+     "user_given": null
+    },
+    {
+     "id": 29,
+     "raw_text": "カ6上",
+     "degree_start": 129.375,
+     "degree_end": 135.0,
+     "user_given": null
+    },
+    {
+     "id": 30,
+     "raw_text": "上9カ",
+     "degree_start": 135.0,
+     "degree_end": 140.625,
+     "user_given": null
+    },
+    {
+     "id": 31,
+     "raw_text": "カ4上",
+     "degree_start": 140.625,
+     "degree_end": 146.25,
+     "user_given": null
+    },
+    {
+     "id": 32,
+     "raw_text": "上3カ",
+     "degree_start": 146.25,
+     "degree_end": 151.875,
+     "user_given": null
+    },
+    {
+     "id": 33,
+     "raw_text": "カ8上",
+     "degree_start": 151.875,
+     "degree_end": 157.5,
+     "user_given": null
+    },
+    {
+     "id": 34,
+     "raw_text": "カ2上",
+     "degree_start": 157.5,
+     "degree_end": 163.125,
+     "user_given": null
+    },
+    {
+     "id": 35,
+     "raw_text": "上7カ",
+     "degree_start": 163.125,
+     "degree_end": 168.75,
+     "user_given": null
+    },
+    {
+     "id": 36,
+     "raw_text": "カ6上",
+     "degree_start": 168.75,
+     "degree_end": 174.375,
+     "user_given": null
+    },
+    {
+     "id": 37,
+     "raw_text": "上1カ",
+     "degree_start": 174.375,
+     "degree_end": 180.0,
+     "user_given": null
+    },
+    {
+     "id": 38,
+     "raw_text": "カ8上",
+     "degree_start": 180.0,
+     "degree_end": 185.625,
+     "user_given": null
+    },
+    {
+     "id": 39,
+     "raw_text": "上3カ",
+     "degree_start": 185.625,
+     "degree_end": 191.25,
+     "user_given": null
+    },
+    {
+     "id": 40,
+     "raw_text": "カ4上",
+     "degree_start": 191.25,
+     "degree_end": 196.875,
+     "user_given": null
+    },
+    {
+     "id": 41,
+     "raw_text": "上9カ",
+     "degree_start": 196.875,
+     "degree_end": 202.5,
+     "user_given": null
+    },
+    {
+     "id": 42,
+     "raw_text": "上1カ",
+     "degree_start": 202.5,
+     "degree_end": 208.125,
+     "user_given": null
+    },
+    {
+     "id": 43,
+     "raw_text": "カ6上",
+     "degree_start": 208.125,
+     "degree_end": 213.75,
+     "user_given": null
+    },
+    {
+     "id": 44,
+     "raw_text": "上7カ",
+     "degree_start": 213.75,
+     "degree_end": 219.375,
+     "user_given": null
+    },
+    {
+     "id": 45,
+     "raw_text": "カ2上",
+     "degree_start": 219.375,
+     "degree_end": 225.0,
+     "user_given": null
+    },
+    {
+     "id": 46,
+     "raw_text": "上3カ",
+     "degree_start": 225.0,
+     "degree_end": 230.625,
+     "user_given": null
+    },
+    {
+     "id": 47,
+     "raw_text": "カ8上",
+     "degree_start": 230.625,
+     "degree_end": 236.25,
+     "user_given": null
+    },
+    {
+     "id": 48,
+     "raw_text": "上9カ",
+     "degree_start": 236.25,
+     "degree_end": 241.875,
+     "user_given": null
+    },
+    {
+     "id": 49,
+     "raw_text": "カ4上",
+     "degree_start": 241.875,
+     "degree_end": 247.5,
+     "user_given": null
+    },
+    {
+     "id": 50,
+     "raw_text": "カ6上",
+     "degree_start": 247.5,
+     "degree_end": 253.125,
+     "user_given": null
+    },
+    {
+     "id": 51,
+     "raw_text": "上1カ",
+     "degree_start": 253.125,
+     "degree_end": 258.75,
+     "user_given": null
+    },
+    {
+     "id": 52,
+     "raw_text": "カ2上",
+     "degree_start": 258.75,
+     "degree_end": 264.375,
+     "user_given": null
+    },
+    {
+     "id": 53,
+     "raw_text": "上7カ",
+     "degree_start": 264.375,
+     "degree_end": 270.0,
+     "user_given": null
+    },
+    {
+     "id": 54,
+     "raw_text": "カ4上",
+     "degree_start": 270.0,
+     "degree_end": 275.625,
+     "user_given": null
+    },
+    {
+     "id": 55,
+     "raw_text": "上9カ",
+     "degree_start": 275.625,
+     "degree_end": 281.25,
+     "user_given": null
+    },
+    {
+     "id": 56,
+     "raw_text": "カ8上",
+     "degree_start": 281.25,
+     "degree_end": 286.875,
+     "user_given": null
+    },
+    {
+     "id": 57,
+     "raw_text": "上3カ",
+     "degree_start": 286.875,
+     "degree_end": 292.5,
+     "user_given": null
+    },
+    {
+     "id": 58,
+     "raw_text": "上7カ",
+     "degree_start": 292.5,
+     "degree_end": 298.125,
+     "user_given": null
+    },
+    {
+     "id": 59,
+     "raw_text": "カ2上",
+     "degree_start": 298.125,
+     "degree_end": 303.75,
+     "user_given": null
+    },
+    {
+     "id": 60,
+     "raw_text": "上1カ",
+     "degree_start": 303.75,
+     "degree_end": 309.375,
+     "user_given": null
+    },
+    {
+     "id": 61,
+     "raw_text": "カ6上",
+     "degree_start": 309.375,
+     "degree_end": 315.0,
+     "user_given": null
+    },
+    {
+     "id": 62,
+     "raw_text": "上9カ",
+     "degree_start": 315.0,
+     "degree_end": 320.625,
+     "user_given": null
+    },
+    {
+     "id": 63,
+     "raw_text": "カ4上",
+     "degree_start": 320.625,
+     "degree_end": 326.25,
+     "user_given": null
+    },
+    {
+     "id": 64,
+     "raw_text": "上3カ",
+     "degree_start": 326.25,
+     "degree_end": 331.875,
+     "user_given": null
+    }
+   ]
+  }
+ }
+}
