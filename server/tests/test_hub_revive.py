@@ -112,3 +112,34 @@ def test_nori_notes_override(tmp_path):
     t = build_reading(pos, "", n)["positions"]["1"]["text"]
     assert "古い皮を脱ぐ時" in t and "脱皮" in t and "標準" not in t
     assert load_nori_notes()  == {} or True
+
+
+# ---- 四柱推命（xls 由来のデータ・命式） ----
+def test_shichu_xls_tables_match_theory():
+    import json, pathlib
+    from fortune_core.shichu_meishiki import tsuhen, unsei, STEMDATA
+    assert len(STEMDATA) == 10
+    for d, e in STEMDATA.items():
+        for t, v in e["tsuhen"].items():
+            assert tsuhen(d, t) == v
+        for b, v in e["unsei"].items():
+            assert unsei(d, b) == v
+
+
+def test_shichu_meishiki_known_chart():
+    from datetime import datetime
+    from fortune_core.shichu_meishiki import build_meishiki
+    r = build_meishiki(datetime(2000, 1, 1, 12, 0), "男")
+    assert r["pillars"] == {"year": "己卯", "month": "丙子", "day": "戊午", "hour": "戊午"}
+    assert r["daiun"]["direction"] == "逆行" and r["daiun"]["list"][0]["kanshi"] == "乙亥"
+    assert r["kakukyoku"]["type"] in ("内格", "外格") and r["nikkan"]["text"]
+    assert build_meishiki(datetime(2000, 1, 1, 12, 0), "女")["daiun"]["direction"] == "順行"
+
+
+def test_shichu_meishiki_api():
+    from fastapi.testclient import TestClient
+    from server.app import app
+    c = TestClient(app)
+    r = c.post("/fortune/shichu/meishiki", json={"birth_date": "1990-05-15", "birth_time": "10:30", "gender": "女"})
+    assert r.status_code == 200 and r.json()["pillars"]["day"]
+    assert c.post("/fortune/shichu/meishiki", json={"birth_date": "x"}).status_code == 422

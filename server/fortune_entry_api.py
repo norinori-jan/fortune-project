@@ -21,6 +21,7 @@ if str(_CORE) not in sys.path:
 from fortune_core.divination_entry import DivineEntryEngine  # noqa: E402
 from fortune_core.tarot_engine import TarotEngine  # noqa: E402
 from fortune_core.shichu_simple import four_pillars  # noqa: E402
+from fortune_core.shichu_meishiki import build_meishiki  # noqa: E402
 from fortune_core.entry_router import route  # noqa: E402
 
 router = APIRouter(prefix="/fortune", tags=["fortune-entry"])
@@ -47,6 +48,26 @@ class CelticRequest(BaseModel):
 class PillarsRequest(BaseModel):
     birth_date: str = Field(..., description="YYYY-MM-DD")
     birth_time: str | None = Field(default=None, description="HH:MM（日本時間。分からなければ省略）")
+
+
+class MeishikiRequest(PillarsRequest):
+    gender: str = Field(default="男", description="男 または 女")
+
+
+@router.post("/shichu/meishiki")
+def shichu_meishiki(req: MeishikiRequest) -> dict[str, Any]:
+    """命式（通変星・蔵干・十二運・五行点数・格局・用神・大運・日干鑑定）。AI を使わない。"""
+    if req.gender not in ("男", "女"):
+        raise HTTPException(status_code=422, detail="gender は 男 か 女")
+    try:
+        d = datetime.strptime(req.birth_date, "%Y-%m-%d")
+        known = bool(req.birth_time)
+        if known:
+            t = datetime.strptime(req.birth_time, "%H:%M")
+            d = d.replace(hour=t.hour, minute=t.minute)
+    except ValueError:
+        raise HTTPException(status_code=422, detail="日付は YYYY-MM-DD、時刻は HH:MM で入力してください")
+    return build_meishiki(d, req.gender, known)
 
 
 @router.post("/shichu/pillars")
