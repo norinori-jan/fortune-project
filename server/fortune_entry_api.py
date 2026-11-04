@@ -22,6 +22,7 @@ from fortune_core.divination_entry import DivineEntryEngine  # noqa: E402
 from fortune_core.tarot_engine import TarotEngine  # noqa: E402
 from fortune_core.shichu_simple import four_pillars  # noqa: E402
 from fortune_core.shichu_meishiki import build_meishiki  # noqa: E402
+from fortune_core import ninso_library  # noqa: E402
 from fortune_core.entry_router import route  # noqa: E402
 
 router = APIRouter(prefix="/fortune", tags=["fortune-entry"])
@@ -101,3 +102,24 @@ def tarot_celtic(req: CelticRequest) -> dict[str, Any]:
         return res
     except FileNotFoundError as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+class NinsoLookup(BaseModel):
+    key: str | None = Field(default=None, description="型・質のキー（yu, kinkotsu など）")
+    query: str | None = Field(default=None, max_length=40, description="節の題・本文の検索語")
+
+
+@router.get("/ninso/volumes")
+def ninso_volumes() -> dict[str, Any]:
+    """読み込めている巻（全文は非公開の置き場）。無い環境では空。"""
+    vols = ninso_library.load_volumes()
+    return {"volumes": [{"no": v["no"], "title": v["title"], "sections": len(v["sections"])} for v in vols]}
+
+
+@router.post("/ninso/lookup")
+def ninso_lookup(req: NinsoLookup) -> dict[str, Any]:
+    if req.key:
+        return ninso_library.lookup_type(req.key)
+    if req.query:
+        return {"query": req.query, "sections": ninso_library.search(req.query)}
+    raise HTTPException(status_code=422, detail="key か query を指定してください")

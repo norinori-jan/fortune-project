@@ -12,3 +12,6 @@ server/.env
 
 # Python package metadata
 *.egg-info/
+
+# 観相の書き起こし全文（私的利用。公開しない）
+ninso/data/private/

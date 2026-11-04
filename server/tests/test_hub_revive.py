@@ -143,3 +143,28 @@ def test_shichu_meishiki_api():
     r = c.post("/fortune/shichu/meishiki", json={"birth_date": "1990-05-15", "birth_time": "10:30", "gender": "女"})
     assert r.status_code == 200 and r.json()["pillars"]["day"]
     assert c.post("/fortune/shichu/meishiki", json={"birth_date": "x"}).status_code == 422
+
+
+# ---- 観相ライブラリ（全文は非公開。ここでは仮のデータで確かめる） ----
+def test_ninso_library_with_fake_volume(tmp_path, monkeypatch):
+    import json
+    vol = {"title": "テスト第一輯", "pages": [{"seq": 1, "printed_page": "7", "text": ""}],
+           "sections": [{"title": "二、由字面（火形）", "start_seq": 1, "text": "テスト本文 初年 中年 晩年"}]}
+    (tmp_path / "dai01.json").write_text(json.dumps(vol, ensure_ascii=False), encoding="utf-8")
+    monkeypatch.setenv("NINSO_PRIVATE_DIR", str(tmp_path))
+    from fortune_core import ninso_library as nl
+    assert nl.load_volumes()[0]["no"] == 1
+    r = nl.lookup_type("yu")
+    assert r["name"] == "由字面" and r["sections"][0]["ref"] == "テスト第一輯 p.7"
+    from fastapi.testclient import TestClient
+    from server.app import app
+    c = TestClient(app)
+    assert c.get("/fortune/ninso/volumes").json()["volumes"][0]["sections"] == 1
+    assert c.post("/fortune/ninso/lookup", json={"key": "yu"}).json()["sections"]
+    assert c.post("/fortune/ninso/lookup", json={}).status_code == 422
+
+
+def test_ninso_library_empty_when_missing(tmp_path, monkeypatch):
+    monkeypatch.setenv("NINSO_PRIVATE_DIR", str(tmp_path / "none"))
+    from fortune_core import ninso_library as nl
+    assert nl.load_volumes() == [] and nl.search("由字面") == []
