@@ -185,3 +185,23 @@ def test_shichu_meishiki_api_has_kantei():
     from server.app import app
     r = TestClient(app).post("/fortune/shichu/meishiki", json={"birth_date": "1990-05-15", "gender": "男"})
     assert r.status_code == 200 and r.json()["kantei"] and r.json()["hour_known"] is False
+
+
+def test_shichu_seminar_tables_and_unsei():
+    from datetime import datetime, timedelta
+    from fortune_core.shichu_meishiki import build_meishiki, KISHIN_T, RITSUUN, UNSEI_T, HEALTH, STRESS
+    assert len(KISHIN_T) == 12 and all(len(v) == 10 for v in KISHIN_T.values())
+    assert KISHIN_T["子"]["甲"] == {"kishin": ["火", "土", "金"], "imu": ["水", "木"]}
+    assert len(UNSEI_T) == 10 and len(HEALTH) == 12 and len(STRESS) == 5
+    assert RITSUUN["junun"]["2"]["1"] == 1 and RITSUUN["gyakun"]["2"]["1"] == 9
+    # 資料の例：日柱が乙酉の人は、2000年（庚辰）が天地徳合
+    d = datetime(1985, 1, 1, 12)
+    for _ in range(80):
+        if build_meishiki(d, "男")["pillars"]["day"] == "乙酉":
+            break
+        d += timedelta(days=1)
+    r = build_meishiki(d, "男", year=2000)
+    assert r["pillars"]["day"] == "乙酉" and "天地徳合" in [f["name"] for f in r["unsei"]["tenkanki"]]
+    r = build_meishiki(datetime(1990, 5, 15, 10, 30), "女", year=2026)
+    assert r["unsei"]["nenun"]["kanshi"] == "丙午" and r["unsei"]["health"]["text"]
+    assert any(s["title"].endswith("年の健康運（十二運：沐浴）") for s in r["kantei"])

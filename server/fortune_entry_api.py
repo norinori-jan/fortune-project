@@ -53,6 +53,7 @@ class PillarsRequest(BaseModel):
 
 class MeishikiRequest(PillarsRequest):
     gender: str = Field(default="男", description="男 または 女")
+    year: int | None = Field(default=None, ge=1900, le=2100, description="年運を見る年（省略すると今年）")
 
 
 @router.post("/shichu/meishiki")
@@ -68,7 +69,7 @@ def shichu_meishiki(req: MeishikiRequest) -> dict[str, Any]:
             d = d.replace(hour=t.hour, minute=t.minute)
     except ValueError:
         raise HTTPException(status_code=422, detail="日付は YYYY-MM-DD、時刻は HH:MM で入力してください")
-    return build_meishiki(d, req.gender, known)
+    return build_meishiki(d, req.gender, known, req.year)
 
 
 @router.post("/shichu/pillars")

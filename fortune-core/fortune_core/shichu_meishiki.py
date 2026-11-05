@@ -29,6 +29,15 @@ GENMEI = _load("shichu_genmei.json")            # 元命（月支蔵干の通変
 BRANCH_TEXT = _load("shichu_branches_text.json")  # 十二支の由来と性格
 STEM_TEXT = _load("shichu_stems_text.json")      # 十干の性格（セミナー資料）
 ZDAYS = _load("shichu_zoukan_days.json")          # 深浅日と月支蔵干（セミナー資料）
+KISHIN_T = _load("shichu_kishin_table.json")      # 五行の吉凶早見表（月支×日干 → 喜神・忌神）
+RITSUUN = _load("shichu_ritsuun.json")            # 立運早見表（生まれ月×日 → 立運の年齢）
+UNSEI_T = _load("shichu_unsei_tsuhen.json")       # 通変星の運（喜神の命式・忌神の命式）
+HEALTH = _load("shichu_health.json")              # 健康運（年運の十二運）
+STRESS = _load("shichu_stress.json")              # ストレス解消法（喜神の五行）
+TSUHEN5 = _load("shichu_tsuhen5.json")            # 通変星の5分類
+_AB = json.loads((_D / "shichu_ability.json").read_text(encoding="utf-8"))
+_TK = json.loads((_D / "shichu_tenkanki.json").read_text(encoding="utf-8"))
+SHIGO = {"子": "丑", "丑": "子", "寅": "亥", "亥": "寅", "卯": "戌", "戌": "卯", "辰": "酉", "酉": "辰", "巳": "申", "申": "巳", "午": "未", "未": "午"}
 
 EL = dict(zip(STEMS, "木木火火土土金金水水"))
 GEN = {"木": "火", "火": "土", "土": "金", "金": "水", "水": "木"}
@@ -154,7 +163,7 @@ def _kaku(day: str, pts: dict, el_pts: dict, month_zoukan_tsuhen: str, month_ste
     return {"type": "内格", "name": RULES["naikaku"][month_zoukan_tsuhen], "detail": f"月支蔵干が{month_zoukan_tsuhen}"}
 
 
-def build_meishiki(birth: datetime, gender: str = "男", hour_known: bool = True) -> dict:
+def build_meishiki(birth: datetime, gender: str = "男", hour_known: bool = True, year: int | None = None) -> dict:
     """birth：日本時間。gender：男/女。"""
     P = RULES["params"]
     fp = four_pillars(birth, hour_known)
@@ -224,7 +233,9 @@ def build_meishiki(birth: datetime, gender: str = "男", hour_known: bool = True
     forward = (yang_year and gender == "男") or (not yang_year and gender == "女")
     t_setsu = _setsu_time(birth, forward=forward) if forward else setsu_prev
     gap_days = abs((t_setsu - birth).total_seconds()) / 86400
-    start_age = round(gap_days / 3, 1)  # 3日=1年
+    start_calc = round(gap_days / 3, 1)  # 3日=1年（計算値）
+    rt = RITSUUN["junun" if forward else "gyakun"].get(str(birth.month), {}).get(str(birth.day))
+    start_age = float(rt) if rt else start_calc  # セミナー資料の立運早見表を優先
     ms, mbr = STEMS.index(fp["month"]["stem"]), BRANCHES.index(fp["month"]["branch"])
     step = 1 if forward else -1
     daiun = []
@@ -232,17 +243,22 @@ def build_meishiki(birth: datetime, gender: str = "男", hour_known: bool = True
         s, b = STEMS[(ms + step * i) % 10], BRANCHES[(mbr + step * i) % 12]
         daiun.append({"age": round(start_age + 10 * (i - 1), 1), "kanshi": s + b, "tsuhen": tsuhen(day, s), "unsei": unsei(day, b)})
     info = STEMDATA[day]
+    kt = KISHIN_T[mb][day]
     res = {
         "birth": birth.isoformat(), "gender": gender, "hour_known": hour_known,
         "pillars": pil, "table": table, "day_stem": day, "day_kubo": kubo(table["day"]["kanshi"]),
         "month_zoukan": {"stem": mz, "tsuhen": month_t, "days_from_setsu": day_idx},
         "points": {"group": pts, "element": el},
         "kakukyoku": kaku,
-        "daiun": {"direction": "順行" if forward else "逆行", "start_age": start_age, "list": daiun},
+        "daiun": {"direction": "順行" if forward else "逆行", "start_age": start_age, "start_age_calc": start_calc, "list": daiun},
+        "kishin": kt,
         "nikkan": {k: info[k] for k in ("head", "image", "spirit", "taboo", "text", "ability", "personality", "jobs", "organs")},
         "assumption": True,
         "note": "五行の点数としきい値・大運の起運（3日=1年）は仮置きです。月支蔵干の日数はセミナー資料の表を使っています。",
     }
+    # 年運・大運の判定
+    ty = year if year else datetime.now().year
+    res["unsei"] = compose_unsei(res, birth, ty)
     res["kantei"] = compose_kantei(res)
     return res
 
@@ -294,9 +310,96 @@ def compose_kantei(m: dict) -> list[dict]:
             bt = BRANCH_TEXT.get(b)
             if bt:
                 out.append({"title": f"{label} {b}（{bt['element']}）", "body": bt["personality"]})
+    # 4.5 喜神・忌神（五行の吉凶早見表）
+    kt = m["kishin"]
+    out.append({"title": "喜神・忌神（五行）", "body": f"喜神：{'・'.join(kt['kishin'])}　忌神：{'・'.join(kt['imu'])}"})
+    # 4.6 能力診断（年上＝達成手段、月上＝人生の目的）
+    ys_t = tb["year"]["stem_tsuhen"]; ms_t = tb["month"]["stem_tsuhen"]
+    ab = []
+    gy, gm = GROUP[ys_t], GROUP[ms_t]
+    ya = _AB["nenjo_tassei"].get(gy) or _AB["nenjo_tassei"].get(ys_t)
+    ma = _AB["getsujo_mokuteki"].get(gm)
+    if ya:
+        ab.append(f"年上の通変星（{ys_t}）＝達成手段：{ya}")
+    if ma:
+        ab.append(f"月上の通変星（{ms_t}）＝人生の目的：{ma}")
+    if ab:
+        out.append({"title": "能力診断", "body": "\n".join(ab)})
+    # 4.7 通変星の5分類（命式で最も点が多い分類）
+    pts = m["points"]["group"]
+    top = max(pts, key=lambda k: pts[k])
+    t5 = TSUHEN5.get(top)
+    if t5:
+        out.append({"title": f"最も強い星：{top}",
+                    "body": "\n".join(f"{k}：{v}" for k, v in t5.items())})
     # 5 大運
     d = m["daiun"]
     first = d["list"][:3]
     out.append({"title": f"大運（{d['direction']}・{d['start_age']}歳から）",
-                "body": "　".join(f"{x['age']}歳 {x['kanshi']}（{x['tsuhen']}・{x['unsei']}）" for x in d["list"])})
+                "body": "　".join(f"{x['age']}歳 {x['kanshi']}（{x['tsuhen']}・{x['unsei']}・{x.get('judge','')}）" for x in d["list"])})
+    un = m.get("unsei") or {}
+    cd = un.get("current_daiun")
+    if cd and cd.get("lines"):
+        out.append({"title": f"いまの大運：{cd['kanshi']}（{cd['tsuhen']}の運・{cd['judge']}）", "body": cd["keywords"] + "\n" + "\n".join("・" + x for x in cd["lines"])})
+    n = un.get("nenun")
+    if n:
+        body = f"{un['year']}年 {n['kanshi']}（{n['tsuhen']}の運・{n['judge']}・十二運{n['unsei']}）\n{n['keywords']}"
+        if n["lines"]:
+            body += "\n" + "\n".join("・" + x for x in n["lines"])
+        out.append({"title": f"{un['year']}年の運（年運）", "body": body})
+    if un.get("health"):
+        out.append({"title": f"{un['year']}年の健康運（十二運：{n['unsei']}）", "body": un["health"]["text"]})
+    if un.get("tenkanki"):
+        out.append({"title": f"{un['year']}年は三大転換期", "body": "\n".join(f"【{f['name']}】{f['meaning']}（例：{f['example']}）" for f in un["tenkanki"]) + "\n" + un["tenkanki_caution"]})
+    ss = [f"『{e}』{STRESS[e]}" for e in m["kishin"]["kishin"] if e in STRESS]
+    if ss:
+        out.append({"title": "ストレス解消法（喜神の五行）", "body": "\n".join(ss)})
+    return out
+
+
+def _judge(stem: str, kt: dict) -> str:
+    e = EL[stem]
+    return "喜神" if e in kt["kishin"] else "忌神" if e in kt["imu"] else "中立"
+
+
+def _unsei_text(tsu: str, judge: str) -> dict:
+    u = UNSEI_T.get(tsu, {})
+    if judge == "喜神":
+        return {"keywords": u.get("keywords", ""), "lines": u.get("kishin", [])}
+    if judge == "忌神":
+        return {"keywords": u.get("keywords", ""), "lines": u.get("imu", [])}
+    return {"keywords": u.get("keywords", ""), "lines": []}
+
+
+def compose_unsei(m: dict, birth: datetime, year: int) -> dict:
+    """大運・年運（喜神/忌神の判定と文章）、健康運、三大転換期。"""
+    day = m["day_stem"]
+    kt = m["kishin"]
+    tb = m["table"]
+    for x in m["daiun"]["list"]:
+        x["judge"] = _judge(x["kanshi"][0], kt)
+    age = year - birth.year
+    cur = None
+    for x in m["daiun"]["list"]:
+        if x["age"] <= age:
+            cur = x
+    ys, yb = STEMS[(year - 4) % 10], BRANCHES[(year - 4) % 12]
+    yk = ys + yb
+    tsu = tsuhen(day, ys)
+    j = _judge(ys, kt)
+    un = unsei(day, yb)
+    flags = []
+    tk = _TK["items"]
+    if yk == tb["day"]["kanshi"]:
+        flags.append(tk["nichi_heirin"])
+    if yk == tb["month"]["kanshi"]:
+        flags.append(tk["getsu_heirin"])
+    if ys == GANGO[day] and yb == SHIGO[tb["day"]["branch"]]:
+        flags.append(tk["tenchi_tokugo"])
+    out = {"year": year, "age": age, "nenun": {"kanshi": yk, "tsuhen": tsu, "judge": j, "unsei": un, **_unsei_text(tsu, j)},
+           "health": HEALTH.get(un), "tenkanki": flags, "tenkanki_caution": _TK["caution"],
+           "current_daiun": None}
+    if cur:
+        tsd = cur["tsuhen"]
+        out["current_daiun"] = {**cur, **_unsei_text(tsd, cur["judge"])}
     return out
