@@ -20,6 +20,16 @@ _D = Path(__file__).parent / "data"
 RULES = json.loads((_D / "shichu_rules.json").read_text(encoding="utf-8"))
 STEMDATA = json.loads((_D / "shichu_kanshi_stems.json").read_text(encoding="utf-8"))
 
+
+def _load(name: str) -> dict:
+    return json.loads((_D / name).read_text(encoding="utf-8"))["items"]
+
+
+GENMEI = _load("shichu_genmei.json")            # 元命（月支蔵干の通変星）別性情
+BRANCH_TEXT = _load("shichu_branches_text.json")  # 十二支の由来と性格
+STEM_TEXT = _load("shichu_stems_text.json")      # 十干の性格（セミナー資料）
+ZDAYS = _load("shichu_zoukan_days.json")          # 深浅日と月支蔵干（セミナー資料）
+
 EL = dict(zip(STEMS, "木木火火土土金金水水"))
 GEN = {"木": "火", "火": "土", "土": "金", "金": "水", "水": "木"}
 CON = {"木": "土", "土": "水", "水": "火", "火": "金", "金": "木"}
@@ -83,14 +93,13 @@ def _setsu_time(dt: datetime, forward: bool) -> datetime:
     return lo + (hi - lo) / 2
 
 
-def _zoukan_pick(branch: str, days_from_setsu: float):
-    items = ZOUKAN[branch]
-    acc = 0
-    for stem, d in items:
-        acc += d
-        if days_from_setsu < acc:
-            return stem
-    return items[-1][0]
+def _zoukan_pick(branch: str, day_idx: int) -> str:
+    """セミナー資料の「深浅日」表：節入り日を 0 日目として、月支蔵干を決める。"""
+    segs = ZDAYS[branch]
+    for s in segs:
+        if s["from"] <= day_idx <= s["to"]:
+            return s["stem"]
+    return segs[-1]["stem"]
 
 
 def _strength(n: float) -> str:
@@ -154,8 +163,9 @@ def build_meishiki(birth: datetime, gender: str = "男", hour_known: bool = True
     # 月支蔵干（節入りからの日数）
     setsu_prev = _setsu_time(birth, forward=False)
     days_from = (birth - setsu_prev).total_seconds() / 86400
+    day_idx = (birth.date() - setsu_prev.date()).days  # 節入り日=0
     mb = fp["month"]["branch"]
-    mz = _zoukan_pick(mb, days_from)
+    mz = _zoukan_pick(mb, day_idx)
     month_t = tsuhen(day, mz)
     # 柱ごとの表
     table = {}
@@ -222,14 +232,71 @@ def build_meishiki(birth: datetime, gender: str = "男", hour_known: bool = True
         s, b = STEMS[(ms + step * i) % 10], BRANCHES[(mbr + step * i) % 12]
         daiun.append({"age": round(start_age + 10 * (i - 1), 1), "kanshi": s + b, "tsuhen": tsuhen(day, s), "unsei": unsei(day, b)})
     info = STEMDATA[day]
-    return {
+    res = {
         "birth": birth.isoformat(), "gender": gender, "hour_known": hour_known,
         "pillars": pil, "table": table, "day_stem": day, "day_kubo": kubo(table["day"]["kanshi"]),
-        "month_zoukan": {"stem": mz, "tsuhen": month_t, "days_from_setsu": round(days_from, 1)},
+        "month_zoukan": {"stem": mz, "tsuhen": month_t, "days_from_setsu": day_idx},
         "points": {"group": pts, "element": el},
         "kakukyoku": kaku,
         "daiun": {"direction": "順行" if forward else "逆行", "start_age": start_age, "list": daiun},
         "nikkan": {k: info[k] for k in ("head", "image", "spirit", "taboo", "text", "ability", "personality", "jobs", "organs")},
         "assumption": True,
-        "note": "点数のしきい値・蔵干の日数・大運の起運（3日=1年）は仮置きです。",
+        "note": "五行の点数としきい値・大運の起運（3日=1年）は仮置きです。月支蔵干の日数はセミナー資料の表を使っています。",
     }
+    res["kantei"] = compose_kantei(res)
+    return res
+
+
+def _tsuhen_group_name(tsu: str) -> str:
+    return {"比劫": "比肩・劫財", "食傷": "食神・傷官", "財星": "偏財・正財", "官星": "偏官・正官", "印星": "偏印・印綬"}[GROUP[tsu]]
+
+
+def compose_kantei(m: dict) -> list[dict]:
+    """鑑定文（AI なし）。セミナー資料と xls の文章を、命式に合わせて並べる。"""
+    day = m["day_stem"]
+    tb = m["table"]
+    out = []
+    # 1 日干
+    nk = m["nikkan"]
+    st = STEM_TEXT.get(day, {})
+    summ = st.get("summary", "")
+    body = [] if (summ and nk["text"].replace(" ", "").startswith(summ.replace(" ", "")[:12])) else [summ]
+    body.append(nk["text"])
+    if nk.get("ability"):
+        body.append(f"能力：{nk['ability']}　性格：{nk['personality']}　向く仕事：{nk['jobs']}　弱りやすい所：{nk['organs']}")
+    if nk.get("taboo"):
+        body.append(f"タブー：{nk['taboo']}")
+    out.append({"title": "日干 " + nk["head"].replace("/", " "), "body": "\n".join(x for x in body if x)})
+    # 2 元命（月支蔵干の通変星）
+    mt = m["month_zoukan"]["tsuhen"]
+    g = GENMEI.get(mt)
+    if g:
+        out.append({"title": f"元命 {mt}（月支蔵干 {m['month_zoukan']['stem']}）：{g['catch']}",
+                    "body": f"【長所】{g['strengths']}\n【短所】{g['weaknesses']}\n【適性・適職】{g['aptitude']}"})
+    # 3 格局・用神
+    k = m["kakukyoku"]
+    lines = [f"{k['type']}：{k['name']}　{k.get('detail', '')}"]
+    if k.get("yojin"):
+        lines.append(f"用神：{k['yojin']}（強弱：{k.get('yojin_strength', '')}）")
+    if k.get("kishin"):
+        lines.append("喜ぶ神：" + "、".join(k["kishin"]))
+    if k.get("kishin_el"):
+        lines.append("喜ぶ神（五行）：" + "、".join(k["kishin_el"]))
+    if k.get("imu"):
+        lines.append("忌む神：" + "、".join(k["imu"]))
+    if k.get("good"):
+        lines.append(f"吉：{k['good']}\n凶：{k['bad']}")
+    out.append({"title": "格局と用神", "body": "\n".join(lines)})
+    # 4 日支・月支・年支・時支の十二支
+    for key, label in (("day", "日支（自分の土台）"), ("month", "月支（社会・仕事）"), ("year", "年支（生まれ・家系）"), ("hour", "時支（晩年・子）")):
+        if key in tb:
+            b = tb[key]["branch"]
+            bt = BRANCH_TEXT.get(b)
+            if bt:
+                out.append({"title": f"{label} {b}（{bt['element']}）", "body": bt["personality"]})
+    # 5 大運
+    d = m["daiun"]
+    first = d["list"][:3]
+    out.append({"title": f"大運（{d['direction']}・{d['start_age']}歳から）",
+                "body": "　".join(f"{x['age']}歳 {x['kanshi']}（{x['tsuhen']}・{x['unsei']}）" for x in d["list"])})
+    return out

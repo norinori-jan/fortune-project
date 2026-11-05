@@ -180,7 +180,7 @@ function questionHtml(){
     <button class="go" id="ask">おすすめを聞く</button><div class="err" id="askErr"></div></div>
     <div class="box hide" id="recBox"></div>
     <div class="box"><h2>自分で選ぶ</h2><div class="sys">${sysButtons()}</div></div>
-    <div class="box hide" id="lopanbox"><h2>羅盤（層ごとに引く）</h2><label>角度（0〜360。北を 0° として時計回りの角度）</label><input type="number" id="ang" min="0" max="360" step="0.1" value="337" inputmode="decimal"><button class="go" id="lopanGo">この角度で、各層を引く</button><p class="muted">層の名称・意味付けはしていません。Raw に記録されている原文を、層ごとにそのまま出します。</p></div><div class="box hide" id="birth"><label>生年月日（四柱推命に使います。この端末の中だけに保存）</label><input type="date" id="bd" value="1990-01-01"><label>出生時刻（分からなければ空のまま）</label><input type="time" id="bt"><button class="go" id="birthGo">四柱を出す</button></div>`;
+    <div class="box hide" id="lopanbox"><h2>羅盤（層ごとに引く）</h2><label>角度（0〜360。北を 0° として時計回りの角度）</label><input type="number" id="ang" min="0" max="360" step="0.1" value="337" inputmode="decimal"><button class="go" id="lopanGo">この角度で、各層を引く</button><p class="muted">層の名称・意味付けはしていません。Raw に記録されている原文を、層ごとにそのまま出します。</p></div><div class="box hide" id="birth"><label>生年月日（四柱推命に使います。この端末の中だけに保存）</label><input type="date" id="bd" value="1990-01-01"><label>出生時刻（分からなければ空のまま）</label><input type="time" id="bt"><label>性別（大運の順・逆に使います）</label><select id="bg"><option value="男">男</option><option value="女">女</option></select><button class="go" id="birthGo">四柱を出す</button></div>`;
 }
 function hist(){ try { return JSON.parse(ls.get('fh_hist','[]')); } catch(e){ return []; } }
 function favs(){ try { return JSON.parse(ls.get('fh_fav','[]')); } catch(e){ return []; } }
@@ -211,7 +211,7 @@ function result(tool, question, raw, extra){
       [3,6,4,5,10,9,8,7].map(i => cell(i)).join('') +
       `<div class="cxwrap" style="grid-column:2;grid-row:2">${cell(1).replace(/ style="[^"]*"/,'')}${cell(2,' over').replace(/ style="[^"]*"/,'')}</div></div><div class="cd" id="cxdetail" style="margin-top:10px"><div class="mn">カードをタップしてください。</div></div>` + (raw.reading ? `<div class="cd" style="margin-top:10px"><div class="pos">総合鑑定　判定：${esc(raw.reading.verdict)}</div><div class="mn" style="white-space:pre-wrap">${esc(raw.reading.overall)}</div></div>` : '');
   } else if (tool==='shichu' && raw.year){
-    h += `<div class="pil">` + [['hour','時'],['day','日'],['month','月'],['year','年']].filter(([k])=>raw[k]).map(([k,l])=>`<div><small>${l}柱</small><b>${esc(raw[k].stem)}<br>${esc(raw[k].branch)}</b></div>`).join('') + `</div><p class="muted" style="margin-top:10px">${esc(raw.note||'')}</p>${raw.boundary_warning?`<p class="err">${esc(raw.boundary_warning)}</p>`:''}`;
+    h += `<div class="pil">` + [['hour','時'],['day','日'],['month','月'],['year','年']].filter(([k])=>raw[k]).map(([k,l])=>`<div><small>${l}柱</small><b>${esc(raw[k].stem)}<br>${esc(raw[k].branch)}</b></div>`).join('') + `</div>` + (raw.meishiki ? meishikiHtml(raw.meishiki) : '') + `<p class="muted" style="margin-top:10px">${esc(raw.note||'')}</p>${raw.boundary_warning?`<p class="err">${esc(raw.boundary_warning)}</p>`:''}`;
   } else if (tool==='five-elements'){
     const w = (extra && extra.wuxing) || {}; const L = {wood:'木',fire:'火',earth:'土',metal:'金',water:'水'};
     h += `<p class="muted">いまの流れの五行のバランス。</p><div class="bars">` + Object.keys(L).map(k=>`<div><span style="width:1.5em">${L[k]}</span><i style="width:${Math.round((w[k]||0)*100)}%"></i><span>${Math.round((w[k]||0)*100)}%</span></div>`).join('') + `</div>`;
@@ -280,11 +280,29 @@ async function runLopan(){
     const a=hist(); a.unshift({t:Date.now(),tool:'lopan',question:'',summary:'羅盤 '+v+'°'}); ls.set('fh_hist',JSON.stringify(a.slice(0,30)));
   }catch(e){ show(`<p class="err">${esc(e.message)}</p>`); }
 }
+function meishikiHtml(m){
+  const T = m.table, rows = [['stem_tsuhen','通変星'],['stem','干'],['branch','支'],['zoukan','蔵干'],['zoukan_tsuhen','蔵干の通変'],['unsei','十二運']];
+  const cols = [['hour','時'],['day','日'],['month','月'],['year','年']].filter(([k])=>T[k]);
+  let h = `<div class="box" style="margin-top:10px;overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:center;font-size:.85rem"><tr><th></th>${cols.map(([k,l])=>`<th>${l}柱</th>`).join('')}</tr>` +
+    rows.map(([f,l])=>`<tr><td class="muted" style="text-align:left;white-space:nowrap">${l}</td>${cols.map(([k])=>`<td style="padding:3px 4px">${esc(T[k][f])}</td>`).join('')}</tr>`).join('') + `</table><p class="muted" style="margin-top:6px">日柱の空亡：${esc(m.day_kubo)}　月支蔵干：${esc(m.month_zoukan.stem)}（${esc(m.month_zoukan.tsuhen)}・節入りから${esc(m.month_zoukan.days_from_setsu)}日目）</p></div>`;
+  h += (m.kantei||[]).map(s=>`<div class="cd" style="margin-top:10px"><div class="pos">${esc(s.title)}</div><div class="mn" style="white-space:pre-wrap">${esc(s.body)}</div></div>`).join('');
+  return h;
+}
 async function runShichu(){
   const bd = $('bd').value, bt = $('bt').value; const q = ($('q')&&$('q').value.trim()) || '';
   if (!bd){ show('<p class="err">生年月日を入れてください。</p>'); return; }
   busy();
-  try { result('shichu', q, await call('/fortune/shichu/pillars', bt ? {birth_date:bd, birth_time:bt} : {birth_date:bd})); }
+  const g = ($('bg') && $('bg').value) || '男';
+  try {
+    let raw;
+    try { raw = await call('/fortune/shichu/meishiki', Object.assign({birth_date:bd, gender:g}, bt ? {birth_time:bt} : {})); }
+    catch(e){ if (e.code !== 404) throw e; raw = null; }
+    if (raw && raw.pillars){
+      const P = raw.pillars, T = raw.table;
+      raw = Object.assign({}, {year:{name:P.year,stem:P.year[0],branch:P.year[1]}, month:{name:P.month,stem:P.month[0],branch:P.month[1]}, day:{name:P.day,stem:P.day[0],branch:P.day[1]}}, P.hour ? {hour:{name:P.hour,stem:P.hour[0],branch:P.hour[1]}} : {}, {note:raw.note, meishiki:raw});
+    } else { raw = await call('/fortune/shichu/pillars', bt ? {birth_date:bd, birth_time:bt} : {birth_date:bd}); }
+    result('shichu', q, raw);
+  }
   catch(e){ show(`<p class="err">${esc(e.message)}</p>`); }
 }
 async function ask(){

@@ -168,3 +168,20 @@ def test_ninso_library_empty_when_missing(tmp_path, monkeypatch):
     monkeypatch.setenv("NINSO_PRIVATE_DIR", str(tmp_path / "none"))
     from fortune_core import ninso_library as nl
     assert nl.load_volumes() == [] and nl.search("由字面") == []
+
+
+def test_shichu_seminar_texts_and_kantei():
+    from datetime import datetime
+    from fortune_core.shichu_meishiki import build_meishiki, GENMEI, BRANCH_TEXT, ZDAYS
+    assert len(GENMEI) == 10 and len(BRANCH_TEXT) == 12 and len(ZDAYS) == 12
+    r = build_meishiki(datetime(1990, 5, 15, 10, 30), "女")
+    titles = [s["title"] for s in r["kantei"]]
+    assert any(t.startswith("元命") for t in titles) and any(t.startswith("日干") for t in titles)
+    assert r["month_zoukan"]["days_from_setsu"] == 9 and r["month_zoukan"]["stem"] == "丙"
+
+
+def test_shichu_meishiki_api_has_kantei():
+    from fastapi.testclient import TestClient
+    from server.app import app
+    r = TestClient(app).post("/fortune/shichu/meishiki", json={"birth_date": "1990-05-15", "gender": "男"})
+    assert r.status_code == 200 and r.json()["kantei"] and r.json()["hour_known"] is False
