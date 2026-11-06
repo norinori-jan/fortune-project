@@ -285,7 +285,9 @@ function meishikiHtml(m){
   const cols = [['hour','時'],['day','日'],['month','月'],['year','年']].filter(([k])=>T[k]);
   let h = `<div class="box" style="margin-top:10px;overflow-x:auto"><table style="width:100%;border-collapse:collapse;text-align:center;font-size:.85rem"><tr><th></th>${cols.map(([k,l])=>`<th>${l}柱</th>`).join('')}</tr>` +
     rows.map(([f,l])=>`<tr><td class="muted" style="text-align:left;white-space:nowrap">${l}</td>${cols.map(([k])=>`<td style="padding:3px 4px">${esc(T[k][f])}</td>`).join('')}</tr>`).join('') + `</table><p class="muted" style="margin-top:6px">日柱の空亡：${esc(m.day_kubo)}　月支蔵干：${esc(m.month_zoukan.stem)}（${esc(m.month_zoukan.tsuhen)}・節入りから${esc(m.month_zoukan.days_from_setsu)}日目）</p></div>`;
-  h += (m.kantei||[]).map(s=>`<div class="cd" style="margin-top:10px"><div class="pos">${esc(s.title)}</div><div class="mn" style="white-space:pre-wrap">${esc(s.body)}</div></div>`).join('');
+  let lastG = '';
+  h += (m.kantei||[]).map(s=>{ const gh = (s.group && s.group !== lastG) ? `<h3 style="margin:16px 0 4px;color:var(--gold,#d4af6a)">${esc(s.group)}</h3>` : ''; lastG = s.group || lastG;
+    return gh + `<div class="cd" style="margin-top:10px"><div class="pos">${esc(s.title)}</div><div class="mn" style="white-space:pre-wrap">${esc(s.body)}</div></div>`; }).join('');
   return h;
 }
 async function runShichu(){

@@ -215,3 +215,15 @@ def test_shichu_final_seminar_tables():
     r = build_meishiki(datetime(1990, 5, 15, 10, 30), "女", year=2026)
     titles = " ".join(s["title"] for s in r["kantei"])
     assert "年上の通変星" in titles and "月上の通変星" in titles and "配偶者運" in titles and "他の干の関係" in titles
+
+
+def test_shichu_jissen_sections():
+    from datetime import datetime
+    from fortune_core.shichu_meishiki import build_meishiki, JIS
+    assert len(JIS["biz_ability"]["比肩"]) == 8 and len(JIS["kouun_unsei"]) == 12 and len(JIS["ren_hanareru"]) == 10
+    assert JIS["ren_nichishu"]["甲"]["kangou"] == "己"
+    r = build_meishiki(datetime(1990, 5, 15, 10, 30), "女", year=2026)
+    groups = {s.get("group") for s in r["kantei"]}
+    assert {"人間分析", "恋愛・結婚", "苦難と試練", "ビジネス", "今年・今月の運"} <= groups
+    titles = " ".join(s["title"] for s in r["kantei"])
+    assert "2026年の異性運" in titles and "能力診断" in titles and "今月" in titles

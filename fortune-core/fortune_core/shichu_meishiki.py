@@ -40,6 +40,7 @@ _TK = json.loads((_D / "shichu_tenkanki.json").read_text(encoding="utf-8"))
 KAN_PAIRS = _load("shichu_kan_pairs.json")        # 干と干の気の流れ（日干×相手の干）
 _NG = json.loads((_D / "shichu_nenjo_getsujo.json").read_text(encoding="utf-8"))   # 年上・月上の通変星
 _AI = json.loads((_D / "shichu_aisho.json").read_text(encoding="utf-8"))           # 相性診断法（配偶者運）
+JIS = _load("shichu_jissen.json")                # 実践鑑定秘訣集
 SHIGO = {"子": "丑", "丑": "子", "寅": "亥", "亥": "寅", "卯": "戌", "戌": "卯", "辰": "酉", "酉": "辰", "巳": "申", "申": "巳", "午": "未", "未": "午"}
 
 EL = dict(zip(STEMS, "木木火火土土金金水水"))
@@ -262,7 +263,7 @@ def build_meishiki(birth: datetime, gender: str = "男", hour_known: bool = True
     # 年運・大運の判定
     ty = year if year else datetime.now().year
     res["unsei"] = compose_unsei(res, birth, ty)
-    res["kantei"] = compose_kantei(res)
+    res["kantei"] = [dict(s, group="命式の鑑定") for s in compose_kantei(res)] + compose_jissen(res, birth, ty)
     return res
 
 
@@ -439,4 +440,59 @@ def compose_unsei(m: dict, birth: datetime, year: int) -> dict:
     if cur:
         tsd = cur["tsuhen"]
         out["current_daiun"] = {**cur, **_unsei_text(tsd, cur["judge"])}
+    return out
+
+
+def compose_jissen(m: dict, birth: datetime, year: int, now: datetime | None = None) -> list[dict]:
+    """実践鑑定秘訣集：人間分析・恋愛結婚・苦難と試練・ビジネス・今月の運。"""
+    tb, day = m["table"], m["day_stem"]
+    out: list[dict] = []
+
+    def add(group, title, body):
+        if body:
+            out.append({"group": group, "title": title, "body": body})
+
+    J = JIS
+    add("人間分析", f"日主 {day}：そもそもどんな人", J["jinkan_nichishu"].get(day))
+    # --- 恋愛・結婚
+    g = "恋愛・結婚"
+    rn = J["ren_nichishu"].get(day)
+    if rn:
+        yrs = lambda st: "、".join(f"{y}年（{STEMS[(y-4)%10]}{BRANCHES[(y-4)%12]}）" for y in range(year, year + 12) if STEMS[(y - 4) % 10] == st)
+        add(g, "盲目的に惹かれやすい異性のタイプ",
+            rn["text"] + f"\n\n夢中になりやすい時期（干合年：{rn['kangou']}の年）：{yrs(rn['kangou'])}\n異性の支配下に陥りやすい時期（剋年：{rn['koku']}の年）：{yrs(rn['koku'])}")
+    add(g, f"恋のスタートのさせ方と展開（日柱の十二運：{tb['day']['unsei']}）", J["ren_nichi_unsei"].get(tb["day"]["unsei"]))
+    dz = tb["day"]["zoukan_tsuhen"]
+    add(g, f"異性が離れたいと思う瞬間（日支蔵干の通変星：{dz}）", J["ren_hanareru"].get(dz))
+    add(g, f"男性から見たセクシーポイント（日支蔵干：{tb['day']['zoukan']}）", J["ren_sexy"].get(tb["day"]["zoukan"]))
+    mt = m["month_zoukan"]["tsuhen"]
+    add(g, f"自分の嫌な面が出るとき（月支蔵干の通変星：{mt}）", J["ren_iya"].get(mt))
+    add(g, "異性が好意を持つために迷う点", J["ren_mayou"].get(mt))
+    add(g, "結婚相手として不足しているもの", J["ren_fusoku"].get(mt))
+    add(g, "結婚したら、プラスか、マイナスか", J["ren_plusminus"].get(mt))
+    add(g, "恋人・配偶者に浮気をさせないために", J["ren_uwaki"].get(mt))
+    yt = tb["year"]["stem_tsuhen"]
+    add(g, f"異性からの第一印象（年上の通変星：{yt}）", J["ren_daiichi"].get(yt))
+    yb = BRANCHES[(year - 4) % 12]
+    ys_t = tsuhen(day, ZOUKAN[yb][-1][0])
+    add(g, f"{year}年の異性運（歳運の地支蔵干：{ys_t}）", J["ren_saiun_ishi"].get(ys_t))
+    # --- 苦難と試練
+    add("苦難と試練", "いつ、どのような苦難に遭うか", J["kunan_itsu"].get(day))
+    add("苦難と試練", "苦難を招く宿命", J["kunan_shukumei"].get(day))
+    # --- ビジネス
+    mo = tb["month"]["stem_tsuhen"]
+    ab = J["biz_ability"].get(mo)
+    if ab:
+        add("ビジネス", f"能力診断（月上の通変星：{mo}）", "\n".join(f"■{k}\n{v}" for k, v in ab.items()))
+    add("ビジネス", f"能力を引き出すポイント（日柱の十二運：{tb['day']['unsei']}）", J["biz_unsei"].get(tb["day"]["unsei"]))
+    add("ビジネス", "ビジネスの荒波を越えるポイント", J["biz_nichishu"].get(day))
+    # --- 行運
+    add("今年・今月の運", "仕事の成果が出る月と注意点", J["kouun_stem"].get(day))
+    from .shichu_simple import four_pillars as _fp
+    nw = now or datetime.now()
+    mp = _fp(nw, False)["month"]
+    ms = mp["stem"]
+    add("今年・今月の運", f"今月（{mp['name']}月）の対人関係：{tsuhen(day, ms)}", J["kouun_taijin"].get(tsuhen(day, ms)))
+    un2 = unsei(ms, tb["day"]["branch"])
+    add("今年・今月の運", f"今月の運（十二運：{un2}）", J["kouun_unsei"].get(un2))
     return out
