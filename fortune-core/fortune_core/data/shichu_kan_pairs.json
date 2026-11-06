@@ -1,0 +1,630 @@
+{
+ "_note": "セミナー資料「干と干の気の流れ」。上=日干など、下=相手の干。貴賎 ◎○△×、方向 < > <> -",
+ "items": {
+  "甲": {
+   "甲": {
+    "tsuhen": "比肩",
+    "quality": "◎",
+    "direction": "<>",
+    "text": "大樹が２つありますので森を形成しています。"
+   },
+   "乙": {
+    "tsuhen": "劫財",
+    "quality": "△",
+    "direction": ">",
+    "text": "大樹にとって草花は何の役にも立ちません。"
+   },
+   "丙": {
+    "tsuhen": "食神",
+    "quality": "◎",
+    "direction": "<",
+    "text": "大樹に太陽は恵みが降り注いでいます。"
+   },
+   "丁": {
+    "tsuhen": "傷官",
+    "quality": "○",
+    "direction": ">",
+    "text": "木がメラメラと燃え暗闇を照らします。"
+   },
+   "戊": {
+    "tsuhen": "偏財",
+    "quality": "○",
+    "direction": ">",
+    "text": "大樹が強引に禿山の土を開墾しています。無理が目立つ。"
+   },
+   "己": {
+    "tsuhen": "正財",
+    "quality": "◎",
+    "direction": ">",
+    "text": "大樹が田園の土に立っています。良い状態。"
+   },
+   "庚": {
+    "tsuhen": "偏官",
+    "quality": "◎",
+    "direction": "<",
+    "text": "大樹が斧によって伐採されて木材になります。良い剋の関係。"
+   },
+   "辛": {
+    "tsuhen": "正官",
+    "quality": "×",
+    "direction": ">",
+    "text": "丸太がガラスを割るような悪い状態です。"
+   },
+   "壬": {
+    "tsuhen": "偏印",
+    "quality": "×",
+    "direction": "<",
+    "text": "大樹の根が河の水によって腐っている悪い状態。"
+   },
+   "癸": {
+    "tsuhen": "印綬",
+    "quality": "◎",
+    "direction": "<",
+    "text": "大樹に恵みの雨が降り注ぐ良い状態。"
+   }
+  },
+  "乙": {
+   "甲": {
+    "tsuhen": "劫財",
+    "quality": "◎",
+    "direction": "<",
+    "text": "つる草が大樹に寄り添って高く伸びていく良い状態。"
+   },
+   "乙": {
+    "tsuhen": "比肩",
+    "quality": "△",
+    "direction": "-",
+    "text": "草花と草花が並んで雑草となっています。役に立たない。"
+   },
+   "丙": {
+    "tsuhen": "傷官",
+    "quality": "◎",
+    "direction": "<",
+    "text": "草花に太陽の恵みが振り注ぐ良い状態。"
+   },
+   "丁": {
+    "tsuhen": "食神",
+    "quality": "○",
+    "direction": ">",
+    "text": "雑草が燃えて暗闇を照らす明かりとなります。"
+   },
+   "戊": {
+    "tsuhen": "正財",
+    "quality": "○",
+    "direction": ">",
+    "text": "草花が山に咲く良い状態。"
+   },
+   "己": {
+    "tsuhen": "偏財",
+    "quality": "◎",
+    "direction": ">",
+    "text": "草花が田園に美しく咲く良い状態。"
+   },
+   "庚": {
+    "tsuhen": "正官",
+    "quality": "◎",
+    "direction": "<",
+    "text": "草花が鎌でバッサリと刈り取られ整理される良い状態。"
+   },
+   "辛": {
+    "tsuhen": "偏官",
+    "quality": "×",
+    "direction": "<",
+    "text": "草花がハサミでスッパリと切られる悪い状態。"
+   },
+   "壬": {
+    "tsuhen": "印綬",
+    "quality": "◎",
+    "direction": "<",
+    "text": "水蓮のような草花が河・湖に咲いている良い状態。"
+   },
+   "癸": {
+    "tsuhen": "偏印",
+    "quality": "◎",
+    "direction": "<",
+    "text": "草花に恵みの雨が降り注ぐ良い状態。"
+   }
+  },
+  "丙": {
+   "甲": {
+    "tsuhen": "偏印",
+    "quality": "△",
+    "direction": ">",
+    "text": "太陽がさんさんと大樹に降り注ぐ良い状態。"
+   },
+   "乙": {
+    "tsuhen": "印綬",
+    "quality": "△",
+    "direction": ">",
+    "text": "太陽がさんさんと草花に降り注ぐ良い状態。"
+   },
+   "丙": {
+    "tsuhen": "比肩",
+    "quality": "×",
+    "direction": "-",
+    "text": "太陽が天に２つある異常な風景です。"
+   },
+   "丁": {
+    "tsuhen": "劫財",
+    "quality": "△",
+    "direction": "-",
+    "text": "太陽と人工の火が隣り合っています。無理がある。"
+   },
+   "戊": {
+    "tsuhen": "食神",
+    "quality": "△",
+    "direction": ">",
+    "text": "太陽が山の上から照っている良い状態。"
+   },
+   "己": {
+    "tsuhen": "傷官",
+    "quality": "△",
+    "direction": ">",
+    "text": "太陽が田園の上から照っている良い状態。"
+   },
+   "庚": {
+    "tsuhen": "偏財",
+    "quality": "×",
+    "direction": ">",
+    "text": "太陽が照りつけ鉄を延ばしきっている悪い状態。"
+   },
+   "辛": {
+    "tsuhen": "正財",
+    "quality": "○",
+    "direction": ">",
+    "text": "太陽が照り付け宝石をキラキラ輝いています。"
+   },
+   "壬": {
+    "tsuhen": "偏官",
+    "quality": "◎",
+    "direction": ">",
+    "text": "太陽が湖に反射し輝いてる良い状態。"
+   },
+   "癸": {
+    "tsuhen": "正官",
+    "quality": "×",
+    "direction": "<",
+    "text": "太陽が暗雲によって遮られている悪い状態。"
+   }
+  },
+  "丁": {
+   "甲": {
+    "tsuhen": "印綬",
+    "quality": "◎",
+    "direction": "<",
+    "text": "火が樹木の助けによってめらめらと燃える良い状態。"
+   },
+   "乙": {
+    "tsuhen": "偏印",
+    "quality": "○",
+    "direction": "<",
+    "text": "火が草花の助けによってめらめらと燃える良い状態。"
+   },
+   "丙": {
+    "tsuhen": "劫財",
+    "quality": "△",
+    "direction": "-",
+    "text": "火と太陽が並んでいます。無理がある状態。"
+   },
+   "丁": {
+    "tsuhen": "比肩",
+    "quality": "△",
+    "direction": "-",
+    "text": "火が盛んに燃えています。"
+   },
+   "戊": {
+    "tsuhen": "傷官",
+    "quality": "◎",
+    "direction": "<",
+    "text": "火が炉の中で調整され調子が良くなります。"
+   },
+   "己": {
+    "tsuhen": "食神",
+    "quality": "○",
+    "direction": "<",
+    "text": "火が仮の炉の中で調整され調子が良くなります。"
+   },
+   "庚": {
+    "tsuhen": "正財",
+    "quality": "◎",
+    "direction": ">",
+    "text": "火が鉄を錬金し、鍛えられている良い状態。"
+   },
+   "辛": {
+    "tsuhen": "偏財",
+    "quality": "×",
+    "direction": ">",
+    "text": "火が宝石を汚している悪い状態。"
+   },
+   "壬": {
+    "tsuhen": "正官",
+    "quality": "○",
+    "direction": "<",
+    "text": "火が河の水によって消えます。"
+   },
+   "癸": {
+    "tsuhen": "偏官",
+    "quality": "×",
+    "direction": "<",
+    "text": "火が雨の水によって消える無理がある状態。"
+   }
+  },
+  "戊": {
+   "甲": {
+    "tsuhen": "偏官",
+    "quality": "△",
+    "direction": "<",
+    "text": "山の岩石が樹木の根によって無理やり開墾されてます。"
+   },
+   "乙": {
+    "tsuhen": "正官",
+    "quality": "○",
+    "direction": "<",
+    "text": "山の岩石に草花が生えています。"
+   },
+   "丙": {
+    "tsuhen": "偏印",
+    "quality": "◎",
+    "direction": "<",
+    "text": "山の上に太陽が昇っている朝日の光景です。"
+   },
+   "丁": {
+    "tsuhen": "印綬",
+    "quality": "◎",
+    "direction": ">",
+    "text": "炉が火の勢いを調整する良い状態です。"
+   },
+   "戊": {
+    "tsuhen": "比肩",
+    "quality": "△",
+    "direction": "-",
+    "text": "山と山が並んで山脈を形成しています。"
+   },
+   "己": {
+    "tsuhen": "劫財",
+    "quality": "△",
+    "direction": "-",
+    "text": "山の岩石と田園湿土が混ざっています。"
+   },
+   "庚": {
+    "tsuhen": "食神",
+    "quality": "◎",
+    "direction": ">",
+    "text": "山の岩石から鉱物・金属が生成されています。"
+   },
+   "辛": {
+    "tsuhen": "傷官",
+    "quality": "○",
+    "direction": ">",
+    "text": "山の岩石から宝石を強引に生成しています。"
+   },
+   "壬": {
+    "tsuhen": "偏財",
+    "quality": "◎",
+    "direction": ">",
+    "text": "山が河の水を塞き止めて美しい湖を形成しています。"
+   },
+   "癸": {
+    "tsuhen": "正財",
+    "quality": "◎",
+    "direction": "<",
+    "text": "山に恵みの雨が降っています。"
+   }
+  },
+  "己": {
+   "甲": {
+    "tsuhen": "正官",
+    "quality": "◎",
+    "direction": "<",
+    "text": "田園の土に大樹が生えている良い状態です。"
+   },
+   "乙": {
+    "tsuhen": "偏官",
+    "quality": "◎",
+    "direction": "<",
+    "text": "田園の土に草花が生えています。"
+   },
+   "丙": {
+    "tsuhen": "印綬",
+    "quality": "◎",
+    "direction": "<",
+    "text": "田園の土地に太陽が照っています。"
+   },
+   "丁": {
+    "tsuhen": "偏印",
+    "quality": "△",
+    "direction": ">",
+    "text": "仮の炉が火を調整しています。"
+   },
+   "戊": {
+    "tsuhen": "劫財",
+    "quality": "△",
+    "direction": "-",
+    "text": "田園の土に山岳の乾燥した土が混ざっています。"
+   },
+   "己": {
+    "tsuhen": "比肩",
+    "quality": "△",
+    "direction": "-",
+    "text": "田園の土が並んでいます。"
+   },
+   "庚": {
+    "tsuhen": "傷官",
+    "quality": "○",
+    "direction": ">",
+    "text": "田園の土から金属が生成されています。"
+   },
+   "辛": {
+    "tsuhen": "食神",
+    "quality": "×",
+    "direction": ">",
+    "text": "田園の土に美しい鏡・宝石が汚されます。"
+   },
+   "壬": {
+    "tsuhen": "正財",
+    "quality": "×",
+    "direction": ">",
+    "text": "田園の土が河の水に入り濁流になり悪い状態です。"
+   },
+   "癸": {
+    "tsuhen": "偏財",
+    "quality": "◎",
+    "direction": "<",
+    "text": "田園の土に雨が降っています。"
+   }
+  },
+  "庚": {
+   "甲": {
+    "tsuhen": "偏財",
+    "quality": "◎",
+    "direction": ">",
+    "text": "斧で大樹を伐採し木材にしています。"
+   },
+   "乙": {
+    "tsuhen": "正財",
+    "quality": "◎",
+    "direction": ">",
+    "text": "斧で草花をばっさりと切っています。"
+   },
+   "丙": {
+    "tsuhen": "偏官",
+    "quality": "×",
+    "direction": "<",
+    "text": "鉄の上から太陽が照っています。"
+   },
+   "丁": {
+    "tsuhen": "正官",
+    "quality": "◎",
+    "direction": "<",
+    "text": "金属が火によって焼き入れされます。"
+   },
+   "戊": {
+    "tsuhen": "偏印",
+    "quality": "◎",
+    "direction": "<",
+    "text": "金属が山岳から生成されます。"
+   },
+   "己": {
+    "tsuhen": "印綬",
+    "quality": "×",
+    "direction": "<",
+    "text": "田園の土地から金属が生成されています。"
+   },
+   "庚": {
+    "tsuhen": "比肩",
+    "quality": "×",
+    "direction": "<>",
+    "text": "金属同士がガチャガチャと傷つけあっています。"
+   },
+   "辛": {
+    "tsuhen": "劫財",
+    "quality": "×",
+    "direction": ">",
+    "text": "金属が鏡や宝石と接触し傷つけています。"
+   },
+   "壬": {
+    "tsuhen": "食神",
+    "quality": "○",
+    "direction": ">",
+    "text": "金属が冷えて水を生じさせます。"
+   },
+   "癸": {
+    "tsuhen": "傷官",
+    "quality": "×",
+    "direction": "<",
+    "text": "金属が雨によって錆つき良くありません。"
+   }
+  },
+  "辛": {
+   "甲": {
+    "tsuhen": "正財",
+    "quality": "×",
+    "direction": "<",
+    "text": "美しいガラスがこん棒で割られる財の悪さです。"
+   },
+   "乙": {
+    "tsuhen": "偏財",
+    "quality": "×",
+    "direction": ">",
+    "text": "ハサミが花をスパット切って良くありません。"
+   },
+   "丙": {
+    "tsuhen": "正官",
+    "quality": "○",
+    "direction": "<",
+    "text": "宝石が太陽によってキラキラと輝きます。"
+   },
+   "丁": {
+    "tsuhen": "偏官",
+    "quality": "×",
+    "direction": "<",
+    "text": "宝石が火によって汚れます。"
+   },
+   "戊": {
+    "tsuhen": "印綬",
+    "quality": "○",
+    "direction": "<",
+    "text": "宝石が山岳の岩石から生々されます。"
+   },
+   "己": {
+    "tsuhen": "偏印",
+    "quality": "×",
+    "direction": "<",
+    "text": "宝石が泥にまみれています。"
+   },
+   "庚": {
+    "tsuhen": "劫財",
+    "quality": "×",
+    "direction": "<",
+    "text": "宝石と鋼鉄がガチャガシャとぶつかっています。"
+   },
+   "辛": {
+    "tsuhen": "比肩",
+    "quality": "△",
+    "direction": "-",
+    "text": "宝石と宝石が並んでいます。"
+   },
+   "壬": {
+    "tsuhen": "傷官",
+    "quality": "◎",
+    "direction": "<",
+    "text": "宝石・鏡が水によって洗われています。"
+   },
+   "癸": {
+    "tsuhen": "食神",
+    "quality": "△",
+    "direction": "<",
+    "text": "宝石が雨水に濡れています。"
+   }
+  },
+  "壬": {
+   "甲": {
+    "tsuhen": "食神",
+    "quality": "×",
+    "direction": ">",
+    "text": "河の水が樹の根を腐らせてしまいます。"
+   },
+   "乙": {
+    "tsuhen": "傷官",
+    "quality": "◎",
+    "direction": ">",
+    "text": "河・湖に水蓮の草花が浮いています。"
+   },
+   "丙": {
+    "tsuhen": "偏財",
+    "quality": "◎",
+    "direction": "<",
+    "text": "河・湖に太陽が照っていて良い状態です。"
+   },
+   "丁": {
+    "tsuhen": "正財",
+    "quality": "×",
+    "direction": ">",
+    "text": "河の水が火を消しています。"
+   },
+   "戊": {
+    "tsuhen": "偏官",
+    "quality": "◎",
+    "direction": "<",
+    "text": "大河が堤防によって湖になって良い状態です。"
+   },
+   "己": {
+    "tsuhen": "正官",
+    "quality": "×",
+    "direction": "<",
+    "text": "水が泥によって濁流になります。"
+   },
+   "庚": {
+    "tsuhen": "偏印",
+    "quality": "○",
+    "direction": "<",
+    "text": "河の水が金属が冷えて生じられます。"
+   },
+   "辛": {
+    "tsuhen": "印綬",
+    "quality": "◎",
+    "direction": "<",
+    "text": "河の水が宝石を洗い輝かします。"
+   },
+   "壬": {
+    "tsuhen": "比肩",
+    "quality": "×",
+    "direction": "<>",
+    "text": "大河のダブルで洪水です。"
+   },
+   "癸": {
+    "tsuhen": "劫財",
+    "quality": "○",
+    "direction": "<",
+    "text": "河にさらに雨水が注ぎ込み洪水状態。"
+   }
+  },
+  "癸": {
+   "甲": {
+    "tsuhen": "傷官",
+    "quality": "○",
+    "direction": ">",
+    "text": "雨が大樹に降り大樹を育てています。"
+   },
+   "乙": {
+    "tsuhen": "食神",
+    "quality": "○",
+    "direction": ">",
+    "text": "雨が草花に降っている恵みの状態。"
+   },
+   "丙": {
+    "tsuhen": "正財",
+    "quality": "×",
+    "direction": ">",
+    "text": "雨が太陽の恵みの光を遮っている悪い状態。"
+   },
+   "丁": {
+    "tsuhen": "偏財",
+    "quality": "△",
+    "direction": ">",
+    "text": "雨がせっかくの火を消しています。"
+   },
+   "戊": {
+    "tsuhen": "正官",
+    "quality": "○",
+    "direction": ">",
+    "text": "雨が山岳の岩に降っています。"
+   },
+   "己": {
+    "tsuhen": "偏官",
+    "quality": "○",
+    "direction": ">",
+    "text": "雨が田園の土に降り恵みを与えています。"
+   },
+   "庚": {
+    "tsuhen": "印綬",
+    "quality": "×",
+    "direction": ">",
+    "text": "雨が金属に降り錆付き悪い状態です。"
+   },
+   "辛": {
+    "tsuhen": "偏印",
+    "quality": "×",
+    "direction": "<",
+    "text": "雨が宝石に降り、錆付かせています。"
+   },
+   "壬": {
+    "tsuhen": "劫財",
+    "quality": "○",
+    "direction": ">",
+    "text": "雨が河に降り水の勢いが強くなっています。"
+   },
+   "癸": {
+    "tsuhen": "比肩",
+    "quality": "△",
+    "direction": "<>",
+    "text": "雲が厚く空に立ち込め大雨の荒天模様です。"
+   }
+  }
+ },
+ "xls_typos": [
+  "乙×己: 表=偏在 計算=偏財",
+  "辛×乙: 表=偏在 計算=偏財",
+  "壬×丙: 表=偏在 計算=偏財"
+ ]
+}

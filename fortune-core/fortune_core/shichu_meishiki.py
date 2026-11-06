@@ -37,6 +37,9 @@ STRESS = _load("shichu_stress.json")              # ストレス解消法（喜�
 TSUHEN5 = _load("shichu_tsuhen5.json")            # 通変星の5分類
 _AB = json.loads((_D / "shichu_ability.json").read_text(encoding="utf-8"))
 _TK = json.loads((_D / "shichu_tenkanki.json").read_text(encoding="utf-8"))
+KAN_PAIRS = _load("shichu_kan_pairs.json")        # 干と干の気の流れ（日干×相手の干）
+_NG = json.loads((_D / "shichu_nenjo_getsujo.json").read_text(encoding="utf-8"))   # 年上・月上の通変星
+_AI = json.loads((_D / "shichu_aisho.json").read_text(encoding="utf-8"))           # 相性診断法（配偶者運）
 SHIGO = {"子": "丑", "丑": "子", "寅": "亥", "亥": "寅", "卯": "戌", "戌": "卯", "辰": "酉", "酉": "辰", "巳": "申", "申": "巳", "午": "未", "未": "午"}
 
 EL = dict(zip(STEMS, "木木火火土土金金水水"))
@@ -310,6 +313,40 @@ def compose_kantei(m: dict) -> list[dict]:
             bt = BRANCH_TEXT.get(b)
             if bt:
                 out.append({"title": f"{label} {b}（{bt['element']}）", "body": bt["personality"]})
+    # 4.3 干と干の関係（日干と、年干・月干・時干）
+    pairs = []
+    for key, label in (("year", "年干"), ("month", "月干"), ("hour", "時干")):
+        if key in tb:
+            s = tb[key]["stem"]
+            kp = KAN_PAIRS.get(day, {}).get(s)
+            if kp:
+                pairs.append(f"{label} {s}（{kp['tsuhen']}）{kp['quality']}：{kp['text']}")
+    if pairs:
+        out.append({"title": f"日干 {day} と他の干の関係", "body": "\n".join(pairs)})
+    # 4.4 年上・月上の通変星
+    yt = _NG["year"].get(tb["year"]["stem_tsuhen"])
+    if yt:
+        out.append({"title": f"年上の通変星：{tb['year']['stem_tsuhen']}（社会運・外面的な能力）", "body": yt})
+    mt2 = _NG["month"].get(tb["month"]["stem_tsuhen"])
+    if mt2:
+        out.append({"title": f"月上の通変星：{tb['month']['stem_tsuhen']}（職場・周囲の評価・目上との関係）", "body": mt2})
+    # 4.45 配偶者運（日支の蔵干の通変星で看る）
+    sp_stem = tb["day"]["zoukan"]
+    sp_group = GROUP[tsuhen(day, sp_stem)]
+    sp = _AI["spouse"].get(sp_group)
+    if sp:
+        j = _judge(sp_stem, m["kishin"])
+        lines = [f"日支{tb['day']['branch']}の蔵干{sp_stem}は「{sp_group}」の星。{sp['role']}"]
+        if j == "喜神":
+            lines += ["○" + x for x in sp["good"]]
+        elif j == "忌神":
+            lines += ["×" + x for x in sp["bad"]]
+        else:
+            lines += ["（喜神でも忌神でもないので、良く出たとき）" + "／".join(sp["good"]), "（悪く出たとき）" + "／".join(sp["bad"])]
+        ch = _AI["choose"].get(("男性" if m["gender"] == "男" else "女性") + sp_group)
+        if ch:
+            lines.append("選ぶべき配偶者：" + ch)
+        out.append({"title": f"配偶者運（{j}）", "body": "\n".join(lines)})
     # 4.5 喜神・忌神（五行の吉凶早見表）
     kt = m["kishin"]
     out.append({"title": "喜神・忌神（五行）", "body": f"喜神：{'・'.join(kt['kishin'])}　忌神：{'・'.join(kt['imu'])}"})

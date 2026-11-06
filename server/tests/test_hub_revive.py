@@ -205,3 +205,13 @@ def test_shichu_seminar_tables_and_unsei():
     r = build_meishiki(datetime(1990, 5, 15, 10, 30), "女", year=2026)
     assert r["unsei"]["nenun"]["kanshi"] == "丙午" and r["unsei"]["health"]["text"]
     assert any(s["title"].endswith("年の健康運（十二運：沐浴）") for s in r["kantei"])
+
+
+def test_shichu_final_seminar_tables():
+    from datetime import datetime
+    from fortune_core.shichu_meishiki import build_meishiki, KAN_PAIRS
+    assert len(KAN_PAIRS) == 10 and all(len(v) == 10 for v in KAN_PAIRS.values())
+    assert KAN_PAIRS["甲"]["甲"]["quality"] == "◎" and KAN_PAIRS["乙"]["己"]["tsuhen"] == "偏財"
+    r = build_meishiki(datetime(1990, 5, 15, 10, 30), "女", year=2026)
+    titles = " ".join(s["title"] for s in r["kantei"])
+    assert "年上の通変星" in titles and "月上の通変星" in titles and "配偶者運" in titles and "他の干の関係" in titles
