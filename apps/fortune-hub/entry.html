@@ -197,6 +197,18 @@ function summaryOf(tool, raw, extra){
   if (tool==='shichu' && raw.year) return ['year','month','day','hour'].filter(k=>raw[k]).map(k=>raw[k].name).join(' ');
   return (extra && extra.summary) || '';
 }
+// 易の辞書（真勢易秘訣・要約）：出た卦の意味と、相談に当たる占断
+function ekiHtml(e){
+  const m = e && e.main; if (!m) return '';
+  const V = {'吉':'◎','やや吉':'○','条件付き':'△','注意':'▲','凶':'✕','不明':'－'};
+  let h = `<div class="cd" style="margin-top:10px"><div class="pos">${esc(m.name)}（${esc(m.yomi)}）の意味</div><div class="mn"><b>${esc((m.meaning||{}).summary||'')}</b><br>${esc((m.meaning||{}).detail||'')}</div></div>`;
+  (m.topics||[]).forEach(t=>{
+    h += `<div class="cd" style="margin-top:10px"><div class="pos">${esc(t.question)}　${esc(V[t.verdict]||'')} ${esc(t.verdict)}</div><div class="mn"><b>${esc(t.summary)}</b>${t.detail?'<br>'+esc(t.detail):''}</div></div>`;
+  });
+  if (!(m.topics||[]).length) h += `<p class="muted" style="margin-top:8px">相談の種類を特定できなかったので、卦の意味だけを表示しています。「仕事」「お金」「恋愛」などの言葉を入れて占うと、その相談に当たる占断が出ます。</p>`;
+  return h;
+}
+
 function result(tool, question, raw, extra){
   current = {tool, question, summary: summaryOf(tool, raw, extra)};
   let h = `<h2>${esc(SYSNAME[tool]||tool)}</h2>`;
@@ -217,6 +229,7 @@ function result(tool, question, raw, extra){
     h += `<p class="muted">いまの流れの五行のバランス。</p><div class="bars">` + Object.keys(L).map(k=>`<div><span style="width:1.5em">${L[k]}</span><i style="width:${Math.round((w[k]||0)*100)}%"></i><span>${Math.round((w[k]||0)*100)}%</span></div>`).join('') + `</div>`;
   } else {
     h += `<p class="msg"><b style="color:var(--gold)">${esc(((extra&&extra.symbols)||[]).join(' '))}</b></p><p class="msg">${esc((extra&&extra.summary)||'')}</p>`;
+    if (extra && extra.eki) h += ekiHtml(extra.eki);
   }
   h += `<div style="display:flex;gap:10px"><button class="ghost" id="favBtn">★ お気に入りに保存</button><button class="ghost" id="shareBtn">共有する</button></div><p class="muted" id="shareMsg" style="margin-top:6px"></p>`;
   show(h);
@@ -238,7 +251,7 @@ async function run(sys){
     } else if (tool === 'five-elements'){
       const r = await call('/fortune/run', {tool:'iching', question:q||'今の状況'}); result('five-elements', q, {}, {wuxing:r.wuxing, summary:r.summary});
     } else {
-      const r = await call('/fortune/run', {tool, question:q||'今の状況'}); result(tool, q, {}, {summary:r.summary, symbols:r.symbols});
+      const r = await call('/fortune/run', {tool, question:q||'今の状況'}); result(tool, q, {}, {summary:r.summary, symbols:r.symbols, eki:(r.raw_result||{}).eki});
     }
   } catch(e){ show(`<p class="err">${esc(e.message)}</p>`); }
 }

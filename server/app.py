@@ -294,6 +294,13 @@ def fortune_run(req: FortuneRunRequest):
         raw = fn(req.question, req.params, registry)
     except HTTPException: raise
     except Exception as e: raise HTTPException(500, str(e))
+    # 易の辞書：出た卦と相談内容に当たる占断を付ける（無くても占い自体は続ける）
+    if req.tool in ("iching", "meihua") and isinstance(raw, dict) and raw.get("hexNumber"):
+        try:
+            from fortune_core.iching import eki_dict as _eki
+            raw["eki"] = _eki.eki_reading(int(raw["hexNumber"]), question_text=req.question)
+        except Exception as _e:  # noqa: BLE001
+            print("[fortune] eki skipped:", repr(_e)[:80])
     wuxing   = calc_wuxing(req.tool, raw)
     time_ctx = get_time_context()
     ts       = req.timestamp or int(datetime.now().timestamp()*1000)
