@@ -98,8 +98,8 @@ def tarot_celtic(req: CelticRequest) -> dict[str, Any]:
     seed = req.seed if req.seed is not None else int(time.time() * 1000)
     try:
         res = _tarot_engine().draw_celtic_cross(seed, req.question)
-        from fortune_core.tarot_reading import build_reading
-        res["reading"] = build_reading(res["positions"], req.question)
+        from fortune_core.tarot_reading import build_reading, load_nori_notes
+        res["reading"] = build_reading(res["positions"], req.question, load_nori_notes())
         return res
     except FileNotFoundError as e:
         raise HTTPException(status_code=500, detail=str(e))

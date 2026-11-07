@@ -35,7 +35,7 @@ class TestEkiDict(unittest.TestCase):
     def test_reading_with_change(self) -> None:
         r = eki_dict.eki_reading(8, 23, [5], "お金は入りますか")
         self.assertEqual(r["main"]["name"], "水地比")
-        self.assertEqual(r["changed"]["name"], "山地剥")
+        self.assertEqual(r["changed"]["name"], "山地剝")
         self.assertLessEqual(len(r["main"]["topics"]), 1)
 
     def test_endpoints(self) -> None:
@@ -51,3 +51,21 @@ class TestEkiDict(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestRunAttachesEki(unittest.TestCase):
+
+    def test_fortune_run_iching_has_eki(self) -> None:
+        from server.app import app as full_app
+        c = TestClient(full_app)
+        r = c.post("/fortune/run", json={"tool": "iching", "question": "転職したいです"})
+        self.assertEqual(r.status_code, 200)
+        eki = r.json()["raw_result"].get("eki")
+        self.assertIsNotNone(eki)
+        self.assertEqual(eki["question_type"], "仕事・就職・昇進はどう？")
+
+    def test_names_match_registry(self) -> None:
+        import json, pathlib
+        reg = json.loads((pathlib.Path(__file__).resolve().parents[2] / "fortune-registry/iching/hexagrams.json").read_text(encoding="utf-8-sig"))
+        for n, v in reg.items():
+            self.assertEqual(eki_dict.hexagram_entry(int(n))["name"], v.get("name_ja") or v.get("name"), n)

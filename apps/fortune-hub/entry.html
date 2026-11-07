@@ -203,9 +203,9 @@ function ekiHtml(e){
   const V = {'吉':'◎','やや吉':'○','条件付き':'△','注意':'▲','凶':'✕','不明':'－'};
   let h = `<div class="cd" style="margin-top:10px"><div class="pos">${esc(m.name)}（${esc(m.yomi)}）の意味</div><div class="mn"><b>${esc((m.meaning||{}).summary||'')}</b><br>${esc((m.meaning||{}).detail||'')}</div></div>`;
   (m.topics||[]).forEach(t=>{
-    h += `<div class="cd" style="margin-top:10px"><div class="pos">${esc(t.question)}　${esc(V[t.verdict]||'')} ${esc(t.verdict)}</div><div class="mn"><b>${esc(t.summary)}</b>${t.detail?'<br>'+esc(t.detail):''}</div></div>`;
+    h += `<div class="cd" style="margin-top:10px"><div class="pos">${esc(t.question)}　${esc(V[t.verdict]||'')} ${esc(t.verdict)}</div><div class="mn">${t.summary?'<b>'+esc(t.summary)+'</b><br>':''}${esc(t.detail||'')}</div></div>`;
   });
-  if (!(m.topics||[]).length) h += `<p class="muted" style="margin-top:8px">相談の種類を特定できなかったので、卦の意味だけを表示しています。「仕事」「お金」「恋愛」などの言葉を入れて占うと、その相談に当たる占断が出ます。</p>`;
+  if (!(m.topics||[]).length) h += e.question_type ? `<p class="muted" style="margin-top:8px">「${esc(e.question_type)}」に当たる記述は、この卦にはありません。卦の意味を手がかりにしてください。</p>` : `<p class="muted" style="margin-top:8px">相談の種類を特定できなかったので、卦の意味だけを表示しています。「仕事」「お金」「恋愛」などの言葉を入れて占うと、その相談に当たる占断が出ます。</p>`;
   return h;
 }
 

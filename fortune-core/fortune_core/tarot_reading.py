@@ -5,7 +5,40 @@ fortune-registry/prompts の鑑定姿勢（結論から／断言型／具体的�
 カードごとの Nori ノート（card_notes）は空なので、書き込まれたら optional で優先できる形にしてある。
 """
 from __future__ import annotations
+import json
+from pathlib import Path
 from typing import Any
+
+_NOTES_DIR = Path(__file__).resolve().parents[2] / "fortune-registry" / "tarot" / "card_notes"
+
+
+def load_nori_notes(directory: Path | str | None = None) -> dict[str, dict[str, str]]:
+    """card_notes/*.json（大アルカナ 00〜21）から、書き込み済みの自分の鑑定メモを読む。
+
+    戻り値: {"major_13": {"core_image": ..., "up": ..., "rev": ...}}
+    メモも核イメージも空のカードは含めない。フォルダが無ければ空。
+    """
+    d = Path(directory) if directory else _NOTES_DIR
+    out: dict[str, dict[str, str]] = {}
+    if not d.is_dir():
+        return out
+    for f in sorted(d.glob("*.json")):
+        try:
+            j = json.loads(f.read_text(encoding="utf-8-sig"))
+            n = j.get("number")
+            nn = j.get("nori_notes") or {}
+            if not isinstance(n, int):
+                continue
+            item = {
+                "core_image": (nn.get("core_image") or "").strip(),
+                "up": ((nn.get("up") or {}).get("memo") or "").strip(),
+                "rev": ((nn.get("rev") or {}).get("memo") or "").strip(),
+            }
+        except (ValueError, OSError, AttributeError):
+            continue
+        if any(item.values()):
+            out[f"major_{n:02d}"] = item
+    return out
 
 # 位置ごとの導入文（{c} = カード名＋向き）
 _LEAD = {
@@ -66,7 +99,7 @@ def _verdict(score: float) -> tuple[str, str]:
     return "凶", "強い向かい風です。大きな決断は先送りし、損失を抑える手を優先してください。"
 
 
-def build_reading(positions: dict[str, Any], question: str = "", notes: dict[str, str] | None = None) -> dict[str, Any]:
+def build_reading(positions: dict[str, Any], question: str = "", notes: dict[str, Any] | None = None) -> dict[str, Any]:
     """positions は draw_celtic_cross の positions。notes はカードid→自分の鑑定メモ（あれば優先）。"""
     notes = notes or {}
     per: dict[int, dict[str, Any]] = {}
@@ -79,7 +112,16 @@ def build_reading(positions: dict[str, Any], question: str = "", notes: dict[str
         i = int(p["position_index"]); c = p.get("card") or {}; rev = bool(p.get("is_reversed"))
         name = f"{c.get('name','?')}（{'逆位置' if rev else '正位置'}）"
         body = c.get("meaning_reversed") if rev else c.get("meaning_upright")
-        body = notes.get(c.get("id", "")) or body or ""
+        note = notes.get(c.get("id", ""))
+        core = ""
+        if isinstance(note, dict):
+            memo = note.get("rev" if rev else "up") or ""
+            core = note.get("core_image") or ""
+            body = memo or body or ""
+            if core and memo:
+                body = f"核となるイメージは「{core}」。" + body
+        else:
+            body = note or body or ""
         text = _LEAD[i].format(c=name) + body + _TAIL[i]
         t = _tone(c, rev)
         score += t * weights.get(i, 0.3)
