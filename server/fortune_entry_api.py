@@ -110,6 +110,36 @@ class NinsoLookup(BaseModel):
     query: str | None = Field(default=None, max_length=40, description="節の題・本文の検索語")
 
 
+class NinsoFind(BaseModel):
+    keys: list[str] = Field(default_factory=list, max_length=8, description="部位・話題・型・質のキー")
+    q: str = Field(default="", max_length=60, description="自由な言葉（空白区切りでAND）")
+    volume: int | None = Field(default=None, ge=1, le=99)
+    mode: str = Field(default="all", pattern="^(all|any)$")
+    limit: int = Field(default=20, ge=1, le=50)
+    offset: int = Field(default=0, ge=0)
+
+
+@router.get("/ninso/facets")
+def ninso_facets() -> dict[str, Any]:
+    """画面の選択肢（部位・話題・型・質）と、読み込めた巻、各選択肢が出るページ数。"""
+    return ninso_library.facets()
+
+
+@router.post("/ninso/find")
+def ninso_find(req: NinsoFind) -> dict[str, Any]:
+    if not req.keys and not req.q.strip():
+        raise HTTPException(status_code=422, detail="選択肢か言葉を指定してください")
+    return ninso_library.find(req.keys, req.q, req.volume, req.mode, req.limit, req.offset)
+
+
+@router.get("/ninso/page/{volume}/{seq}")
+def ninso_page(volume: int, seq: int) -> dict[str, Any]:
+    p = ninso_library.page(volume, seq)
+    if p is None:
+        raise HTTPException(status_code=404, detail="そのページはありません")
+    return p
+
+
 @router.get("/ninso/volumes")
 def ninso_volumes() -> dict[str, Any]:
     """読み込めている巻（全文は非公開の置き場）。無い環境では空。"""

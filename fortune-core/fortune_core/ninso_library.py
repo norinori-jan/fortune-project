@@ -103,6 +103,136 @@ def search(query: str, limit: int = 20) -> list[dict]:
     return (head + body)[:limit]
 
 
+# ---- いろいろな観点からの検索（部位・話題・型・質・言葉・巻） ----
+_MARK_L, _MARK_R = "⟦", "⟧"
+_cache: dict = {"sig": None, "vols": []}
+
+
+def _indexed() -> list[dict]:
+    """巻を読み、各節に照合用の本文(_n)を付けて覚えておく（ファイルが変わったら読み直す）。"""
+    d = private_dir()
+    sig = tuple((p.name, p.stat().st_mtime_ns) for p in sorted(d.glob("dai*.json"))) if d.is_dir() else ()
+    if _cache["sig"] != (str(d), sig):
+        vols = load_volumes()
+        for v in vols:
+            for sec in v["sections"]:
+                sec["_n"] = norm(sec["title"] + "\n" + sec["text"])
+                sec["_flat"] = "".join(sec["text"].split())
+        _cache["sig"], _cache["vols"] = (str(d), sig), vols
+    return _cache["vols"]
+
+
+def _group_of(key: str) -> dict | None:
+    """キー（me, zaiun, yu …）→ {key, name, kind, terms}。terms は「いずれか」の言い方。"""
+    for kind, grp in face_types().items():
+        if not isinstance(grp, list):
+            continue
+        for e in grp:
+            if e.get("key") == key:
+                terms = [e["name"]] + list(e.get("aliases", [])) + list(e.get("terms", []))
+                return {"key": key, "name": e["name"], "kind": kind, "terms": list(dict.fromkeys(terms))}
+    return None
+
+
+def facets() -> dict:
+    """画面の選択肢：部位・話題・型・質、読み込めた巻、各キーが出るページ数。"""
+    ft = face_types()
+    vols = _indexed()
+    out: dict = {"volumes": [{"no": v["no"], "title": v["title"], "pages": len(v["sections"])} for v in vols],
+                 "groups": []}
+    labels = {"face_parts": "部位", "topics": "話題", "face_shapes": "顔の型（十字面法）", "three_qualities": "三つの質"}
+    for kind in ("face_parts", "topics", "face_shapes", "three_qualities"):
+        items = []
+        for e in ft.get(kind, []):
+            g = _group_of(e["key"])
+            terms = [norm(t) for t in g["terms"]]
+            n = sum(1 for v in vols for sec in v["sections"] if any(t in sec["_n"] for t in terms))
+            items.append({"key": e["key"], "name": e["name"], "pages": n})
+        out["groups"].append({"kind": kind, "label": labels[kind], "items": items})
+    return out
+
+
+def _mark(flat: str, terms: list[str], lo: int, hi: int) -> str:
+    seg = flat[lo:hi]
+    nseg = norm(seg)
+    spans = []
+    for t in terms:
+        i = 0
+        while t and (i := nseg.find(t, i)) >= 0:
+            spans.append((i, i + len(t)))
+            i += len(t)
+    spans.sort()
+    out, last = [], 0
+    for a, b in spans:
+        if a < last:
+            continue
+        out += [seg[last:a], _MARK_L, seg[a:b], _MARK_R]
+        last = b
+    out.append(seg[last:])
+    return "".join(out)
+
+
+def find(keys: list[str] | None = None, q: str = "", volume: int | None = None, mode: str = "all",
+         limit: int = 20, offset: int = 0) -> dict:
+    """キー（部位・話題・型・質）と自由な言葉を組み合わせて探す。
+
+    mode="all": 選んだものがすべて同じページに出るページ。mode="any": どれか一つでも出るページ。
+    自由な言葉は空白で区切ると、それぞれが一つの条件。結果は該当の濃い順。by_volume は巻ごとの該当ページ数。
+    """
+    groups = []
+    for k in keys or []:
+        g = _group_of(k)
+        if g:
+            groups.append({"label": g["name"], "terms": [norm(t) for t in g["terms"]], "raw": g["terms"]})
+    for w in (q or "").split():
+        nw = norm(w)
+        if nw:
+            groups.append({"label": w, "terms": [nw], "raw": [w]})
+    if not groups:
+        return {"total": 0, "results": [], "by_volume": {}, "labels": []}
+    want_all = mode != "any"
+    hits, by_vol = [], {}
+    for v in _indexed():
+        for sec in v["sections"]:
+            per = [sum(sec["_n"].count(t) for t in g["terms"]) for g in groups]
+            ok = all(per) if want_all else any(per)
+            if not ok:
+                continue
+            by_vol[v["no"]] = by_vol.get(v["no"], 0) + 1
+            if volume and v["no"] != volume:
+                continue
+            hits.append((sum(per), v, sec, per))
+    hits.sort(key=lambda x: (-x[0], x[1]["no"], x[2]["seq"] or 0))
+    res = []
+    for score, v, sec, per in hits[offset: offset + limit]:
+        flat = sec["_flat"]
+        nflat = norm(flat)
+        alls = [t for g in groups for t in g["terms"]]
+        first = [nflat.find(t) for t in alls if t in nflat]
+        c = min(first) if first else 0
+        lo, hi = max(0, c - 45), min(len(flat), c + 95)
+        res.append({"volume": v["no"], "seq": sec["seq"], "ref": _ref(v, sec), "title": sec["title"],
+                    "count": score,
+                    "matched": [g["label"] for g, n in zip(groups, per) if n],
+                    "excerpt": ("…" if lo else "") + _mark(flat, alls, lo, hi) + ("…" if hi < len(flat) else "")})
+    return {"total": len(hits), "results": res, "by_volume": by_vol, "labels": [g["label"] for g in groups],
+            "terms": [t for g in groups for t in g["raw"]]}
+
+
+def page(volume: int, seq: int) -> dict | None:
+    """1ページ分の全文と、前後のページ番号。"""
+    for v in _indexed():
+        if v["no"] != volume:
+            continue
+        secs = v["sections"]
+        for i, sec in enumerate(secs):
+            if sec["seq"] == seq:
+                return {"volume": volume, "seq": seq, "ref": _ref(v, sec), "text": sec["text"],
+                        "prev": secs[i - 1]["seq"] if i else None,
+                        "next": secs[i + 1]["seq"] if i + 1 < len(secs) else None}
+    return None
+
+
 def lookup_type(key: str, limit: int = 20) -> dict:
     """型・質・部位のキー（yu, kinkotsu, me など）から名前と該当節を返す。別名（目↔眼）も探す。"""
     ft = face_types()

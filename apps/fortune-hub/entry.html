@@ -28,6 +28,7 @@ button{font-family:inherit;cursor:pointer}
 textarea,input{width:100%;background:var(--surf);color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:1rem;font-family:inherit}
 textarea{min-height:84px;resize:vertical}
 label{display:block;font-size:.8rem;color:var(--sub);margin:8px 0}
+.mk{background:rgba(212,175,106,.35);color:inherit;border-radius:3px;padding:0 1px}.nb{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}.nb .chip{padding:6px 11px;font-size:.8rem}.nb .chip small{opacity:.7;margin-left:4px}.nr{padding:10px 0;border-bottom:1px solid var(--line);font-size:.85rem;line-height:1.7}.nr:last-child{border:0}.nr .ref{color:var(--gold);font-size:.78rem}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .tag{background:var(--surf);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:.75rem;color:var(--sub)}
 .score{display:flex;align-items:center;gap:14px}
@@ -110,9 +111,10 @@ let theme = ls.get('fh_theme', 'general'), tab = 'home', shell = null, current =
 // 追加の占い（この画面が足したもの。サーバーの設計とは別に動く）
 const EXTRA = [
   {id:'lopan',  name:'風水・羅盤', desc:'場所と方角、今年の吉方位'},
-  {id:'shichu', name:'四柱推命',   desc:'生年月日から年・月・日・時の柱'}
+  {id:'shichu', name:'四柱推命',   desc:'生年月日から年・月・日・時の柱'},
+  {id:'ninso',  name:'観相ライブラリ', desc:'部位・話題・型・言葉・巻から探す'}
 ];
-const SYSNAME = {unified:'総合占い', tarot:'タロット', meihua:'梅花易数', 'five-elements':'五行', lopan:'羅盤（層ごと）', shichu:'四柱推命', iching:'易'};
+const SYSNAME = {ninso:'観相ライブラリ', unified:'総合占い', tarot:'タロット', meihua:'梅花易数', 'five-elements':'五行', lopan:'羅盤（層ごと）', shichu:'四柱推命', iching:'易'};
 
 async function call(path, body){
   let r;
@@ -146,6 +148,7 @@ function render(){
   if (tab === 'home') m.innerHTML = homeHtml();
   else if (tab === 'today') m.innerHTML = todayHtml();
   else if (tab === 'question') m.innerHTML = questionHtml();
+  else if (tab === 'ninso'){ m.innerHTML = ninsoHtml(); ninsoLoad(); }
   else if (tab === 'history') m.innerHTML = listHtml('history');
   else if (tab === 'favorites') m.innerHTML = listHtml('favorites');
 }
@@ -240,6 +243,7 @@ async function run(sys){
   const q = ($('q') && $('q').value.trim()) || '';
   let tool = sys;
   if (sys === 'unified'){ tool = rec || 'tarot'; }
+  if (tool === 'ninso'){ tab = 'ninso'; render(); window.scrollTo(0,0); return; }
   if (tool === 'meihua') tool = 'iching';
   if (tool === 'lopan'){ if (tab !== 'question'){ tab = 'question'; render(); } $('lopanbox').classList.remove('hide'); $('lopanbox').scrollIntoView({behavior:'smooth', block:'center'}); return; }
   if (tool === 'shichu'){ if (tab !== 'question'){ tab = 'question'; render(); } $('birth').classList.remove('hide'); $('birth').scrollIntoView({behavior:'smooth', block:'center'}); return; }
@@ -334,7 +338,74 @@ async function ask(){
   finally { $('ask').disabled = false; $('ask').textContent = 'おすすめを聞く'; }
 }
 
+
+// 観相ライブラリ：部位・話題・型・質・言葉・巻 のいろいろな観点から探す（全文はサーバー側の非公開置き場。無い環境では案内だけ）
+const NS = {fac:null, keys:[], q:'', vol:0, mode:'all', offset:0, items:[], total:0, byVol:{}, terms:[]};
+const hi = t => esc(t).replace(/⟦/g,'<mark class="mk">').replace(/⟧/g,'</mark>');
+function ninsoHtml(){
+  return `<div class="box"><h2>観相ライブラリ</h2><p class="muted">選ぶほど絞り込めます。部位・話題・型・質と、言葉を、自由に組み合わせてください。</p>
+  <label>言葉で探す（空白で区切ると、すべてを含むページ）</label><input id="nq" placeholder="例：鼻 財運　／　山根　／　営養質" value="${esc(NS.q)}">
+  <div style="display:flex;gap:10px;margin-top:8px"><button class="go" id="nGo">探す</button><button class="ghost" id="nClr">クリア</button></div>
+  <div class="muted" style="margin-top:8px">選んだものを <button class="chip${NS.mode==='all'?' on':''}" data-nmode="all">すべて含む</button> <button class="chip${NS.mode==='any'?' on':''}" data-nmode="any">どれか含む</button></div></div>
+  <div class="box" id="nFacets"><p class="muted"><span class="spin"></span>読み込んでいます…</p></div>
+  <div class="box hide" id="nRes"></div>
+  <div class="box" style="text-align:center"><button class="ghost" data-tab="home">← ホームへ戻る</button></div>`;
+}
+async function ninsoLoad(){
+  try { if (!NS.fac) NS.fac = await call('/fortune/ninso/facets'); }
+  catch(e){ $('nFacets').innerHTML = `<p class="err">${esc(e.code===404 ? 'このサーバーには、観相ライブラリがまだ入っていません。' : e.message)}</p>`; return; }
+  ninsoFacets(); if (NS.keys.length || NS.q) ninsoShow();
+}
+function ninsoFacets(){
+  const f = NS.fac, el = $('nFacets'); if (!el) return;
+  if (!f.volumes.length){ el.innerHTML = '<p class="muted">このサーバーには、観相の全文がありません（全文は公開せず、手元のパソコンの非公開の置き場にだけあります）。パソコンで動かしているサーバーにつなぐと使えます。</p>'; return; }
+  el.innerHTML = f.groups.map(g => `<h2>${esc(g.label)}</h2><div class="nb">${g.items.map(i => `<button class="chip${NS.keys.includes(i.key)?' on':''}" data-nk="${esc(i.key)}"${i.pages?'':' style="opacity:.45"'}>${esc(i.name)}<small>${i.pages}</small></button>`).join('')}</div>`).join('')
+    + `<p class="muted">数字は、その言葉が出るページ数です。</p>`;
+}
+async function ninsoSearch(more){
+  if (!more){ NS.offset = 0; NS.items = []; }
+  NS.q = ($('nq') && $('nq').value.trim()) || '';
+  if (!NS.keys.length && !NS.q){ $('nRes').classList.add('hide'); return; }
+  const b = $('nRes'); b.classList.remove('hide'); if (!more) b.innerHTML = '<p class="muted"><span class="spin"></span>探しています…</p>';
+  try {
+    const r = await call('/fortune/ninso/find', {keys:NS.keys, q:NS.q, volume:NS.vol||null, mode:NS.mode, limit:20, offset:NS.offset});
+    NS.items = NS.items.concat(r.results); NS.total = r.total; NS.terms = r.terms || [];
+    if (!more) NS.byVol = r.by_volume; ninsoShow();
+  } catch(e){ b.innerHTML = `<p class="err">${esc(e.message)}</p>`; }
+}
+function ninsoShow(){
+  const b = $('nRes'); if (!b) return; b.classList.remove('hide');
+  const vols = NS.fac ? NS.fac.volumes : [];
+  const bv = NS.byVol || {}, all = Object.values(bv).reduce((a,c)=>a+c,0);
+  let h = `<h2>${NS.total}ページ見つかりました</h2><div class="nb"><button class="chip${NS.vol?'':' on'}" data-nv="0">全巻<small>${all}</small></button>` +
+    vols.map(v => `<button class="chip${NS.vol===v.no?' on':''}" data-nv="${v.no}"${bv[v.no]?'':' style="opacity:.45"'}>第${v.no}巻<small>${bv[v.no]||0}</small></button>`).join('') + `</div>`;
+  if (!NS.items.length) h += '<p class="muted">該当するページがありません。「どれか含む」にするか、選択を減らしてみてください。</p>';
+  h += NS.items.map(x => `<div class="nr"><div class="ref">${esc(x.ref)}　${esc((x.matched||[]).join('・'))}　×${x.count}</div><div>${hi(x.excerpt)}</div><button class="ghost" style="margin-top:6px;padding:6px 12px" data-nopen="${x.volume}/${x.seq}">このページを読む</button></div>`).join('');
+  if (NS.items.length < NS.total) h += `<button class="ghost" id="nMore" style="margin-top:10px">もっと見る</button>`;
+  b.innerHTML = h;
+}
+async function ninsoOpen(ref){
+  const [v, sq] = ref.split('/'); const b = $('nRes');
+  try {
+    const p = await call(`/fortune/ninso/page/${v}/${sq}`);
+    const t = new RegExp((NS.terms||[]).filter(Boolean).map(x => x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|') || '$^', 'g');
+    const body = esc(p.text).replace(t, m => `<mark class="mk">${m}</mark>`);
+    b.innerHTML = `<h2>${esc(p.ref)}</h2><div style="white-space:pre-wrap;line-height:1.9;font-size:.9rem">${body}</div>
+      <div style="display:flex;gap:8px;margin-top:12px"><button class="ghost" ${p.prev?`data-nopen="${v}/${p.prev}"`:'disabled'}>← 前のページ</button><button class="ghost" ${p.next?`data-nopen="${v}/${p.next}"`:'disabled'}>次のページ →</button><button class="ghost" id="nBack">結果へ戻る</button></div>`;
+    b.scrollIntoView({behavior:'smooth', block:'start'});
+  } catch(e){ b.innerHTML = `<p class="err">${esc(e.message)}</p>`; }
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'nq'){ NS.vol = 0; ninsoSearch(); } });
 document.addEventListener('click', e => {
+  { const k = e.target.closest('[data-nk]'); if (k){ const a = k.dataset.nk, i = NS.keys.indexOf(a); if (i<0) NS.keys.push(a); else NS.keys.splice(i,1); NS.vol = 0; k.classList.toggle('on'); ninsoSearch(); return; }
+    const m = e.target.closest('[data-nmode]'); if (m){ NS.mode = m.dataset.nmode; document.querySelectorAll('[data-nmode]').forEach(x => x.classList.toggle('on', x===m)); ninsoSearch(); return; }
+    const v = e.target.closest('[data-nv]'); if (v){ NS.vol = +v.dataset.nv; ninsoSearch(); return; }
+    const o = e.target.closest('[data-nopen]'); if (o){ ninsoOpen(o.dataset.nopen); return; }
+    if (e.target.id === 'nGo'){ NS.vol = 0; ninsoSearch(); return; }
+    if (e.target.id === 'nMore'){ NS.offset = NS.items.length; ninsoSearch(true); return; }
+    if (e.target.id === 'nBack'){ ninsoShow(); return; }
+    if (e.target.id === 'nClr'){ NS.keys = []; NS.q = ''; NS.vol = 0; NS.items = []; NS.total = 0; NS.byVol = {}; render(); return; } }
   const t = e.target.closest('[data-tab]'); if (t){ tab = t.dataset.tab; render(); window.scrollTo(0,0); return; }
   const th = e.target.closest('[data-theme]'); if (th){ theme = th.dataset.theme; ls.set('fh_theme', theme); load(); return; }
   const r = e.target.closest('[data-run]'); if (r){ run(r.dataset.run); return; }
