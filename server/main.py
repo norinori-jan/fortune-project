@@ -306,4 +306,89 @@ def divine_v2(
         ),
 
     )
-    
+
+
+
+# ==========================================================
+# 易の辞書（真勢易秘訣・要約）
+#
+#  使い方は2通り。混ぜない。
+#   1. /eki/dict      辞書引き（占わない）
+#   2. /iching/eki    易の解釈（占った結果に辞書を当てる）
+# ==========================================================
+
+from typing import Optional
+
+from fortune_core.iching import eki_dict
+
+
+@app.get("/eki/dict")
+def eki_dict_lookup(
+    number: Optional[int] = None,
+    question: Optional[str] = None,
+    field: Optional[str] = None,
+    word: Optional[str] = None,
+    limit: int = 50,
+) -> dict:
+    """辞書引き。卦番号・質問・分野・言葉（AND）で絞る。"""
+
+    return eki_dict.lookup_dict(
+        number=number,
+        question=question,
+        field=field,
+        word=word,
+        limit=min(max(limit, 1), 200),
+    )
+
+
+@app.get("/eki/dict/{number}")
+def eki_dict_hexagram(
+    number: int,
+    question: Optional[str] = None,
+) -> dict:
+    """1卦分（卦意＋占断）。question を付ければその質問だけ。"""
+
+    entry = eki_dict.hexagram_entry(number, question)
+
+    if entry is None:
+        from fastapi import HTTPException
+
+        raise HTTPException(status_code=404, detail="卦が見つかりません")
+
+    return entry
+
+
+@app.post("/iching/eki")
+def divine_with_eki(
+    request: DivineRequest,
+    question_type: Optional[str] = None,
+) -> dict:
+    """易の解釈：占って、相談内容に当たる占断を辞書から返す。"""
+
+    result = api.divine(
+        IChingRequest(
+            question=request.question,
+            method=request.method,
+        )
+    )
+
+    hexagram = result.hexagram
+
+    return {
+        "question": request.question,
+        "hexagram": {
+            "number": hexagram.hexagram_number,
+            "name": hexagram.hexagram_name,
+            "changing_lines": hexagram.changing_lines,
+            "changed_number": hexagram.changed_hexagram_number,
+            "changed_name": hexagram.changed_hexagram_name,
+        },
+        "eki": eki_dict.eki_reading(
+            number=hexagram.hexagram_number,
+            changed_number=hexagram.changed_hexagram_number or None,
+            changing_lines=hexagram.changing_lines,
+            question_text=request.question,
+            question_type=question_type,
+        ),
+    }
+
