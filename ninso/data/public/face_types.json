@@ -1,19 +1,139 @@
 {
   "_note": "公開してよい最小限（型の名前と分類のキーだけ。原典の文章は入れない）",
   "face_shapes": [
-    {"key": "yu",   "name": "由字面"},
-    {"key": "den",  "name": "田字面"},
-    {"key": "kou",  "name": "甲字面"},
-    {"key": "fuu",  "name": "風字面"},
-    {"key": "dou",  "name": "同字面"},
-    {"key": "ou",   "name": "王字面"},
-    {"key": "en",   "name": "円字面"},
-    {"key": "moku", "name": "目字面"},
-    {"key": "you",  "name": "用字面"}
+    {
+      "key": "yu",
+      "name": "由字面"
+    },
+    {
+      "key": "den",
+      "name": "田字面"
+    },
+    {
+      "key": "kou",
+      "name": "甲字面"
+    },
+    {
+      "key": "fuu",
+      "name": "風字面"
+    },
+    {
+      "key": "dou",
+      "name": "同字面"
+    },
+    {
+      "key": "ou",
+      "name": "王字面"
+    },
+    {
+      "key": "en",
+      "name": "円字面"
+    },
+    {
+      "key": "moku",
+      "name": "目字面"
+    },
+    {
+      "key": "you",
+      "name": "用字面"
+    }
   ],
   "three_qualities": [
-    {"key": "eiyou",  "name": "栄養質"},
-    {"key": "kinkotsu", "name": "筋骨質"},
-    {"key": "shinsei", "name": "心性質"}
+    {
+      "key": "eiyou",
+      "name": "栄養質"
+    },
+    {
+      "key": "kinkotsu",
+      "name": "筋骨質"
+    },
+    {
+      "key": "shinsei",
+      "name": "心性質"
+    }
+  ],
+  "face_parts": [
+    {
+      "key": "gaku",
+      "name": "額"
+    },
+    {
+      "key": "mayu",
+      "name": "眉"
+    },
+    {
+      "key": "me",
+      "name": "目",
+      "aliases": [
+        "眼"
+      ]
+    },
+    {
+      "key": "hana",
+      "name": "鼻"
+    },
+    {
+      "key": "kuchi",
+      "name": "口"
+    },
+    {
+      "key": "kuchibiru",
+      "name": "唇"
+    },
+    {
+      "key": "mimi",
+      "name": "耳"
+    },
+    {
+      "key": "ago",
+      "name": "顎",
+      "aliases": [
+        "地閣"
+      ]
+    },
+    {
+      "key": "hoho",
+      "name": "頬"
+    },
+    {
+      "key": "ha",
+      "name": "歯"
+    },
+    {
+      "key": "kami",
+      "name": "髪"
+    },
+    {
+      "key": "indo",
+      "name": "印堂"
+    },
+    {
+      "key": "yamane",
+      "name": "山根"
+    },
+    {
+      "key": "jinchu",
+      "name": "人中"
+    },
+    {
+      "key": "hourei",
+      "name": "法令"
+    },
+    {
+      "key": "ruido",
+      "name": "涙堂"
+    },
+    {
+      "key": "gasan",
+      "name": "臥蚕"
+    },
+    {
+      "key": "juntou",
+      "name": "準頭"
+    },
+    {
+      "key": "kobana",
+      "name": "小鼻"
+    }
   ]
 }
