@@ -339,6 +339,84 @@ async function ask(){
 }
 
 
+// ---- 観相：この端末に取り込んだパック（IndexedDB）で、サーバー無しで検索する。サーバー側の find / facets / page と同じ働き ----
+const NP = {pack:null, idx:null};
+const idb = () => new Promise((ok, ng) => { const r = indexedDB.open('fh_ninso', 1); r.onupgradeneeded = () => r.result.createObjectStore('kv'); r.onsuccess = () => ok(r.result); r.onerror = () => ng(r.error); });
+async function packGet(){ try { const d = await idb(); return await new Promise((ok, ng) => { const q = d.transaction('kv').objectStore('kv').get('pack'); q.onsuccess = () => ok(q.result || null); q.onerror = () => ng(q.error); }); } catch(e){ return null; } }
+async function packPut(v){ const d = await idb(); return new Promise((ok, ng) => { const t = d.transaction('kv', 'readwrite'); t.objectStore('kv').put(v, 'pack'); t.oncomplete = ok; t.onerror = () => ng(t.error); }); }
+async function packDel(){ try { const d = await idb(); const t = d.transaction('kv', 'readwrite'); t.objectStore('kv').delete('pack'); } catch(e){} NP.pack = null; NP.idx = null; }
+function packSet(pk){
+  NP.pack = pk; const [from, to] = pk.variants, map = {}; for (let i = 0; i < from.length; i++) map[from[i]] = to[i];
+  const norm = t => String(t || '').replace(/\s+/g, '').replace(/./gu, c => map[c] || c);
+  NP.norm = norm;
+  NP.idx = pk.volumes.map(v => ({no:v.no, title:v.title, secs:v.sections.map(x => ({seq:x.seq, pp:x.printed_page, title:x.title.replace(/\s+/g,''), text:x.text, flat:x.text.replace(/\s+/g,''), n:norm(x.title + '\n' + x.text)}))}));
+}
+const nRef = (v, x) => v.title + (x.pp ? ' p.' + x.pp : '');
+function nGroup(key){
+  const ft = NP.pack.face_types;
+  for (const kind in ft){ if (!Array.isArray(ft[kind])) continue;
+    for (const e of ft[kind]) if (e.key === key) return {name:e.name, kind, terms:[...new Set([e.name, ...(e.aliases||[]), ...(e.terms||[])])]}; }
+  return null;
+}
+const nCount = (h, t) => t ? h.split(t).length - 1 : 0;
+function nFacets(){
+  const ft = NP.pack.face_types, labels = {face_parts:'部位', topics:'話題', face_shapes:'顔の型（十字面法）', three_qualities:'三つの質'};
+  return {volumes:NP.idx.map(v => ({no:v.no, title:v.title, pages:v.secs.length})), groups:['face_parts','topics','face_shapes','three_qualities'].map(kind => ({kind, label:labels[kind], items:(ft[kind]||[]).map(e => {
+    const g = nGroup(e.key), ts = g.terms.map(NP.norm); let n = 0; NP.idx.forEach(v => v.secs.forEach(x => { if (ts.some(t => x.n.includes(t))) n++; }));
+    return {key:e.key, name:e.name, pages:n}; })}))};
+}
+function nMark(flat, terms, lo, hi){
+  const seg = flat.slice(lo, hi), ns = NP.norm(seg), sp = [];
+  terms.forEach(t => { let i = 0; while (t && (i = ns.indexOf(t, i)) >= 0){ sp.push([i, i + t.length]); i += t.length; } });
+  sp.sort((a, b) => a[0] - b[0] || a[1] - b[1]); let out = '', last = 0;
+  for (const [a, b] of sp){ if (a < last) continue; out += seg.slice(last, a) + '⟦' + seg.slice(a, b) + '⟧'; last = b; }
+  return out + seg.slice(last);
+}
+function nFind(body){
+  const groups = [];
+  (body.keys || []).forEach(k => { const g = nGroup(k); if (g) groups.push({label:g.name, terms:g.terms.map(NP.norm), raw:g.terms}); });
+  (body.q || '').split(/\s+/).filter(Boolean).forEach(w => { const nw = NP.norm(w); if (nw) groups.push({label:w, terms:[nw], raw:[w]}); });
+  if (!groups.length) return {total:0, results:[], by_volume:{}, terms:[]};
+  const all = body.mode !== 'any', hits = [], bv = {};
+  NP.idx.forEach(v => v.secs.forEach(x => {
+    const per = groups.map(g => g.terms.reduce((a, t) => a + nCount(x.n, t), 0));
+    if (!(all ? per.every(Boolean) : per.some(Boolean))) return;
+    bv[v.no] = (bv[v.no] || 0) + 1; if (body.volume && v.no !== body.volume) return;
+    hits.push({score:per.reduce((a, c) => a + c, 0), v, x, per});
+  }));
+  hits.sort((a, b) => b.score - a.score || a.v.no - b.v.no || (a.x.seq||0) - (b.x.seq||0));
+  const alls = groups.flatMap(g => g.terms), results = hits.slice(body.offset||0, (body.offset||0) + (body.limit||20)).map(h => {
+    const nf = NP.norm(h.x.flat), pos = alls.map(t => nf.indexOf(t)).filter(i => i >= 0), c = pos.length ? Math.min(...pos) : 0;
+    const lo = Math.max(0, c - 45), hi2 = Math.min(h.x.flat.length, c + 95);
+    return {volume:h.v.no, seq:h.x.seq, ref:nRef(h.v, h.x), title:h.x.title, count:h.score, matched:groups.filter((g, i) => h.per[i]).map(g => g.label),
+      excerpt:(lo ? '…' : '') + nMark(h.x.flat, alls, lo, hi2) + (hi2 < h.x.flat.length ? '…' : '')};
+  });
+  return {total:hits.length, results, by_volume:bv, terms:groups.flatMap(g => g.raw)};
+}
+function nPage(v, sq){
+  const vol = NP.idx.find(x => x.no === +v); if (!vol) return null; const i = vol.secs.findIndex(x => x.seq === +sq); if (i < 0) return null;
+  const x = vol.secs[i]; return {volume:vol.no, seq:x.seq, ref:nRef(vol, x), text:x.text, prev:i ? vol.secs[i-1].seq : null, next:i + 1 < vol.secs.length ? vol.secs[i+1].seq : null};
+}
+// 端末のパックがあればそれで、無ければサーバーに聞く
+async function nApi(path, body){
+  if (NP.pack){
+    if (path === 'facets') return nFacets();
+    if (path === 'find') return nFind(body);
+    const r = nPage(body.v, body.s); if (!r) throw new Error('そのページはありません'); return r;
+  }
+  if (path === 'facets') return call('/fortune/ninso/facets');
+  if (path === 'find') return call('/fortune/ninso/find', body);
+  return call(`/fortune/ninso/page/${body.v}/${body.s}`);
+}
+async function ninsoImport(file){
+  const m = $('nImpMsg'); m.textContent = '読み込んでいます…';
+  try {
+    const pk = JSON.parse(await file.text());
+    if (!pk || !pk.volumes || !pk.variants || !pk.face_types) throw new Error('観相のパックではありません');
+    await packPut(pk); packSet(pk); NS.fac = null; render();
+  } catch(e){ m.textContent = '取り込めませんでした：' + e.message; }
+}
+
 // 観相ライブラリ：部位・話題・型・質・言葉・巻 のいろいろな観点から探す（全文はサーバー側の非公開置き場。無い環境では案内だけ）
 const NS = {fac:null, keys:[], q:'', vol:0, mode:'all', offset:0, items:[], total:0, byVol:{}, terms:[]};
 const hi = t => esc(t).replace(/⟦/g,'<mark class="mk">').replace(/⟧/g,'</mark>');
@@ -352,14 +430,15 @@ function ninsoHtml(){
   <div class="box" style="text-align:center"><button class="ghost" data-tab="home">← ホームへ戻る</button></div>`;
 }
 async function ninsoLoad(){
-  try { if (!NS.fac) NS.fac = await call('/fortune/ninso/facets'); }
+  try { if (!NP.pack && !NP.tried){ NP.tried = true; const pk = await packGet(); if (pk) packSet(pk); } if (!NS.fac) NS.fac = await nApi('facets'); }
   catch(e){ $('nFacets').innerHTML = `<p class="err">${esc(e.code===404 ? 'このサーバーには、観相ライブラリがまだ入っていません。' : e.message)}</p>`; return; }
   ninsoFacets(); if (NS.keys.length || NS.q) ninsoShow();
 }
 function ninsoFacets(){
   const f = NS.fac, el = $('nFacets'); if (!el) return;
-  if (!f.volumes.length){ el.innerHTML = '<p class="muted">このサーバーには、観相の全文がありません（全文は公開せず、手元のパソコンの非公開の置き場にだけあります）。パソコンで動かしているサーバーにつなぐと使えます。</p>'; return; }
-  el.innerHTML = f.groups.map(g => `<h2>${esc(g.label)}</h2><div class="nb">${g.items.map(i => `<button class="chip${NS.keys.includes(i.key)?' on':''}" data-nk="${esc(i.key)}"${i.pages?'':' style="opacity:.45"'}>${esc(i.name)}<small>${i.pages}</small></button>`).join('')}</div>`).join('')
+  if (!f.volumes.length){ el.innerHTML = '<h2>この端末に観相の本を取り込む</h2><p class="muted">全文は公開していないので、パソコンで作った「ninso-pack.json」を、この端末に一度だけ取り込みます。取り込んだ後は、通信なしで検索できます（この端末の中だけに保存）。</p><input type="file" id="nFile" accept=".json,application/json,text/plain" style="margin-top:10px"><p class="muted" id="nImpMsg" style="margin-top:6px"></p>'; return; }
+  const loc = NP.pack ? `<p class="muted" style="margin-bottom:8px">この端末のパックで検索中（${f.volumes.length}巻）。<button class="chip" id="nDel">取り込みを消す</button></p>` : '';
+  el.innerHTML = loc + f.groups.map(g => `<h2>${esc(g.label)}</h2><div class="nb">${g.items.map(i => `<button class="chip${NS.keys.includes(i.key)?' on':''}" data-nk="${esc(i.key)}"${i.pages?'':' style="opacity:.45"'}>${esc(i.name)}<small>${i.pages}</small></button>`).join('')}</div>`).join('')
     + `<p class="muted">数字は、その言葉が出るページ数です。</p>`;
 }
 async function ninsoSearch(more){
@@ -368,7 +447,7 @@ async function ninsoSearch(more){
   if (!NS.keys.length && !NS.q){ $('nRes').classList.add('hide'); return; }
   const b = $('nRes'); b.classList.remove('hide'); if (!more) b.innerHTML = '<p class="muted"><span class="spin"></span>探しています…</p>';
   try {
-    const r = await call('/fortune/ninso/find', {keys:NS.keys, q:NS.q, volume:NS.vol||null, mode:NS.mode, limit:20, offset:NS.offset});
+    const r = await nApi('find', {keys:NS.keys, q:NS.q, volume:NS.vol||null, mode:NS.mode, limit:20, offset:NS.offset});
     NS.items = NS.items.concat(r.results); NS.total = r.total; NS.terms = r.terms || [];
     if (!more) NS.byVol = r.by_volume; ninsoShow();
   } catch(e){ b.innerHTML = `<p class="err">${esc(e.message)}</p>`; }
@@ -387,7 +466,7 @@ function ninsoShow(){
 async function ninsoOpen(ref){
   const [v, sq] = ref.split('/'); const b = $('nRes');
   try {
-    const p = await call(`/fortune/ninso/page/${v}/${sq}`);
+    const p = await nApi('page', {v, s:sq});
     const t = new RegExp((NS.terms||[]).filter(Boolean).map(x => x.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|') || '$^', 'g');
     const body = esc(p.text).replace(t, m => `<mark class="mk">${m}</mark>`);
     b.innerHTML = `<h2>${esc(p.ref)}</h2><div style="white-space:pre-wrap;line-height:1.9;font-size:.9rem">${body}</div>
@@ -396,12 +475,14 @@ async function ninsoOpen(ref){
   } catch(e){ b.innerHTML = `<p class="err">${esc(e.message)}</p>`; }
 }
 
+document.addEventListener('change', e => { if (e.target.id === 'nFile' && e.target.files[0]) ninsoImport(e.target.files[0]); });
 document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.id === 'nq'){ NS.vol = 0; ninsoSearch(); } });
 document.addEventListener('click', e => {
   { const k = e.target.closest('[data-nk]'); if (k){ const a = k.dataset.nk, i = NS.keys.indexOf(a); if (i<0) NS.keys.push(a); else NS.keys.splice(i,1); NS.vol = 0; k.classList.toggle('on'); ninsoSearch(); return; }
     const m = e.target.closest('[data-nmode]'); if (m){ NS.mode = m.dataset.nmode; document.querySelectorAll('[data-nmode]').forEach(x => x.classList.toggle('on', x===m)); ninsoSearch(); return; }
     const v = e.target.closest('[data-nv]'); if (v){ NS.vol = +v.dataset.nv; ninsoSearch(); return; }
     const o = e.target.closest('[data-nopen]'); if (o){ ninsoOpen(o.dataset.nopen); return; }
+    if (e.target.id === 'nDel'){ packDel().then(() => { NS.fac = null; NP.tried = true; render(); }); return; }
     if (e.target.id === 'nGo'){ NS.vol = 0; ninsoSearch(); return; }
     if (e.target.id === 'nMore'){ NS.offset = NS.items.length; ninsoSearch(true); return; }
     if (e.target.id === 'nBack'){ ninsoShow(); return; }
