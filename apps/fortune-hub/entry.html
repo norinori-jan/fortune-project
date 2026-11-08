@@ -459,7 +459,14 @@ function ninsoShow(){
   let h = `<h2>${NS.total}ページ見つかりました</h2><div class="nb"><button class="chip${NS.vol?'':' on'}" data-nv="0">全巻<small>${all}</small></button>` +
     vols.map(v => `<button class="chip${NS.vol===v.no?' on':''}" data-nv="${v.no}"${bv[v.no]?'':' style="opacity:.45"'}>第${v.no}巻<small>${bv[v.no]||0}</small></button>`).join('') + `</div>`;
   if (!NS.items.length) h += '<p class="muted">該当するページがありません。「どれか含む」にするか、選択を減らしてみてください。</p>';
-  h += NS.items.map(x => `<div class="nr"><div class="ref">${esc(x.ref)}　${esc((x.matched||[]).join('・'))}　×${x.count}</div><div>${hi(x.excerpt)}</div><button class="ghost" style="margin-top:6px;padding:6px 12px" data-nopen="${x.volume}/${x.seq}">このページを読む</button></div>`).join('');
+  // 続きのページ（同じ巻で連続するページ）は1つの話題としてまとめて見せる
+  const by = {}; NS.items.forEach(x => (by[x.volume] = by[x.volume] || []).push(x));
+  const cl = [];
+  Object.values(by).forEach(a => { a.sort((p, q) => p.seq - q.seq); let c = null; a.forEach(x => { if (c && x.seq - c.items[c.items.length-1].seq <= 1) c.items.push(x); else { c = {items:[x]}; cl.push(c); } }); });
+  cl.forEach(c => { c.total = c.items.reduce((a, x) => a + x.count, 0); c.matched = [...new Set(c.items.flatMap(x => x.matched || []))]; });
+  cl.sort((a, b) => b.total - a.total);
+  h += cl.map(c => `<div class="nr"><div class="ref">${esc(c.items[0].ref)}${c.items.length>1?`　ほか${c.items.length-1}ページ（続き）`:''}　${esc(c.matched.join('・'))}　×${c.total}</div>` +
+    c.items.map(x => `<div style="margin-top:4px">${hi(x.excerpt)}<button class="ghost" style="margin:4px 0 0 6px;padding:3px 9px;font-size:.75rem" data-nopen="${x.volume}/${x.seq}">${c.items.length>1?esc((x.ref.match(/p\.\S+/)||[x.seq+'枚目を読む'])[0]):'このページを読む'}</button></div>`).join('') + `</div>`).join('');
   if (NS.items.length < NS.total) h += `<button class="ghost" id="nMore" style="margin-top:10px">もっと見る</button>`;
   b.innerHTML = h;
 }
